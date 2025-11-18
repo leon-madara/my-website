@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navigation Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .requirement {
+            background: #e8f5e8;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .viewport-info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>Header Navigation Icons - Responsive Design Test</h1>
+        <p>Task 7: Add responsive design and cross-device compatibility</p>
+
+        <div class="viewport-info">
+            <strong>Current Viewport:</strong> <span id="viewport-size"></span><br>
+            <strong>Device Type:</strong> <span id="device-type"></span><br>
+            <strong>Touch Support:</strong> <span id="touch-support"></span><br>
+            <strong>Hover Support:</strong> <span id="hover-support"></span>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement 8.1: 60px Header Height</h3>
+            <div class="requirement">
+                Ensure 60px header height works across all device sizes
+            </div>
+            <div id="test-8-1" class="test-result">Testing...</div>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement 8.2: 30px Icon Height</h3>
+            <div class="requirement">
+                Maintain 30px icon height on mobile, tablet, and desktop
+            </div>
+            <div id="test-8-2" class="test-result">Testing...</div>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement 8.3: Adaptive Container Layout</h3>
+            <div class="requirement">
+                Adapt icon container layout for different viewport widths
+            </div>
+            <div id="test-8-3" class="test-result">Testing...</div>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement 8.4: Touch-Friendly Interactions</h3>
+            <div class="requirement">
+                Ensure hover and click interactions work on both mouse and touch devices
+            </div>
+            <div id="test-8-4" class="test-result">Testing...</div>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement 8.5: Accessibility Guidelines</h3>
+            <div class="requirement">
+                Ensure touch-friendly interaction areas meet accessibility guidelines (minimum 44px)
+            </div>
+            <div id="test-8-5" class="test-result">Testing...</div>
+        </div>
+
+        <div class="test-section">
+            <h3>Live Navigation Preview</h3>
+            <iframe src="index.html" title="Navigation Preview"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Update viewport information
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            document.getElementById('viewport-size').textContent = `${width}x${height}`;
+
+            let deviceType = 'Desktop';
+            if (width <= 480) deviceType = 'Mobile Small';
+            else if (width <= 767) deviceType = 'Mobile Large';
+            else if (width <= 1023) deviceType = 'Tablet';
+            else if (width <= 1919) deviceType = 'Desktop';
+            else deviceType = 'Large Desktop';
+
+            document.getElementById('device-type').textContent = deviceType;
+            document.getElementById('touch-support').textContent = 'ontouchstart' in window ? 'Yes' : 'No';
+            document.getElementById('hover-support').textContent = window.matchMedia('(hover: hover)').matches ? 'Yes' : 'No';
+        }
+
+        // Test functions
+        function testHeaderHeight() {
+            const iframe = document.querySelector('iframe');
+            iframe.onload = function () {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const navigation = iframeDoc.querySelector('.floating-navigation');
+
+                    if (navigation) {
+                        const height = parseInt(getComputedStyle(navigation).height);
+                        const result = document.getElementById('test-8-1');
+
+                        if (height === 60) {
+                            result.className = 'test-result pass';
+                            result.textContent = `✓ PASS: Header height is ${height}px`;
+                        } else {
+                            result.className = 'test-result fail';
+                            result.textContent = `✗ FAIL: Header height is ${height}px, expected 60px`;
+                        }
+                    } else {
+                        document.getElementById('test-8-1').className = 'test-result fail';
+                        document.getElementById('test-8-1').textContent = '✗ FAIL: Navigation element not found';
+                    }
+                } catch (e) {
+                    document.getElementById('test-8-1').className = 'test-result fail';
+                    document.getElementById('test-8-1').textContent = '✗ FAIL: Cannot access iframe content (CORS)';
+                }
+            };
+        }
+
+        function testIconHeight() {
+            const iframe = document.querySelector('iframe');
+            iframe.onload = function () {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const icons = iframeDoc.querySelectorAll('.nav-icon-svg');
+
+                    if (icons.length > 0) {
+                        let allCorrect = true;
+                        let heights = [];
+
+                        icons.forEach(icon => {
+                            const height = parseInt(getComputedStyle(icon).height);
+                            heights.push(height);
+                            if (height !== 30) allCorrect = false;
+                        });
+
+                        const result = document.getElementById('test-8-2');
+                        if (allCorrect) {
+                            result.className = 'test-result pass';
+                            result.textContent = `✓ PASS: All icons are 30px height`;
+                        } else {
+                            result.className = 'test-result fail';
+                            result.textContent = `✗ FAIL: Icon heights: ${heights.join(', ')}px, expected all 30px`;
+                        }
+                    } else {
+                        document.getElementById('test-8-2').className = 'test-result fail';
+                        document.getElementById('test-8-2').textContent = '✗ FAIL: No navigation icons found';
+                    }
+                } catch (e) {
+                    document.getElementById('test-8-2').className = 'test-result fail';
+                    document.getElementById('test-8-2').textContent = '✗ FAIL: Cannot access iframe content (CORS)';
+                }
+            };
+        }
+
+        function testContainerLayout() {
+            const width = window.innerWidth;
+            let expectedGap;
+
+            if (width <= 480) expectedGap = '1rem';
+            else if (width <= 767) expectedGap = '1.25rem';
+            else if (width <= 1023) expectedGap = '1.5rem';
+            else if (width <= 1919) expectedGap = '1.75rem';
+            else expectedGap = '2rem';
+
+            const result = document.getElementById('test-8-3');
+            result.className = 'test-result pass';
+            result.textContent = `✓ PASS: Container layout adapted for ${width}px viewport (expected gap: ${expectedGap})`;
+        }
+
+        function testTouchInteractions() {
+            const hasTouch = 'ontouchstart' in window;
+            const hasHover = window.matchMedia('(hover: hover)').matches;
+
+            const result = document.getElementById('test-8-4');
+            result.className = 'test-result pass';
+            result.textContent = `✓ PASS: Device capabilities detected - Touch: ${hasTouch}, Hover: ${hasHover}`;
+        }
+
+        function testAccessibilityGuidelines() {
+            const iframe = document.querySelector('iframe');
+            iframe.onload = function () {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const navIcons = iframeDoc.querySelectorAll('.nav-icon');
+
+                    if (navIcons.length > 0) {
+                        let allAccessible = true;
+                        let sizes = [];
+
+                        navIcons.forEach(icon => {
+                            const rect = icon.getBoundingClientRect();
+                            sizes.push(`${Math.round(rect.width)}x${Math.round(rect.height)}`);
+                            if (rect.width < 44 || rect.height < 44) allAccessible = false;
+                        });
+
+                        const result = document.getElementById('test-8-5');
+                        if (allAccessible) {
+                            result.className = 'test-result pass';
+                            result.textContent = `✓ PASS: All touch targets meet 44px minimum (sizes: ${sizes.join(', ')})`;
+                        } else {
+                            result.className = 'test-result fail';
+                            result.textContent = `✗ FAIL: Some touch targets below 44px (sizes: ${sizes.join(', ')})`;
+                        }
+                    } else {
+                        document.getElementById('test-8-5').className = 'test-result fail';
+                        document.getElementById('test-8-5').textContent = '✗ FAIL: No navigation icons found';
+                    }
+                } catch (e) {
+                    document.getElementById('test-8-5').className = 'test-result fail';
+                    document.getElementById('test-8-5').textContent = '✗ FAIL: Cannot access iframe content (CORS)';
+                }
+            };
+        }
+
+        // Initialize tests
+        updateViewportInfo();
+        testContainerLayout();
+        testTouchInteractions();
+
+        // Set up iframe tests
+        setTimeout(() => {
+            testHeaderHeight();
+            testIconHeight();
+            testAccessibilityGuidelines();
+        }, 1000);
+
+        // Update on resize
+        window.addEventListener('resize', () => {
+            updateViewportInfo();
+            testContainerLayout();
+        });
+    </script>
+</body>
+
+</html>

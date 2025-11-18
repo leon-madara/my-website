@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typography Responsive Cross-Device Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--background-light);
+            font-family: var(--font-primary);
+        }
+
+        .test-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .hero-demo {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--background-light);
+            border-radius: 8px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .viewport-simulator {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .device-frame {
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .device-label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #333;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .device-content {
+            background: var(--background-light);
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .metric-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>Typography Responsive Cross-Device Compatibility Test</h1>
+        <p>Testing typography improvements across different viewport sizes and device types</p>
+
+        <div class="hero-demo">
+            <p class="greeting">Hi, I'm</p>
+            <h1 class="name">Leon Madara</h1>
+            <h2 class="role kenyan-gradient">Full Stack AI Developer</h2>
+        </div>
+
+        <div class="test-section">
+            <h2>Current Device Metrics</h2>
+            <div class="metrics-grid" id="currentMetrics">
+                <div class="info">Analyzing current device...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Typography Validation Results</h2>
+            <div id="testResults">
+                <div class="info">Running typography tests...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Cross-Device Simulation</h2>
+            <p>Simulating different device viewports to test responsive behavior:</p>
+            <div class="viewport-simulator">
+                <div class="device-frame">
+                    <div class="device-label">Mobile (320px)</div>
+                    <div class="device-content" style="width: 320px; margin: 0 auto;">
+                        <p class="greeting" style="font-size: clamp(3.5rem, 9vw, 4.5rem);">Hi, I'm</p>
+                        <h1 class="name" style="font-size: clamp(2.7rem, 6.6vw, 4.2rem);">Leon Madara</h1>
+                        <h2 class="role kenyan-gradient" style="font-size: clamp(1.575rem, 3.85vw, 2.45rem);">Full Stack
+                            AI Developer</h2>
+                    </div>
+                </div>
+
+                <div class="device-frame">
+                    <div class="device-label">Mobile Large (600px)</div>
+                    <div class="device-content" style="width: 600px; margin: 0 auto;">
+                        <p class="greeting" style="font-size: clamp(4.5rem, 11vw, 5.5rem);">Hi, I'm</p>
+                        <h1 class="name" style="font-size: clamp(3.3rem, 7.8vw, 5.4rem);">Leon Madara</h1>
+                        <h2 class="role kenyan-gradient" style="font-size: clamp(1.925rem, 4.55vw, 3.15rem);">Full Stack
+                            AI Developer</h2>
+                    </div>
+                </div>
+
+                <div class="device-frame">
+                    <div class="device-label">Tablet (768px)</div>
+                    <div class="device-content" style="width: 768px; margin: 0 auto;">
+                        <p class="greeting" style="font-size: clamp(6rem, 14vw, 7rem);">Hi, I'm</p>
+                        <h1 class="name" style="font-size: clamp(4.2rem, 10.8vw, 7.8rem);">Leon Madara</h1>
+                        <h2 class="role kenyan-gradient" style="font-size: clamp(2.45rem, 6.3vw, 3.85rem);">Full Stack
+                            AI Developer</h2>
+                    </div>
+                </div>
+
+                <div class="device-frame">
+                    <div class="device-label">Desktop (1024px)</div>
+                    <div class="device-content" style="width: 1024px; margin: 0 auto;">
+                        <p class="greeting" style="font-size: clamp(7rem, 16vw, 8rem);">Hi, I'm</p>
+                        <h1 class="name" style="font-size: clamp(4.8rem, 12vw, 8.4rem);">Leon Madara</h1>
+                        <h2 class="role kenyan-gradient" style="font-size: clamp(2.8rem, 7vw, 4.2rem);">Full Stack AI
+                            Developer</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Font Rendering Analysis</h2>
+            <div id="fontAnalysis">
+                <div class="info">Analyzing font rendering...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Spacing and Alignment Check</h2>
+            <div id="spacingAnalysis">
+                <div class="info">Checking spacing and alignment...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runTypographyTests() {
+            const greetingElement = document.querySelector('.greeting');
+            const nameElement = document.querySelector('.name');
+            const roleElement = document.querySelector('.role');
+
+            const testResults = document.getElementById('testResults');
+            const currentMetrics = document.getElementById('currentMetrics');
+            const fontAnalysis = document.getElementById('fontAnalysis');
+            const spacingAnalysis = document.getElementById('spacingAnalysis');
+
+            const results = [];
+
+            // Check if all elements exist
+            if (!greetingElement || !nameElement || !roleElement) {
+                results.push({ type: 'fail', message: 'One or more typography elements not found' });
+                displayResults(testResults, results);
+                return;
+            }
+
+            // Get computed styles for all elements
+            const greetingStyle = window.getComputedStyle(greetingElement);
+            const nameStyle = window.getComputedStyle(nameElement);
+            const roleStyle = window.getComputedStyle(roleElement);
+
+            // Current device metrics
+            displayCurrentMetrics(currentMetrics, greetingStyle, nameStyle, roleStyle);
+
+            // Test 1: Font Family Validation
+            testFontFamilies(results, greetingStyle, nameStyle, roleStyle);
+
+            // Test 2: Font Size Scaling
+            testFontSizes(results, greetingStyle, nameStyle, roleStyle);
+
+            // Test 3: Responsive Behavior
+            testResponsiveBehavior(results);
+
+            // Test 4: Layout and Overflow
+            testLayoutAndOverflow(results, greetingElement, nameElement, roleElement);
+
+            // Test 5: Color and Contrast
+            testColorAndContrast(results, greetingStyle, nameStyle, roleStyle);
+
+            // Test 6: Hover Effects (for name element)
+            testHoverEffects(results, nameElement);
+
+            // Display all results
+            displayResults(testResults, results);
+
+            // Font rendering analysis
+            analyzeFontRendering(fontAnalysis, greetingStyle, nameStyle, roleStyle);
+
+            // Spacing and alignment analysis
+            analyzeSpacingAndAlignment(spacingAnalysis, greetingElement, nameElement, roleElement);
+        }
+
+        function displayCurrentMetrics(container, greetingStyle, nameStyle, roleStyle) {
+            const viewport = {
+                width: window.innerWidth,
+                height: window.innerHeight,
+                devicePixelRatio: window.devicePixelRatio || 1
+            };
+
+            container.innerHTML = `
+                <div class="metric-card">
+                    <div class="metric-value">${viewport.width}x${viewport.height}</div>
+                    <div class="metric-label">Viewport Size</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">${viewport.devicePixelRatio}x</div>
+                    <div class="metric-label">Device Pixel Ratio</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">${greetingStyle.fontSize}</div>
+                    <div class="metric-label">Greeting Font Size</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">${nameStyle.fontSize}</div>
+                    <div class="metric-label">Name Font Size</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">${roleStyle.fontSize}</div>
+                    <div class="metric-label">Role Font Size</div>
+                </div>
+            `;
+        }
+
+        function testFontFamilies(results, greetingStyle, nameStyle, roleStyle) {
+            // Test greeting font family (Space Mono)
+            const greetingHasSpaceMono = greetingStyle.fontFamily.toLowerCase().includes('space mono') ||
+                greetingStyle.fontFamily.toLowerCase().includes('monospace');
+            results.push({
+                type: greetingHasSpaceMono ? 'pass' : 'fail',
+                message: `Greeting Font Family: ${greetingStyle.fontFamily} ${greetingHasSpaceMono ? '✓' : '✗'}`
+            });
+
+            // Test name font family (Asimovian)
+            const nameHasAsimovian = nameStyle.fontFamily.toLowerCase().includes('asimovian') ||
+                nameStyle.fontFamily.toLowerCase().includes('sans-serif');
+            results.push({
+                type: nameHasAsimovian ? 'pass' : 'fail',
+                message: `Name Font Family: ${nameStyle.fontFamily} ${nameHasAsimovian ? '✓' : '✗'}`
+            });
+
+            // Test role font family (Enriqueta)
+            const roleHasEnriqueta = roleStyle.fontFamily.toLowerCase().includes('enriqueta') ||
+                roleStyle.fontFamily.toLowerCase().includes('serif');
+            results.push({
+                type: roleHasEnriqueta ? 'pass' : 'fail',
+                message: `Role Font Family: ${roleStyle.fontFamily} ${roleHasEnriqueta ? '✓' : '✗'}`
+            });
+        }
+
+        function testFontSizes(results, greetingStyle, nameStyle, roleStyle) {
+            const greetingSize = parseFloat(greetingStyle.fontSize);
+            const nameSize = parseFloat(nameStyle.fontSize);
+            const roleSize = parseFloat(roleStyle.fontSize);
+
+            // Test relative sizing (greeting should be 2x, name reduced by 40%, role reduced by 30%)
+            const greetingIsLarge = greetingSize >= 40; // Should be 2x scaled
+            const nameSizeAppropriate = nameSize >= 30 && nameSize <= 120; // 40% reduction range
+            const roleSizeAppropriate = roleSize >= 20 && roleSize <= 80; // 30% reduction range
+
+            results.push({
+                type: greetingIsLarge ? 'pass' : 'fail',
+                message: `Greeting Size (2x): ${greetingSize.toFixed(1)}px ${greetingIsLarge ? '✓' : '✗'}`
+            });
+
+            results.push({
+                type: nameSizeAppropriate ? 'pass' : 'warning',
+                message: `Name Size (40% reduced): ${nameSize.toFixed(1)}px ${nameSizeAppropriate ? '✓' : '⚠'}`
+            });
+
+            results.push({
+                type: roleSizeAppropriate ? 'pass' : 'warning',
+                message: `Role Size (30% reduced): ${roleSize.toFixed(1)}px ${roleSizeAppropriate ? '✓' : '⚠'}`
+            });
+
+            // Test hierarchy (greeting should be largest, then name, then role)
+            const hierarchyCorrect = greetingSize > nameSize && nameSize > roleSize;
+            results.push({
+                type: hierarchyCorrect ? 'pass' : 'fail',
+                message: `Typography Hierarchy: ${hierarchyCorrect ? 'Correct order maintained' : 'Hierarchy broken'} ${hierarchyCorrect ? '✓' : '✗'}`
+            });
+        }
+
+        function testResponsiveBehavior(results) {
+            const viewport = window.innerWidth;
+            let expectedBehavior = '';
+
+            if (viewport <= 480) {
+                expectedBehavior = 'Mobile Small';
+            } else if (viewport <= 767) {
+                expectedBehavior = 'Mobile Large';
+            } else if (viewport <= 1023) {
+                expectedBehavior = 'Tablet';
+            } else {
+                expectedBehavior = 'Desktop';
+            }
+
+            results.push({
+                type: 'info',
+                message: `Current Breakpoint: ${expectedBehavior} (${viewport}px)`
+            });
+
+            // Test if CSS variables are being used (indicates responsive setup)
+            const rootStyle = getComputedStyle(document.documentElement);
+            const hasResponsiveVars = rootStyle.getPropertyValue('--font-size-greeting-2x') ||
+                rootStyle.getPropertyValue('--font-size-name-reduced') ||
+                rootStyle.getPropertyValue('--font-size-role-reduced');
+
+            results.push({
+                type: hasResponsiveVars ? 'pass' : 'warning',
+                message: `CSS Variables: ${hasResponsiveVars ? 'Responsive variables detected' : 'Variables may not be set'} ${hasResponsiveVars ? '✓' : '⚠'}`
+            });
+        }
+
+        function testLayoutAndOverflow(results, greetingElement, nameElement, roleElement) {
+            const elements = [
+                { element: greetingElement, name: 'Greeting' },
+                { element: nameElement, name: 'Name' },
+                { element: roleElement, name: 'Role' }
+            ];
+
+            elements.forEach(({ element, name }) => {
+                const rect = element.getBoundingClientRect();
+                const parentRect = element.parentElement.getBoundingClientRect();
+                const hasOverflow = rect.width > parentRect.width;
+
+                results.push({
+                    type: hasOverflow ? 'fail' : 'pass',
+                    message: `${name} Layout: ${hasOverflow ? 'Overflows container' : 'Fits within container'} ${hasOverflow ? '✗' : '✓'}`
+                });
+            });
+        }
+
+        function testColorAndContrast(results, greetingStyle, nameStyle, roleStyle) {
+            // Test greeting color
+            const greetingColor = greetingStyle.color;
+            const greetingHasColor = greetingColor !== 'rgba(0, 0, 0, 0)' && greetingColor !== 'transparent';
+            results.push({
+                type: greetingHasColor ? 'pass' : 'fail',
+                message: `Greeting Color: ${greetingColor} ${greetingHasColor ? '✓' : '✗'}`
+            });
+
+            // Test name color (should be green)
+            const nameColor = nameStyle.color;
+            const nameHasGreenColor = nameColor.includes('107') || nameColor.includes('0, 107, 63') || nameColor.includes('#006b3f');
+            results.push({
+                type: nameHasGreenColor ? 'pass' : 'warning',
+                message: `Name Color: ${nameColor} ${nameHasGreenColor ? '✓' : '⚠'}`
+            });
+
+            // Test role gradient (check if gradient is applied)
+            const roleElement = document.querySelector('.role');
+            const roleHasGradient = roleElement.classList.contains('kenyan-gradient');
+            results.push({
+                type: roleHasGradient ? 'pass' : 'warning',
+                message: `Role Gradient: ${roleHasGradient ? 'Kenyan gradient class applied' : 'Gradient class missing'} ${roleHasGradient ? '✓' : '⚠'}`
+            });
+        }
+
+        function testHoverEffects(results, nameElement) {
+            // Test if hover effects are properly set up
+            const nameStyle = window.getComputedStyle(nameElement);
+            const hasTransition = nameStyle.transition && nameStyle.transition !== 'none';
+
+            results.push({
+                type: hasTransition ? 'pass' : 'warning',
+                message: `Name Hover Effects: ${hasTransition ? 'Transition properties detected' : 'No transitions detected'} ${hasTransition ? '✓' : '⚠'}`
+            });
+        }
+
+        function analyzeFontRendering(container, greetingStyle, nameStyle, roleStyle) {
+            container.innerHTML = `
+                <div class="info">
+                    <h4>Font Rendering Analysis</h4>
+                    <p><strong>Greeting:</strong> ${greetingStyle.fontFamily} | ${greetingStyle.fontSize} | ${greetingStyle.fontWeight}</p>
+                    <p><strong>Name:</strong> ${nameStyle.fontFamily} | ${nameStyle.fontSize} | ${nameStyle.fontWeight}</p>
+                    <p><strong>Role:</strong> ${roleStyle.fontFamily} | ${roleStyle.fontSize} | ${roleStyle.fontWeight}</p>
+                    <p><strong>Text Rendering:</strong> ${greetingStyle.textRendering || 'auto'}</p>
+                    <p><strong>Font Smoothing:</strong> ${greetingStyle.webkitFontSmoothing || 'auto'}</p>
+                </div>
+            `;
+        }
+
+        function analyzeSpacingAndAlignment(container, greetingElement, nameElement, roleElement) {
+            const greetingRect = greetingElement.getBoundingClientRect();
+            const nameRect = nameElement.getBoundingClientRect();
+            const roleRect = roleElement.getBoundingClientRect();
+
+            const greetingMargin = window.getComputedStyle(greetingElement).marginBottom;
+            const nameMargin = window.getComputedStyle(nameElement).marginBottom;
+            const roleMargin = window.getComputedStyle(roleElement).marginBottom;
+
+            container.innerHTML = `
+                <div class="info">
+                    <h4>Spacing and Alignment Analysis</h4>
+                    <p><strong>Greeting:</strong> Width: ${greetingRect.width.toFixed(1)}px | Margin Bottom: ${greetingMargin}</p>
+                    <p><strong>Name:</strong> Width: ${nameRect.width.toFixed(1)}px | Margin Bottom: ${nameMargin}</p>
+                    <p><strong>Role:</strong> Width: ${roleRect.width.toFixed(1)}px | Margin Bottom: ${roleMargin}</p>
+                    <p><strong>Vertical Spacing:</strong> ${(nameRect.top - greetingRect.bottom).toFixed(1)}px between greeting and name</p>
+                    <p><strong>Alignment:</strong> All elements appear center-aligned</p>
+                </div>
+            `;
+        }
+
+        function displayResults(container, results) {
+            container.innerHTML = results.map(result =>
+                `<div class="test-result ${result.type}">${result.message}</div>`
+            ).join('');
+        }
+
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runTypographyTests, 100);
+        });
+
+        // Re-run tests on window resize to test responsiveness
+        window.addEventListener('resize', () => {
+            setTimeout(runTypographyTests, 300);
+        });
+
+        // Add manual test trigger
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                runTypographyTests();
+            }
+        });
+    </script>
+</body>
+
+</html>

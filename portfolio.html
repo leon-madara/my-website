@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+        content="Leon Madara - Portfolio showcasing full-stack AI development projects including web applications, logistics platforms, and educational systems.">
+    <meta name="keywords" content="Portfolio, Full Stack Developer, AI Projects, Web Development, Leon Madara">
+    <meta name="author" content="Leon Madara">
+    <meta name="theme-color" content="#006b3f">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/iconLEONlogo.svg">
+
+    <title>Portfolio - Leon Madara</title>
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Asimovian&family=Enriqueta:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/modal.css">
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+    <!-- Skip Navigation -->
+    <a href="#portfolio-content" class="skip-link">Skip to portfolio content</a>
+
+    <!-- Advanced Floating Header Navigation -->
+    <nav class="floating-navigation" aria-label="Main navigation">
+        <div class="floating-header">
+            <div class="header-container">
+                <a href="index.html" class="header-logo" aria-label="Leon Madara Logo">
+                    <img src="images/iconLEONlogo.svg" class="leon-logo" alt="Leon Madara Logo" />
+                </a>
+            </div>
+        </div>
+
+        <div class="nav-background-blur"></div>
+
+        <nav class="nav-icons-container" role="navigation" aria-label="Main navigation">
+            <button class="nav-icon" data-section="home" data-label="Home" aria-label="Home" type="button"
+                onclick="window.location.href='index.html'">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+            </button>
+            <button class="nav-icon" data-section="about" data-label="About" aria-label="About" type="button">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z" />
+                </svg>
+            </button>
+            <button class="nav-icon active" data-section="portfolio" data-label="Portfolio" aria-label="Portfolio"
+                type="button">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M10 4h4c1.1 0 2 .9 2 2v1h4c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V6c0-1.1.9-2 2-2zm4 3V6h-4v1h4z" />
+                </svg>
+            </button>
+            <button class="nav-icon" data-section="contact" data-label="Contact Me" aria-label="Contact Me"
+                type="button">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+            </button>
+        </nav>
+    </nav>
+
+    <!-- Pill-shaped Sidebar -->
+    <aside class="pill-sidebar" aria-label="Profile and social links">
+        <div class="profile-section">
+            <img src="images/Leon.jpg" class="profile-photo" alt="Leon Madara Profile Photo" />
+        </div>
+
+        <nav class="social-nav" aria-label="Social media links">
+            <ul class="social-icons-list">
+                <li class="social-icon-item">
+                    <a href="#" class="social-icon-link" aria-label="GitHub Profile">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="social-icon-item">
+                    <a href="#" class="social-icon-link" aria-label="LinkedIn Profile">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="social-icon-item">
+                    <a href="#contact" class="social-icon-link" aria-label="Contact Information">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M8 12.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5S10.33 11 9.5 11 8 11.67 8 12.5zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" />
+                            <circle cx="12" cy="7" r="2" />
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Portfolio Content -->
+    <main class="portfolio-main" id="portfolio-content">
+        <!-- Portfolio Header Section -->
+        <section class="portfolio-header">
+            <h1 class="portfolio-title kenyan-gradient">My Projects</h1>
+            <p class="portfolio-subtitle">Scroll to explore my journey through innovative solutions</p>
+        </section>
+
+        <!-- 3D Carousel Container -->
+        <div class="carousel-wrapper">
+            <!-- Navigation Buttons -->
+            <button class="carousel-nav-btn prev-btn" aria-label="Previous project" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+
+            <button class="carousel-nav-btn next-btn" aria-label="Next project" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
+
+            <!-- Carousel -->
+            <div class="card-carousel-container">
+                <!-- Card 1: Eastleigh Turf Flow -->
+                <div class="project-card active" data-project="eastleigh" data-index="0">
+                    <div class="card-image-section">
+                        <img src="images/turfgrass.png" alt="Eastleigh Turf Flow" class="card-background-image" />
+                        <div class="card-gradient-overlay"></div>
+                    </div>
+                    <div class="card-content-overlay">
+                        <div class="card-number-badge">01</div>
+                        <button class="card-share-btn" aria-label="Share project">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M18 16.08v-3a2 2 0 00-.04-.45l.04-.03L19 9a2 2 0 00-2-2H7a2 2 0 00-2 2c.04 1.24.17 2.29.21 3.4m1.93-2.4c.35-.55.93-1 1.58-1.31l-.3-.2a2.4 2.4 0 011.55-2.79h4c.89.02 1.73.35 2.36.96l1.64 1.64" />
+                            </svg>
+                        </button>
+                        <h3 class="card-title kenyan-gradient">Eastleigh Turf Flow</h3>
+                        <p class="card-subtitle">Interactive Landing Page</p>
+                        <p class="card-tagline">Modern conversion-focused landing page with interactive before/after
+                            slider for professional turf services.</p>
+                        <div class="card-tech-stack">
+                            <span class="tech-badge">TypeScript</span>
+                            <span class="tech-badge">Interactive UI</span>
+                            <span class="tech-badge">GitHub Pages</span>
+                        </div>
+                        <button class="card-cta-btn" aria-label="View Eastleigh Turf Flow details">
+                            View Details
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Delivah Dispatch -->
+                <div class="project-card" data-project="delivah" data-index="1">
+                    <div class="card-image-section">
+                        <img src="images/delivah.png" alt="Delivah Dispatch Hub" class="card-background-image" />
+                        <div class="card-gradient-overlay"></div>
+                    </div>
+                    <div class="card-content-overlay">
+                        <div class="card-number-badge">02</div>
+                        <button class="card-share-btn" aria-label="Share project">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M18 16.08v-3a2 2 0 00-.04-.45l.04-.03L19 9a2 2 0 00-2-2H7a2 2 0 00-2 2c.04 1.24.17 2.29.21 3.4m1.93-2.4c.35-.55.93-1 1.58-1.31l-.3-.2a2.4 2.4 0 011.55-2.79h4c.89.02 1.73.35 2.36.96l1.64 1.64" />
+                            </svg>
+                        </button>
+                        <h3 class="card-title kenyan-gradient">Delivah Dispatch Hub</h3>
+                        <p class="card-subtitle">Freight Logistics Platform</p>
+                        <p class="card-tagline">Enterprise-grade freight logistics management with 3% commission model
+                            and automated operations.</p>
+                        <div class="card-tech-stack">
+                            <span class="tech-badge">React 18</span>
+                            <span class="tech-badge">TypeScript</span>
+                            <span class="tech-badge">Supabase</span>
+                        </div>
+                        <button class="card-cta-btn" aria-label="View Delivah Dispatch Hub details">
+                            View Details
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3: EduManage SMS -->
+                <div class="project-card" data-project="edumanage" data-index="2">
+                    <div class="card-image-section">
+                        <img src="images/turfgrass.png" alt="EduManage SMS" class="card-background-image" />
+                        <div class="card-gradient-overlay"></div>
+                    </div>
+                    <div class="card-content-overlay">
+                        <div class="card-number-badge">03</div>
+                        <button class="card-share-btn" aria-label="Share project">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M18 16.08v-3a2 2 0 00-.04-.45l.04-.03L19 9a2 2 0 00-2-2H7a2 2 0 00-2 2c.04 1.24.17 2.29.21 3.4m1.93-2.4c.35-.55.93-1 1.58-1.31l-.3-.2a2.4 2.4 0 011.55-2.79h4c.89.02 1.73.35 2.36.96l1.64 1.64" />
+                            </svg>
+                        </button>
+                        <h3 class="card-title kenyan-gradient">EduManage SMS</h3>
+                        <p class="card-subtitle">AI-Powered Timetable Generator</p>
+                        <p class="card-tagline">Production-ready AI system reducing timetable generation from 2-3 weeks
+                            to 45 seconds with 100% TSC compliance.</p>
+                        <div class="card-tech-stack">
+                            <span class="tech-badge">React + TypeScript</span>
+                            <span class="tech-badge">FastAPI</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                        </div>
+                        <button class="card-cta-btn" aria-label="View EduManage SMS details">
+                            View Details
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Detail Cards (Revealed on click) -->
+        <div class="project-details-container">
+            <!-- Eastleigh Turf Flow Details -->
+            <div class="project-detail-card" id="eastleigh-details">
+                <div class="detail-card-content glass-card">
+                    <h2 class="kenyan-gradient">Eastleigh Turf Flow</h2>
+                    <p class="project-category">Interactive Landing Page | TypeScript</p>
+                    <p class="project-description">
+                        Modern, conversion-focused landing page featuring an interactive before/after slider
+                        for professional turf installation services. Built with TypeScript and deployed on GitHub Pages.
+                    </p>
+                    <div class="project-tech-stack">
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Interactive UI</span>
+                        <span class="tech-tag">Responsive Design</span>
+                        <span class="tech-tag">GitHub Pages</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://leon-madara.github.io/eastleigh-turf-flow/" target="_blank"
+                            class="project-link-btn">Live Demo</a>
+                        <a href="https://github.com/leon-madara/eastleigh-turf-flow/" target="_blank"
+                            class="project-link-btn">View Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivah Dispatch Hub Details -->
+            <div class="project-detail-card" id="delivah-details">
+                <div class="detail-card-content glass-card">
+                    <h2 class="kenyan-gradient">Delivah Dispatch Hub</h2>
+                    <p class="project-category">Freight Logistics Platform | React + TypeScript + Supabase</p>
+                    <p class="project-description">
+                        Enterprise-grade freight logistics management platform with 3% commission model.
+                        Features carrier registration, document management, and automated email notifications.
+                    </p>
+                    <div class="project-tech-stack">
+                        <span class="tech-tag">React 18</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Supabase</span>
+                        <span class="tech-tag">Tailwind CSS</span>
+                        <span class="tech-tag">shadcn/ui</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/leon-madara/delivah-dispatch-hub/" target="_blank"
+                            class="project-link-btn">View Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EduManage SMS Details -->
+            <div class="project-detail-card" id="edumanage-details">
+                <div class="detail-card-content glass-card">
+                    <h2 class="kenyan-gradient">EduManage SMS</h2>
+                    <p class="project-category">AI-Powered Timetable Generator | React + FastAPI + PostgreSQL</p>
+                    <p class="project-description">
+                        Production-ready automated timetable generation system for Kenyan CBC schools.
+                        Reduces scheduling from 2-3 weeks to 45 seconds with 100% TSC compliance.
+                    </p>
+                    <div class="project-tech-stack">
+                        <span class="tech-tag">React + TypeScript</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">AI Algorithm</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/leon-madara/school-management-system/" target="_blank"
+                            class="project-link-btn">View Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">&copy; 2024 Leon Madara. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Dotted Background Pattern -->
+    <div class="background-pattern" aria-hidden="true" role="presentation"></div>
+
+    <!-- Kenyan Programming Elements -->
+    <div class="kenyan-code-elements" aria-hidden="true" role="presentation">
+        <div class="code-element code-element-1" aria-hidden="true">&lt;/&gt;</div>
+        <div class="code-element code-element-2" aria-hidden="true">{ }</div>
+        <div class="code-element code-element-3" aria-hidden="true">[ ]</div>
+        <div class="code-element code-element-4" aria-hidden="true">( )</div>
+        <div class="code-element code-element-5" aria-hidden="true">=&gt;</div>
+        <div class="code-element code-element-6" aria-hidden="true">&amp;&amp;</div>
+    </div>
+
+    <!-- Project Detail Modal -->
+    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-overlay"></div>
+        <div class="modal-container glass-modal">
+            <!-- Close Button -->
+            <button class="modal-close" aria-label="Close modal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Hero Section -->
+            <div class="case-study-hero" id="case-study-hero">
+                <div class="hero-badge" id="hero-badge"></div>
+                <h2 class="modal-title" id="modal-title"></h2>
+                <p class="hero-role" id="hero-role"></p>
+                <p class="hero-client" id="hero-client"></p>
+                <div class="hero-meta">
+                    <span class="meta-item" id="hero-duration"></span>
+                    <span class="meta-item" id="hero-status"></span>
+                </div>
+            </div>
+
+            <!-- Modal Content Scrollable Area -->
+            <div class="case-study-content">
+                <!-- Challenge Section -->
+                <section class="case-study-section" data-section="challenge">
+                    <h3 class="section-title">Challenge</h3>
+                    <ul class="challenge-list" id="challenge-list"></ul>
+                </section>
+
+                <!-- Solution Section -->
+                <section class="case-study-section" data-section="solution">
+                    <h3 class="section-title">Solution</h3>
+                    <p class="solution-description" id="solution-description"></p>
+                    <ul class="benefits-list" id="benefits-list"></ul>
+                </section>
+
+                <!-- Features Table -->
+                <section class="case-study-section" data-section="features">
+                    <h3 class="section-title">Key Features</h3>
+                    <div class="features-table" id="features-table"></div>
+                </section>
+
+                <!-- Research Section -->
+                <section class="case-study-section" data-section="research">
+                    <h3 class="section-title">Research & Planning</h3>
+                    <ul class="research-list" id="research-list"></ul>
+                </section>
+
+                <!-- Technical Architecture Section -->
+                <section class="case-study-section" data-section="technical">
+                    <h3 class="section-title">Technical Architecture</h3>
+                    <div class="tech-stack" id="tech-stack"></div>
+                    <div class="architecture-list" id="architecture-list"></div>
+                </section>
+
+                <!-- Results Section -->
+                <section class="case-study-section" data-section="results">
+                    <h3 class="section-title">Results</h3>
+                    <ul class="results-list" id="results-list"></ul>
+                </section>
+
+                <!-- Design Principles Section -->
+                <section class="case-study-section" data-section="principles">
+                    <h3 class="section-title">Design Principles</h3>
+                    <ul class="principles-list" id="principles-list"></ul>
+                </section>
+
+                <!-- Future Enhancements Section -->
+                <section class="case-study-section" data-section="future">
+                    <h3 class="section-title">Future Enhancements</h3>
+                    <ul class="future-list" id="future-list"></ul>
+                </section>
+
+                <!-- Learnings Section -->
+                <section class="case-study-section" data-section="learnings">
+                    <h3 class="section-title">What I Learned</h3>
+                    <ul class="learnings-list" id="learnings-list"></ul>
+                </section>
+
+                <!-- CTA Section -->
+                <section class="case-study-cta">
+                    <h3 class="cta-title">Interested in similar results?</h3>
+                    <p class="cta-description">Let's work together to create something amazing.</p>
+                    <button class="cta-button" id="contact-button">Get In Touch</button>
+                </section>
+            </div>
+
+            <!-- Modal Footer with Links -->
+            <div class="modal-footer">
+                <div class="modal-links" id="modal-links"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Project Data -->
+    <script src="js/projectData.js"></script>script>
+
+    <!-- Three.js Profile Scene -->.js Profile Scene -->
+    <script src="js/profileScene.js"></script>rc="js/profileScene.js"></script>
+
+    <!-- Portfolio JavaScript -->
+    <script src="js/portfolio.js"></script>script>
+
+    <!-- Modal JavaScript --> -->
+    <script src="js/projectModal.js"></script>
+</body>
+<!-- Modal JavaScript -->
+
+</html>ript src="js/projectModal.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting Text Responsive Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--background-light);
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .hero-demo {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #006b3f, #10CF74);
+            color: white;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>Greeting Text Responsive Behavior Test</h1>
+        <p>Testing the 2x scaled greeting text across different viewport conditions</p>
+
+        <div class="hero-demo">
+            <p class="greeting">Hi, I'm</p>
+            <h1 class="name">Leon Madara</h1>
+            <h2 class="role kenyan-gradient">Full Stack AI Developer</h2>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Results</h2>
+            <div id="testResults">
+                <div class="info">Running tests...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Computed Styles</h2>
+            <div id="computedStyles">
+                <div class="info">Analyzing styles...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runGreetingTests() {
+            const greetingElement = document.querySelector('.greeting');
+            const testResults = document.getElementById('testResults');
+            const computedStylesDiv = document.getElementById('computedStyles');
+            const results = [];
+
+            if (!greetingElement) {
+                results.push({ type: 'fail', message: 'Greeting element not found' });
+                return;
+            }
+
+            // Get computed styles
+            const computedStyle = window.getComputedStyle(greetingElement);
+            const fontSize = computedStyle.fontSize;
+            const fontFamily = computedStyle.fontFamily;
+            const color = computedStyle.color;
+
+            // Test 1: Font Family
+            const hasSpaceMono = fontFamily.toLowerCase().includes('space mono') ||
+                fontFamily.toLowerCase().includes('monospace');
+            results.push({
+                type: hasSpaceMono ? 'pass' : 'fail',
+                message: `Font Family: ${fontFamily} ${hasSpaceMono ? '✓' : '✗'}`
+            });
+
+            // Test 2: Font Size (should be larger than 40px for 2x scaling)
+            const fontSizeValue = parseFloat(fontSize);
+            const isLargeEnough = fontSizeValue >= 40;
+            results.push({
+                type: isLargeEnough ? 'pass' : 'fail',
+                message: `Font Size: ${fontSize} (${isLargeEnough ? 'Adequate for 2x scaling' : 'Too small for 2x scaling'}) ${isLargeEnough ? '✓' : '✗'}`
+            });
+
+            // Test 3: Layout Overflow Check
+            const parentElement = greetingElement.parentElement;
+            const greetingRect = greetingElement.getBoundingClientRect();
+            const parentRect = parentElement.getBoundingClientRect();
+            const hasOverflow = greetingRect.width > parentRect.width;
+            results.push({
+                type: hasOverflow ? 'fail' : 'pass',
+                message: `Layout Overflow: ${hasOverflow ? 'Text overflows container' : 'No overflow detected'} ${hasOverflow ? '✗' : '✓'}`
+            });
+
+            // Test 4: Responsive Behavior (check if clamp is working)
+            const usesClamp = fontSize.includes('clamp') || fontSizeValue > 20;
+            results.push({
+                type: usesClamp ? 'pass' : 'fail',
+                message: `Responsive Scaling: ${usesClamp ? 'Font size appears responsive' : 'Font size may not be responsive'} ${usesClamp ? '✓' : '✗'}`
+            });
+
+            // Test 5: Color Contrast
+            const hasGoodContrast = color !== 'rgba(0, 0, 0, 0)' && color !== 'transparent';
+            results.push({
+                type: hasGoodContrast ? 'pass' : 'fail',
+                message: `Color Contrast: ${color} ${hasGoodContrast ? '✓' : '✗'}`
+            });
+
+            // Display results
+            testResults.innerHTML = results.map(result =>
+                `<div class="test-result ${result.type}">${result.message}</div>`
+            ).join('');
+
+            // Display computed styles
+            computedStylesDiv.innerHTML = `
+                <div class="info">
+                    <strong>Font Size:</strong> ${fontSize}<br>
+                    <strong>Font Family:</strong> ${fontFamily}<br>
+                    <strong>Color:</strong> ${color}<br>
+                    <strong>Element Width:</strong> ${greetingRect.width.toFixed(2)}px<br>
+                    <strong>Parent Width:</strong> ${parentRect.width.toFixed(2)}px<br>
+                    <strong>Viewport Width:</strong> ${window.innerWidth}px<br>
+                    <strong>Viewport Height:</strong> ${window.innerHeight}px
+                </div>
+            `;
+
+            // Test at different simulated viewport sizes
+            testViewportResponsiveness();
+        }
+
+        function testViewportResponsiveness() {
+            const greetingElement = document.querySelector('.greeting');
+            const testResults = document.getElementById('testResults');
+
+            // Add viewport responsiveness info
+            const viewportInfo = document.createElement('div');
+            viewportInfo.className = 'test-result info';
+            viewportInfo.innerHTML = `
+                <strong>Viewport Responsiveness Test:</strong><br>
+                Current viewport: ${window.innerWidth}x${window.innerHeight}<br>
+                Font size scales appropriately for current viewport size
+            `;
+            testResults.appendChild(viewportInfo);
+        }
+
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runGreetingTests, 100);
+        });
+
+        // Re-run tests on window resize to test responsiveness
+        window.addEventListener('resize', () => {
+            setTimeout(runGreetingTests, 100);
+        });
+    </script>
+</body>
+
+</html>

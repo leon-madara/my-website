@@ -1,0 +1,459 @@
+/* Dashboard Styles - Solar Energy Hub Inspired Design */
+
+/* Ensure CSS loads properly - scoped to dashboard only */
+.dashboard-hero *,
+.dashboard-metrics * {
+    box-sizing: border-box;
+}
+
+/* Dashboard Hero Section */
+.dashboard-hero {
+    max-width: 1400px;
+    margin: 4rem auto 3rem;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    background: transparent;
+    z-index: 10;
+}
+
+.dashboard-hero h1 {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--kenyan-black);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--kenyan-red) 0%, var(--kenyan-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dashboard-hero p {
+    font-family: var(--font-role);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: var(--secondary-text);
+    font-weight: 400;
+}
+
+#profile-3d-container {
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 2rem;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background: linear-gradient(135deg, rgba(0, 107, 63, 0.1) 0%, rgba(206, 17, 38, 0.1) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Fallback profile image - only shows if Three.js doesn't load */
+#profile-3d-container::before {
+    content: '';
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--kenyan-green) 0%, var(--kenyan-red) 100%);
+    opacity: 0.3;
+    z-index: 0;
+}
+
+#profile-3d-container:hover {
+    transform: scale(1.05);
+}
+
+.dashboard-hero h1 {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--kenyan-black);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--kenyan-red) 0%, var(--kenyan-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dashboard-hero p {
+    font-family: var(--font-role);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: var(--secondary-text);
+    font-weight: 400;
+}
+
+/* Dashboard Metrics Container */
+.dashboard-metrics {
+    max-width: 1400px;
+    margin: 2rem auto 2rem;
+    padding: 1.5rem;
+    background: transparent;
+    z-index: 10;
+}
+
+.dashboard-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Metric Card Styles */
+.metric-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+}
+
+.metric-card-inner {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 107, 63, 0.1);
+    border-radius: 16px;
+    padding: 1.25rem;
+    position: relative;
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.05),
+        0 1px 4px rgba(0, 0, 0, 0.02);
+    min-height: 140px;
+}
+
+.metric-card:hover .metric-card-inner {
+    border-color: rgba(0, 107, 63, 0.15);
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Metric Card Header */
+.metric-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.metric-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--kenyan-green) 0%, rgba(0, 107, 63, 0.08) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 6px rgba(0, 107, 63, 0.1);
+}
+
+.metric-card:hover .metric-icon {
+    background: linear-gradient(135deg, var(--kenyan-red) 0%, rgba(206, 17, 38, 0.15) 100%);
+    box-shadow: 0 4px 12px rgba(206, 17, 38, 0.2);
+}
+
+.metric-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--kenyan-green) 0%, rgba(0, 107, 63, 0.1) 100%);
+    color: var(--kenyan-green);
+}
+
+/* Metric Content */
+.metric-value {
+    font-family: var(--font-name);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: var(--kenyan-black);
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+
+.metric-label {
+    font-family: var(--font-role);
+    font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+    color: var(--secondary-text);
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.metric-description {
+    font-family: var(--font-greeting);
+    font-size: clamp(0.7rem, 1vw, 0.8rem);
+    color: var(--secondary-text);
+    line-height: 1.4;
+}
+
+/* Circular Progress Indicator */
+.progress-indicator {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.progress-ring-wrapper {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.progress-ring-circle-bg {
+    stroke: rgba(0, 107, 63, 0.1);
+}
+
+.progress-ring-circle-progress {
+    stroke: var(--kenyan-green);
+    stroke-dasharray: 283; /* 2 * PI * 45 */
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 1.5s ease;
+}
+
+.metric-card:hover .progress-ring-circle-progress {
+    stroke: var(--kenyan-red);
+}
+
+.progress-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-name);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--kenyan-black);
+}
+
+.progress-skills {
+    flex: 1;
+}
+
+.progress-skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.skill-name {
+    font-family: var(--font-role);
+    font-size: 0.9rem;
+    color: var(--kenyan-black);
+    font-weight: 600;
+}
+
+.skill-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 107, 63, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.skill-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--kenyan-green) 0%, rgba(0, 107, 63, 0.6) 100%);
+    border-radius: 10px;
+    transition: width 1.5s ease;
+}
+
+.metric-card:hover .skill-bar {
+    background: linear-gradient(90deg, var(--kenyan-red) 0%, rgba(206, 17, 38, 0.6) 100%);
+}
+
+/* Stat Badge */
+.stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, var(--kenyan-green) 0%, rgba(0, 107, 63, 0.1) 100%);
+    border-radius: 16px;
+    margin-top: 1rem;
+    font-family: var(--font-greeting);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--kenyan-green);
+}
+
+.metric-card:hover .stat-badge {
+    background: linear-gradient(135deg, var(--kenyan-red) 0%, rgba(206, 17, 38, 0.2) 100%);
+    color: var(--kenyan-red);
+}
+
+/* Technology Tags */
+.tech-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.tech-tag {
+    padding: 0.4rem 0.9rem;
+    background: rgba(0, 107, 63, 0.08);
+    border: 1px solid rgba(0, 107, 63, 0.15);
+    border-radius: 12px;
+    font-family: var(--font-greeting);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--kenyan-green);
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: rgba(206, 17, 38, 0.1);
+    border-color: rgba(206, 17, 38, 0.3);
+    color: var(--kenyan-red);
+    transform: translateY(-2px);
+}
+
+/* Gauge Chart */
+.gauge-container {
+    margin-top: 0.75rem;
+    text-align: center;
+}
+
+.gauge {
+    position: relative;
+    width: 120px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.gauge-track {
+    fill: none;
+    stroke: rgba(0, 107, 63, 0.1);
+    stroke-width: 16;
+}
+
+.gauge-arc {
+    fill: none;
+    stroke-width: 16;
+    stroke-linecap: round;
+    stroke: var(--kenyan-green);
+    transform-origin: center;
+    transition: stroke-dasharray 1.5s ease;
+}
+
+.metric-card:hover .gauge-arc {
+    stroke: var(--kenyan-red);
+}
+
+.gauge-value {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-name);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--kenyan-black);
+}
+
+/* Kenyan Flag Accent Colors */
+.metric-card-accent-green {
+    border-left: 4px solid var(--kenyan-green);
+}
+
+.metric-card-accent-red {
+    border-left: 4px solid var(--kenyan-red);
+}
+
+.metric-card-accent-black {
+    border-left: 4px solid var(--kenyan-black);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .dashboard-metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-metrics {
+        padding: 1rem;
+        margin: 1.5rem auto 1.5rem;
+    }
+
+    .dashboard-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .metric-card-inner {
+        padding: 1rem;
+        min-height: 120px;
+    }
+
+    .progress-indicator {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .progress-ring-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+
+    .progress-percentage {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .metric-header {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .metric-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* Accessibility */
+.metric-card:focus-within {
+    outline: 3px solid var(--kenyan-red);
+    outline-offset: 4px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .metric-card,
+    .metric-card-inner,
+    .progress-ring,
+    .gauge-arc,
+    .skill-bar {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
