@@ -1,462 +1,420 @@
-// Portfolio Page - 3D Card Carousel with GSAP Animations
-// Features: Carousel navigation, card transitions, text reveals
+/**
+ * Portfolio Page - Interactive Case Study System
+ * Phase 1: Basic Structure Setup
+ */
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Register GSAP ScrollTrigger plugin
-    if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-    }
+// ====================================
+// GLOBAL STATE
+// ====================================
 
-    // Initialize carousel if it exists
-    if (document.querySelector('.card-carousel-container')) {
-        init3DCarousel();
-    } else if (document.querySelector('.infographic-container')) {
-        // Fallback to old animation system
-        initOldCardAnimations();
-    }
+const PortfolioState = {
+    currentProject: 2, // Default to project 2 (Delivah)
+    currentPage: 0,
+    isAnimating: false,
+    soundEnabled: true,
+    soundVolume: 0.6
+};
+
+// ====================================
+// DOM ELEMENTS
+// ====================================
+
+const DOM = {
+    // Project toggle buttons
+    projectToggles: null,
+
+    // Accordion elements
+    accordionItems: null,
+    accordionHeaders: null,
+    accordionLinks: null,
+
+    // Horizontal pages
+    horizontalPages: null,
+    contentPages: null,
+
+    // Page indicators
+    pageDots: null,
+
+    // Containers
+    contentWrapper: null
+};
+
+// ====================================
+// INITIALIZATION
+// ====================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Portfolio page loaded - Phase 1');
+
+    // Cache DOM elements
+    cacheDOMElements();
+
+    // Initialize components (will be fully implemented in later phases)
+    initializeProjectToggle();
+    initializeAccordion();
+    initializeHorizontalScroll();
+    initializePageIndicators();
+
+    // Setup event listeners
+    setupEventListeners();
+
+    console.log('Portfolio initialization complete');
 });
 
-// 3D Carousel Initialization
-function init3DCarousel() {
-    const cards = document.querySelectorAll('.project-card');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    let currentIndex = 0;
-    let isTransitioning = false;
+// ====================================
+// DOM CACHING
+// ====================================
 
-    if (cards.length === 0) return;
+function cacheDOMElements() {
+    // Project toggles
+    DOM.projectToggles = document.querySelectorAll('.project-toggle-btn');
 
-    // Initialize card positions
-    updateCardPositions();
+    // Accordion
+    DOM.accordionItems = document.querySelectorAll('.accordion-item');
+    DOM.accordionHeaders = document.querySelectorAll('.accordion-header');
+    DOM.accordionLinks = document.querySelectorAll('.accordion-link');
 
-    // Setup text reveal animations for active card
-    animateCardContent(cards[currentIndex]);
+    // Horizontal pages
+    DOM.horizontalPages = document.querySelector('.horizontal-pages');
+    DOM.contentPages = document.querySelectorAll('.content-page');
 
-    // Navigation handlers
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => navigateCarousel('prev'));
+    // Page indicators
+    DOM.pageDots = document.querySelectorAll('.page-dot');
+
+    // Containers
+    DOM.contentWrapper = document.querySelector('.content-wrapper');
+
+    console.log('DOM elements cached:', {
+        projectToggles: DOM.projectToggles.length,
+        accordionItems: DOM.accordionItems.length,
+        contentPages: DOM.contentPages.length,
+        pageDots: DOM.pageDots.length
+    });
+}
+
+// ====================================
+// PROJECT TOGGLE INITIALIZATION
+// ====================================
+
+function initializeProjectToggle() {
+    console.log('Initializing project toggle...');
+
+    // Set initial active state (project 2 is default)
+    updateProjectToggleUI(PortfolioState.currentProject);
+}
+
+function updateProjectToggleUI(projectNumber) {
+    DOM.projectToggles.forEach(btn => {
+        const btnProject = parseInt(btn.dataset.project);
+        if (btnProject === projectNumber) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+// ====================================
+// ACCORDION INITIALIZATION
+// ====================================
+
+function initializeAccordion() {
+    console.log('Initializing accordion...');
+
+    // First item is expanded by default
+    // This is already set in HTML, just verify
+    const firstItem = DOM.accordionItems[0];
+    if (firstItem && !firstItem.classList.contains('active')) {
+        firstItem.classList.add('active');
     }
+}
 
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => navigateCarousel('next'));
+// ====================================
+// HORIZONTAL SCROLL INITIALIZATION
+// ====================================
+
+function initializeHorizontalScroll() {
+    console.log('Initializing horizontal scroll...');
+
+    // Ensure we start at the first page
+    if (DOM.horizontalPages) {
+        DOM.horizontalPages.scrollLeft = 0;
     }
+}
+
+// ====================================
+// PAGE INDICATORS INITIALIZATION
+// ====================================
+
+function initializePageIndicators() {
+    console.log('Initializing page indicators...');
+
+    // First dot is active by default
+    updatePageIndicators(0);
+}
+
+function updatePageIndicators(pageIndex) {
+    DOM.pageDots.forEach((dot, index) => {
+        if (index === pageIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// ====================================
+// EVENT LISTENERS SETUP
+// ====================================
+
+function setupEventListeners() {
+    console.log('Setting up event listeners...');
+
+    // Project toggle listeners
+    setupProjectToggleListeners();
+
+    // Accordion listeners
+    setupAccordionListeners();
+
+    // Page indicator listeners
+    setupPageIndicatorListeners();
 
     // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (isTransitioning) return;
-        if (e.key === 'ArrowLeft') navigateCarousel('prev');
-        if (e.key === 'ArrowRight') navigateCarousel('next');
-    });
+    setupKeyboardNavigation();
 
-    // Touch/swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    cards.forEach(card => {
-        card.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        card.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-    });
-
-    function handleSwipe() {
-        if (Math.abs(touchEndX - touchStartX) > 50) {
-            if (touchEndX < touchStartX && !isTransitioning) {
-                navigateCarousel('next');
-            } else if (touchEndX > touchStartX && !isTransitioning) {
-                navigateCarousel('prev');
-            }
-        }
-    }
-
-    function navigateCarousel(direction) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        // Calculate new index
-        if (direction === 'next') {
-            currentIndex = (currentIndex + 1) % cards.length;
-        } else {
-            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-        }
-
-        // Animate card exit
-        const activeCard = document.querySelector('.project-card.active');
-        if (activeCard && typeof gsap !== 'undefined') {
-            gsap.to(activeCard.querySelectorAll('.card-number-badge, .card-share-btn, .card-title, .card-subtitle, .card-tagline, .card-tech-stack, .card-cta-btn'), {
-                opacity: 0,
-                y: 20,
-                duration: 0.3,
-                stagger: 0.05,
-                ease: 'power2.in'
-            });
-        }
-
-        // Update positions and animate in
-        setTimeout(() => {
-            updateCardPositions();
-            animateCardContent(cards[currentIndex]);
-            
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 600);
-        }, 300);
-    }
-
-    function updateCardPositions() {
-        cards.forEach((card, index) => {
-            card.classList.remove('active', 'left', 'right');
-
-            if (index === currentIndex) {
-                card.classList.add('active');
-            } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
-                card.classList.add('left');
-            } else if (index === (currentIndex + 1) % cards.length) {
-                card.classList.add('right');
-            }
-        });
-    }
-
-    function animateCardContent(card) {
-        if (!card || typeof gsap === 'undefined') return;
-
-        const contentElements = [
-            card.querySelector('.card-number-badge'),
-            card.querySelector('.card-share-btn'),
-            card.querySelector('.card-title'),
-            card.querySelector('.card-subtitle'),
-            card.querySelector('.card-tagline'),
-            card.querySelector('.card-tech-stack'),
-            card.querySelector('.card-cta-btn')
-        ].filter(el => el !== null);
-
-        // Animate elements in with stagger
-        gsap.to(contentElements, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            delay: 0.3,
-            stagger: {
-                amount: 0.4,
-                from: "start"
-            },
-            ease: 'power3.out'
-        });
-    }
-
-    // CTA button click handlers
-    const ctaButtons = document.querySelectorAll('.card-cta-btn');
-    ctaButtons.forEach((btn, index) => {
-        btn.addEventListener('click', () => {
-            const project = cards[index].getAttribute('data-project');
-            if (typeof window.openModal === 'function') {
-                window.openModal(project);
-            }
-        });
-    });
-
-    console.log('3D Carousel initialized with', cards.length, 'cards');
+    // Scroll detection (for page indicators sync)
+    setupScrollDetection();
 }
 
-// Fallback: Old card animations (if carousel doesn't exist)
-function initOldCardAnimations() {
-    // Register GSAP ScrollTrigger plugin
-    if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-    }
+// ====================================
+// PROJECT TOGGLE LISTENERS
+// ====================================
 
-    // Get elements
-    const infographicCards = document.querySelectorAll('.infographic-card');
-    const cardButtons = document.querySelectorAll('.card-btn');
+function setupProjectToggleListeners() {
+    DOM.projectToggles.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const projectNumber = parseInt(this.dataset.project);
+            console.log(`Project toggle clicked: ${projectNumber}`);
 
-    if (infographicCards.length === 0) return;
-
-    // Create scroll progress indicator
-    createScrollProgress();
-
-    // Setup card entrance animations
-    setupCardEntranceAnimations();
-
-    // Setup card scroll animations
-    setupCardScrollAnimations();
-
-    // Setup card click interactions
-    setupCardInteractions();
-
-    // Scroll Progress Bar
-    function createScrollProgress() {
-        const progressBar = document.createElement('div');
-        progressBar.className = 'scroll-progress';
-        progressBar.innerHTML = '<div class="scroll-progress-bar"></div>';
-        document.body.appendChild(progressBar);
-
-        const bar = progressBar.querySelector('.scroll-progress-bar');
-
-        gsap.to(bar, {
-            width: '100%',
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.portfolio-main',
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 0.3
-            }
-        });
-    }
-
-    // Card Entrance Animations - Sequential reveal on page load
-    function setupCardEntranceAnimations() {
-        // Add animate-in class first, then animate
-        infographicCards.forEach((card, index) => {
-            card.classList.add('animate-in');
-
-            gsap.to(card, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                delay: index * 0.2 + 0.3,
-                ease: 'power3.out',
-                onComplete: () => {
-                    card.classList.add('visible');
-                    card.classList.remove('animate-in');
-                }
-            });
-        });
-    }
-
-    // Card Scroll Animations - Scale and glow on scroll
-    function setupCardScrollAnimations() {
-        infographicCards.forEach((card, index) => {
-            ScrollTrigger.create({
-                trigger: card,
-                start: 'top 80%',
-                end: 'bottom 20%',
-                onEnter: () => {
-                    gsap.to(card, {
-                        scale: 1.05,
-                        duration: 0.6,
-                        ease: 'power2.out'
-                    });
-                },
-                onLeave: () => {
-                    gsap.to(card, {
-                        scale: 1,
-                        duration: 0.4,
-                        ease: 'power2.out'
-                    });
-                },
-                onEnterBack: () => {
-                    gsap.to(card, {
-                        scale: 1.05,
-                        duration: 0.6,
-                        ease: 'power2.out'
-                    });
-                },
-                onLeaveBack: () => {
-                    gsap.to(card, {
-                        scale: 1,
-                        duration: 0.4,
-                        ease: 'power2.out'
-                    });
-                }
-            });
-        });
-    }
-
-    // Card Click Interactions - Open modal with project details
-    function setupCardInteractions() {
-        infographicCards.forEach((card) => {
-            // Get project ID from data attribute
-            const projectId = card.getAttribute('data-project');
-
-            // Click handler for entire card
-            card.addEventListener('click', (e) => {
-                // Don't trigger if clicking the button (it has its own handler)
-                if (e.target.closest('.card-btn')) {
-                    return;
-                }
-                openProjectModal(projectId);
-            });
-
-            // Button click handler
-            const button = card.querySelector('.card-btn');
-            if (button) {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openProjectModal(projectId);
-                });
+            // Prevent action if already active or animating
+            if (projectNumber === PortfolioState.currentProject || PortfolioState.isAnimating) {
+                return;
             }
 
-            // Add hover tilt effect
-            setupCardTiltEffect(card);
+            // Update state
+            PortfolioState.currentProject = projectNumber;
 
-            // Keyboard accessibility
-            card.setAttribute('tabindex', '0');
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    openProjectModal(projectId);
-                }
-            });
+            // Update UI
+            updateProjectToggleUI(projectNumber);
+
+            // TODO: Phase 4 - Switch project content with animation
+            console.log('Project switch will be implemented in Phase 4');
         });
-    }
-
-    // 3D Tilt Effect on Hover
-    function setupCardTiltEffect(card) {
-        const cardInner = card.querySelector('.card-inner');
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -5;
-            const rotateY = ((x - centerX) / centerX) * 5;
-
-            gsap.to(cardInner, {
-                rotateX: rotateX,
-                rotateY: rotateY,
-                duration: 0.3,
-                ease: 'power2.out',
-                transformPerspective: 1000
-            });
-        });
-
-        card.addEventListener('mouseleave', () => {
-            gsap.to(cardInner, {
-                rotateX: 0,
-                rotateY: 0,
-                duration: 0.5,
-                ease: 'power2.out'
-            });
-        });
-    }
-
-    // Open Project Modal
-    function openProjectModal(projectId) {
-        const modal = document.getElementById('project-modal');
-        if (!modal) {
-            console.warn('Modal not found');
-            return;
-        }
-
-        // Check if projectModal.js has loaded the function
-        if (typeof window.openModal === 'function') {
-            window.openModal(projectId);
-        } else {
-            console.warn('Modal function not loaded yet');
-        }
-    }
-
-    // Add entrance animation for portfolio header
-    gsap.from('.portfolio-header', {
-        opacity: 0,
-        y: -50,
-        duration: 1,
-        ease: 'power3.out',
-        delay: 0.2
     });
+}
 
-    // Animate container entrance
-    gsap.from('.infographic-container', {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: 'power3.out',
-        delay: 0.4
-    });
+// ====================================
+// ACCORDION LISTENERS
+// ====================================
 
-    // Tech badge hover animations
-    document.querySelectorAll('.tech-badge').forEach(badge => {
-        badge.addEventListener('mouseenter', () => {
-            gsap.to(badge, {
-                scale: 1.1,
-                duration: 0.2,
-                ease: 'back.out(1.7)'
-            });
-        });
+function setupAccordionListeners() {
+    // Header click to expand/collapse
+    DOM.accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const accordionItem = this.closest('.accordion-item');
+            const isActive = accordionItem.classList.contains('active');
 
-        badge.addEventListener('mouseleave', () => {
-            gsap.to(badge, {
-                scale: 1,
-                duration: 0.2,
-                ease: 'power2.out'
-            });
+            console.log(`Accordion header clicked: ${accordionItem.dataset.chapter}, currently active: ${isActive}`);
+
+            // Toggle active state
+            if (isActive) {
+                accordionItem.classList.remove('active');
+                this.setAttribute('aria-expanded', 'false');
+            } else {
+                accordionItem.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+
+            // TODO: Phase 2 - Smooth animation and auto-scroll to page
+            // TODO: Phase 5 - Play accordion toggle sound
         });
     });
 
-    // Tech tag hover animations (for detail cards)
-    document.querySelectorAll('.tech-tag').forEach(tag => {
-        tag.addEventListener('mouseenter', () => {
-            gsap.to(tag, {
-                scale: 1.1,
-                duration: 0.2,
-                ease: 'back.out(1.7)'
-            });
-        });
-
-        tag.addEventListener('mouseleave', () => {
-            gsap.to(tag, {
-                scale: 1,
-                duration: 0.2,
-                ease: 'power2.out'
-            });
-        });
-    });
-
-    // Smooth scroll for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    // Link click to navigate to page
+    DOM.accordionLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+
+            const pageIndex = parseInt(this.dataset.page);
+            console.log(`Accordion link clicked: page ${pageIndex}`);
+
+            // Update active link
+            updateActiveAccordionLink(this);
+
+            // Scroll to page
+            scrollToPage(pageIndex);
+
+            // TODO: Phase 5 - Play page flip sound
         });
     });
+}
 
-    // Detail card reveal animations
-    const detailCards = document.querySelectorAll('.project-detail-card');
-    detailCards.forEach((card, index) => {
-        gsap.from(card, {
-            opacity: 0,
-            y: 50,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: card,
-                start: 'top 80%',
-                end: 'top 50%',
-                toggleActions: 'play none none reverse'
-            }
+function updateActiveAccordionLink(activeLink) {
+    DOM.accordionLinks.forEach(link => {
+        link.classList.remove('active');
+    });
+    activeLink.classList.add('active');
+}
+
+// ====================================
+// PAGE INDICATOR LISTENERS
+// ====================================
+
+function setupPageIndicatorListeners() {
+    DOM.pageDots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            console.log(`Page dot clicked: ${index}`);
+            scrollToPage(index);
+
+            // TODO: Phase 5 - Play page flip sound
         });
     });
+}
 
-    // Console log for debugging
-    console.log('Portfolio infographic card animations initialized');
-    console.log(`Total cards: ${infographicCards.length}`);
-    if (typeof gsap !== 'undefined') {
-        console.log('GSAP version:', gsap.version);
+// ====================================
+// KEYBOARD NAVIGATION
+// ====================================
+
+function setupKeyboardNavigation() {
+    document.addEventListener('keydown', function(e) {
+        // Arrow left - previous page
+        if (e.key === 'ArrowLeft') {
+            navigatePage('prev');
+        }
+
+        // Arrow right - next page
+        if (e.key === 'ArrowRight') {
+            navigatePage('next');
+        }
+
+        // TODO: Phase 5 - M key to toggle sound
+        if (e.key === 'm' || e.key === 'M') {
+            console.log('Sound toggle will be implemented in Phase 5');
+        }
+    });
+}
+
+function navigatePage(direction) {
+    const maxPage = DOM.contentPages.length - 1;
+    let newPage = PortfolioState.currentPage;
+
+    if (direction === 'prev' && newPage > 0) {
+        newPage--;
+    } else if (direction === 'next' && newPage < maxPage) {
+        newPage++;
+    } else {
+        return; // Can't navigate further
+    }
+
+    console.log(`Keyboard navigation: ${direction} to page ${newPage}`);
+    scrollToPage(newPage);
+
+    // TODO: Phase 5 - Play page flip sound
+}
+
+// ====================================
+// SCROLL DETECTION
+// ====================================
+
+function setupScrollDetection() {
+    if (!DOM.horizontalPages) return;
+
+    let scrollTimeout;
+
+    DOM.horizontalPages.addEventListener('scroll', function() {
+        // Clear existing timeout
+        clearTimeout(scrollTimeout);
+
+        // Set new timeout to detect scroll end
+        scrollTimeout = setTimeout(() => {
+            detectCurrentPage();
+        }, 150);
+    });
+}
+
+function detectCurrentPage() {
+    if (!DOM.horizontalPages) return;
+
+    const scrollLeft = DOM.horizontalPages.scrollLeft;
+    const pageWidth = DOM.horizontalPages.clientWidth;
+    const currentPage = Math.round(scrollLeft / pageWidth);
+
+    // Update state if changed
+    if (currentPage !== PortfolioState.currentPage) {
+        PortfolioState.currentPage = currentPage;
+        console.log(`Page changed to: ${currentPage}`);
+
+        // Update page indicators
+        updatePageIndicators(currentPage);
+
+        // TODO: Sync with accordion active link
     }
 }
 
-// Utility: Lerp function for smooth interpolation
-function lerp(start, end, factor) {
-    return start + (end - start) * factor;
+// ====================================
+// PAGE SCROLLING
+// ====================================
+
+function scrollToPage(pageIndex) {
+    if (!DOM.horizontalPages || !DOM.contentPages[pageIndex]) {
+        console.error(`Cannot scroll to page ${pageIndex}`);
+        return;
+    }
+
+    const targetPage = DOM.contentPages[pageIndex];
+    const scrollLeft = targetPage.offsetLeft;
+
+    console.log(`Scrolling to page ${pageIndex} at offset ${scrollLeft}px`);
+
+    // Smooth scroll to target page
+    DOM.horizontalPages.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+    });
+
+    // Update state
+    PortfolioState.currentPage = pageIndex;
+
+    // Update page indicators
+    updatePageIndicators(pageIndex);
 }
 
-// Utility: Map range function
-function mapRange(value, inMin, inMax, outMin, outMax) {
-    return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+// ====================================
+// UTILITY FUNCTIONS
+// ====================================
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
+
+// ====================================
+// CONSOLE INFO
+// ====================================
+
+console.log(`
+╔═══════════════════════════════════════════╗
+║   PORTFOLIO PAGE - PHASE 1 LOADED        ║
+║   Interactive Case Study System          ║
+║   ──────────────────────────────────     ║
+║   Status: Structure Complete ✓           ║
+║   Next: Phase 2 - Accordion Functionality║
+╚═══════════════════════════════════════════╝
+`);

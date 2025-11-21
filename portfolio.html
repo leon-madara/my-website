@@ -26,10 +26,6 @@
     <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/modal.css">
-
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
 <body>
@@ -117,203 +113,225 @@
     </aside>
 
     <!-- Main Portfolio Content -->
-    <main class="portfolio-main" id="portfolio-content">
-        <!-- Portfolio Header Section -->
-        <section class="portfolio-header">
-            <h1 class="portfolio-title kenyan-gradient">My Projects</h1>
-            <p class="portfolio-subtitle">Scroll to explore my journey through innovative solutions</p>
+    <main class="portfolio-container" id="portfolio-content">
+        <!-- Portfolio Header with Kenyan Background -->
+        <header class="portfolio-header">
+            <h1 class="portfolio-title" aria-label="My Portfolio">
+                <span class="letter letter-black">M</span><span class="letter letter-red">y</span><span class="letter letter-green"> </span><span class="letter letter-black">P</span><span class="letter letter-red">o</span><span class="letter letter-green">r</span><span class="letter letter-black">t</span><span class="letter letter-red">f</span><span class="letter letter-green">o</span><span class="letter letter-black">l</span><span class="letter letter-red">i</span><span class="letter letter-green">o</span>
+            </h1>
+        </header>
+
+        <!-- Project Toggle Section -->
+        <section class="project-toggle-section" aria-label="Project selector">
+            <div class="project-toggle-container">
+                <button class="project-toggle-btn" data-project="1" aria-label="View Eastleigh Turf Flow project">
+                    <span class="toggle-number">01</span>
+                    <span class="toggle-label">Eastleigh</span>
+                </button>
+                <button class="project-toggle-btn active" data-project="2" aria-label="View Delivah Dispatch Hub project">
+                    <span class="toggle-number">02</span>
+                    <span class="toggle-label">Delivah</span>
+                </button>
+                <button class="project-toggle-btn" data-project="3" aria-label="View EduManage SMS project">
+                    <span class="toggle-number">03</span>
+                    <span class="toggle-label">EduManage</span>
+                </button>
+            </div>
         </section>
 
-        <!-- 3D Carousel Container -->
-        <div class="carousel-wrapper">
-            <!-- Navigation Buttons -->
-            <button class="carousel-nav-btn prev-btn" aria-label="Previous project" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M15 18l-6-6 6-6" />
-                </svg>
-            </button>
-
-            <button class="carousel-nav-btn next-btn" aria-label="Next project" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 18l6-6-6-6" />
-                </svg>
-            </button>
-
-            <!-- Carousel -->
-            <div class="card-carousel-container">
-                <!-- Card 1: Eastleigh Turf Flow -->
-                <div class="project-card active" data-project="eastleigh" data-index="0">
-                    <div class="card-image-section">
-                        <img src="images/turfgrass.png" alt="Eastleigh Turf Flow" class="card-background-image" />
-                        <div class="card-gradient-overlay"></div>
-                    </div>
-                    <div class="card-content-overlay">
-                        <div class="card-number-badge">01</div>
-                        <button class="card-share-btn" aria-label="Share project">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path
-                                    d="M18 16.08v-3a2 2 0 00-.04-.45l.04-.03L19 9a2 2 0 00-2-2H7a2 2 0 00-2 2c.04 1.24.17 2.29.21 3.4m1.93-2.4c.35-.55.93-1 1.58-1.31l-.3-.2a2.4 2.4 0 011.55-2.79h4c.89.02 1.73.35 2.36.96l1.64 1.64" />
+        <!-- Main Content Area: Accordion + Horizontal Pages -->
+        <section class="content-wrapper">
+            <!-- Left Sidebar: Accordion Navigation -->
+            <aside class="accordion-nav" aria-label="Case study navigation">
+                <nav class="accordion-menu">
+                    <!-- Project Details Section -->
+                    <div class="accordion-item active" data-chapter="details">
+                        <button class="accordion-header" aria-expanded="true">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
                             </svg>
+                            <span class="accordion-title">Project Details</span>
                         </button>
-                        <h3 class="card-title kenyan-gradient">Eastleigh Turf Flow</h3>
-                        <p class="card-subtitle">Interactive Landing Page</p>
-                        <p class="card-tagline">Modern conversion-focused landing page with interactive before/after
-                            slider for professional turf services.</p>
-                        <div class="card-tech-stack">
-                            <span class="tech-badge">TypeScript</span>
-                            <span class="tech-badge">Interactive UI</span>
-                            <span class="tech-badge">GitHub Pages</span>
+                        <div class="accordion-content" style="display: block;">
+                            <a href="#overview" class="accordion-link active" data-page="0">Overview</a>
+                            <a href="#role-timeline" class="accordion-link" data-page="1">Role & Timeline</a>
+                            <a href="#tech-stack" class="accordion-link" data-page="2">Tech Stack</a>
                         </div>
-                        <button class="card-cta-btn" aria-label="View Eastleigh Turf Flow details">
-                            View Details
-                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                        </button>
                     </div>
-                </div>
 
-                <!-- Card 2: Delivah Dispatch -->
-                <div class="project-card" data-project="delivah" data-index="1">
-                    <div class="card-image-section">
-                        <img src="images/delivah.png" alt="Delivah Dispatch Hub" class="card-background-image" />
-                        <div class="card-gradient-overlay"></div>
-                    </div>
-                    <div class="card-content-overlay">
-                        <div class="card-number-badge">02</div>
-                        <button class="card-share-btn" aria-label="Share project">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path
-                                    d="M18 16.08v-3a2 2 0 00-.04-.45l.04-.03L19 9a2 2 0 00-2-2H7a2 2 0 00-2 2c.04 1.24.17 2.29.21 3.4m1.93-2.4c.35-.55.93-1 1.58-1.31l-.3-.2a2.4 2.4 0 011.55-2.79h4c.89.02 1.73.35 2.36.96l1.64 1.64" />
+                    <!-- Problem Section -->
+                    <div class="accordion-item" data-chapter="problem">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
                             </svg>
+                            <span class="accordion-title">Problem</span>
                         </button>
-                        <h3 class="card-title kenyan-gradient">Delivah Dispatch Hub</h3>
-                        <p class="card-subtitle">Freight Logistics Platform</p>
-                        <p class="card-tagline">Enterprise-grade freight logistics management with 3% commission model
-                            and automated operations.</p>
-                        <div class="card-tech-stack">
-                            <span class="tech-badge">React 18</span>
-                            <span class="tech-badge">TypeScript</span>
-                            <span class="tech-badge">Supabase</span>
+                        <div class="accordion-content">
+                            <a href="#challenge" class="accordion-link" data-page="3">The Challenge</a>
+                            <a href="#pain-points" class="accordion-link" data-page="4">Pain Points</a>
                         </div>
-                        <button class="card-cta-btn" aria-label="View Delivah Dispatch Hub details">
-                            View Details
-                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                        </button>
                     </div>
-                </div>
 
-                <!-- Card 3: EduManage SMS -->
-                <div class="project-card" data-project="edumanage" data-index="2">
-                    <div class="card-image-section">
-                        <img src="images/turfgrass.png" alt="EduManage SMS" class="card-background-image" />
-                        <div class="card-gradient-overlay"></div>
-                    </div>
-                    <div class="card-content-overlay">
-                        <div class="card-number-badge">03</div>
-                        <button class="card-share-btn" aria-label="Share project">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path
-                                    d="M18 16.08v-3a2 2 0 00-.04-.45l.04-.03L19 9a2 2 0 00-2-2H7a2 2 0 00-2 2c.04 1.24.17 2.29.21 3.4m1.93-2.4c.35-.55.93-1 1.58-1.31l-.3-.2a2.4 2.4 0 011.55-2.79h4c.89.02 1.73.35 2.36.96l1.64 1.64" />
+                    <!-- Goal Section -->
+                    <div class="accordion-item" data-chapter="goal">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
                             </svg>
+                            <span class="accordion-title">Goal</span>
                         </button>
-                        <h3 class="card-title kenyan-gradient">EduManage SMS</h3>
-                        <p class="card-subtitle">AI-Powered Timetable Generator</p>
-                        <p class="card-tagline">Production-ready AI system reducing timetable generation from 2-3 weeks
-                            to 45 seconds with 100% TSC compliance.</p>
-                        <div class="card-tech-stack">
-                            <span class="tech-badge">React + TypeScript</span>
-                            <span class="tech-badge">FastAPI</span>
-                            <span class="tech-badge">PostgreSQL</span>
+                        <div class="accordion-content">
+                            <a href="#objectives" class="accordion-link" data-page="5">Objectives</a>
+                            <a href="#success-criteria" class="accordion-link" data-page="6">Success Criteria</a>
                         </div>
-                        <button class="card-cta-btn" aria-label="View EduManage SMS details">
-                            View Details
-                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
+                    </div>
+
+                    <!-- Impact Section -->
+                    <div class="accordion-item" data-chapter="impact">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
                             </svg>
+                            <span class="accordion-title">Impact</span>
                         </button>
+                        <div class="accordion-content">
+                            <a href="#metrics" class="accordion-link" data-page="7">Metrics & Results</a>
+                            <a href="#user-feedback" class="accordion-link" data-page="8">User Feedback</a>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Project Detail Cards (Revealed on click) -->
-        <div class="project-details-container">
-            <!-- Eastleigh Turf Flow Details -->
-            <div class="project-detail-card" id="eastleigh-details">
-                <div class="detail-card-content glass-card">
-                    <h2 class="kenyan-gradient">Eastleigh Turf Flow</h2>
-                    <p class="project-category">Interactive Landing Page | TypeScript</p>
-                    <p class="project-description">
-                        Modern, conversion-focused landing page featuring an interactive before/after slider
-                        for professional turf installation services. Built with TypeScript and deployed on GitHub Pages.
-                    </p>
-                    <div class="project-tech-stack">
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">Interactive UI</span>
-                        <span class="tech-tag">Responsive Design</span>
-                        <span class="tech-tag">GitHub Pages</span>
+                    <!-- Early Adoption Section -->
+                    <div class="accordion-item" data-chapter="adoption">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                            <span class="accordion-title">Early Adoption</span>
+                        </button>
+                        <div class="accordion-content">
+                            <a href="#beta-testing" class="accordion-link" data-page="9">Beta Testing</a>
+                            <a href="#iterations" class="accordion-link" data-page="10">Iterations</a>
+                        </div>
                     </div>
-                    <div class="project-links">
-                        <a href="https://leon-madara.github.io/eastleigh-turf-flow/" target="_blank"
-                            class="project-link-btn">Live Demo</a>
-                        <a href="https://github.com/leon-madara/eastleigh-turf-flow/" target="_blank"
-                            class="project-link-btn">View Code</a>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Delivah Dispatch Hub Details -->
-            <div class="project-detail-card" id="delivah-details">
-                <div class="detail-card-content glass-card">
-                    <h2 class="kenyan-gradient">Delivah Dispatch Hub</h2>
-                    <p class="project-category">Freight Logistics Platform | React + TypeScript + Supabase</p>
-                    <p class="project-description">
-                        Enterprise-grade freight logistics management platform with 3% commission model.
-                        Features carrier registration, document management, and automated email notifications.
-                    </p>
-                    <div class="project-tech-stack">
-                        <span class="tech-tag">React 18</span>
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">Supabase</span>
-                        <span class="tech-tag">Tailwind CSS</span>
-                        <span class="tech-tag">shadcn/ui</span>
+                    <!-- Testing Section -->
+                    <div class="accordion-item" data-chapter="testing">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                            <span class="accordion-title">Testing</span>
+                        </button>
+                        <div class="accordion-content">
+                            <a href="#qa-process" class="accordion-link" data-page="11">QA Process</a>
+                            <a href="#usability" class="accordion-link" data-page="12">Usability Testing</a>
+                        </div>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/leon-madara/delivah-dispatch-hub/" target="_blank"
-                            class="project-link-btn">View Code</a>
-                    </div>
-                </div>
-            </div>
 
-            <!-- EduManage SMS Details -->
-            <div class="project-detail-card" id="edumanage-details">
-                <div class="detail-card-content glass-card">
-                    <h2 class="kenyan-gradient">EduManage SMS</h2>
-                    <p class="project-category">AI-Powered Timetable Generator | React + FastAPI + PostgreSQL</p>
-                    <p class="project-description">
-                        Production-ready automated timetable generation system for Kenyan CBC schools.
-                        Reduces scheduling from 2-3 weeks to 45 seconds with 100% TSC compliance.
-                    </p>
-                    <div class="project-tech-stack">
-                        <span class="tech-tag">React + TypeScript</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">AI Algorithm</span>
-                        <span class="tech-tag">Docker</span>
+                    <!-- Final Designs Section -->
+                    <div class="accordion-item" data-chapter="designs">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                            <span class="accordion-title">Final Designs</span>
+                        </button>
+                        <div class="accordion-content">
+                            <a href="#ui-showcase" class="accordion-link" data-page="13">UI Showcase</a>
+                            <a href="#design-system" class="accordion-link" data-page="14">Design System</a>
+                        </div>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/leon-madara/school-management-system/" target="_blank"
-                            class="project-link-btn">View Code</a>
+
+                    <!-- Development Section -->
+                    <div class="accordion-item" data-chapter="development">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                            <span class="accordion-title">Development</span>
+                        </button>
+                        <div class="accordion-content">
+                            <a href="#architecture" class="accordion-link" data-page="15">Architecture</a>
+                            <a href="#implementation" class="accordion-link" data-page="16">Implementation</a>
+                        </div>
                     </div>
+
+                    <!-- Future Steps Section -->
+                    <div class="accordion-item" data-chapter="future">
+                        <button class="accordion-header" aria-expanded="false">
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                            <span class="accordion-title">Future Steps</span>
+                        </button>
+                        <div class="accordion-content">
+                            <a href="#roadmap" class="accordion-link" data-page="17">Roadmap</a>
+                            <a href="#enhancements" class="accordion-link" data-page="18">Planned Enhancements</a>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Right Content Area: Horizontal Scrolling Pages -->
+            <div class="content-area">
+                <div class="horizontal-pages" id="horizontal-pages">
+                    <!-- Pages will be dynamically loaded based on active project -->
+                    <!-- Page 0: Overview -->
+                    <div class="content-page" id="overview" data-page="0">
+                        <h2 class="page-title kenyan-gradient">Delivah Dispatch Hub</h2>
+                        <p class="page-subtitle">Freight Logistics Platform</p>
+                        <div class="page-content">
+                            <p>Enterprise-grade freight logistics management platform revolutionizing cargo dispatch operations in Kenya. Built with React 18, TypeScript, and Supabase.</p>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Timeline</span>
+                                    <span class="info-value">3 months</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Role</span>
+                                    <span class="info-value">Full Stack Developer</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Status</span>
+                                    <span class="info-value">Production</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More pages will be added dynamically -->
+                    <div class="content-page" id="role-timeline" data-page="1">
+                        <h2 class="page-title">Role & Timeline</h2>
+                        <div class="page-content">
+                            <p>Content for Role & Timeline...</p>
+                        </div>
+                    </div>
+
+                    <div class="content-page" id="tech-stack" data-page="2">
+                        <h2 class="page-title">Tech Stack</h2>
+                        <div class="page-content">
+                            <p>Content for Tech Stack...</p>
+                        </div>
+                    </div>
+
+                    <!-- Additional pages 3-18 would follow similar structure -->
+                </div>
+
+                <!-- Page Indicators -->
+                <div class="page-indicators" aria-label="Page navigation">
+                    <button class="page-dot active" data-page="0" aria-label="Go to page 1"></button>
+                    <button class="page-dot" data-page="1" aria-label="Go to page 2"></button>
+                    <button class="page-dot" data-page="2" aria-label="Go to page 3"></button>
+                    <button class="page-dot" data-page="3" aria-label="Go to page 4"></button>
+                    <button class="page-dot" data-page="4" aria-label="Go to page 5"></button>
+                    <button class="page-dot" data-page="5" aria-label="Go to page 6"></button>
+                    <button class="page-dot" data-page="6" aria-label="Go to page 7"></button>
+                    <button class="page-dot" data-page="7" aria-label="Go to page 8"></button>
+                    <button class="page-dot" data-page="8" aria-label="Go to page 9"></button>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -326,131 +344,21 @@
     <!-- Dotted Background Pattern -->
     <div class="background-pattern" aria-hidden="true" role="presentation"></div>
 
-    <!-- Kenyan Programming Elements -->
+    <!-- Kenyan Programming Elements (Blurry Symbols) -->
     <div class="kenyan-code-elements" aria-hidden="true" role="presentation">
-        <div class="code-element code-element-1" aria-hidden="true">&lt;/&gt;</div>
-        <div class="code-element code-element-2" aria-hidden="true">{ }</div>
-        <div class="code-element code-element-3" aria-hidden="true">[ ]</div>
-        <div class="code-element code-element-4" aria-hidden="true">( )</div>
-        <div class="code-element code-element-5" aria-hidden="true">=&gt;</div>
-        <div class="code-element code-element-6" aria-hidden="true">&amp;&amp;</div>
+        <!-- Left Side Symbols -->
+        <div class="code-element code-element-left-1" aria-hidden="true">&lt;/&gt;</div>
+        <div class="code-element code-element-left-2" aria-hidden="true">{ }</div>
+        <div class="code-element code-element-left-3" aria-hidden="true">fn()</div>
+
+        <!-- Right Side Symbols -->
+        <div class="code-element code-element-right-1" aria-hidden="true">=&gt;</div>
+        <div class="code-element code-element-right-2" aria-hidden="true">[ ]</div>
+        <div class="code-element code-element-right-3" aria-hidden="true">&amp;&amp;</div>
     </div>
-
-    <!-- Project Detail Modal -->
-    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div class="modal-overlay"></div>
-        <div class="modal-container glass-modal">
-            <!-- Close Button -->
-            <button class="modal-close" aria-label="Close modal">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-            </button>
-
-            <!-- Hero Section -->
-            <div class="case-study-hero" id="case-study-hero">
-                <div class="hero-badge" id="hero-badge"></div>
-                <h2 class="modal-title" id="modal-title"></h2>
-                <p class="hero-role" id="hero-role"></p>
-                <p class="hero-client" id="hero-client"></p>
-                <div class="hero-meta">
-                    <span class="meta-item" id="hero-duration"></span>
-                    <span class="meta-item" id="hero-status"></span>
-                </div>
-            </div>
-
-            <!-- Modal Content Scrollable Area -->
-            <div class="case-study-content">
-                <!-- Challenge Section -->
-                <section class="case-study-section" data-section="challenge">
-                    <h3 class="section-title">Challenge</h3>
-                    <ul class="challenge-list" id="challenge-list"></ul>
-                </section>
-
-                <!-- Solution Section -->
-                <section class="case-study-section" data-section="solution">
-                    <h3 class="section-title">Solution</h3>
-                    <p class="solution-description" id="solution-description"></p>
-                    <ul class="benefits-list" id="benefits-list"></ul>
-                </section>
-
-                <!-- Features Table -->
-                <section class="case-study-section" data-section="features">
-                    <h3 class="section-title">Key Features</h3>
-                    <div class="features-table" id="features-table"></div>
-                </section>
-
-                <!-- Research Section -->
-                <section class="case-study-section" data-section="research">
-                    <h3 class="section-title">Research & Planning</h3>
-                    <ul class="research-list" id="research-list"></ul>
-                </section>
-
-                <!-- Technical Architecture Section -->
-                <section class="case-study-section" data-section="technical">
-                    <h3 class="section-title">Technical Architecture</h3>
-                    <div class="tech-stack" id="tech-stack"></div>
-                    <div class="architecture-list" id="architecture-list"></div>
-                </section>
-
-                <!-- Results Section -->
-                <section class="case-study-section" data-section="results">
-                    <h3 class="section-title">Results</h3>
-                    <ul class="results-list" id="results-list"></ul>
-                </section>
-
-                <!-- Design Principles Section -->
-                <section class="case-study-section" data-section="principles">
-                    <h3 class="section-title">Design Principles</h3>
-                    <ul class="principles-list" id="principles-list"></ul>
-                </section>
-
-                <!-- Future Enhancements Section -->
-                <section class="case-study-section" data-section="future">
-                    <h3 class="section-title">Future Enhancements</h3>
-                    <ul class="future-list" id="future-list"></ul>
-                </section>
-
-                <!-- Learnings Section -->
-                <section class="case-study-section" data-section="learnings">
-                    <h3 class="section-title">What I Learned</h3>
-                    <ul class="learnings-list" id="learnings-list"></ul>
-                </section>
-
-                <!-- CTA Section -->
-                <section class="case-study-cta">
-                    <h3 class="cta-title">Interested in similar results?</h3>
-                    <p class="cta-description">Let's work together to create something amazing.</p>
-                    <button class="cta-button" id="contact-button">Get In Touch</button>
-                </section>
-            </div>
-
-            <!-- Modal Footer with Links -->
-            <div class="modal-footer">
-                <div class="modal-links" id="modal-links"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- GSAP Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <!-- Project Data -->
-    <script src="js/projectData.js"></script>script>
-
-    <!-- Three.js Profile Scene -->.js Profile Scene -->
-    <script src="js/profileScene.js"></script>rc="js/profileScene.js"></script>
 
     <!-- Portfolio JavaScript -->
-    <script src="js/portfolio.js"></script>script>
-
-    <!-- Modal JavaScript --> -->
-    <script src="js/projectModal.js"></script>
-</body>
-<!-- Modal JavaScript -->
-
-</html>ript src="js/projectModal.js"></script>
+    <script src="js/portfolio.js"></script>
 </body>
 
 </html>
