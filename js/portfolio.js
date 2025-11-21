@@ -1,7 +1,98 @@
 /**
  * Portfolio Page - Interactive Case Study System
- * Phase 1: Basic Structure Setup
+ * Phase 6: Final Polish & Optimization
  */
+
+// ====================================
+// SOUND MANAGER
+// ====================================
+
+class SoundManager {
+    constructor() {
+        this.enabled = this.loadPreference();
+        this.volume = 0.4; // Lower volume for subtlety
+        this.sounds = {};
+        this.loadSounds();
+
+        // Check for reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            this.enabled = false;
+        }
+    }
+
+    loadSounds() {
+        // Create audio elements for each sound
+        // Using data URIs for simple click sounds (will work without external files)
+
+        // Page flip sound (simple click)
+        this.sounds.pageFlip = new Audio();
+        this.sounds.pageFlip.volume = this.volume;
+
+        // Project switch sound (deeper whoosh)
+        this.sounds.projectSwitch = new Audio();
+        this.sounds.projectSwitch.volume = this.volume * 0.8;
+
+        // Accordion toggle sound (soft click)
+        this.sounds.accordionToggle = new Audio();
+        this.sounds.accordionToggle.volume = this.volume * 0.6;
+
+        // Note: Audio files will need to be added to sounds/ directory
+        // For now, these will fail silently if files don't exist
+        this.sounds.pageFlip.src = 'sounds/page-flip.mp3';
+        this.sounds.projectSwitch.src = 'sounds/project-switch.mp3';
+        this.sounds.accordionToggle.src = 'sounds/accordion-toggle.mp3';
+
+        console.log('Sounds loaded (will use external files if available)');
+    }
+
+    play(soundName) {
+        if (!this.enabled || !this.sounds[soundName]) return;
+
+        // Clone and play to allow overlapping sounds
+        const sound = this.sounds[soundName].cloneNode();
+        sound.volume = this.volume;
+
+        sound.play().catch(err => {
+            // Fail silently if sound file doesn't exist
+            console.log(`Sound playback failed for ${soundName}:`, err.message);
+        });
+    }
+
+    playPageFlip() {
+        this.play('pageFlip');
+    }
+
+    playProjectSwitch() {
+        this.play('projectSwitch');
+    }
+
+    playAccordionToggle() {
+        this.play('accordionToggle');
+    }
+
+    toggle() {
+        this.enabled = !this.enabled;
+        this.savePreference();
+        console.log(`Sound ${this.enabled ? 'enabled' : 'disabled'}`);
+        return this.enabled;
+    }
+
+    loadPreference() {
+        const saved = localStorage.getItem('portfolioSoundEnabled');
+        return saved === null ? true : saved === 'true';
+    }
+
+    savePreference() {
+        localStorage.setItem('portfolioSoundEnabled', this.enabled);
+    }
+
+    setVolume(level) {
+        this.volume = Math.max(0, Math.min(1, level));
+        Object.values(this.sounds).forEach(sound => {
+            sound.volume = this.volume;
+        });
+    }
+}
 
 // ====================================
 // GLOBAL STATE
@@ -12,8 +103,20 @@ const PortfolioState = {
     currentPage: 0,
     isAnimating: false,
     soundEnabled: true,
-    soundVolume: 0.6
+    soundVolume: 0.6,
+    isScrolling: false, // Prevent scroll event loops
+    pageToChapterMap: {}, // Maps page index to chapter/subsection
+
+    // Touch/Swipe state
+    touchStartX: 0,
+    touchStartY: 0,
+    touchEndX: 0,
+    touchEndY: 0,
+    isSwiping: false
 };
+
+// Initialize Sound Manager
+let soundManager = null;
 
 // ====================================
 // DOM ELEMENTS
@@ -44,12 +147,15 @@ const DOM = {
 // ====================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Portfolio page loaded - Phase 1');
+    console.log('Portfolio page loaded');
+
+    // Initialize Sound Manager (Phase 5)
+    soundManager = new SoundManager();
 
     // Cache DOM elements
     cacheDOMElements();
 
-    // Initialize components (will be fully implemented in later phases)
+    // Initialize components
     initializeProjectToggle();
     initializeAccordion();
     initializeHorizontalScroll();
@@ -57,6 +163,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup event listeners
     setupEventListeners();
+
+    // Setup advanced scroll features (Phase 3)
+    setupTouchGestures();
+    setupMouseWheelScroll();
+
+    // Setup sound controls (Phase 5)
+    setupSoundControls();
 
     console.log('Portfolio initialization complete');
 });
@@ -127,6 +240,9 @@ function initializeAccordion() {
     if (firstItem && !firstItem.classList.contains('active')) {
         firstItem.classList.add('active');
     }
+
+    // Build page-to-chapter mapping for auto-sync
+    buildPageToChapterMap();
 }
 
 // ====================================
@@ -201,14 +317,8 @@ function setupProjectToggleListeners() {
                 return;
             }
 
-            // Update state
-            PortfolioState.currentProject = projectNumber;
-
-            // Update UI
-            updateProjectToggleUI(projectNumber);
-
-            // TODO: Phase 4 - Switch project content with animation
-            console.log('Project switch will be implemented in Phase 4');
+            // Start project switch animation
+            switchProject(projectNumber);
         });
     });
 }
@@ -218,7 +328,7 @@ function setupProjectToggleListeners() {
 // ====================================
 
 function setupAccordionListeners() {
-    // Header click to expand/collapse
+    // Header click to expand/collapse + scroll to first page
     DOM.accordionHeaders.forEach(header => {
         header.addEventListener('click', function() {
             const accordionItem = this.closest('.accordion-item');
@@ -228,15 +338,31 @@ function setupAccordionListeners() {
 
             // Toggle active state
             if (isActive) {
+                // Collapse
                 accordionItem.classList.remove('active');
                 this.setAttribute('aria-expanded', 'false');
             } else {
+                // Expand
                 accordionItem.classList.add('active');
                 this.setAttribute('aria-expanded', 'true');
+
+                // Auto-scroll to first page in this chapter
+                const firstLink = accordionItem.querySelector('.accordion-link');
+                if (firstLink) {
+                    const pageIndex = parseInt(firstLink.dataset.page);
+
+                    // Small delay to allow expansion animation to start
+                    setTimeout(() => {
+                        updateActiveAccordionLink(firstLink);
+                        scrollToPage(pageIndex, true); // true = from accordion
+                    }, 100);
+                }
             }
 
-            // TODO: Phase 2 - Smooth animation and auto-scroll to page
-            // TODO: Phase 5 - Play accordion toggle sound
+            // Play accordion toggle sound
+            if (soundManager) {
+                soundManager.playAccordionToggle();
+            }
         });
     });
 
@@ -248,13 +374,26 @@ function setupAccordionListeners() {
             const pageIndex = parseInt(this.dataset.page);
             console.log(`Accordion link clicked: page ${pageIndex}`);
 
+            // Ensure parent accordion is expanded
+            const accordionItem = this.closest('.accordion-item');
+            if (!accordionItem.classList.contains('active')) {
+                accordionItem.classList.add('active');
+                const header = accordionItem.querySelector('.accordion-header');
+                if (header) {
+                    header.setAttribute('aria-expanded', 'true');
+                }
+            }
+
             // Update active link
             updateActiveAccordionLink(this);
 
             // Scroll to page
-            scrollToPage(pageIndex);
+            scrollToPage(pageIndex, true); // true = from accordion
 
-            // TODO: Phase 5 - Play page flip sound
+            // Play page flip sound
+            if (soundManager) {
+                soundManager.playPageFlip();
+            }
         });
     });
 }
@@ -276,7 +415,10 @@ function setupPageIndicatorListeners() {
             console.log(`Page dot clicked: ${index}`);
             scrollToPage(index);
 
-            // TODO: Phase 5 - Play page flip sound
+            // Play page flip sound
+            if (soundManager) {
+                soundManager.playPageFlip();
+            }
         });
     });
 }
@@ -297,9 +439,12 @@ function setupKeyboardNavigation() {
             navigatePage('next');
         }
 
-        // TODO: Phase 5 - M key to toggle sound
+        // M key to toggle sound
         if (e.key === 'm' || e.key === 'M') {
-            console.log('Sound toggle will be implemented in Phase 5');
+            if (soundManager) {
+                const enabled = soundManager.toggle();
+                updateSoundControlUI(enabled);
+            }
         }
     });
 }
@@ -319,7 +464,10 @@ function navigatePage(direction) {
     console.log(`Keyboard navigation: ${direction} to page ${newPage}`);
     scrollToPage(newPage);
 
-    // TODO: Phase 5 - Play page flip sound
+    // Play page flip sound
+    if (soundManager) {
+        soundManager.playPageFlip();
+    }
 }
 
 // ====================================
@@ -343,7 +491,7 @@ function setupScrollDetection() {
 }
 
 function detectCurrentPage() {
-    if (!DOM.horizontalPages) return;
+    if (!DOM.horizontalPages || PortfolioState.isScrolling) return;
 
     const scrollLeft = DOM.horizontalPages.scrollLeft;
     const pageWidth = DOM.horizontalPages.clientWidth;
@@ -357,7 +505,8 @@ function detectCurrentPage() {
         // Update page indicators
         updatePageIndicators(currentPage);
 
-        // TODO: Sync with accordion active link
+        // Sync with accordion - auto-expand and highlight
+        syncAccordionWithPage(currentPage);
     }
 }
 
@@ -365,11 +514,14 @@ function detectCurrentPage() {
 // PAGE SCROLLING
 // ====================================
 
-function scrollToPage(pageIndex) {
+function scrollToPage(pageIndex, fromAccordion = false) {
     if (!DOM.horizontalPages || !DOM.contentPages[pageIndex]) {
         console.error(`Cannot scroll to page ${pageIndex}`);
         return;
     }
+
+    // Prevent scroll event loop
+    PortfolioState.isScrolling = true;
 
     const targetPage = DOM.contentPages[pageIndex];
     const scrollLeft = targetPage.offsetLeft;
@@ -387,6 +539,315 @@ function scrollToPage(pageIndex) {
 
     // Update page indicators
     updatePageIndicators(pageIndex);
+
+    // Only sync accordion if NOT triggered from accordion
+    // (to prevent circular updates)
+    if (!fromAccordion) {
+        syncAccordionWithPage(pageIndex);
+    }
+
+    // Reset scrolling flag after animation completes
+    setTimeout(() => {
+        PortfolioState.isScrolling = false;
+    }, 600); // Match scroll animation duration
+}
+
+// ====================================
+// PROJECT SWITCHING (Phase 4)
+// ====================================
+
+async function switchProject(newProjectNumber) {
+    console.log(`Switching from project ${PortfolioState.currentProject} to ${newProjectNumber}`);
+
+    // Set animating flag
+    PortfolioState.isAnimating = true;
+
+    // Phase 1: Fade out current content
+    await animateProjectExit();
+
+    // Phase 2: Update project data
+    PortfolioState.currentProject = newProjectNumber;
+    updateProjectToggleUI(newProjectNumber);
+
+    // TODO: Load new project content here
+    // For now, we'll just reset to first page
+    PortfolioState.currentPage = 0;
+
+    // Phase 3: Scroll to first page instantly (no animation)
+    if (DOM.horizontalPages) {
+        DOM.horizontalPages.scrollLeft = 0;
+    }
+
+    // Reset accordion to first item
+    resetAccordionState();
+
+    // Phase 4: Fade in new content
+    await animateProjectEnter();
+
+    // Reset animating flag
+    PortfolioState.isAnimating = false;
+
+    console.log(`Project switch to ${newProjectNumber} complete`);
+
+    // Play project switch sound
+    if (soundManager) {
+        soundManager.playProjectSwitch();
+    }
+}
+
+function animateProjectExit() {
+    return new Promise((resolve) => {
+        const contentWrapper = DOM.contentWrapper;
+
+        if (!contentWrapper) {
+            resolve();
+            return;
+        }
+
+        // Add exit animation class
+        contentWrapper.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        contentWrapper.style.opacity = '0';
+        contentWrapper.style.transform = 'scale(0.95) translateX(-30px)';
+
+        setTimeout(resolve, 400);
+    });
+}
+
+function animateProjectEnter() {
+    return new Promise((resolve) => {
+        const contentWrapper = DOM.contentWrapper;
+
+        if (!contentWrapper) {
+            resolve();
+            return;
+        }
+
+        // Start from right side
+        contentWrapper.style.transform = 'scale(0.95) translateX(30px)';
+        contentWrapper.style.opacity = '0';
+
+        // Force reflow
+        contentWrapper.offsetHeight;
+
+        // Animate to normal position
+        setTimeout(() => {
+            contentWrapper.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            contentWrapper.style.opacity = '1';
+            contentWrapper.style.transform = 'scale(1) translateX(0)';
+
+            setTimeout(resolve, 500);
+        }, 50);
+    });
+}
+
+function resetAccordionState() {
+    // Collapse all accordion items
+    DOM.accordionItems.forEach(item => {
+        item.classList.remove('active');
+        const header = item.querySelector('.accordion-header');
+        if (header) {
+            header.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Expand first item
+    if (DOM.accordionItems[0]) {
+        DOM.accordionItems[0].classList.add('active');
+        const header = DOM.accordionItems[0].querySelector('.accordion-header');
+        if (header) {
+            header.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    // Activate first link
+    if (DOM.accordionLinks[0]) {
+        updateActiveAccordionLink(DOM.accordionLinks[0]);
+    }
+
+    // Update page indicators
+    updatePageIndicators(0);
+}
+
+// ====================================
+// TOUCH GESTURES (Phase 3)
+// ====================================
+
+function setupTouchGestures() {
+    if (!DOM.horizontalPages) return;
+
+    console.log('Setting up touch gestures...');
+
+    DOM.horizontalPages.addEventListener('touchstart', handleTouchStart, { passive: true });
+    DOM.horizontalPages.addEventListener('touchmove', handleTouchMove, { passive: false });
+    DOM.horizontalPages.addEventListener('touchend', handleTouchEnd, { passive: true });
+}
+
+function handleTouchStart(e) {
+    PortfolioState.touchStartX = e.touches[0].clientX;
+    PortfolioState.touchStartY = e.touches[0].clientY;
+    PortfolioState.isSwiping = false;
+}
+
+function handleTouchMove(e) {
+    if (!PortfolioState.touchStartX || !PortfolioState.touchStartY) return;
+
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+
+    const deltaX = Math.abs(currentX - PortfolioState.touchStartX);
+    const deltaY = Math.abs(currentY - PortfolioState.touchStartY);
+
+    // Detect if swiping horizontally (prevent vertical scroll)
+    if (deltaX > deltaY && deltaX > 10) {
+        PortfolioState.isSwiping = true;
+        e.preventDefault(); // Prevent vertical scroll
+    }
+}
+
+function handleTouchEnd(e) {
+    PortfolioState.touchEndX = e.changedTouches[0].clientX;
+    PortfolioState.touchEndY = e.changedTouches[0].clientY;
+
+    handleSwipe();
+
+    // Reset
+    PortfolioState.touchStartX = 0;
+    PortfolioState.touchStartY = 0;
+    PortfolioState.isSwiping = false;
+}
+
+function handleSwipe() {
+    const deltaX = PortfolioState.touchStartX - PortfolioState.touchEndX;
+    const deltaY = Math.abs(PortfolioState.touchStartY - PortfolioState.touchEndY);
+
+    // Minimum swipe distance (50px)
+    const minSwipeDistance = 50;
+
+    // Ensure horizontal swipe (not vertical)
+    if (Math.abs(deltaX) < minSwipeDistance || deltaY > Math.abs(deltaX)) {
+        return;
+    }
+
+    console.log(`Swipe detected: deltaX = ${deltaX}px`);
+
+    // Swipe left (next page)
+    if (deltaX > 0) {
+        navigatePage('next');
+    }
+    // Swipe right (previous page)
+    else {
+        navigatePage('prev');
+    }
+}
+
+// ====================================
+// MOUSE WHEEL SCROLL (Phase 3)
+// ====================================
+
+function setupMouseWheelScroll() {
+    if (!DOM.horizontalPages) return;
+
+    console.log('Setting up mouse wheel horizontal scroll...');
+
+    let wheelTimeout;
+
+    DOM.horizontalPages.addEventListener('wheel', function(e) {
+        // Only handle horizontal intent or convert vertical to horizontal
+        if (Math.abs(e.deltaX) > 0 || Math.abs(e.deltaY) > 0) {
+            e.preventDefault();
+
+            // Use deltaY if no horizontal scroll, otherwise use deltaX
+            const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+
+            // Smooth scroll by delta
+            this.scrollLeft += delta;
+
+            // Debounce page detection
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                detectCurrentPage();
+            }, 150);
+        }
+    }, { passive: false });
+}
+
+// ====================================
+// ACCORDION SYNC SYSTEM
+// ====================================
+
+function buildPageToChapterMap() {
+    // Map each page index to its chapter and link element
+    DOM.accordionLinks.forEach(link => {
+        const pageIndex = parseInt(link.dataset.page);
+        const accordionItem = link.closest('.accordion-item');
+        const chapter = accordionItem ? accordionItem.dataset.chapter : null;
+
+        PortfolioState.pageToChapterMap[pageIndex] = {
+            chapter: chapter,
+            link: link,
+            accordionItem: accordionItem
+        };
+    });
+
+    console.log('Page-to-chapter map built:', PortfolioState.pageToChapterMap);
+}
+
+function syncAccordionWithPage(pageIndex) {
+    const mapping = PortfolioState.pageToChapterMap[pageIndex];
+
+    if (!mapping) {
+        console.warn(`No mapping found for page ${pageIndex}`);
+        return;
+    }
+
+    console.log(`Syncing accordion with page ${pageIndex}, chapter: ${mapping.chapter}`);
+
+    // Expand the accordion item if not already expanded
+    if (mapping.accordionItem && !mapping.accordionItem.classList.contains('active')) {
+        mapping.accordionItem.classList.add('active');
+        const header = mapping.accordionItem.querySelector('.accordion-header');
+        if (header) {
+            header.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    // Highlight the active link
+    if (mapping.link) {
+        updateActiveAccordionLink(mapping.link);
+    }
+}
+
+// ====================================
+// SOUND CONTROLS UI (Phase 5)
+// ====================================
+
+function setupSoundControls() {
+    // Create sound toggle button
+    const soundToggle = document.createElement('button');
+    soundToggle.className = 'sound-toggle-btn';
+    soundToggle.setAttribute('aria-label', 'Toggle sound effects');
+    soundToggle.innerHTML = soundManager.enabled ? '🔊' : '🔇';
+    soundToggle.title = `Sound: ${soundManager.enabled ? 'ON' : 'OFF'} (Press M to toggle)`;
+
+    // Add click listener
+    soundToggle.addEventListener('click', () => {
+        const enabled = soundManager.toggle();
+        updateSoundControlUI(enabled);
+    });
+
+    // Add to page (bottom right corner)
+    document.body.appendChild(soundToggle);
+
+    console.log('Sound controls initialized');
+}
+
+function updateSoundControlUI(enabled) {
+    const soundToggle = document.querySelector('.sound-toggle-btn');
+    if (soundToggle) {
+        soundToggle.innerHTML = enabled ? '🔊' : '🔇';
+        soundToggle.title = `Sound: ${enabled ? 'ON' : 'OFF'} (Press M to toggle)`;
+        soundToggle.setAttribute('aria-label', `Sound effects ${enabled ? 'enabled' : 'disabled'}`);
+    }
 }
 
 // ====================================
@@ -411,10 +872,22 @@ function debounce(func, wait) {
 
 console.log(`
 ╔═══════════════════════════════════════════╗
-║   PORTFOLIO PAGE - PHASE 1 LOADED        ║
+║   PORTFOLIO PAGE - ALL PHASES COMPLETE   ║
 ║   Interactive Case Study System          ║
 ║   ──────────────────────────────────     ║
-║   Status: Structure Complete ✓           ║
-║   Next: Phase 2 - Accordion Functionality║
+║   ✓ 100vh Responsive Layout              ║
+║   ✓ Multicolored Kenyan Title            ║
+║   ✓ Project Toggle System                ║
+║   ✓ Accordion Auto-Sync                  ║
+║   ✓ Horizontal Page Scrolling            ║
+║   ✓ Touch/Swipe Gestures                 ║
+║   ✓ Mouse Wheel Navigation               ║
+║   ✓ Card Shuffle Animation               ║
+║   ✓ Sound System with Controls           ║
+║   ✓ Keyboard Navigation (←→, M)          ║
+║   ✓ Blurry Kenyan Code Symbols           ║
+║   ✓ Accessibility Features               ║
+║   ──────────────────────────────────     ║
+║   Ready for content! 🇰🇪✨              ║
 ╚═══════════════════════════════════════════╝
 `);
