@@ -887,7 +887,363 @@ console.log(`
 ║   ✓ Keyboard Navigation (←→, M)          ║
 ║   ✓ Blurry Kenyan Code Symbols           ║
 ║   ✓ Accessibility Features               ║
+║   ✓ GSAP ScrollTrigger Animations        ║
 ║   ──────────────────────────────────     ║
 ║   Ready for content! 🇰🇪✨              ║
 ╚═══════════════════════════════════════════╝
 `);
+
+// ====================================
+// PHASE 7: GSAP SCROLL-TRIGGERED ANIMATIONS
+// ====================================
+
+/**
+ * Initialize GSAP and ScrollTrigger
+ * Enhanced polish with scroll-triggered animations
+ */
+function initGSAPAnimations() {
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        console.log('⚠️ Reduced motion preference detected - GSAP animations disabled');
+        return;
+    }
+
+    // Check if GSAP is available
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('⚠️ GSAP or ScrollTrigger not loaded');
+        return;
+    }
+
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    console.log('✨ Initializing GSAP ScrollTrigger animations...');
+
+    // ====================================
+    // 1. PORTFOLIO TITLE LETTERS - Stagger Animation
+    // ====================================
+    const titleLetters = document.querySelectorAll('.portfolio-title .letter');
+
+    if (titleLetters.length > 0) {
+        gsap.from(titleLetters, {
+            duration: 0.8,
+            opacity: 0,
+            y: -30,
+            rotationX: -90,
+            stagger: {
+                each: 0.05,
+                from: "start",
+                ease: "power2.out"
+            },
+            ease: "back.out(1.7)",
+            delay: 0.3
+        });
+
+        // Add subtle floating animation
+        gsap.to(titleLetters, {
+            y: -5,
+            duration: 2,
+            stagger: {
+                each: 0.1,
+                repeat: -1,
+                yoyo: true
+            },
+            ease: "sine.inOut"
+        });
+    }
+
+    // ====================================
+    // 2. PROJECT TOGGLE BUTTONS - Entrance Animation
+    // ====================================
+    const projectToggles = document.querySelectorAll('.project-toggle-btn');
+
+    if (projectToggles.length > 0) {
+        gsap.from(projectToggles, {
+            duration: 0.6,
+            opacity: 0,
+            scale: 0.8,
+            y: 20,
+            stagger: 0.1,
+            ease: "back.out(1.5)",
+            delay: 0.8
+        });
+
+        // Add hover scale effect
+        projectToggles.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                if (!prefersReducedMotion) {
+                    gsap.to(btn, {
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                if (!prefersReducedMotion) {
+                    gsap.to(btn, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+    }
+
+    // ====================================
+    // 3. ACCORDION ITEMS - Sequential Reveal
+    // ====================================
+    const accordionItems = document.querySelectorAll('.accordion-item');
+
+    if (accordionItems.length > 0) {
+        gsap.from(accordionItems, {
+            duration: 0.5,
+            opacity: 0,
+            x: -30,
+            stagger: 0.08,
+            ease: "power2.out",
+            delay: 1.2
+        });
+
+        // Accordion expand/collapse animation enhancement
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            const content = item.querySelector('.accordion-content');
+            const icon = item.querySelector('.accordion-icon');
+
+            if (header) {
+                header.addEventListener('click', () => {
+                    const isExpanded = item.classList.contains('active');
+
+                    if (!prefersReducedMotion) {
+                        // Icon rotation
+                        gsap.to(icon, {
+                            rotation: isExpanded ? 90 : 0,
+                            duration: 0.3,
+                            ease: "power2.inOut"
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    // ====================================
+    // 4. CONTENT PAGES - Fade In on Scroll
+    // ====================================
+    const contentPages = document.querySelectorAll('.content-page');
+
+    if (contentPages.length > 0) {
+        contentPages.forEach((page, index) => {
+            gsap.from(page, {
+                scrollTrigger: {
+                    trigger: page,
+                    containerAnimation: null,
+                    start: "left 80%",
+                    end: "left 20%",
+                    toggleActions: "play none none reverse",
+                    // markers: true // Enable for debugging
+                },
+                opacity: 0,
+                x: 50,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+
+            // Page title animation
+            const pageTitle = page.querySelector('.page-title');
+            if (pageTitle) {
+                gsap.from(pageTitle, {
+                    scrollTrigger: {
+                        trigger: page,
+                        containerAnimation: null,
+                        start: "left 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    delay: 0.2
+                });
+            }
+
+            // Page content animation
+            const pageContent = page.querySelector('.page-content');
+            if (pageContent) {
+                gsap.from(pageContent, {
+                    scrollTrigger: {
+                        trigger: page,
+                        containerAnimation: null,
+                        start: "left 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    delay: 0.4
+                });
+            }
+        });
+    }
+
+    // ====================================
+    // 5. CODE SYMBOLS - Parallax Float Effect
+    // ====================================
+    const codeElements = document.querySelectorAll('.code-element');
+
+    if (codeElements.length > 0) {
+        codeElements.forEach((element, index) => {
+            // Initial entrance
+            gsap.from(element, {
+                opacity: 0,
+                scale: 0.5,
+                duration: 1,
+                ease: "power2.out",
+                delay: 1.5 + (index * 0.1)
+            });
+
+            // Continuous floating parallax
+            const speed = 0.5 + (index % 3) * 0.3;
+            const distance = 20 + (index % 4) * 10;
+
+            gsap.to(element, {
+                y: `+=${distance}`,
+                x: `+=${distance * 0.5}`,
+                rotation: index % 2 === 0 ? 5 : -5,
+                duration: 3 + speed,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: index * 0.2
+            });
+
+            // Add subtle scale pulse
+            gsap.to(element, {
+                scale: 1.1,
+                duration: 2 + (index % 3) * 0.5,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: index * 0.15
+            });
+        });
+    }
+
+    // ====================================
+    // 6. PAGE INDICATORS - Smooth Reveal
+    // ====================================
+    const pageIndicators = document.querySelectorAll('.page-dot');
+
+    if (pageIndicators.length > 0) {
+        gsap.from(pageIndicators, {
+            opacity: 0,
+            scale: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "back.out(1.7)",
+            delay: 1.8
+        });
+    }
+
+    // ====================================
+    // 7. SOUND TOGGLE BUTTON - Entrance
+    // ====================================
+    const soundToggle = document.querySelector('.sound-toggle-btn');
+
+    if (soundToggle) {
+        gsap.from(soundToggle, {
+            opacity: 0,
+            scale: 0,
+            rotation: -180,
+            duration: 0.6,
+            ease: "back.out(1.7)",
+            delay: 2
+        });
+
+        // Add pulsing attention effect
+        gsap.to(soundToggle, {
+            boxShadow: "0 0 20px rgba(0, 107, 63, 0.6)",
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+    }
+
+    // ====================================
+    // 8. HEADER LOGO - Subtle Animation
+    // ====================================
+    const headerLogo = document.querySelector('.header-logo');
+
+    if (headerLogo) {
+        gsap.from(headerLogo, {
+            opacity: 0,
+            rotation: -10,
+            scale: 0.9,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+            delay: 0.2
+        });
+    }
+
+    // ====================================
+    // 9. ACCORDION LINKS - Smooth Reveal
+    // ====================================
+    const accordionLinks = document.querySelectorAll('.accordion-link');
+
+    if (accordionLinks.length > 0) {
+        // Add hover effect to accordion links
+        accordionLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                if (!prefersReducedMotion) {
+                    gsap.to(link, {
+                        x: 5,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+            });
+
+            link.addEventListener('mouseleave', () => {
+                if (!prefersReducedMotion) {
+                    gsap.to(link, {
+                        x: 0,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+    }
+
+    // ====================================
+    // 10. KENYAN GRADIENT - Shimmer Effect
+    // ====================================
+    const kenyanGradients = document.querySelectorAll('.kenyan-gradient');
+
+    if (kenyanGradients.length > 0) {
+        kenyanGradients.forEach(element => {
+            gsap.to(element, {
+                backgroundPosition: "200% center",
+                duration: 3,
+                repeat: -1,
+                ease: "linear"
+            });
+        });
+    }
+
+    console.log('✅ GSAP ScrollTrigger animations initialized successfully!');
+}
+
+// Initialize GSAP animations when DOM is fully loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGSAPAnimations);
+} else {
+    initGSAPAnimations();
+}
