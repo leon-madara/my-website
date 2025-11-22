@@ -5585,3 +5585,74 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
         transform: translate3d(0, -20px, 0) scale(1.1);
     }
 }
+/* ===================================
+   ABOUT SECTION
+   =================================== */
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+    box-sizing: border-box;
+}
+
+.about-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.about-title {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.about-text {
+    font-family: var(--font-role);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+    color: var(--secondary-text);
+}
+
+/* ===================================
+   CONTACT SECTION
+   =================================== */
+
+.contact-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+    box-sizing: border-box;
+}
+
+.contact-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.contact-title {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.contact-text {
+    font-family: var(--font-role);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+    color: var(--secondary-text);
+}
