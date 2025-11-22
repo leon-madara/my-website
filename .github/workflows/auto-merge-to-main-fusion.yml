@@ -1,0 +1,147 @@
+name: Auto-Merge to MAIN-FUSION
+
+# Trigger on any push to claude/* branches
+on:
+  push:
+    branches:
+      - 'claude/**'
+
+# Ensure only one merge runs at a time to prevent conflicts
+concurrency:
+  group: main-fusion-merge
+  cancel-in-progress: false
+
+jobs:
+  auto-merge:
+    name: Merge to MAIN-FUSION
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper merging
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Extract branch name
+        id: extract_branch
+        run: |
+          BRANCH_NAME="${{ github.ref_name }}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "Processing branch: $BRANCH_NAME"
+
+      - name: Make merge script executable
+        run: chmod +x .github/scripts/merge-to-main-fusion.sh
+
+      - name: Run auto-merge
+        id: merge
+        run: |
+          set +e  # Don't exit on error
+          .github/scripts/merge-to-main-fusion.sh "${{ steps.extract_branch.outputs.branch_name }}" "${{ github.repository_owner }}" "${{ github.event.repository.name }}"
+          MERGE_EXIT_CODE=$?
+          echo "exit_code=$MERGE_EXIT_CODE" >> $GITHUB_OUTPUT
+
+          # Save PR description if it exists
+          if [ -f /tmp/pr-description-*.md ]; then
+            cp /tmp/pr-description-*.md /tmp/pr-description.md
+          fi
+
+          # Save conflict report if it exists
+          if [ -f /tmp/conflict-report-*.md ]; then
+            cp /tmp/conflict-report-*.md /tmp/conflict-report.md
+          fi
+
+          exit $MERGE_EXIT_CODE
+
+      - name: Create Success PR for Documentation
+        if: steps.merge.outputs.exit_code == '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let prBody = '# Auto-Merge Completed\n\nChanges successfully merged to MAIN-FUSION.';
+
+            // Try to read the PR description
+            try {
+              prBody = fs.readFileSync('/tmp/pr-description.md', 'utf8');
+            } catch (error) {
+              console.log('Could not read PR description file');
+            }
+
+            // Create a PR from MAIN-FUSION to main for documentation
+            try {
+              const pr = await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `[Auto-Merge] ${context.ref.replace('refs/heads/', '')} → MAIN-FUSION`,
+                head: 'MAIN-FUSION',
+                base: 'main',
+                body: prBody,
+                draft: false
+              });
+
+              console.log(`Created PR #${pr.data.number}`);
+
+              // Add labels
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.data.number,
+                labels: ['auto-merge', 'claude-code']
+              });
+            } catch (error) {
+              if (error.message.includes('A pull request already exists')) {
+                console.log('PR from MAIN-FUSION to main already exists');
+              } else {
+                console.error('Error creating PR:', error.message);
+              }
+            }
+
+      - name: Create Issue for Conflict
+        if: steps.merge.outputs.exit_code != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let issueBody = '# Merge Conflict Detected\n\nManual resolution required.';
+
+            // Try to read the conflict report
+            try {
+              issueBody = fs.readFileSync('/tmp/conflict-report.md', 'utf8');
+            } catch (error) {
+              console.log('Could not read conflict report file');
+              issueBody = `# ⚠️ Merge Conflict Detected\n\n**Branch:** \`${context.ref.replace('refs/heads/', '')}\`\n**Target:** \`MAIN-FUSION\`\n\nManual resolution required. Please check the workflow logs for details.`;
+            }
+
+            // Create an issue for manual resolution
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Merge Conflict: ${context.ref.replace('refs/heads/', '')} → MAIN-FUSION`,
+              body: issueBody,
+              labels: ['merge-conflict', 'manual-resolution-required', 'claude-code']
+            });
+
+            console.log(`Created issue #${issue.data.number} for conflict resolution`);
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ "${{ steps.merge.outputs.exit_code }}" == "0" ]; then
+            echo "✅ Successfully merged ${{ steps.extract_branch.outputs.branch_name }} to MAIN-FUSION"
+            echo "🎉 Branch deleted and PR created for documentation"
+          else
+            echo "⚠️ Merge conflict detected"
+            echo "📋 Issue created for manual resolution"
+            echo "🔖 Branch preserved: ${{ steps.extract_branch.outputs.branch_name }}"
+          fi
