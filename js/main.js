@@ -294,6 +294,9 @@ const LeonPortfolio = {
         // Update application state
         this.state.activeNavItem = sectionId;
 
+        // Show/hide sections based on navigation
+        this.switchSection(sectionId);
+
         // Reset transitioning state after animation completes
         setTimeout(() => {
             this.state.isTransitioning = false;
@@ -304,6 +307,27 @@ const LeonPortfolio = {
         this.utils.announceToScreenReader(`Navigated to ${label}`);
 
         console.log(`Navigation icon clicked: ${sectionId}`);
+    },
+
+    // Switch between sections
+    switchSection(sectionId) {
+        // Hide all sections
+        const heroSection = document.querySelector('.hero-section');
+        const aboutSection = document.querySelector('.about-section');
+        const contactSection = document.querySelector('.contact-section');
+
+        if (heroSection) heroSection.style.display = 'none';
+        if (aboutSection) aboutSection.style.display = 'none';
+        if (contactSection) contactSection.style.display = 'none';
+
+        // Show the requested section
+        if (sectionId === 'home' && heroSection) {
+            heroSection.style.display = 'flex';
+        } else if (sectionId === 'about' && aboutSection) {
+            aboutSection.style.display = 'flex';
+        } else if (sectionId === 'contact' && contactSection) {
+            contactSection.style.display = 'flex';
+        }
     },
 
     // Setup global touch events

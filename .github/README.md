@@ -10,140 +10,214 @@ This directory contains GitHub-specific configurations for automation and workfl
 │   └── auto-merge-to-main-fusion.yml    # Primary: Auto-merge GitHub Action
 ├── scripts/
 │   ├── merge-to-main-fusion.sh          # Core: Merge logic (called by both)
-│   └── manual-merge.sh                  # Fallback: Manual merge script
+│   ├── manual-merge.sh                  # Fallback: Manual merge script
+│   ├── local-sync-main-fusion.ps1       # Local: Auto-pull from MAIN-FUSION
+│   └── setup-local-sync.ps1             # Local: Setup Task Scheduler
 ├── docs/
-│   ├── MAIN-FUSION-AUTOMATION.md        # Full documentation
-│   └── QUICK-START.md                   # Quick setup guide
+│   ├── MAIN-FUSION-AUTOMATION.md        # Full automation documentation
+│   ├── QUICK-START.md                   # Quick setup guide
+│   ├── LOCAL-SYNC-GUIDE.md              # Local sync complete guide
+│   └── SYNC-QUICK-REFERENCE.md          # Quick reference card
+├── logs/
+│   └── sync.log                         # Local sync activity log
 └── README.md                            # This file
 ```
 
 ## 🎯 Purpose
 
-**MAIN-FUSION Automation System** - Automatically merges Claude Code cloud pushes into a unified staging branch.
+Automates the workflow for Claude Code cloud sessions by:
+- **Remote**: Automatically merging `claude/*` branches into `MAIN-FUSION`
+- **Local**: Automatically pulling `MAIN-FUSION` updates to your machine
+- Creating documentation PRs for each merge
+- Cleaning up merged branches
+- Handling conflicts with GitHub Issues
+- Keeping your local environment synchronized
 
-### What It Does
+## 🚀 Quick Start
 
-1. ✅ Detects pushes to `claude/*` branches (automatic via GitHub Actions)
-2. ✅ Merges to `MAIN-FUSION` branch (automatic)
-3. ✅ Creates documentation PRs (automatic)
-4. ✅ Deletes merged branches (automatic)
-5. 🚨 Alerts on conflicts (creates issues for manual resolution)
+### Remote Automation (GitHub Actions)
 
-## 🚀 Getting Started
+**One-time setup:**
+1. Enable GitHub Actions permissions (Settings → Actions → General)
+2. Merge automation files to `main` branch
+3. Done! Automation runs automatically
 
-### Quick Setup (3 steps)
+**See:** `.github/docs/QUICK-START.md`
 
-1. **Enable GitHub Actions permissions**
-   - Settings → Actions → General → Workflow permissions
-   - Select "Read and write permissions"
-   - Enable "Allow GitHub Actions to create and approve pull requests"
+### Local Synchronization (Your Machine)
 
-2. **Push to main branch**
-   ```bash
-   git push origin main
-   ```
+**One-time setup:**
+```powershell
+# Install automatic sync (runs every 30 minutes)
+.\.github\scripts\setup-local-sync.ps1 -Install
+```
 
-3. **Done!** Automation is now active ✨
+**Daily usage:**
+```powershell
+# Check for updates now
+.\.github\scripts\local-sync-main-fusion.ps1 -Once
 
-### Usage
+# Check status
+.\.github\scripts\local-sync-main-fusion.ps1 -Status
+```
 
-- **Normal:** Just use Claude Code - automation handles everything
-- **Manual:** Run `.github/scripts/manual-merge.sh` if needed
-- **Monitor:** Check Actions tab for workflow runs
+**See:** `.github/docs/LOCAL-SYNC-GUIDE.md`
 
-## 📚 Documentation
+## 📊 Complete Workflow
 
-- **Quick Start:** [docs/QUICK-START.md](docs/QUICK-START.md) - Fast setup & usage guide
-- **Full Docs:** [docs/MAIN-FUSION-AUTOMATION.md](docs/MAIN-FUSION-AUTOMATION.md) - Complete reference
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    End-to-End Workflow                       │
+└─────────────────────────────────────────────────────────────┘
+
+1. Claude Code (cloud) pushes to: claude/feature-xyz-abc123
+                    ↓
+2. GitHub Actions detects push (AUTOMATIC - REMOTE)
+                    ↓
+3. Merges to MAIN-FUSION on GitHub (AUTOMATIC - REMOTE)
+                    ↓
+4. Task Scheduler detects update (AUTOMATIC - LOCAL)
+                    ↓
+5. Pulls to your local MAIN-FUSION (AUTOMATIC - LOCAL)
+                    ↓
+6. Desktop notification sent (LOCAL)
+                    ↓
+7. You continue working with latest code (LOCAL)
+```
 
 ## 🔧 Components
 
-### GitHub Actions Workflow
+### Remote Automation (GitHub)
 
-**File:** `workflows/auto-merge-to-main-fusion.yml`
+| Component | Purpose | Trigger |
+|-----------|---------|---------|
+| `auto-merge-to-main-fusion.yml` | GitHub Actions workflow | Push to `claude/*` |
+| `merge-to-main-fusion.sh` | Core merge logic | Called by workflow |
+| `manual-merge.sh` | Manual fallback | User runs manually |
 
-**Trigger:** Push to any `claude/*` branch
+### Local Automation (Your Machine)
 
-**Features:**
-- Automatic execution
-- Conflict detection
-- PR & issue creation
-- Branch cleanup
-- Concurrency control (queues multiple merges safely)
+| Component | Purpose | Trigger |
+|-----------|---------|---------|
+| `local-sync-main-fusion.ps1` | Sync script | Task Scheduler / Manual |
+| `setup-local-sync.ps1` | Setup Task Scheduler | User runs once |
 
-### Merge Scripts
+## 📚 Documentation
 
-**Core Script:** `scripts/merge-to-main-fusion.sh`
-- Main merge logic
-- Creates MAIN-FUSION if needed
-- Generates detailed reports
-- Handles success and conflict cases
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| `QUICK-START.md` | 5-minute setup guide | First-time setup |
+| `MAIN-FUSION-AUTOMATION.md` | Complete remote automation docs | Reference |
+| `LOCAL-SYNC-GUIDE.md` | Complete local sync docs | Daily use |
+| `SYNC-QUICK-REFERENCE.md` | Command cheat sheet | Quick lookup |
 
-**Manual Script:** `scripts/manual-merge.sh`
-- Interactive CLI tool
-- Fallback if Actions fail
-- Same merge logic as automated version
+## 🎯 Key Features
 
-## 📊 Monitoring
+### Remote (GitHub Actions)
+✅ Auto-merge `claude/*` → `MAIN-FUSION`  
+✅ Conflict detection with GitHub Issues  
+✅ Auto-delete merged branches  
+✅ Documentation PRs for each merge  
+✅ Concurrency control  
 
-| Aspect | Location | Info |
-|--------|----------|------|
-| **Workflow runs** | Actions tab | See automation execution |
-| **Successful merges** | Pull Requests | PRs with `auto-merge` label |
-| **Conflicts** | Issues | Issues with `merge-conflict` label |
-| **Branch state** | Branches | Check `MAIN-FUSION` branch |
+### Local (Your Machine)
+✅ Auto-pull every 30 minutes  
+✅ Uncommitted changes protection  
+✅ Automatic backup branches  
+✅ Desktop notifications  
+✅ Terminal messages  
+✅ Activity logging  
+✅ Manual on-demand sync  
 
-## 🆘 Troubleshooting
+## 🔔 Notifications
 
-**Workflow not running?**
-- Ensure files are in `main` branch (workflows only run from default branch)
-- Check Actions are enabled in repository settings
+### Remote
+- GitHub Issues for conflicts
+- Pull Requests for successful merges
 
-**Permission errors?**
-- Verify workflow permissions (see Setup step 1)
+### Local
+- Windows desktop notifications
+- Color-coded terminal messages
+- Activity logs in `.github/logs/sync.log`
 
-**Need to pause automation?**
-- Actions tab → "Auto-Merge to MAIN-FUSION" → "..." → "Disable workflow"
+## 🆘 Quick Help
 
-## 🔄 Workflow Diagram
+### Remote Issues
 
+**Merge conflicts:**
+- Check GitHub Issues tab for `merge-conflict` label
+- Follow instructions in the issue
+
+**Workflow not running:**
+- Check Actions tab in GitHub
+- Verify workflow file is in `main` branch
+- Check GitHub Actions permissions
+
+### Local Issues
+
+**Sync not working:**
+```powershell
+.\.github\scripts\setup-local-sync.ps1 -Test
 ```
-Claude Code (Cloud)
-        ↓
-    Pushes to claude/*
-        ↓
-    GitHub Actions (Auto)
-        ↓
-    ┌───────┴───────┐
-    │               │
-Success         Conflict
-    │               │
-    ↓               ↓
-Merge to      Create Issue
-MAIN-FUSION   Keep Branch
-    │               │
-Create PR     Wait for Manual
-    │          Resolution
-Delete Branch      │
-    ↓               ↓
-  DONE          Manual Merge
+
+**Uncommitted changes:**
+```powershell
+# Script creates backup automatically
+.\.github\scripts\local-sync-main-fusion.ps1 -Once
 ```
 
-## 🤝 Contributing
+**View logs:**
+```powershell
+Get-Content .github\logs\sync.log -Tail 50
+```
 
-To modify the automation:
+## 📖 Getting Started
 
-1. Edit files in `.github/`
-2. Test locally with manual script
-3. Commit to main branch
-4. Changes take effect immediately
+### For Remote Automation
+1. Read: `.github/docs/QUICK-START.md`
+2. Enable GitHub Actions permissions
+3. Merge to `main` branch
+4. Test with a `claude/*` branch
 
-## 📝 Version
+### For Local Sync
+1. Read: `.github/docs/SYNC-QUICK-REFERENCE.md`
+2. Run: `.\.github\scripts\setup-local-sync.ps1 -Install`
+3. Test: `.\.github\scripts\local-sync-main-fusion.ps1 -Once`
+4. Check: `.\.github\scripts\local-sync-main-fusion.ps1 -Status`
 
-**Version:** 1.0
-**Created:** 2025-11-22
-**Purpose:** Streamline Claude Code cloud workflow
+## 🔗 Related Files
+
+- **Workflows**: `.github/workflows/`
+- **Scripts**: `.github/scripts/`
+- **Documentation**: `.github/docs/`
+- **Logs**: `.github/logs/`
+
+## 💡 Tips
+
+1. **Stay on MAIN-FUSION locally** for automatic sync
+2. **Commit regularly** to avoid large stashes
+3. **Check status before starting work** each day
+4. **Review logs weekly** to monitor sync activity
+5. **Clean up backup branches monthly**
+
+## 🎉 Benefits
+
+### Before Automation
+❌ Manually pull from multiple `claude/*` branches  
+❌ Track which branches have which changes  
+❌ Manually merge and resolve conflicts  
+❌ Remember to clean up old branches  
+❌ Keep local machine manually synchronized  
+
+### After Automation
+✅ Single unified `MAIN-FUSION` branch  
+✅ Automatic merging and cleanup  
+✅ Automatic conflict detection  
+✅ Complete documentation trail  
+✅ Local machine always synchronized  
+✅ Desktop notifications for updates  
+✅ Automatic backups of your work  
 
 ---
 
-For questions or issues, see the full documentation or create a GitHub issue.
+**Questions?** Check the documentation in `.github/docs/`

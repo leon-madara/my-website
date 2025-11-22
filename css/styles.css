@@ -1067,7 +1067,8 @@ button {
 
     /* Slower AI animation on mobile for better performance */
     .ai-logo-pulse {
-        animation-duration: 4s; /* Slower on mobile */
+        animation-duration: 4s;
+        /* Slower on mobile */
     }
 }
 
@@ -3709,17 +3710,41 @@ a:active {
 .ai-wrapper {
     position: relative;
     display: inline-block;
-    width: auto;
+    width: 1.5em;
+    height: 1.2em;
+    vertical-align: baseline;
+    z-index: 10;
 }
 
-/* AI Text with pulsing effect */
+/* AI Text - Starts with animation, then rests visible */
 .ai-text {
     display: inline-block;
-    animation: aiTextPulse 3s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+    animation: aiTextAlternate 6s ease-in-out infinite;
     transform-origin: center center;
+    will-change: transform, opacity;
+    /* Start visible */
+    opacity: 1;
+    transform: scale(1);
 }
 
-/* Logo Icon with pulsing - no rotation */
+/* AI Text - Resting state (visible after animation) */
+.ai-text.resting {
+    animation: none;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* AI Text - Hidden state (when logo is shown on hover) */
+.ai-text.hidden {
+    animation: none;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Logo Icon - Starts with animation, then rests hidden */
 .ai-logo-pulse {
     position: absolute;
     top: 50%;
@@ -3727,33 +3752,101 @@ a:active {
     transform: translate(-50%, -50%) scale(0);
     width: 1.2em;
     height: auto;
-    animation: logoIconPulse 3s ease-in-out infinite;
+    z-index: 1;
+    animation: logoAlternate 6s ease-in-out infinite;
     transform-origin: center center;
     pointer-events: none;
     will-change: transform, opacity;
+    /* Start hidden */
+    opacity: 0;
 }
 
-/* AI Text Animation: Normal → Grow & Fade In → Shrink & Fade Out */
-@keyframes aiTextPulse {
-    0%, 100% {
-        transform: scale(1);
+/* Logo - Resting state (hidden after animation) */
+.ai-logo-pulse.resting {
+    animation: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+/* Logo - Visible state (shown on hover) */
+.ai-logo-pulse.visible {
+    animation: none;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* AI Text Alternating Animation: Grow → Shrink & Fade → Hidden */
+@keyframes aiTextAlternate {
+    0% {
+        transform: scale(0.5);
         opacity: 0;
     }
-    50% {
-        transform: scale(1.3);
+
+    16.67% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    33.33% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    41.67% {
+        transform: scale(0.25);
+        opacity: 0;
+    }
+
+    50%,
+    83.33% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    91.67% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
         opacity: 1;
     }
 }
 
-/* Logo Icon Animation: Hidden → Slide Right & Grow → Hidden */
-@keyframes logoIconPulse {
-    0%, 100% {
+/* Logo Alternating Animation: Hidden → Grow → Shrink & Fade */
+@keyframes logoAlternate {
+
+    0%,
+    41.67% {
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
     }
+
     50% {
-        transform: translate(calc(-50% + 1.8em), -50%) scale(1.5);
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    66.67% {
+        transform: translate(-50%, -50%) scale(1.2);
         opacity: 1;
+    }
+
+    83.33% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+
+    91.67% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
     }
 }
 
@@ -4266,6 +4359,15 @@ body:not(.loaded) .social-links {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     z-index: 50;
     transition: all 0.3s ease;
+    
+    /* Hide by default - only show on home and contact pages */
+    display: none;
+}
+
+/* Show pill-sidebar only on home page (index.html) */
+body.home-page .pill-sidebar,
+body.contact-page .pill-sidebar {
+    display: flex;
 }
 
 .pill-sidebar:hover {
@@ -5584,4 +5686,75 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
         animation: none;
         transform: translate3d(0, -20px, 0) scale(1.1);
     }
+}
+/* ===================================
+   ABOUT SECTION
+   =================================== */
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+    box-sizing: border-box;
+}
+
+.about-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.about-title {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.about-text {
+    font-family: var(--font-role);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+    color: var(--secondary-text);
+}
+
+/* ===================================
+   CONTACT SECTION
+   =================================== */
+
+.contact-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+    box-sizing: border-box;
+}
+
+.contact-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.contact-title {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.contact-text {
+    font-family: var(--font-role);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+    color: var(--secondary-text);
 }
