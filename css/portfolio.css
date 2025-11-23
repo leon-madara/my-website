@@ -61,7 +61,7 @@
     background-blend-mode: overlay;
 }
 
-/* Multicolored "My Portfolio" Title */
+/* "My Portfolio" Title */
 .portfolio-title {
     font-family: var(--font-name);
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -72,38 +72,24 @@
     line-height: 1;
     text-transform: uppercase;
     display: flex;
-    gap: 0.1em;
+    gap: 0.2em;
 }
 
-.portfolio-title .letter {
-    display: inline-block;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.portfolio-title .letter:hover {
-    transform: translateY(-5px) scale(1.1);
-}
-
-/* Kenyan Flag Color Sequence */
-.letter-black {
+/* "My" part - regular styling */
+.title-my {
     color: var(--kenyan-black);
-    text-shadow:
-        0 0 10px rgba(0, 0, 0, 0.2),
-        0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.letter-red {
-    color: var(--kenyan-red);
-    text-shadow:
-        0 0 20px rgba(206, 17, 38, 0.6),
-        0 4px 8px rgba(206, 17, 38, 0.4);
-}
-
-.letter-green {
-    color: var(--kenyan-green);
-    text-shadow:
-        0 0 20px rgba(0, 107, 63, 0.6),
-        0 4px 8px rgba(0, 107, 63, 0.4);
+/* "Portfolio" part - Kenyan flag gradient */
+.title-portfolio {
+    background: linear-gradient(135deg,
+        var(--kenyan-black) 0%,
+        var(--kenyan-red) 50%,
+        var(--kenyan-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
 }
 
 /* ===================================
@@ -116,9 +102,10 @@
     align-items: center;
     justify-content: center;
     padding: 0 2rem;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
     z-index: 5;
 }
 
