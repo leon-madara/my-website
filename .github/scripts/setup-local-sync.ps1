@@ -1,6 +1,5 @@
 #!/usr/bin/env pwsh
 # Setup script for MAIN-FUSION local synchronization
-# This script configures Windows Task Scheduler for automatic background sync
 
 param(
     [switch]$Install,
@@ -12,40 +11,24 @@ $SCRIPT_PATH = Join-Path $PSScriptRoot "local-sync-main-fusion.ps1"
 $TASK_NAME = "MAIN-FUSION-Auto-Sync"
 $REPO_PATH = (Get-Location).Path
 
-# Colors
-$GREEN = "`e[32m"
-$YELLOW = "`e[33m"
-$CYAN = "`e[36m"
-$RED = "`e[31m"
-$RESET = "`e[0m"
-
-function Write-ColorOutput {
-    param([string]$Message, [string]$Color = $CYAN)
-    Write-Host "${Color}${Message}${RESET}"
-}
-
 function Install-TaskScheduler {
-    Write-ColorOutput "`n═══════════════════════════════════════════════════" $CYAN
-    Write-ColorOutput "  Installing MAIN-FUSION Auto-Sync Task" $CYAN
-    Write-ColorOutput "═══════════════════════════════════════════════════`n" $CYAN
+    Write-Host "`n================================================" -ForegroundColor Cyan
+    Write-Host "  Installing MAIN-FUSION Auto-Sync Task" -ForegroundColor Cyan
+    Write-Host "================================================`n" -ForegroundColor Cyan
     
-    # Check if task already exists
     $existingTask = Get-ScheduledTask -TaskName $TASK_NAME -ErrorAction SilentlyContinue
     if ($existingTask) {
-        Write-ColorOutput "⚠ Task already exists. Removing old task..." $YELLOW
+        Write-Host "Task already exists. Removing old task..." -ForegroundColor Yellow
         Unregister-ScheduledTask -TaskName $TASK_NAME -Confirm:$false
     }
     
-    # Create task action
     $action = New-ScheduledTaskAction `
         -Execute "pwsh.exe" `
         -Argument "-NoProfile -WindowStyle Hidden -File `"$SCRIPT_PATH`" -Once" `
         -WorkingDirectory $REPO_PATH
     
-    # Create trigger (every 30 minutes)
     $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 30)
     
-    # Create settings
     $settings = New-ScheduledTaskSettingsSet `
         -AllowStartIfOnBatteries `
         -DontStopIfGoingOnBatteries `
@@ -53,7 +36,6 @@ function Install-TaskScheduler {
         -RunOnlyIfNetworkAvailable `
         -ExecutionTimeLimit (New-TimeSpan -Minutes 5)
     
-    # Register task
     try {
         Register-ScheduledTask `
             -TaskName $TASK_NAME `
@@ -63,101 +45,77 @@ function Install-TaskScheduler {
             -Description "Automatically syncs MAIN-FUSION branch every 30 minutes" `
             -Force | Out-Null
         
-        Write-ColorOutput "✓ Task Scheduler configured successfully!" $GREEN
-        Write-ColorOutput "`nTask Details:" $CYAN
-        Write-ColorOutput "  Name: $TASK_NAME" $CYAN
-        Write-ColorOutput "  Frequency: Every 30 minutes" $CYAN
-        Write-ColorOutput "  Script: $SCRIPT_PATH" $CYAN
-        Write-ColorOutput "  Repository: $REPO_PATH" $CYAN
-        
-        Write-ColorOutput "`n✓ Background sync is now active!" $GREEN
-        Write-ColorOutput "  The task will run every 30 minutes automatically." $CYAN
+        Write-Host "Task Scheduler configured successfully!" -ForegroundColor Green
+        Write-Host "`nTask Details:" -ForegroundColor Cyan
+        Write-Host "  Name: $TASK_NAME"
+        Write-Host "  Frequency: Every 30 minutes"
+        Write-Host "  Script: $SCRIPT_PATH"
+        Write-Host "`nBackground sync is now active!" -ForegroundColor Green
         
     } catch {
-        Write-ColorOutput "✗ Failed to create scheduled task: $_" $RED
-        Write-ColorOutput "`nFallback: Use daemon mode instead:" $YELLOW
-        Write-ColorOutput "  .\\.github\\scripts\\local-sync-main-fusion.ps1 -Daemon" $CYAN
+        Write-Host "Failed to create scheduled task: $_" -ForegroundColor Red
     }
 }
 
 function Uninstall-TaskScheduler {
-    Write-ColorOutput "`n═══════════════════════════════════════════════════" $CYAN
-    Write-ColorOutput "  Uninstalling MAIN-FUSION Auto-Sync Task" $CYAN
-    Write-ColorOutput "═══════════════════════════════════════════════════`n" $CYAN
+    Write-Host "`n================================================" -ForegroundColor Cyan
+    Write-Host "  Uninstalling MAIN-FUSION Auto-Sync Task" -ForegroundColor Cyan
+    Write-Host "================================================`n" -ForegroundColor Cyan
     
     $existingTask = Get-ScheduledTask -TaskName $TASK_NAME -ErrorAction SilentlyContinue
     if ($existingTask) {
         Unregister-ScheduledTask -TaskName $TASK_NAME -Confirm:$false
-        Write-ColorOutput "✓ Task removed successfully!" $GREEN
+        Write-Host "Task removed successfully!" -ForegroundColor Green
     } else {
-        Write-ColorOutput "⚠ Task not found" $YELLOW
+        Write-Host "Task not found" -ForegroundColor Yellow
     }
 }
 
 function Test-Setup {
-    Write-ColorOutput "`n═══════════════════════════════════════════════════" $CYAN
-    Write-ColorOutput "  Testing MAIN-FUSION Sync Setup" $CYAN
-    Write-ColorOutput "═══════════════════════════════════════════════════`n" $CYAN
+    Write-Host "`n================================================" -ForegroundColor Cyan
+    Write-Host "  Testing MAIN-FUSION Sync Setup" -ForegroundColor Cyan
+    Write-Host "================================================`n" -ForegroundColor Cyan
     
-    # Check if script exists
     if (Test-Path $SCRIPT_PATH) {
-        Write-ColorOutput "✓ Sync script found: $SCRIPT_PATH" $GREEN
+        Write-Host "Sync script found: $SCRIPT_PATH" -ForegroundColor Green
     } else {
-        Write-ColorOutput "✗ Sync script not found!" $RED
+        Write-Host "Sync script not found!" -ForegroundColor Red
         return
     }
     
-    # Check if in git repo
     if (Test-Path ".git") {
-        Write-ColorOutput "✓ Git repository detected" $GREEN
+        Write-Host "Git repository detected" -ForegroundColor Green
     } else {
-        Write-ColorOutput "✗ Not in a git repository!" $RED
+        Write-Host "Not in a git repository!" -ForegroundColor Red
         return
     }
     
-    # Check Task Scheduler
     $existingTask = Get-ScheduledTask -TaskName $TASK_NAME -ErrorAction SilentlyContinue
     if ($existingTask) {
-        Write-ColorOutput "✓ Task Scheduler configured" $GREEN
-        Write-ColorOutput "  Status: $($existingTask.State)" $CYAN
+        Write-Host "Task Scheduler configured" -ForegroundColor Green
+        Write-Host "  Status: $($existingTask.State)"
     } else {
-        Write-ColorOutput "⚠ Task Scheduler not configured" $YELLOW
-        Write-ColorOutput "  Run: .\\.github\\scripts\\setup-local-sync.ps1 -Install" $CYAN
+        Write-Host "Task Scheduler not configured" -ForegroundColor Yellow
     }
     
-    # Test sync script
-    Write-ColorOutput "`nRunning test sync..." $CYAN
+    Write-Host "`nRunning test sync..." -ForegroundColor Cyan
     & $SCRIPT_PATH -Once
     
-    Write-ColorOutput "`n✓ Test complete!" $GREEN
+    Write-Host "`nTest complete!" -ForegroundColor Green
 }
 
 function Show-Help {
-    Write-ColorOutput "`n═══════════════════════════════════════════════════" $CYAN
-    Write-ColorOutput "  MAIN-FUSION Local Sync Setup" $CYAN
-    Write-ColorOutput "═══════════════════════════════════════════════════`n" $CYAN
-    
-    Write-Host "This script configures automatic background synchronization"
-    Write-Host "for the MAIN-FUSION branch using Windows Task Scheduler.`n"
+    Write-Host "`n================================================" -ForegroundColor Cyan
+    Write-Host "  MAIN-FUSION Local Sync Setup" -ForegroundColor Cyan
+    Write-Host "================================================`n" -ForegroundColor Cyan
     
     Write-Host "Usage:"
-    Write-Host "  ${GREEN}-Install${RESET}     Install Task Scheduler (runs every 30 mins)"
-    Write-Host "  ${GREEN}-Uninstall${RESET}   Remove Task Scheduler"
-    Write-Host "  ${GREEN}-Test${RESET}        Test the sync setup`n"
-    
-    Write-Host "Examples:"
-    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\setup-local-sync.ps1 -Install$RESET"
-    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\setup-local-sync.ps1 -Test$RESET"
-    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\setup-local-sync.ps1 -Uninstall$RESET`n"
-    
-    Write-Host "Manual sync options:"
-    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\local-sync-main-fusion.ps1 -Once$RESET     (run once)"
-    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\local-sync-main-fusion.ps1 -Daemon$RESET   (background)"
-    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\local-sync-main-fusion.ps1 -Status$RESET   (check status)"
+    Write-Host "  -Install     Install Task Scheduler" -ForegroundColor Green
+    Write-Host "  -Uninstall   Remove Task Scheduler" -ForegroundColor Green
+    Write-Host "  -Test        Test the sync setup" -ForegroundColor Green
     Write-Host ""
 }
 
-# Main execution
 if ($Install) {
     Install-TaskScheduler
 } elseif ($Uninstall) {
