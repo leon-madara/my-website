@@ -899,6 +899,35 @@ console.log(`
 // ====================================
 
 /**
+ * Ensure all animated elements are visible
+ * Fallback for when GSAP is disabled or not loaded
+ */
+function ensureElementsVisible() {
+    const elements = [
+        '.portfolio-title .letter',
+        '.project-toggle-btn',
+        '.accordion-item',
+        '.content-page',
+        '.page-dot',
+        '.sound-toggle-btn',
+        '.header-logo',
+        '.accordion-link',
+        '.code-element'
+    ];
+
+    elements.forEach(selector => {
+        const els = document.querySelectorAll(selector);
+        els.forEach(el => {
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+            el.style.transform = 'none';
+        });
+    });
+
+    console.log('✅ All portfolio elements ensured visible');
+}
+
+/**
  * Initialize GSAP and ScrollTrigger
  * Enhanced polish with scroll-triggered animations
  */
@@ -908,12 +937,14 @@ function initGSAPAnimations() {
 
     if (prefersReducedMotion) {
         console.log('⚠️ Reduced motion preference detected - GSAP animations disabled');
+        ensureElementsVisible(); // Ensure all elements are visible
         return;
     }
 
     // Check if GSAP is available
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.warn('⚠️ GSAP or ScrollTrigger not loaded');
+        console.warn('⚠️ GSAP or ScrollTrigger not loaded - ensuring elements remain visible');
+        ensureElementsVisible(); // Ensure all elements are visible even without GSAP
         return;
     }
 
@@ -928,18 +959,21 @@ function initGSAPAnimations() {
     const titleLetters = document.querySelectorAll('.portfolio-title .letter');
 
     if (titleLetters.length > 0) {
+        // Ensure letters are visible first, then animate
+        gsap.set(titleLetters, { opacity: 1 });
+
         gsap.from(titleLetters, {
-            duration: 0.8,
+            duration: 0.6,
             opacity: 0,
-            y: -30,
+            y: -20,
             rotationX: -90,
             stagger: {
-                each: 0.05,
+                each: 0.03,
                 from: "start",
                 ease: "power2.out"
             },
             ease: "back.out(1.7)",
-            delay: 0.3
+            delay: 0.1
         });
 
         // Add subtle floating animation
@@ -951,7 +985,8 @@ function initGSAPAnimations() {
                 repeat: -1,
                 yoyo: true
             },
-            ease: "sine.inOut"
+            ease: "sine.inOut",
+            delay: 0.8
         });
     }
 
@@ -961,14 +996,17 @@ function initGSAPAnimations() {
     const projectToggles = document.querySelectorAll('.project-toggle-btn');
 
     if (projectToggles.length > 0) {
+        // Ensure buttons are visible first
+        gsap.set(projectToggles, { opacity: 1 });
+
         gsap.from(projectToggles, {
-            duration: 0.6,
+            duration: 0.5,
             opacity: 0,
-            scale: 0.8,
-            y: 20,
-            stagger: 0.1,
+            scale: 0.9,
+            y: 15,
+            stagger: 0.08,
             ease: "back.out(1.5)",
-            delay: 0.8
+            delay: 0.2
         });
 
         // Add hover scale effect
@@ -1001,13 +1039,16 @@ function initGSAPAnimations() {
     const accordionItems = document.querySelectorAll('.accordion-item');
 
     if (accordionItems.length > 0) {
+        // Ensure accordion items are visible first
+        gsap.set(accordionItems, { opacity: 1 });
+
         gsap.from(accordionItems, {
-            duration: 0.5,
+            duration: 0.4,
             opacity: 0,
-            x: -30,
-            stagger: 0.08,
+            x: -20,
+            stagger: 0.05,
             ease: "power2.out",
-            delay: 1.2
+            delay: 0.3
         });
 
         // Accordion expand/collapse animation enhancement
@@ -1034,58 +1075,23 @@ function initGSAPAnimations() {
     }
 
     // ====================================
-    // 4. CONTENT PAGES - Fade In on Scroll
+    // 4. CONTENT PAGES - Simple Initial Fade In
     // ====================================
+    // Note: Disabled ScrollTrigger for horizontal scroll compatibility
+    // Pages will have a simple initial fade-in only
     const contentPages = document.querySelectorAll('.content-page');
 
     if (contentPages.length > 0) {
+        // Ensure pages are visible first
+        gsap.set(contentPages, { opacity: 1 });
+
         contentPages.forEach((page, index) => {
-            gsap.from(page, {
-                scrollTrigger: {
-                    trigger: page,
-                    containerAnimation: null,
-                    start: "left 80%",
-                    end: "left 20%",
-                    toggleActions: "play none none reverse",
-                    // markers: true // Enable for debugging
-                },
-                opacity: 0,
-                x: 50,
-                duration: 0.8,
-                ease: "power2.out"
-            });
-
-            // Page title animation
-            const pageTitle = page.querySelector('.page-title');
-            if (pageTitle) {
-                gsap.from(pageTitle, {
-                    scrollTrigger: {
-                        trigger: page,
-                        containerAnimation: null,
-                        start: "left 80%",
-                        toggleActions: "play none none reverse"
-                    },
+            // Only animate the first visible page
+            if (index === 0) {
+                gsap.from(page, {
                     opacity: 0,
-                    y: 30,
-                    duration: 0.6,
-                    ease: "power2.out",
-                    delay: 0.2
-                });
-            }
-
-            // Page content animation
-            const pageContent = page.querySelector('.page-content');
-            if (pageContent) {
-                gsap.from(pageContent, {
-                    scrollTrigger: {
-                        trigger: page,
-                        containerAnimation: null,
-                        start: "left 80%",
-                        toggleActions: "play none none reverse"
-                    },
-                    opacity: 0,
-                    y: 20,
-                    duration: 0.8,
+                    x: 20,
+                    duration: 0.5,
                     ease: "power2.out",
                     delay: 0.4
                 });
@@ -1142,13 +1148,16 @@ function initGSAPAnimations() {
     const pageIndicators = document.querySelectorAll('.page-dot');
 
     if (pageIndicators.length > 0) {
+        // Ensure indicators are visible first
+        gsap.set(pageIndicators, { opacity: 1 });
+
         gsap.from(pageIndicators, {
             opacity: 0,
             scale: 0,
-            duration: 0.4,
-            stagger: 0.05,
+            duration: 0.3,
+            stagger: 0.03,
             ease: "back.out(1.7)",
-            delay: 1.8
+            delay: 0.5
         });
     }
 
@@ -1158,13 +1167,16 @@ function initGSAPAnimations() {
     const soundToggle = document.querySelector('.sound-toggle-btn');
 
     if (soundToggle) {
+        // Ensure button is visible first
+        gsap.set(soundToggle, { opacity: 1 });
+
         gsap.from(soundToggle, {
             opacity: 0,
             scale: 0,
-            rotation: -180,
-            duration: 0.6,
+            rotation: -90,
+            duration: 0.4,
             ease: "back.out(1.7)",
-            delay: 2
+            delay: 0.6
         });
 
         // Add pulsing attention effect
@@ -1173,7 +1185,8 @@ function initGSAPAnimations() {
             duration: 1.5,
             repeat: -1,
             yoyo: true,
-            ease: "sine.inOut"
+            ease: "sine.inOut",
+            delay: 1
         });
     }
 
@@ -1183,13 +1196,16 @@ function initGSAPAnimations() {
     const headerLogo = document.querySelector('.header-logo');
 
     if (headerLogo) {
+        // Ensure logo is visible first
+        gsap.set(headerLogo, { opacity: 1 });
+
         gsap.from(headerLogo, {
             opacity: 0,
-            rotation: -10,
-            scale: 0.9,
-            duration: 0.8,
+            rotation: -5,
+            scale: 0.95,
+            duration: 0.5,
             ease: "back.out(1.7)",
-            delay: 0.2
+            delay: 0.05
         });
     }
 
@@ -1242,9 +1258,13 @@ function initGSAPAnimations() {
     console.log('✅ GSAP ScrollTrigger animations initialized successfully!');
 }
 
-// Initialize GSAP animations when DOM is fully loaded
+// Initialize GSAP animations AFTER main portfolio initialization
+// This ensures proper element setup before animations run
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGSAPAnimations);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Wait for main portfolio init to complete
+        setTimeout(initGSAPAnimations, 100);
+    });
 } else {
-    initGSAPAnimations();
+    setTimeout(initGSAPAnimations, 100);
 }
