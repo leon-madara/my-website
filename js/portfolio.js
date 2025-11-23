@@ -36,11 +36,10 @@ class SoundManager {
         this.sounds.accordionToggle = new Audio();
         this.sounds.accordionToggle.volume = this.volume * 0.6;
 
-        // Note: Audio files will need to be added to sounds/ directory
-        // For now, these will fail silently if files don't exist
-        this.sounds.pageFlip.src = 'sounds/page-flip.mp3';
-        this.sounds.projectSwitch.src = 'sounds/project-switch.mp3';
-        this.sounds.accordionToggle.src = 'sounds/accordion-toggle.mp3';
+        // Use actual sound files
+        this.sounds.pageFlip.src = 'sounds/soundFlipping.mp3';
+        this.sounds.projectSwitch.src = 'sounds/lionRoaring.mp3';
+        this.sounds.accordionToggle.src = 'sounds/lionRoar.mp3';
 
         console.log('Sounds loaded (will use external files if available)');
     }

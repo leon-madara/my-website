@@ -146,14 +146,15 @@ function Show-Help {
     Write-Host "  ${GREEN}-Test${RESET}        Test the sync setup`n"
     
     Write-Host "Examples:"
-    Write-Host "  ${CYAN}.\\.github\\scripts\\setup-local-sync.ps1 -Install${RESET}"
-    Write-Host "  ${CYAN}.\\.github\\scripts\\setup-local-sync.ps1 -Test${RESET}"
-    Write-Host "  ${CYAN}.\\.github\\scripts\\setup-local-sync.ps1 -Uninstall${RESET}`n"
+    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\setup-local-sync.ps1 -Install$RESET"
+    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\setup-local-sync.ps1 -Test$RESET"
+    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\setup-local-sync.ps1 -Uninstall$RESET`n"
     
     Write-Host "Manual sync options:"
-    Write-Host "  ${CYAN}.\\.github\\scripts\\local-sync-main-fusion.ps1 -Once${RESET}     (run once)"
-    Write-Host "  ${CYAN}.\\.github\\scripts\\local-sync-main-fusion.ps1 -Daemon${RESET}   (background)"
-    Write-Host "  ${CYAN}.\\.github\\scripts\\local-sync-main-fusion.ps1 -Status${RESET}   (check status)`n"
+    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\local-sync-main-fusion.ps1 -Once$RESET     (run once)"
+    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\local-sync-main-fusion.ps1 -Daemon$RESET   (background)"
+    Write-Host "  $CYAN" -NoNewline; Write-Host ".\.github\scripts\local-sync-main-fusion.ps1 -Status$RESET   (check status)"
+    Write-Host ""
 }
 
 # Main execution
