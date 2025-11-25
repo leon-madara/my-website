@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+        content="Get in touch with Leon Madara - Full Stack AI Developer from Nairobi, Kenya. Available for freelance projects and collaboration opportunities.">
+    <meta name="keywords" content="Contact, Leon Madara, Full Stack Developer, Nairobi, Kenya, Hire Developer">
+    <meta name="author" content="Leon Madara">
+    <meta name="theme-color" content="#006b3f">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/iconLEONlogo.svg">
+
+    <title>Contact - Leon Madara</title>
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Asimovian&family=Enriqueta:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/contact.css">
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="contact-page">
+    <!-- Skip Navigation -->
+    <a href="#contact-content" class="skip-link">Skip to contact content</a>
+
+    <!-- Live region for screen reader announcements -->
+    <div id="sr-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+    <!-- Advanced Floating Header Navigation -->
+    <nav class="floating-navigation" aria-label="Main navigation">
+        <div class="floating-header">
+            <div class="header-container">
+                <a href="index.html" class="header-logo" aria-label="Leon Madara Logo">
+                    <img src="images/iconLEONlogo.svg" class="leon-logo" alt="Leon Madara Logo" />
+                </a>
+            </div>
+        </div>
+
+        <div class="nav-background-blur"></div>
+
+        <nav class="nav-icons-container" role="navigation" aria-label="Main navigation">
+            <button class="nav-icon" data-section="home" data-label="Home" aria-label="Home" type="button"
+                onclick="window.location.href='index.html'">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+            </button>
+            <button class="nav-icon" data-section="about" data-label="About" aria-label="About" type="button"
+                onclick="window.location.href='about.html'">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z" />
+                </svg>
+            </button>
+            <button class="nav-icon" data-section="portfolio" data-label="Portfolio" aria-label="Portfolio"
+                type="button" onclick="window.location.href='portfolio.html'">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M10 4h4c1.1 0 2 .9 2 2v1h4c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V6c0-1.1.9-2 2-2zm4 3V6h-4v1h4z" />
+                </svg>
+            </button>
+            <button class="nav-icon active" data-section="contact" data-label="Contact Me" aria-label="Contact Me"
+                type="button" aria-current="page">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+            </button>
+        </nav>
+    </nav>
+
+    <!-- Pill-shaped Sidebar -->
+    <aside class="pill-sidebar" aria-label="Profile and social links">
+        <div class="profile-section">
+            <img src="images/Leon.jpg" class="profile-photo" alt="Leon Madara Profile Photo" />
+        </div>
+
+        <nav class="social-nav" aria-label="Social media links">
+            <ul class="social-icons-list">
+                <li class="social-icon-item">
+                    <a href="https://github.com/leon-madara" class="social-icon-link" aria-label="GitHub Profile"
+                        target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="social-icon-item">
+                    <a href="https://www.linkedin.com/in/leon-madara/" class="social-icon-link"
+                        aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="social-icon-item">
+                    <a href="#contact-form" class="social-icon-link" aria-label="Contact Form">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="contact-container" id="contact-content">
+        <!-- Hero Section -->
+        <section class="contact-hero" id="contact-hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-main">Let's</span>
+                    <span class="title-accent kenyan-gradient">Connect</span>
+                </h1>
+                <p class="hero-subtitle">Ready to collaborate on your next project</p>
+
+                <!-- Scroll indicator -->
+                <div class="scroll-indicator" aria-hidden="true">
+                    <span class="scroll-text">Scroll to explore</span>
+                    <svg class="scroll-arrow" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 10l5 5 5-5z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Decorative shapes -->
+            <div class="decorative-shapes contact-decorative-shapes" aria-hidden="true">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </section>
+
+        <!-- Contact Methods Section -->
+        <section class="contact-methods-section" id="contact-methods">
+            <h2 class="section-title kenyan-gradient">Get In Touch</h2>
+
+            <div class="contact-methods-grid">
+                <!-- Email Card -->
+                <div class="contact-card" data-method="email">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Email</h3>
+                    <p class="card-value" id="email-value">leon.madara@email.com</p>
+                    <button class="card-action" id="copy-email-btn" aria-label="Copy email to clipboard">
+                        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="action-text">Copy Email</span>
+                    </button>
+                </div>
+
+                <!-- LinkedIn Card -->
+                <div class="contact-card" data-method="linkedin">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </div>
+                    <h3 class="card-title">LinkedIn</h3>
+                    <p class="card-value">Connect professionally</p>
+                    <a href="https://www.linkedin.com/in/leon-madara/" class="card-action" target="_blank"
+                        rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+                        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        <span class="action-text">Visit Profile</span>
+                    </a>
+                </div>
+
+                <!-- GitHub Card -->
+                <div class="contact-card" data-method="github">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </div>
+                    <h3 class="card-title">GitHub</h3>
+                    <p class="card-value">Explore my code</p>
+                    <a href="https://github.com/leon-madara" class="card-action" target="_blank"
+                        rel="noopener noreferrer" aria-label="Visit GitHub profile">
+                        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        <span class="action-text">View Code</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form-section" id="contact-form">
+            <h2 class="section-title kenyan-gradient">Send a Message</h2>
+
+            <form class="contact-form" id="contact-form-element" novalidate>
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        Name <span class="required">*</span>
+                    </label>
+                    <input type="text" id="name" name="name" class="form-input" required
+                        aria-required="true" aria-describedby="name-error">
+                    <span class="form-error" id="name-error" role="alert"></span>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        Email <span class="required">*</span>
+                    </label>
+                    <input type="email" id="email" name="email" class="form-input" required
+                        aria-required="true" aria-describedby="email-error">
+                    <span class="form-error" id="email-error" role="alert"></span>
+                </div>
+
+                <!-- Subject Field -->
+                <div class="form-group">
+                    <label for="subject" class="form-label">
+                        Subject <span class="required">*</span>
+                    </label>
+                    <input type="text" id="subject" name="subject" class="form-input" required
+                        aria-required="true" aria-describedby="subject-error">
+                    <span class="form-error" id="subject-error" role="alert"></span>
+                </div>
+
+                <!-- Message Field -->
+                <div class="form-group">
+                    <label for="message" class="form-label">
+                        Message <span class="required">*</span>
+                    </label>
+                    <textarea id="message" name="message" class="form-textarea" rows="6" required
+                        maxlength="500" aria-required="true" aria-describedby="message-error message-counter"></textarea>
+                    <div class="textarea-footer">
+                        <span class="form-error" id="message-error" role="alert"></span>
+                        <span class="character-counter" id="message-counter" aria-live="polite">0 / 500</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="form-submit" id="submit-btn">
+                    <span class="submit-text">Send Message</span>
+                    <span class="submit-loading" aria-hidden="true">
+                        <svg class="loading-spinner" viewBox="0 0 24 24">
+                            <circle class="spinner-circle" cx="12" cy="12" r="10" fill="none" stroke-width="3"></circle>
+                        </svg>
+                        Sending...
+                    </span>
+                </button>
+            </form>
+        </section>
+
+        <!-- Location & Availability Section -->
+        <section class="location-section" id="location">
+            <div class="location-content">
+                <div class="location-item">
+                    <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                    </svg>
+                    <div class="location-details">
+                        <h3 class="location-label">Location</h3>
+                        <p class="location-value">Nairobi, Kenya</p>
+                    </div>
+                </div>
+
+                <div class="location-item">
+                    <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                    <div class="location-details">
+                        <h3 class="location-label">Timezone</h3>
+                        <p class="location-value">EAT (GMT+3)</p>
+                    </div>
+                </div>
+
+                <div class="location-item">
+                    <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                    </svg>
+                    <div class="location-details">
+                        <h3 class="location-label">Availability</h3>
+                        <p class="location-value">Open to opportunities</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">&copy; 2024 Leon Madara. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-content">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Dotted Background Pattern -->
+    <div class="background-pattern" aria-hidden="true" role="presentation"></div>
+
+    <!-- Kenyan Programming Elements -->
+    <div class="kenyan-code-elements" aria-hidden="true" role="presentation">
+        <div class="code-element code-element-1" aria-hidden="true">&lt;/&gt;</div>
+        <div class="code-element code-element-2" aria-hidden="true">{ }</div>
+        <div class="code-element code-element-3" aria-hidden="true">[ ]</div>
+        <div class="code-element code-element-4" aria-hidden="true">( )</div>
+        <div class="code-element code-element-5" aria-hidden="true">=&gt;</div>
+        <div class="code-element code-element-6" aria-hidden="true">&amp;&amp;</div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+
+</html>
