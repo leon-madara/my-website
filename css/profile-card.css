@@ -409,7 +409,6 @@
 }
 
 .social-icon-button:hover {
-    color: #006b3f;
     transform: translateY(-2px);
 }
 
@@ -422,6 +421,34 @@
     height: 1.5rem;
     position: relative;
     z-index: 1;
+}
+
+/* Custom colors for each social icon */
+/* GitHub - Red */
+.social-icons .social-icon-button:nth-child(1) {
+    color: #e74c3c;
+}
+
+.social-icons .social-icon-button:nth-child(1):hover {
+    color: #c0392b;
+}
+
+/* LinkedIn - Black */
+.social-icons .social-icon-button:nth-child(2) {
+    color: #1a1a1a;
+}
+
+.social-icons .social-icon-button:nth-child(2):hover {
+    color: #000000;
+}
+
+/* Twitter/X - Kenyan Green */
+.social-icons .social-icon-button:nth-child(3) {
+    color: #006b3f;
+}
+
+.social-icons .social-icon-button:nth-child(3):hover {
+    color: #004d2d;
 }
 
 /* ============================================

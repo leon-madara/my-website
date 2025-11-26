@@ -344,7 +344,6 @@ body.contact-page .pill-sidebar {
 }
 
 .social-icon-link:hover {
-    color: #006b3f;
     transform: translateY(-2px);
 }
 
@@ -353,6 +352,34 @@ body.contact-page .pill-sidebar {
     height: 1.375rem;
     position: relative;
     z-index: 1;
+}
+
+/* Custom colors for each social icon */
+/* GitHub - Red */
+.social-icon-item:nth-child(1) .social-icon-link {
+    color: #e74c3c;
+}
+
+.social-icon-item:nth-child(1) .social-icon-link:hover {
+    color: #c0392b;
+}
+
+/* LinkedIn - Black */
+.social-icon-item:nth-child(2) .social-icon-link {
+    color: #1a1a1a;
+}
+
+.social-icon-item:nth-child(2) .social-icon-link:hover {
+    color: #000000;
+}
+
+/* Twitter/X - Kenyan Green */
+.social-icon-item:nth-child(3) .social-icon-link {
+    color: #006b3f;
+}
+
+.social-icon-item:nth-child(3) .social-icon-link:hover {
+    color: #004d2d;
 }
 
 /* ============================================
