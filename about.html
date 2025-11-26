@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#006b3f">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="images/iconLEONlogo.svg">
+    <link rel="icon" type="image/svg+xml" href="images/LeonDevLogo.svg">
 
     <title>About - Leon Madara</title>
 
@@ -25,17 +25,19 @@
 
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar-profile-card.css">
     <link rel="stylesheet" href="css/about.css">
 
     <!-- GSAP for smooth animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- GSAP Bonus Plugins (Club GreenSock) -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+    <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
+    <script src="https://assets.codepen.io/16327/ScrambleTextPlugin3.min.js"></script>
 </head>
 
 <body class="about-page">
-    <!-- Skip Navigation -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
     <!-- Live region for screen reader announcements -->
     <div id="sr-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
@@ -44,7 +46,7 @@
         <div class="floating-header">
             <div class="header-container">
                 <a href="index.html" class="header-logo" aria-label="Leon Madara Logo">
-                    <img src="images/iconLEONlogo.svg" class="leon-logo" alt="Leon Madara Logo" />
+                    <img src="images/LeonDevLogo.svg" class="leon-logo" alt="Leon Madara Logo" />
                 </a>
             </div>
         </div>
@@ -71,47 +73,97 @@
                         d="M10 4h4c1.1 0 2 .9 2 2v1h4c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V6c0-1.1.9-2 2-2zm4 3V6h-4v1h4z" />
                 </svg>
             </button>
-            <button class="nav-icon" data-section="contact" data-label="Contact Me" aria-label="Contact Me"
-                type="button">
+            <a href="contact.html" class="nav-icon-link" data-section="contact" data-label="Contact Me" aria-label="Contact Me">
                 <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path
                         d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                 </svg>
-            </button>
+            </a>
         </nav>
     </nav>
 
-    <!-- Pill-shaped Sidebar -->
-    <aside class="pill-sidebar" aria-label="Profile and social links">
-        <div class="profile-section">
-            <img src="images/Leon.jpg" class="profile-photo" alt="Leon Madara Profile Photo" />
+    <!-- Profile Card Sidebar -->
+    <aside class="pill-sidebar" role="complementary" aria-label="Profile and social links">
+        <!-- Card Header with Kenyan Gradient -->
+        <header class="sidebar-header">
+            <!-- Follow Button -->
+            <button class="sidebar-follow-button" aria-label="Follow Leon Madara" aria-pressed="false">
+                <span>Follow</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+            </button>
+
+            <!-- Profile Avatar - Asymmetric at 25% -->
+            <div class="profile-section">
+                <img src="images/Leon.jpg"
+                     alt="Leon Madara"
+                     class="profile-photo" />
+            </div>
+
+            <!-- Experience Progress Bar -->
+            <div class="experience-bar" role="group" aria-label="Experience level">
+                <span class="exp-label" aria-hidden="true">exp.</span>
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Experience: 65%"></div>
+                <span class="sr-only">Experience level: 65%</span>
+            </div>
+        </header>
+
+        <!-- Identity Section -->
+        <div class="identity-section">
+            <h2 class="sidebar-name">Leon Madara</h2>
+            <p class="sidebar-title">Full Stack AI Developer from Nairobi, Kenya. Building innovative solutions with modern web technologies.</p>
         </div>
 
+        <!-- Stats Section -->
+        <div class="stats-section" role="list">
+            <div class="stat-item" role="listitem">
+                <span class="stat-number">72.9K</span>
+                <span class="stat-label">Likes</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-number">828</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-number">342.9K</span>
+                <span class="stat-label">Views</span>
+            </div>
+        </div>
+
+        <!-- Social Icons -->
         <nav class="social-nav" aria-label="Social media links">
             <ul class="social-icons-list">
                 <li class="social-icon-item">
-                    <a href="https://github.com/leon-madara" class="social-icon-link" aria-label="GitHub Profile" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/leon-madara"
+                       class="social-icon-link"
+                       aria-label="GitHub Profile"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                     </a>
                 </li>
                 <li class="social-icon-item">
-                    <a href="https://www.linkedin.com/in/leon-madara/" class="social-icon-link" aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/leon-madara/"
+                       class="social-icon-link"
+                       aria-label="LinkedIn Profile"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
                     </a>
                 </li>
                 <li class="social-icon-item">
-                    <a href="#contact" class="social-icon-link" aria-label="Contact Information">
+                    <a href="https://twitter.com/leon_madara"
+                       class="social-icon-link"
+                       aria-label="Twitter/X Profile"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M8 12.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5S10.33 11 9.5 11 8 11.67 8 12.5zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" />
-                            <circle cx="12" cy="7" r="2" />
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
                     </a>
                 </li>
@@ -125,25 +177,36 @@
         <!-- PARALLAX HERO SECTION -->
         <section class="parallax-hero" id="parallax-hero">
 
+            <!-- Green Section (0vw to 20vw) -->
+            <div class="green-section" id="green-section"></div>
+
             <!-- Hero Container (will scale & slide) -->
             <div class="hero-container" id="hero-container">
 
-                <!-- Ghibli Image -->
+                <!-- Lion Image -->
                 <div class="hero-image-wrapper">
-                    <img src="images/leon-ghibli.png" alt="Leon Madara - Ghibli style illustration"
+                    <img src="images/lion1.PNG" alt="Leon Madara - Professional portrait"
                         class="hero-image" id="hero-image" />
                 </div>
 
-                <!-- Name Typography -->
-                <div class="hero-name-wrapper">
-                    <!-- First name: small, lowercase, behind head -->
-                    <span class="name-first" id="name-first">leon</span>
-
-                    <!-- Last name: large, uppercase, below body -->
-                    <span class="name-last" id="name-last">MADARA</span>
+                <!-- About Text Typography -->
+                <div class="hero-text-wrapper">
+                    <div class="about-text-container" id="about-text-container">
+                        <span class="about-text" id="about-text">About</span>
+                        <span class="name-text" id="name-text">
+                            Leon Madara
+                            <span class="name-underline" id="name-underline"></span>
+                        </span>
+                    </div>
                 </div>
             </div>
 
+            <!-- Reuse home-page decorative blur shapes for visual consistency -->
+            <div class="decorative-shapes about-decorative-shapes" aria-hidden="true">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
         </section>
 
         <!-- WHAT I DO SECTION -->
@@ -153,37 +216,33 @@
 
                 <!-- Section Title (fades in from back) -->
                 <h2 class="section-title kenyan-gradient" id="section-title">
-                    What I Do
+                    About Me
                 </h2>
 
                 <!-- Section Body (slides up from below) -->
                 <div class="section-body" id="section-body">
 
                     <p class="intro-text">
-                        Full Stack Developer and UX Designer with 3+ years creating intuitive, data-informed web
-                        applications. I blend technical implementation with user-centered design to build experiences
-                        that are both beautiful and functional.
+                        Multidisciplinary Data Analyst & Web Developer with 3+ years of industry experience and a strong foundation in computer science. I combine analytical rigor with intuitive interface design to craft data-driven applications and dashboards that are functional, performant, and user-focused.
                     </p>
 
                     <div class="expertise-grid">
                         <div class="expertise-item">
                             <span class="expertise-icon">💻</span>
                             <h3>Web Development</h3>
-                            <p>Building responsive, performant applications with React, TypeScript, and modern web
-                                technologies.</p>
+                            <p>Building responsive websites and dashboards using HTML, CSS, JavaScript, React, and Tailwind CSS.</p>
                         </div>
 
                         <div class="expertise-item">
                             <span class="expertise-icon">🎨</span>
                             <h3>UI/UX Design</h3>
-                            <p>Crafting intuitive interfaces in Figma and Adobe XD with focus on usability and
-                                accessibility.</p>
+                            <p>Designing user interfaces in Figma and Adobe XD with a focus on clarity, accessibility, and usability.</p>
                         </div>
 
                         <div class="expertise-item">
                             <span class="expertise-icon">📊</span>
                             <h3>Data Analysis</h3>
-                            <p>Leveraging SQL and Python to extract insights and inform design decisions.</p>
+                            <p>Designing visual reports using PowerBI, Tableau, and SQL to help stakeholders make informed decisions.</p>
                         </div>
                     </div>
 
@@ -193,12 +252,187 @@
 
         </section>
 
-        <!-- Placeholder for future sections -->
-        <section class="placeholder-section" style="min-height: 50vh; padding: 4rem 2rem;">
-            <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-                <p style="color: var(--secondary-text); font-size: 1.2rem;">
-                    More sections coming soon: Experience Timeline, Education, Projects Preview...
-                </p>
+        <!-- SKILLS SECTION -->
+        <section class="skills-section" id="skills-section">
+            <div class="section-content">
+                <h2 class="section-title kenyan-gradient">Skills & Technologies</h2>
+
+                <div class="skills-grid">
+                    <div class="skill-category" data-category="data">
+                        <h3 class="skill-category-title">Data Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Excel</span>
+                            <span class="skill-tag">SPSS</span>
+                            <span class="skill-tag">PowerBI</span>
+                            <span class="skill-tag">Tableau</span>
+                            <span class="skill-tag">Metabase</span>
+                            <span class="skill-tag">Looker</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category" data-category="web">
+                        <h3 class="skill-category-title">Web Development</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Vite</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category" data-category="design">
+                        <h3 class="skill-category-title">UI/UX Design</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Adobe XD</span>
+                            <span class="skill-tag">Prototyping</span>
+                            <span class="skill-tag">Usability Testing</span>
+                            <span class="skill-tag">Accessibility</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category" data-category="other">
+                        <h3 class="skill-category-title">Other</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Responsive Design</span>
+                            <span class="skill-tag">Google Analytics</span>
+                            <span class="skill-tag">Problem-Solving</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section class="experience-section" id="experience-section">
+            <div class="section-content">
+                <h2 class="section-title kenyan-gradient">Professional Experience</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item" data-role="freelance">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2019 – Present</span>
+                            <h3 class="timeline-title">Freelance Web Developer & UX Designer</h3>
+                            <p class="timeline-location">Remote / Contract-Based</p>
+                            <ul class="timeline-achievements">
+                                <li>Built responsive websites and dashboards using HTML, CSS, JavaScript, React, and Tailwind CSS</li>
+                                <li>Designed user interfaces in Figma and Adobe XD with a focus on clarity, accessibility, and usability</li>
+                                <li>Integrated analytics tools (Google Analytics, Metabase) for insight-driven optimizations</li>
+                                <li>Delivered intuitive, data-rich user experiences for startups and SMEs</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" data-role="analyst">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2015 – 2018</span>
+                            <h3 class="timeline-title">Junior Analyst</h3>
+                            <p class="timeline-location">Mumias Sugar Company — Kakamega County, Mumias Town</p>
+                            <ul class="timeline-achievements">
+                                <li>Conducted end-to-end data analysis to support strategic planning and operations</li>
+                                <li>Designed visual reports using PowerBI, Tableau, and Looker, helping stakeholders make informed decisions</li>
+                                <li>Optimized workflows using SQL and Excel to automate repetitive tasks</li>
+                                <li>Collaborated cross-functionally to improve data visibility with interactive dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION SECTION -->
+        <section class="education-section" id="education-section">
+            <div class="section-content">
+                <h2 class="section-title kenyan-gradient">Education</h2>
+
+                <div class="education-grid">
+                    <div class="education-item" data-level="university">
+                        <div class="education-icon">🎓</div>
+                        <h3 class="education-degree">Bachelor of Science in Computer Science</h3>
+                        <p class="education-institution">University of Nairobi</p>
+                        <p class="education-honors">Second Upper Class Honors</p>
+                        <span class="education-years">2009 – 2013</span>
+                    </div>
+
+                    <div class="education-item" data-level="highschool">
+                        <div class="education-icon">📚</div>
+                        <h3 class="education-degree">High School Education</h3>
+                        <p class="education-institution">Booker Academy</p>
+                        <span class="education-years">2005 – 2008</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section class="projects-section" id="projects-section">
+            <div class="section-content">
+                <h2 class="section-title kenyan-gradient">Featured Projects</h2>
+
+                <div class="projects-grid">
+                    <div class="project-card" data-type="data">
+                        <div class="project-icon">📊</div>
+                        <h3 class="project-title">Data Dashboards</h3>
+                        <p class="project-description">Built and deployed real-time dashboards for business clients to visualize KPIs using Tableau and Metabase.</p>
+                        <div class="project-tags">
+                            <span class="tag">Tableau</span>
+                            <span class="tag">Metabase</span>
+                            <span class="tag">Data Viz</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-type="ux">
+                        <div class="project-icon">🎨</div>
+                        <h3 class="project-title">UX Audit & Redesign</h3>
+                        <p class="project-description">Redesigned a logistics dashboard for mobile responsiveness and improved user flows.</p>
+                        <div class="project-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">UX Research</span>
+                            <span class="tag">Responsive</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-type="web">
+                        <div class="project-icon">💻</div>
+                        <h3 class="project-title">React Portfolio Website</h3>
+                        <p class="project-description">Created a personal website showcasing projects in web dev, UI/UX, and data analysis.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS SECTION -->
+        <section class="certifications-section" id="certifications-section">
+            <div class="section-content">
+                <h2 class="section-title kenyan-gradient">Certifications</h2>
+
+                <div class="certifications-grid">
+                    <div class="certification-card">
+                        <div class="cert-badge">✓</div>
+                        <h3 class="cert-title">Google Data Analytics Certificate</h3>
+                        <p class="cert-issuer">Google</p>
+                        <span class="cert-year">2022 – 2023</span>
+                    </div>
+
+                    <div class="certification-card">
+                        <div class="cert-badge">⏳</div>
+                        <h3 class="cert-title">Responsive Web Design</h3>
+                        <p class="cert-issuer">freeCodeCamp</p>
+                        <span class="cert-year">Ongoing</span>
+                    </div>
+                </div>
             </div>
         </section>
 
