@@ -1,499 +1,321 @@
 /**
- * Contact Page JavaScript
+ * Contact Page - Interactive Features
  * Leon Madara Portfolio
  */
 
 // Contact Page Controller
 const ContactPage = {
-    // State
-    state: {
-        isSubmitting: false,
-        formData: {},
-    },
-
-    // Elements
-    elements: {
-        form: null,
-        nameInput: null,
-        emailInput: null,
-        subjectInput: null,
-        messageInput: null,
-        submitBtn: null,
-        copyEmailBtn: null,
-        toast: null,
-        messageCounter: null,
-    },
-
     // Initialize
     init() {
-        console.log('Initializing Contact Page...');
+        console.log('🚀 Contact Page Initialized');
 
-        // Cache DOM elements
-        this.cacheElements();
+        // Setup FAQ Accordion
+        this.initFAQ();
 
-        // Set up event listeners
-        this.setupEventListeners();
+        // Setup Copy Buttons
+        this.initCopyButtons();
 
-        // Initialize GSAP animations
+        // Setup Live Time Display
+        this.initLiveTime();
+
+        // Setup GSAP Animations
         this.initAnimations();
 
-        // Initialize character counter
-        this.initCharacterCounter();
-
-        console.log('Contact Page initialized successfully');
+        // Setup Scroll Effects
+        this.initScrollEffects();
     },
 
-    // Cache DOM Elements
-    cacheElements() {
-        this.elements.form = document.getElementById('contact-form-element');
-        this.elements.nameInput = document.getElementById('name');
-        this.elements.emailInput = document.getElementById('email');
-        this.elements.subjectInput = document.getElementById('subject');
-        this.elements.messageInput = document.getElementById('message');
-        this.elements.submitBtn = document.getElementById('submit-btn');
-        this.elements.copyEmailBtn = document.getElementById('copy-email-btn');
-        this.elements.toast = document.getElementById('toast');
-        this.elements.messageCounter = document.getElementById('message-counter');
+    // ===================================
+    // FAQ ACCORDION
+    // ===================================
+    initFAQ() {
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all FAQ items
+                faqItems.forEach(faq => {
+                    faq.classList.remove('active');
+                    faq.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+
+                    // Announce to screen readers
+                    this.announceToScreenReader('FAQ item expanded');
+                }
+            });
+
+            // Keyboard navigation
+            question.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    question.click();
+                }
+            });
+        });
+
+        console.log('✓ FAQ Accordion initialized');
     },
 
-    // Setup Event Listeners
-    setupEventListeners() {
-        // Form submission
-        if (this.elements.form) {
-            this.elements.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
-        }
-
-        // Real-time validation
-        if (this.elements.nameInput) {
-            this.elements.nameInput.addEventListener('blur', () => this.validateName());
-            this.elements.nameInput.addEventListener('input', () => this.clearError('name'));
-        }
-
-        if (this.elements.emailInput) {
-            this.elements.emailInput.addEventListener('blur', () => this.validateEmail());
-            this.elements.emailInput.addEventListener('input', () => this.clearError('email'));
-        }
-
-        if (this.elements.subjectInput) {
-            this.elements.subjectInput.addEventListener('blur', () => this.validateSubject());
-            this.elements.subjectInput.addEventListener('input', () => this.clearError('subject'));
-        }
-
-        if (this.elements.messageInput) {
-            this.elements.messageInput.addEventListener('blur', () => this.validateMessage());
-            this.elements.messageInput.addEventListener('input', () => {
-                this.clearError('message');
-                this.updateCharacterCounter();
+    // ===================================
+    // COPY TO CLIPBOARD
+    // ===================================
+    initCopyButtons() {
+        // Copy Email
+        const copyEmailBtn = document.getElementById('copy-email');
+        if (copyEmailBtn) {
+            copyEmailBtn.addEventListener('click', () => {
+                const email = document.getElementById('email-value').textContent;
+                this.copyToClipboard(email, 'Email copied to clipboard!');
             });
         }
 
-        // Copy email button
-        if (this.elements.copyEmailBtn) {
-            this.elements.copyEmailBtn.addEventListener('click', () => this.copyEmailToClipboard());
+        // Copy Phone
+        const copyPhoneBtn = document.getElementById('copy-phone');
+        if (copyPhoneBtn) {
+            copyPhoneBtn.addEventListener('click', () => {
+                const phone = document.getElementById('phone-value').textContent;
+                this.copyToClipboard(phone, 'Phone number copied to clipboard!');
+            });
         }
+
+        console.log('✓ Copy buttons initialized');
     },
 
-    // Initialize GSAP Animations
-    initAnimations() {
-        if (typeof gsap === 'undefined') {
-            console.warn('GSAP not loaded, skipping animations');
-            return;
-        }
-
-        // Hero section animation
-        gsap.from('.hero-title', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            ease: 'power3.out',
-        });
-
-        gsap.from('.hero-subtitle', {
-            opacity: 0,
-            y: 30,
-            duration: 1,
-            delay: 0.2,
-            ease: 'power3.out',
-        });
-
-        gsap.from('.scroll-indicator', {
-            opacity: 0,
-            y: 20,
-            duration: 1,
-            delay: 0.4,
-            ease: 'power3.out',
-        });
-
-        // Contact cards stagger animation
-        gsap.from('.contact-card', {
-            scrollTrigger: {
-                trigger: '.contact-methods-grid',
-                start: 'top 80%',
-            },
-            opacity: 0,
-            y: 50,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: 'power3.out',
-        });
-
-        // Form fields stagger animation
-        gsap.from('.form-group', {
-            scrollTrigger: {
-                trigger: '.contact-form',
-                start: 'top 80%',
-            },
-            opacity: 0,
-            x: -30,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power2.out',
-        });
-
-        // Location items animation
-        gsap.from('.location-item', {
-            scrollTrigger: {
-                trigger: '.location-section',
-                start: 'top 80%',
-            },
-            opacity: 0,
-            y: 30,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: 'power2.out',
-        });
-    },
-
-    // Initialize Character Counter
-    initCharacterCounter() {
-        this.updateCharacterCounter();
-    },
-
-    // Update Character Counter
-    updateCharacterCounter() {
-        if (!this.elements.messageInput || !this.elements.messageCounter) return;
-
-        const currentLength = this.elements.messageInput.value.length;
-        const maxLength = this.elements.messageInput.maxLength;
-
-        this.elements.messageCounter.textContent = `${currentLength} / ${maxLength}`;
-
-        // Change color when approaching limit
-        if (currentLength >= maxLength * 0.9) {
-            this.elements.messageCounter.style.color = 'var(--kenyan-red)';
-        } else {
-            this.elements.messageCounter.style.color = 'var(--secondary-text)';
-        }
-    },
-
-    // Validation Methods
-    validateName() {
-        const name = this.elements.nameInput.value.trim();
-        const errorElement = document.getElementById('name-error');
-
-        if (name.length === 0) {
-            this.showError('name', 'Name is required');
-            return false;
-        }
-
-        if (name.length < 2) {
-            this.showError('name', 'Name must be at least 2 characters');
-            return false;
-        }
-
-        this.clearError('name');
-        return true;
-    },
-
-    validateEmail() {
-        const email = this.elements.emailInput.value.trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const errorElement = document.getElementById('email-error');
-
-        if (email.length === 0) {
-            this.showError('email', 'Email is required');
-            return false;
-        }
-
-        if (!emailRegex.test(email)) {
-            this.showError('email', 'Please enter a valid email address');
-            return false;
-        }
-
-        this.clearError('email');
-        return true;
-    },
-
-    validateSubject() {
-        const subject = this.elements.subjectInput.value.trim();
-        const errorElement = document.getElementById('subject-error');
-
-        if (subject.length === 0) {
-            this.showError('subject', 'Subject is required');
-            return false;
-        }
-
-        if (subject.length < 3) {
-            this.showError('subject', 'Subject must be at least 3 characters');
-            return false;
-        }
-
-        this.clearError('subject');
-        return true;
-    },
-
-    validateMessage() {
-        const message = this.elements.messageInput.value.trim();
-        const errorElement = document.getElementById('message-error');
-
-        if (message.length === 0) {
-            this.showError('message', 'Message is required');
-            return false;
-        }
-
-        if (message.length < 10) {
-            this.showError('message', 'Message must be at least 10 characters');
-            return false;
-        }
-
-        this.clearError('message');
-        return true;
-    },
-
-    // Show Error
-    showError(fieldName, message) {
-        const inputElement = this.elements[`${fieldName}Input`];
-        const errorElement = document.getElementById(`${fieldName}-error`);
-
-        if (inputElement) {
-            inputElement.classList.add('error');
-        }
-
-        if (errorElement) {
-            errorElement.textContent = message;
-        }
-    },
-
-    // Clear Error
-    clearError(fieldName) {
-        const inputElement = this.elements[`${fieldName}Input`];
-        const errorElement = document.getElementById(`${fieldName}-error`);
-
-        if (inputElement) {
-            inputElement.classList.remove('error');
-        }
-
-        if (errorElement) {
-            errorElement.textContent = '';
-        }
-    },
-
-    // Validate All Fields
-    validateAllFields() {
-        const isNameValid = this.validateName();
-        const isEmailValid = this.validateEmail();
-        const isSubjectValid = this.validateSubject();
-        const isMessageValid = this.validateMessage();
-
-        return isNameValid && isEmailValid && isSubjectValid && isMessageValid;
-    },
-
-    // Handle Form Submit
-    async handleFormSubmit(e) {
-        e.preventDefault();
-
-        // Validate all fields
-        if (!this.validateAllFields()) {
-            this.showToast('Please fix the errors in the form', 'error');
-            return;
-        }
-
-        // Prevent double submission
-        if (this.state.isSubmitting) {
-            return;
-        }
-
-        // Set submitting state
-        this.state.isSubmitting = true;
-        this.elements.submitBtn.classList.add('loading');
-        this.elements.submitBtn.disabled = true;
-
-        // Collect form data
-        this.state.formData = {
-            name: this.elements.nameInput.value.trim(),
-            email: this.elements.emailInput.value.trim(),
-            subject: this.elements.subjectInput.value.trim(),
-            message: this.elements.messageInput.value.trim(),
-            timestamp: new Date().toISOString(),
-        };
-
+    // Copy to Clipboard Helper
+    async copyToClipboard(text, successMessage) {
         try {
-            // Simulate form submission (replace with actual backend call)
-            await this.submitForm(this.state.formData);
-
-            // Success
-            this.showToast('Message sent successfully!', 'success');
-            this.resetForm();
-
-            // Announce success to screen readers
-            this.announceToScreenReader('Your message has been sent successfully');
-
-        } catch (error) {
-            console.error('Form submission error:', error);
-            this.showToast('Failed to send message. Please try again.', 'error');
-        } finally {
-            // Reset submitting state
-            this.state.isSubmitting = false;
-            this.elements.submitBtn.classList.remove('loading');
-            this.elements.submitBtn.disabled = false;
-        }
-    },
-
-    // Submit Form (Replace with actual backend integration)
-    async submitForm(data) {
-        // Simulate API call
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // Simulate success (90% success rate for demo)
-                if (Math.random() > 0.1) {
-                    console.log('Form data submitted:', data);
-                    resolve({ success: true });
-                } else {
-                    reject(new Error('Network error'));
-                }
-            }, 2000);
-        });
-
-        // TODO: Replace with actual backend integration
-        // Example with EmailJS:
-        /*
-        return emailjs.send(
-            'YOUR_SERVICE_ID',
-            'YOUR_TEMPLATE_ID',
-            data,
-            'YOUR_PUBLIC_KEY'
-        );
-        */
-
-        // Example with Formspree:
-        /*
-        return fetch('https://formspree.io/f/YOUR_FORM_ID', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        });
-        */
-    },
-
-    // Reset Form
-    resetForm() {
-        if (this.elements.form) {
-            this.elements.form.reset();
-        }
-
-        // Clear all errors
-        this.clearError('name');
-        this.clearError('email');
-        this.clearError('subject');
-        this.clearError('message');
-
-        // Reset character counter
-        this.updateCharacterCounter();
-    },
-
-    // Copy Email to Clipboard
-    async copyEmailToClipboard() {
-        const email = document.getElementById('email-value').textContent;
-
-        try {
-            // Modern clipboard API
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                await navigator.clipboard.writeText(email);
-                this.showToast('Email copied to clipboard!', 'success');
-
-                // Visual feedback on button
-                const originalText = this.elements.copyEmailBtn.querySelector('.action-text').textContent;
-                this.elements.copyEmailBtn.querySelector('.action-text').textContent = 'Copied!';
-
-                setTimeout(() => {
-                    this.elements.copyEmailBtn.querySelector('.action-text').textContent = originalText;
-                }, 2000);
-
+                await navigator.clipboard.writeText(text);
+                this.showToast(successMessage, 'success');
+                this.announceToScreenReader(successMessage);
             } else {
                 // Fallback for older browsers
-                this.fallbackCopyEmail(email);
+                this.fallbackCopy(text, successMessage);
             }
-
-            // Announce to screen readers
-            this.announceToScreenReader('Email address copied to clipboard');
-
         } catch (error) {
-            console.error('Failed to copy email:', error);
-            this.showToast('Failed to copy email', 'error');
+            console.error('Failed to copy:', error);
+            this.showToast('Failed to copy to clipboard', 'error');
         }
     },
 
     // Fallback Copy Method
-    fallbackCopyEmail(email) {
-        const textArea = document.createElement('textarea');
-        textArea.value = email;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-9999px';
-        document.body.appendChild(textArea);
-        textArea.select();
+    fallbackCopy(text, successMessage) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
 
         try {
             document.execCommand('copy');
-            this.showToast('Email copied to clipboard!', 'success');
+            this.showToast(successMessage, 'success');
+            this.announceToScreenReader(successMessage);
         } catch (error) {
             console.error('Fallback copy failed:', error);
-            this.showToast('Failed to copy email', 'error');
+            this.showToast('Failed to copy to clipboard', 'error');
         } finally {
-            document.body.removeChild(textArea);
+            document.body.removeChild(textarea);
         }
     },
 
-    // Show Toast Notification
+    // ===================================
+    // TOAST NOTIFICATIONS
+    // ===================================
     showToast(message, type = 'success') {
-        if (!this.elements.toast) return;
+        const toast = document.getElementById('toast');
+        if (!toast) return;
 
-        // Set message
-        const messageElement = this.elements.toast.querySelector('.toast-message');
+        const messageElement = toast.querySelector('.toast-message');
         if (messageElement) {
             messageElement.textContent = message;
         }
 
-        // Set type
-        this.elements.toast.classList.remove('success', 'error');
-        this.elements.toast.classList.add(type);
-
-        // Update icon
-        const iconElement = this.elements.toast.querySelector('.toast-icon');
-        if (iconElement) {
-            if (type === 'error') {
-                iconElement.innerHTML = '<path d="M18 6L6 18M6 6l12 12"></path>';
-            } else {
-                iconElement.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
-            }
-        }
+        // Set toast type
+        toast.classList.remove('success', 'error');
+        toast.classList.add(type);
 
         // Show toast
-        this.elements.toast.classList.add('show');
+        toast.classList.add('show');
 
         // Hide after 4 seconds
         setTimeout(() => {
-            this.elements.toast.classList.remove('show');
+            toast.classList.remove('show');
         }, 4000);
     },
 
-    // Announce to Screen Reader
+    // ===================================
+    // LIVE TIME DISPLAY
+    // ===================================
+    initLiveTime() {
+        const timeElement = document.getElementById('current-time');
+        if (!timeElement) return;
+
+        const updateTime = () => {
+            // East Africa Time (EAT) is UTC+3
+            const now = new Date();
+            const eatTime = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Nairobi' }));
+
+            const hours = eatTime.getHours();
+            const minutes = eatTime.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            const displayMinutes = minutes.toString().padStart(2, '0');
+
+            timeElement.textContent = `${displayHours}:${displayMinutes} ${ampm}`;
+        };
+
+        // Update immediately
+        updateTime();
+
+        // Update every minute
+        setInterval(updateTime, 60000);
+
+        console.log('✓ Live time initialized');
+    },
+
+    // ===================================
+    // GSAP ANIMATIONS
+    // ===================================
+    initAnimations() {
+        if (typeof gsap === 'undefined') {
+            console.warn('⚠ GSAP not loaded, skipping animations');
+            return;
+        }
+
+        // Register ScrollTrigger
+        if (typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+        }
+
+        // Animate Contact Cards
+        const cards = document.querySelectorAll('.contact-card');
+        if (cards.length > 0) {
+            gsap.from(cards, {
+                scrollTrigger: {
+                    trigger: '.contact-cards-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 60,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+        }
+
+        // Animate Location Cards
+        const locationCards = document.querySelectorAll('.location-card');
+        if (locationCards.length > 0) {
+            gsap.from(locationCards, {
+                scrollTrigger: {
+                    trigger: '.location-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: 'back.out(1.7)'
+            });
+        }
+
+        // Animate FAQ Items
+        const faqItems = document.querySelectorAll('.faq-item');
+        if (faqItems.length > 0) {
+            gsap.from(faqItems, {
+                scrollTrigger: {
+                    trigger: '.faq-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        }
+
+        // Section Headers
+        const sectionHeaders = document.querySelectorAll('.section-header');
+        sectionHeaders.forEach(header => {
+            gsap.from(header, {
+                scrollTrigger: {
+                    trigger: header,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+        });
+
+        console.log('✓ GSAP animations initialized');
+    },
+
+    // ===================================
+    // SCROLL EFFECTS
+    // ===================================
+    initScrollEffects() {
+        // Parallax effect for floating shapes
+        const shapes = document.querySelectorAll('.floating-shapes .shape');
+
+        if (shapes.length > 0) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+
+                shapes.forEach((shape, index) => {
+                    const speed = (index + 1) * 0.3;
+                    const yPos = -(scrolled * speed);
+                    shape.style.transform = `translateY(${yPos}px)`;
+                });
+            });
+        }
+
+        // Fade in elements on scroll (lightweight alternative to AOS)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements with data-aos attribute
+        document.querySelectorAll('[data-aos]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        console.log('✓ Scroll effects initialized');
+    },
+
+    // ===================================
+    // ACCESSIBILITY HELPERS
+    // ===================================
     announceToScreenReader(message) {
         const announcement = document.getElementById('sr-announcements');
         if (announcement) {
@@ -505,11 +327,46 @@ const ContactPage = {
             }, 1000);
         }
     },
+
+    // ===================================
+    // UTILITY FUNCTIONS
+    // ===================================
+
+    // Smooth scroll to section
+    scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    },
+
+    // Check if element is in viewport
+    isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
 };
 
-// Initialize when DOM is ready
+// ===================================
+// INITIALIZE ON DOM READY
+// ===================================
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => ContactPage.init());
 } else {
     ContactPage.init();
+}
+
+// ===================================
+// EXPORT FOR EXTERNAL USE
+// ===================================
+if (typeof window !== 'undefined') {
+    window.ContactPage = ContactPage;
 }

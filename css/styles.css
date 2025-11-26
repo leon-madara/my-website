@@ -8,11 +8,12 @@
     --primary-text: #333;
     --secondary-text: rgba(51, 51, 51, 0.7);
     --accent-green: var(--kenyan-green);
-    --accent-green-light: #10CF74;
+    --accent-green-light: #10cf74;
     --background-light: hsl(48, 10%, 90%);
 
     /* Typography - Critical Path Only */
-    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-primary:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-size-hero: clamp(3rem, 8vw, 6rem);
     --font-size-subtitle: clamp(1.5rem, 4vw, 2.5rem);
     --font-size-body: clamp(1rem, 2.5vw, 1.125rem);
@@ -136,13 +137,28 @@
 /* Kenyan Flag Gradient Class */
 .kenyan-gradient {
     /* Fallback color for browsers that don't support gradient text */
-    color: #CE1126;
+    color: #ce1126;
 
     /* Cross-browser gradient support */
-    background: linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
-    background: -webkit-linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
-    background: -moz-linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
-    background: -o-linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
+    background: linear-gradient(45deg, #000000 0%, #ce1126 50%, #006b3f 100%);
+    background: -webkit-linear-gradient(
+        45deg,
+        #000000 0%,
+        #ce1126 50%,
+        #006b3f 100%
+    );
+    background: -moz-linear-gradient(
+        45deg,
+        #000000 0%,
+        #ce1126 50%,
+        #006b3f 100%
+    );
+    background: -o-linear-gradient(
+        45deg,
+        #000000 0%,
+        #ce1126 50%,
+        #006b3f 100%
+    );
 
     /* Gradient text effect with webkit prefixes */
     -webkit-background-clip: text;
@@ -159,7 +175,7 @@
 /* Fallback for browsers without gradient text support */
 @supports not (-webkit-background-clip: text) {
     .kenyan-gradient {
-        color: #CE1126 !important;
+        color: #ce1126 !important;
         background: none !important;
     }
 }
@@ -278,18 +294,23 @@
 /* Enhanced accessibility for gradient text */
 .kenyan-gradient:focus {
     /* Ensure focus state is visible even with gradient */
-    outline: 3px solid #CE1126;
+    outline: 3px solid #ce1126;
     outline-offset: 2px;
     background: none !important;
-    color: #CE1126 !important;
-    -webkit-text-fill-color: #CE1126 !important;
+    color: #ce1126 !important;
+    -webkit-text-fill-color: #ce1126 !important;
 }
 
 /* Ensure gradient works across different browsers */
 @supports (-webkit-background-clip: text) {
     .kenyan-gradient {
         /* Only apply gradient if browser supports it */
-        background: linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
+        background: linear-gradient(
+            45deg,
+            #000000 0%,
+            #ce1126 50%,
+            #006b3f 100%
+        );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -364,7 +385,6 @@ button {
 
 /* Enhanced Performance Optimization and Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
@@ -517,10 +537,11 @@ button {
 
 /* Performance-based animation quality scaling */
 @media (max-resolution: 1dppx) {
-
     /* Reduce animation complexity on low-DPI displays */
     .circular-halo {
-        box-shadow: 0 0 15px var(--page-background-color), 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+        box-shadow:
+            0 0 15px var(--page-background-color),
+            0 10px 25px rgba(0, 0, 0, 0.3) !important;
     }
 
     .nav-icon.floating {
@@ -530,8 +551,7 @@ button {
 }
 
 /* High refresh rate display optimizations */
-@media (min-resolution: 120dpi) and (min-refresh: 90hz) {
-
+@media (min-resolution: 120dpi) and (min-refresh: 90Hz) {
     /* Enhanced animations for high refresh rate displays */
     .circular-halo.materializing {
         animation-duration: 0.3s;
@@ -679,7 +699,6 @@ button {
 }
 
 @-webkit-keyframes pulse {
-
     0%,
     100% {
         -webkit-transform: scale(1);
@@ -693,7 +712,6 @@ button {
 }
 
 @keyframes pulse {
-
     0%,
     100% {
         -webkit-transform: scale(1);
@@ -835,14 +853,18 @@ button {
         transform: translate3d(-50%, 10px, 0) scale(0.3);
         -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
         opacity: 0;
-        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow:
+            0 0 0 var(--page-background-color),
+            0 0 0 rgba(0, 0, 0, 0);
     }
 
     50% {
         transform: translate3d(-50%, -5px, 0) scale(0.8);
         -webkit-transform: translate3d(-50%, -5px, 0) scale(0.8);
         opacity: 0.7;
-        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow:
+            0 0 10px var(--page-background-color),
+            0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     100% {
@@ -871,14 +893,18 @@ button {
         transform: translate3d(-50%, 5px, 0) scale(0.8);
         -webkit-transform: translate3d(-50%, 5px, 0) scale(0.8);
         opacity: 0.7;
-        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow:
+            0 0 10px var(--page-background-color),
+            0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     100% {
         transform: translate3d(-50%, 10px, 0) scale(0.3);
         -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
         opacity: 0;
-        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow:
+            0 0 0 var(--page-background-color),
+            0 0 0 rgba(0, 0, 0, 0);
     }
 }
 
@@ -889,7 +915,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../images/dot-pattern.svg');
+    background-image: url("../images/dot-pattern.svg");
     background-repeat: repeat;
     background-size: 20px 20px;
     opacity: 0.4;
@@ -908,13 +934,16 @@ button {
 
 /* Fallback dotted pattern using CSS for older browsers */
 .no-svg .background-pattern {
-    background-image: radial-gradient(circle, rgba(51, 51, 51, 0.4) 1px, transparent 1px);
+    background-image: radial-gradient(
+        circle,
+        rgba(51, 51, 51, 0.4) 1px,
+        transparent 1px
+    );
     background-size: 20px 20px;
 }
 
 /* Internet Explorer 11 specific fixes */
-@media screen and (-ms-high-contrast: active),
-(-ms-high-contrast: none) {
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .background-pattern {
         background-image: none;
         background-color: rgba(51, 51, 51, 0.1);
@@ -923,11 +952,6 @@ button {
     .kenyan-code-elements {
         display: none;
         /* Hide complex animations in IE11 */
-    }
-
-    .pill-sidebar {
-        transform: translateY(-50%) translateX(20px);
-        /* Remove scale for IE11 compatibility */
     }
 }
 
@@ -951,11 +975,6 @@ button {
         transform: translateZ(0);
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-    }
-
-    .pill-sidebar {
-        -webkit-transform: translateY(-50%) translateX(20px) scale(1.2);
-        transform: translateY(-50%) translateX(20px) scale(1.2);
     }
 }
 
@@ -1080,7 +1099,7 @@ button {
     width: 100%;
     height: 100%;
     z-index: -5;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     pointer-events: none;
     /* GPU acceleration */
     -webkit-transform: translateZ(0);
@@ -1148,7 +1167,6 @@ button {
 }
 
 @keyframes float-code {
-
     0%,
     100% {
         transform: translate3d(0, 0, 0) rotate(0deg);
@@ -1166,12 +1184,26 @@ button {
 /* Updated Base Styles with Light Background */
 body {
     /* Fallback styles for browsers without CSS custom properties */
-    font: 400 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font:
+        400 1rem/1.5 -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
     color: #333;
     background: hsl(48, 10%, 90%);
 
     /* Modern styles with CSS custom properties */
-    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem)/var(--line-height-normal, 1.5) var(--font-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem) /
+        var(--line-height-normal, 1.5)
+        var(
+            --font-primary,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            sans-serif
+        );
     color: var(--primary-text, #333);
     background: var(--background-light, hsl(48, 10%, 90%));
 }
@@ -1218,9 +1250,12 @@ a {
     /* Modern styles with CSS custom properties */
     color: var(--accent-green, #006b3f);
     transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
-    -webkit-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
-    -moz-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
-    -o-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -webkit-transition: all
+        var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -moz-transition: all
+        var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -o-transition: all
+        var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 a:hover,
@@ -1443,7 +1478,9 @@ a:active {
     /* Subtle appearance like page decorations */
     opacity: 0.8;
     /* Smooth transitions for dynamic sizing */
-    transition: width 0.3s ease, opacity 0.3s ease;
+    transition:
+        width 0.3s ease,
+        opacity 0.3s ease;
     /* GPU acceleration for smooth performance */
     will-change: transform, width;
     transform-style: preserve-3d;
@@ -1461,7 +1498,8 @@ a:active {
 }
 
 /* Enhanced fallback for older browsers */
-@supports not (-webkit-backdrop-filter: blur(8px)) and not (backdrop-filter: blur(8px)) {
+@supports not (-webkit-backdrop-filter: blur(8px)) and not
+    (backdrop-filter: blur(8px)) {
     .nav-background-blur {
         background: rgba(0, 0, 0, 0.35);
         box-shadow:
@@ -1542,8 +1580,8 @@ a:active {
 /* No active state - logo is completely static */
 
 .leon-logo {
-    width: 70px;
-    /* Fixed size, scaled by parent transform */
+    width: 35px;
+    /* Reduced to half size for better proportion */
     height: auto;
     aspect-ratio: auto;
     image-rendering: -webkit-optimize-contrast;
@@ -1591,14 +1629,38 @@ a:active {
     position: absolute;
     top: 15px;
     /* Same vertical level as logo */
-    right: 0;
-    /* Keep original right positioning */
-    background: transparent;
-    border: none;
+    right: 2rem;
+    /* Add spacing from right edge */
     padding: 0.5rem 1rem;
-    border-radius: 25px;
+    border-radius: 50px;
     height: fit-content;
-    max-height: 50px;
+    max-height: 52px;
+    position: relative;
+
+    /* Transparent background with blur */
+    background: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Gradient border using pseudo-element for pill-shaped corners */
+.nav-icons-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    padding: 4px;
+    background: linear-gradient(135deg, #000000 0%, #ce1126 50%, #006b3f 100%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* Responsive adjustments for navigation icons container */
@@ -1606,7 +1668,7 @@ a:active {
     .nav-icons-container {
         gap: 1.5rem;
         padding: 0.375rem 0.75rem;
-        max-height: 45px;
+        max-height: 47px;
         top: 20px;
         /* Same vertical level as logo */
     }
@@ -1616,7 +1678,7 @@ a:active {
     .nav-icons-container {
         gap: 1rem;
         padding: 0.25rem 0.5rem;
-        max-height: 40px;
+        max-height: 42px;
         top: 20px;
         /* Same vertical level as logo */
     }
@@ -1697,7 +1759,7 @@ a:active {
     box-shadow:
         0 0 20px var(--page-background-color),
         /* Enhanced shadow effects beneath floating containers for depth perception */
-        0 15px 35px rgba(0, 0, 0, 0.4),
+            0 15px 35px rgba(0, 0, 0, 0.4),
         0 5px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
@@ -1784,7 +1846,6 @@ a:active {
 
 /* Enhanced focus indicators for reduced motion users */
 @media (prefers-reduced-motion: reduce) {
-
     .nav-icon.keyboard-focused,
     .nav-icon.keyboard-focused.floating,
     /* No keyboard focus effects - logo is completely static */
@@ -1820,9 +1881,9 @@ a:active {
     align-items: center;
     justify-content: center;
     width: auto;
-    height: 30px;
+    height: 31px;
     color: #fff;
-    /* White default color as specified in requirements */
+    /* White color for icons */
     background: none;
     border: none;
     border-radius: 0;
@@ -1847,7 +1908,7 @@ a:active {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     padding: 7px;
-    /* Padding to maintain 44px touch target while keeping icon at 30px */
+    /* Padding to maintain 44px touch target while keeping icon at 31px */
 }
 
 /* Navigation Icon Link - Same styles as nav-icon but for anchor tags */
@@ -1856,7 +1917,7 @@ a:active {
     align-items: center;
     justify-content: center;
     width: auto;
-    height: 30px;
+    height: 31px;
     color: #fff;
     /* White default color as specified in requirements */
     background: none;
@@ -1883,7 +1944,7 @@ a:active {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     padding: 7px;
-    /* Padding to maintain 44px touch target while keeping icon at 30px */
+    /* Padding to maintain 44px touch target while keeping icon at 31px */
     text-decoration: none;
 }
 
@@ -1911,12 +1972,26 @@ a:active {
     z-index: 104;
     margin-top: 8px;
     /* Smooth transitions for tooltip appearance/disappearance - Requirements 6.3, 6.4 */
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease, -webkit-transform 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease, -moz-transform 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease, -o-transform 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -webkit-transform 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -moz-transform 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -o-transform 0.3s ease;
     /* Enhanced readability against page background - Requirement 6.5 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-family: var(--font-primary);
     line-height: 1.2;
@@ -1924,7 +1999,7 @@ a:active {
 
 /* Tooltip arrow pointing upward */
 .nav-icon::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;
@@ -1944,10 +2019,18 @@ a:active {
     z-index: 103;
     margin-top: 2px;
     /* Smooth transitions matching tooltip */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 /* Show tooltip on hover - Requirements 6.1, 6.2 */
@@ -2023,18 +2106,32 @@ a:active {
     pointer-events: none;
     z-index: 104;
     margin-top: 8px;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease, -webkit-transform 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease, -moz-transform 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease, -o-transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -webkit-transform 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -moz-transform 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -o-transform 0.3s ease;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-family: var(--font-primary);
     line-height: 1.2;
 }
 
 .nav-icon-link::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;
@@ -2053,10 +2150,18 @@ a:active {
     pointer-events: none;
     z-index: 103;
     margin-top: 2px;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 .nav-icon-link:hover::after,
@@ -2088,9 +2193,9 @@ a:active {
 
 /* Navigation Icon SVG Styles */
 .nav-icon-svg {
-    width: 30px;
-    height: 30px;
-    /* 30px height as specified in requirements */
+    width: 31px;
+    height: 31px;
+    /* 31px icon size */
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -2237,8 +2342,13 @@ a:active {
 
 /* Active state SVG styling */
 .nav-icon.active .nav-icon-svg {
-    color: #ff0000;
-    /* Ensure SVG inherits red color */
+    color: #006b3f;
+    /* Kenyan green for active state */
+}
+
+.nav-icon.active {
+    color: #006b3f;
+    /* Kenyan green for active state */
 }
 
 /* Active state hover effects - maintain red color but add glow */
@@ -2289,8 +2399,6 @@ a:active {
         border-radius 0.3s ease-in;
 }
 
-
-
 .nav-icon:hover {
     transform: scale(1.15);
     /* 10-15% scale increase */
@@ -2315,9 +2423,9 @@ a:active {
 }
 
 .nav-icon-svg {
-    width: 30px;
-    height: 30px;
-    /* Maintain 30px icon size across all devices - Requirement 8.2 */
+    width: 31px;
+    height: 31px;
+    /* Maintain 31px icon size across all devices */
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -2332,7 +2440,16 @@ a:active {
     -o-transform: scale(1.1);
 }
 
+/* White circle hover effect for nav icons */
+.nav-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
+.nav-icon-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
 /* Navigation Label Styles */
 .nav-label {
@@ -2364,7 +2481,7 @@ a:active {
 }
 
 .nav-label::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -4px;
     left: 50%;
@@ -2428,7 +2545,6 @@ a:active {
 
 /* Accessibility Enhancements for Tooltips */
 @media (prefers-reduced-motion: reduce) {
-
     .nav-icon::after,
     .nav-icon::before {
         transition: none !important;
@@ -2455,7 +2571,9 @@ a:active {
         background: #000000 !important;
         color: #ffffff !important;
         border: 2px solid #ffffff !important;
-        box-shadow: 0 0 0 1px #000000, 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+        box-shadow:
+            0 0 0 1px #000000,
+            0 2px 8px rgba(0, 0, 0, 0.8) !important;
         font-weight: 600 !important;
     }
 
@@ -2480,7 +2598,6 @@ a:active {
 
 /* Touch Device Adjustments - Hide tooltips on touch to prevent conflicts */
 @media (hover: none) and (pointer: coarse) {
-
     .nav-icon::after,
     .nav-icon::before {
         display: none;
@@ -2546,26 +2663,26 @@ a:active {
         gap: 2.5rem;
         /* Increased spacing for ultra-wide - Requirement 8.3 */
         padding: 0.75rem 1.5rem;
-        max-height: 50px;
+        max-height: 52px;
         top: 20px;
         /* Same vertical level as logo */
     }
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 52px;
         /* Enhanced touch targets - Requirement 8.5 */
         min-height: 52px;
         padding: 11px;
-        /* Calculated to maintain 30px icon with 52px touch target */
+        /* Calculated to maintain 31px icon with 52px touch target */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Enhanced tooltip sizing for ultra-wide displays */
@@ -2648,26 +2765,26 @@ a:active {
         gap: 2rem;
         /* Optimized spacing for large desktop - Requirement 8.3 */
         padding: 0.625rem 1.25rem;
-        max-height: 48px;
+        max-height: 50px;
         top: 20px;
         /* Same vertical level as logo */
     }
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 48px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 48px;
         padding: 9px;
-        /* Calculated to maintain 30px icon with 48px touch target */
+        /* Calculated to maintain 31px icon with 48px touch target */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     .nav-label {
@@ -2749,19 +2866,19 @@ a:active {
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
         padding: 7px;
-        /* Calculated to maintain 30px icon with 44px touch target */
+        /* Calculated to maintain 31px icon with 44px touch target */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     .nav-label {
@@ -2836,29 +2953,29 @@ a:active {
         gap: 1.5rem;
         /* Optimized spacing for tablet - Requirement 8.3 */
         padding: 0.375rem 0.75rem;
-        max-height: 45px;
+        max-height: 47px;
         top: 20px;
         /* Same vertical level as logo */
     }
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
         padding: 7px;
-        /* Calculated to maintain 30px icon with 44px touch target */
+        /* Calculated to maintain 31px icon with 44px touch target */
         /* Enhanced touch interaction for tablet */
         -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
         tap-highlight-color: rgba(255, 255, 255, 0.2);
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Enhanced touch feedback for tablet */
@@ -2961,7 +3078,7 @@ a:active {
         /* Positioned at 20vw */
         top: 20px;
         /* Move down 20px from default position */
-        transform: scale(9.0);
+        transform: scale(9);
         /* 9.0x scaling (doubled from 4.5x) */
     }
 
@@ -2970,7 +3087,7 @@ a:active {
     .header-logo:focus,
     .header-logo:focus-visible,
     .header-logo:active {
-        transform: scale(9.0) !important;
+        transform: scale(9) !important;
         /* Maintain only the scaling, no other transforms */
         color: inherit !important;
         outline: none !important;
@@ -3011,13 +3128,13 @@ a:active {
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
         padding: 7px;
-        /* Calculated to maintain 30px icon with 44px touch target */
+        /* Calculated to maintain 31px icon with 44px touch target */
         /* Enhanced touch interaction for mobile */
         -webkit-tap-highlight-color: rgba(255, 255, 255, 0.25);
         tap-highlight-color: rgba(255, 255, 255, 0.25);
@@ -3026,9 +3143,9 @@ a:active {
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Enhanced touch feedback for mobile large */
@@ -3193,7 +3310,7 @@ a:active {
     gap: 1rem;
     /* Optimized spacing for mobile small - Requirement 8.3 */
     padding: 0.25rem 0.5rem;
-    max-height: 40px;
+    max-height: 42px;
     top: 15px;
     /* Same vertical level as logo */
 }
@@ -3514,17 +3631,17 @@ a:active {
 }
 
 /* IE11 Grid positioning with standard properties */
-.hero-section>.flag-container {
+.hero-section > .flag-container {
     grid-column: 1;
     -ms-grid-column: 1;
 }
 
-.hero-section>.hero-content {
+.hero-section > .hero-content {
     grid-column: 2;
     -ms-grid-column: 2;
 }
 
-.hero-section>.social-links {
+.hero-section > .social-links {
     grid-column: 3;
     -ms-grid-column: 3;
 }
@@ -3549,10 +3666,16 @@ a:active {
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     opacity: 0;
-    animation: fadeInLeft var(--animation-duration-slow) var(--transition-smooth) forwards;
-    -webkit-animation: fadeInLeft var(--animation-duration-slow) var(--transition-smooth) forwards;
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 4);
-    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 4);
+    animation: fadeInLeft var(--animation-duration-slow)
+        var(--transition-smooth) forwards;
+    -webkit-animation: fadeInLeft var(--animation-duration-slow)
+        var(--transition-smooth) forwards;
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 4
+    );
+    -webkit-animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 4
+    );
 }
 
 .background-flag,
@@ -3597,9 +3720,10 @@ a:active {
     text-align: center;
 }
 
-.hero-content>* {
+.hero-content > * {
     opacity: 0;
-    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+    animation: fadeInUp var(--animation-duration-normal)
+        var(--transition-bounce) forwards;
 }
 
 .greeting {
@@ -3649,8 +3773,12 @@ a:active {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
-    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment)
+    );
+    -webkit-animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment)
+    );
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -3689,12 +3817,115 @@ a:active {
     /* Fallback for browsers without CSS custom properties */
     color: #006b3f;
     margin-bottom: 1rem;
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
-    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 2
+    );
+    -webkit-animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 2
+    );
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
     -o-transition: all var(--transition-smooth);
+}
+
+/* ============================================
+   ACTION BUTTONS
+   ============================================ */
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    animation: fadeInUp var(--animation-duration-normal)
+        var(--transition-bounce) forwards;
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 3
+    );
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    font-family: "Enriqueta", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #1a1a1a;
+}
+
+.btn-primary:hover {
+    background: #006b3f;
+    color: #ffffff;
+    border-color: #006b3f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 107, 63, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #1a1a1a;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);    
+    border-color: #1a1a1a;
+
+}
+
+.btn-secondary:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   DECORATIVE LINES
+   ============================================ */
+
+.decorative-lines {
+    display: flex;
+    justify-content: center;
+    gap: 0.625rem;
+    margin-top: 1rem;
+    animation: fadeInUp var(--animation-duration-normal)
+        var(--transition-bounce) forwards;
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 3.5
+    );
+}
+
+.line {
+    height: 3px;
+    width: 40px;
+    border-radius: 2px;
+}
+
+.line-black {
+    background: #1a1a1a;
+}
+
+.line-red {
+    background: #b30000;
+}
+
+.line-green {
+    background: #006b3f;
 }
 
 .role:hover {
@@ -3741,7 +3972,9 @@ a:active {
     animation: none;
     opacity: 0;
     transform: scale(0.5);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
 }
 
 /* Logo Icon - Starts with animation, then rests hidden */
@@ -3773,7 +4006,9 @@ a:active {
     animation: none;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.2);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
 }
 
 /* AI Text Alternating Animation: Grow → Shrink & Fade → Hidden */
@@ -3817,7 +4052,6 @@ a:active {
 
 /* Logo Alternating Animation: Hidden → Grow → Shrink & Fade */
 @keyframes logoAlternate {
-
     0%,
     41.67% {
         transform: translate(-50%, -50%) scale(0);
@@ -3860,16 +4094,23 @@ a:active {
     margin-top: var(--space-sm);
     /* Fallback for browsers without CSS custom properties */
     margin-top: 0.5rem;
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
-    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 3
+    );
+    -webkit-animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 3
+    );
 }
 
 /* Social Links - Optimized with Animations */
 .social-links {
     grid-area: social;
     opacity: 0;
-    animation: fadeInRight var(--animation-duration-slow) var(--transition-smooth) forwards;
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 5);
+    animation: fadeInRight var(--animation-duration-slow)
+        var(--transition-smooth) forwards;
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 5
+    );
 }
 
 .social-list {
@@ -3881,19 +4122,26 @@ a:active {
 
 .social-item {
     opacity: 0;
-    animation: scaleIn var(--animation-duration-fast) var(--transition-bounce) forwards;
+    animation: scaleIn var(--animation-duration-fast) var(--transition-bounce)
+        forwards;
 }
 
 .social-item:nth-child(1) {
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 6);
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 6
+    );
 }
 
 .social-item:nth-child(2) {
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 6.5);
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 6.5
+    );
 }
 
 .social-item:nth-child(3) {
-    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 7);
+    animation-delay: calc(
+        var(--animation-delay-base) + var(--animation-delay-increment) * 7
+    );
 }
 
 .social-link {
@@ -3993,7 +4241,7 @@ a:active {
 }
 
 /* Loading State Improvements */
-body:not(.loaded) .hero-content>*,
+body:not(.loaded) .hero-content > *,
 body:not(.loaded) .flag-container,
 body:not(.loaded) .social-links {
     opacity: 0;
@@ -4092,11 +4340,6 @@ body:not(.loaded) .social-links {
     display: none;
 }
 
-.browser-ie .pill-sidebar {
-    transform: translateY(-50%) translateX(20px);
-    filter: none;
-}
-
 .no-custom-properties .background-pattern {
     opacity: 0.4;
     background-size: 20px 20px;
@@ -4105,10 +4348,6 @@ body:not(.loaded) .social-links {
 .no-custom-properties .code-element {
     color: #333;
     opacity: 0.15;
-}
-
-.no-custom-properties .pill-sidebar {
-    background: #d4e6d4;
 }
 
 /* Performance-based optimizations */
@@ -4156,8 +4395,7 @@ body:not(.loaded) .social-links {
 }
 
 /* High DPI display optimizations */
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .background-pattern {
         background-size: 10px 10px;
     }
@@ -4180,8 +4418,7 @@ body:not(.loaded) .social-links {
 }
 
 /* Ultra-high DPI display optimizations (3x and above) */
-@media (-webkit-min-device-pixel-ratio: 3),
-(min-resolution: 288dpi) {
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
     .leon-logo {
         /* Further optimize for ultra-high DPI displays */
         width: clamp(38px, 6vw, 78px);
@@ -4199,11 +4436,13 @@ body:not(.loaded) .social-links {
     }
 
     .flag-container {
-        animation: fadeInUp var(--animation-duration-normal) var(--transition-smooth) forwards;
+        animation: fadeInUp var(--animation-duration-normal)
+            var(--transition-smooth) forwards;
     }
 
     .social-links {
-        animation: fadeInUp var(--animation-duration-normal) var(--transition-smooth) forwards;
+        animation: fadeInUp var(--animation-duration-normal)
+            var(--transition-smooth) forwards;
     }
 }
 
@@ -4260,8 +4499,6 @@ body:not(.loaded) .social-links {
         text-align: center;
     }
 
-
-
     .social-list {
         flex-direction: row;
         -webkit-box-orient: horizontal;
@@ -4309,23 +4546,39 @@ body:not(.loaded) .social-links {
     /* Adjust animation delays for mobile */
     .flag-container,
     .social-links {
-        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
-        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+        animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 2
+        );
+        -webkit-animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 2
+        );
     }
 
     .social-item:nth-child(1) {
-        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
-        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+        animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 3
+        );
+        -webkit-animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 3
+        );
     }
 
     .social-item:nth-child(2) {
-        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.3);
-        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.3);
+        animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 3.3
+        );
+        -webkit-animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 3.3
+        );
     }
 
     .social-item:nth-child(3) {
-        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.6);
-        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.6);
+        animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 3.6
+        );
+        -webkit-animation-delay: calc(
+            var(--animation-delay-base) + var(--animation-delay-increment) * 3.6
+        );
     }
 
     /* Improved typography scaling for small screens with 2x scaling */
@@ -4341,96 +4594,7 @@ body:not(.loaded) .social-links {
     }
 }
 
-/* Pill
--Shaped Sidebar Styles */
-.pill-sidebar {
-    position: fixed;
-    left: 2rem;
-    top: 50%;
-    transform: translateY(-50%) translateX(20px) scale(1.2);
-    width: 80px;
-    height: 300px;
-    background: hsl(160, 30%, 85%);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    z-index: 50;
-    transition: all 0.3s ease;
-    
-    /* Hide by default - only show on home and contact pages */
-    display: none;
-}
-
-/* Show pill-sidebar only on home page (index.html) */
-body.home-page .pill-sidebar,
-body.contact-page .pill-sidebar {
-    display: flex;
-}
-
-.pill-sidebar:hover {
-    transform: translateY(-50%) translateX(20px) scale(1.224);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Profile Photo Styles */
-.profile-section {
-    margin-bottom: 2rem;
-}
-
-.profile-photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    transition: all 0.3s ease;
-}
-
-.profile-photo:hover {
-    transform: scale(1.1);
-    border-color: rgba(255, 255, 255, 1);
-}
-
-/* Social Icons Styles */
-.social-nav {
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.social-icons-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    list-style: none;
-}
-
-.social-icon-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    color: #333;
-}
-
-.social-icon-link:hover {
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(1.1);
-    color: #006b3f;
-}
-
-.social-icon {
-    width: 20px;
-    height: 20px;
-}
-
-/* 
+/*
 Updated Hero Section for Pill Layout */
 .hero-section {
     display: flex;
@@ -4440,7 +4604,6 @@ Updated Hero Section for Pill Layout */
     padding: var(--section-padding) var(--content-padding);
     margin-left: 140px;
     box-sizing: border-box;
-    /* Account for larger pill sidebar (120px * 1.2 + 20px offset) */
 }
 
 .hero-content {
@@ -4448,72 +4611,9 @@ Updated Hero Section for Pill Layout */
     max-width: 600px;
 }
 
-/* Responsive adjustments for pill sidebar */
-@media (max-width: 768px) {
-    .pill-sidebar {
-        left: 1rem;
-        transform: translateY(-50%) translateX(20px) scale(1.2);
-        width: 60px;
-        height: 240px;
-        padding: 1rem 0;
-    }
-
-    .profile-photo {
-        width: 35px;
-        height: 35px;
-    }
-
-    .social-icon-link {
-        width: 30px;
-        height: 30px;
-        min-height: 44px;
-        min-width: 44px;
-    }
-
-    .social-icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .hero-section {
-        margin-left: 100px;
-        /* Account for scaled sidebar on tablet */
-    }
-}
-
-@media (max-width: 480px) {
-    .pill-sidebar {
-        position: relative;
-        left: auto;
-        top: auto;
-        transform: scale(1.2);
-        width: 100%;
-        height: 80px;
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: 2rem;
-        border-radius: 40px;
-    }
-
-    .profile-section {
-        margin-bottom: 0;
-        margin-right: 1rem;
-    }
-
-    .social-icons-list {
-        flex-direction: row;
-        gap: 0.5rem;
-    }
-
-    .hero-section {
-        margin-left: 0;
-        padding-top: 0;
-    }
-}
-
 /* Organic Background Shapes */
 .hero-section::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 20%;
     left: 20vw;
@@ -4527,7 +4627,7 @@ Updated Hero Section for Pill Layout */
 }
 
 .hero-section::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 80vh;
     right: 20%;
@@ -4542,7 +4642,7 @@ Updated Hero Section for Pill Layout */
 
 /* Additional organic shapes */
 .landing-page::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 80vh;
     left: 60%;
@@ -4557,7 +4657,7 @@ Updated Hero Section for Pill Layout */
 
 /* Header Background Shape - Black blurred shape for navigation contrast */
 .landing-page::after {
-    content: '';
+    content: "";
     position: fixed;
     top: 15px;
     left: 60vw;
@@ -4575,7 +4675,6 @@ Updated Hero Section for Pill Layout */
 }
 
 @keyframes float {
-
     0%,
     100% {
         transform: translateY(0px) rotate(0deg);
@@ -4713,19 +4812,8 @@ Updated Hero Section for Pill Layout */
 /* Final
  Polish and Refinements */
 
-/* Improved pill sidebar integration */
-.pill-sidebar {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 /* Smooth entrance animations */
-.pill-sidebar {
-    animation: slideInLeft 0.8s ease-out;
-}
-
-.hero-content>* {
+.hero-content > * {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
 }
@@ -4862,7 +4950,7 @@ Updated Hero Section for Pill Layout */
     .nav-icons-container {
         gap: 1.5rem;
         padding: 0.5rem 1rem;
-        max-height: 45px;
+        max-height: 47px;
         top: 20px;
         /* Same vertical level as logo */
     }
@@ -4913,7 +5001,9 @@ Updated Hero Section for Pill Layout */
         /* Maintain hover effects on hybrid devices */
         transform: scale(1.15);
         filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.4);
         border-radius: 50%;
     }
 }
@@ -4961,7 +5051,9 @@ Updated Hero Section for Pill Layout */
         /* Enhanced hover effects for precise pointers */
         transform: scale(1.15);
         filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.4);
         border-radius: 50%;
         transition: all 0.3s ease-in;
     }
@@ -5026,8 +5118,7 @@ Updated Hero Section for Pill Layout */
 }
 
 /* High DPI Display Optimizations */
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .nav-icon-svg {
         /* Ensure crisp icons on high-DPI displays */
         image-rendering: -webkit-optimize-contrast;
@@ -5212,9 +5303,7 @@ Updated Hero Section for Pill Layout */
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-
-    .pill-sidebar,
-    .hero-content>*,
+    .hero-content > *,
     .shape,
     .social-icon-link,
     .profile-photo,
@@ -5250,7 +5339,9 @@ Updated Hero Section for Pill Layout */
         background: #000000 !important;
         color: #ffffff !important;
         border: 2px solid #ffffff !important;
-        box-shadow: 0 0 0 1px #000000, 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+        box-shadow:
+            0 0 0 1px #000000,
+            0 2px 8px rgba(0, 0, 0, 0.8) !important;
         font-weight: 600 !important;
     }
 
@@ -5261,7 +5352,6 @@ Updated Hero Section for Pill Layout */
 
 /* Touch Device Adjustments - Hide tooltips on touch to prevent conflicts */
 @media (hover: none) and (pointer: coarse) {
-
     .nav-icon::after,
     .nav-icon::before {
         display: none;
@@ -5283,7 +5373,6 @@ Updated Hero Section for Pill Layout */
 
 /* Orientation-specific logo optimizations */
 @media (orientation: landscape) and (max-height: 500px) {
-
     /* Optimize logo for landscape mobile devices with limited height */
     .leon-logo {
         width: clamp(28px, 4vw, 45px);
@@ -5312,7 +5401,6 @@ Updated Hero Section for Pill Layout */
 }
 
 @media (orientation: portrait) and (max-width: 480px) {
-
     /* Optimize logo for portrait mobile devices */
     .leon-logo {
         width: clamp(32px, 7vw, 42px);
@@ -5354,7 +5442,6 @@ Updated Hero Section for Pill Layout */
 /* P
 erformance optimizations and reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
@@ -5369,23 +5456,16 @@ erformance optimizations and reduced motion support */
         transition: opacity 0.2s ease !important;
     }
 
-    .hero-content>* {
+    .hero-content > * {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
-    }
-
-    .pill-sidebar {
-        animation: none !important;
-        opacity: 1 !important;
-        transform: translateY(-50%) !important;
     }
 }
 
 /* Performance optimizations */
 .nav-halo,
-.hero-content>*,
-.pill-sidebar {
+.hero-content > * {
     will-change: transform, opacity;
     backface-visibility: hidden;
     transform: translateZ(0);
@@ -5417,7 +5497,6 @@ erformance optimizations and reduced motion support */
 }
 
 @keyframes float {
-
     0%,
     100% {
         transform: translateY(0px);
@@ -5429,7 +5508,6 @@ erformance optimizations and reduced motion support */
 }
 
 @keyframes float-code {
-
     0%,
     100% {
         transform: translateY(0px) rotate(0deg);
@@ -5440,10 +5518,9 @@ erformance optimizations and reduced motion support */
     }
 }
 
-/* 
+/*
 Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 @media (hover: none) and (pointer: coarse) {
-
     /* Enhanced touch interactions - Requirement 8.4 */
     .floating-navigation {
         /* Ensure header works on touch devices */
@@ -5461,7 +5538,9 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
         -webkit-user-select: none;
         user-select: none;
         /* Enhanced touch feedback */
-        transition: background-color 0.15s ease, transform 0.15s ease;
+        transition:
+            background-color 0.15s ease,
+            transform 0.15s ease;
     }
 
     /* Touch-specific active states */
@@ -5513,7 +5592,6 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 
 /* Mouse Device Optimizations - Requirement 8.4 */
 @media (hover: hover) and (pointer: fine) {
-
     /* Enhanced hover effects for mouse devices */
     .nav-icon:hover {
         /* Full hover effects for mouse devices */
@@ -5565,9 +5643,9 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Adjust background blur for landscape */
@@ -5601,15 +5679,14 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 }
 
 /* High DPI Display Support */
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .nav-icon-svg {
         /* Ensure crisp icons on high DPI displays */
         image-rendering: -webkit-optimize-contrast;
@@ -5651,7 +5728,6 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 
 /* Keyboard Navigation Support */
 @media (any-hover: none) {
-
     /* For devices without hover capability */
     .nav-icon:focus {
         background: rgba(255, 255, 255, 0.1);
@@ -5677,7 +5753,9 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 
     .nav-icon {
         /* Simplified transitions for better performance */
-        transition: background-color 0.2s ease, transform 0.2s ease;
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
         will-change: auto;
     }
 
