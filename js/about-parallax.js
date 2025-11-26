@@ -53,6 +53,33 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Register additional GSAP plugins (SplitText, ScrambleText, TextPlugin)
+    console.log('Registering additional GSAP plugins...');
+    try {
+        if (typeof TextPlugin !== 'undefined') {
+            gsap.registerPlugin(TextPlugin);
+            console.log('✓ TextPlugin registered successfully');
+        } else {
+            console.warn('⚠️ TextPlugin not found - some text animations may not work');
+        }
+
+        if (typeof ScrambleTextPlugin !== 'undefined') {
+            gsap.registerPlugin(ScrambleTextPlugin);
+            console.log('✓ ScrambleTextPlugin registered successfully');
+        } else {
+            console.warn('⚠️ ScrambleTextPlugin not found - scramble animations will be skipped');
+        }
+
+        if (typeof SplitText !== 'undefined') {
+            console.log('✓ SplitText plugin loaded successfully');
+        } else {
+            console.warn('⚠️ SplitText not found - split text animations will be skipped');
+        }
+    } catch (error) {
+        console.warn('⚠️ Error registering bonus plugins:', error);
+        console.log('Continuing with basic animations only');
+    }
+
     // Check for reduced motion preference
     console.log('Checking accessibility preferences...');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -89,14 +116,23 @@ function initParallaxHero() {
 
     // Get elements
     const heroContainer = document.getElementById('hero-container');
+    const heroImageWrapper = document.querySelector('.hero-image-wrapper');
     const sectionTitle = document.getElementById('section-title');
     const sectionBody = document.getElementById('section-body');
     const whatIDoSection = document.getElementById('what-i-do-section');
     const expertiseItems = document.querySelectorAll('.expertise-item');
 
+    // Get new section elements
+    const skillsSection = document.getElementById('skills-section');
+    const experienceSection = document.getElementById('experience-section');
+    const educationSection = document.getElementById('education-section');
+    const projectsSection = document.getElementById('projects-section');
+    const certificationsSection = document.getElementById('certifications-section');
+
     // Validate elements exist with detailed error logging
     const requiredElements = {
         'hero-container': heroContainer,
+        'hero-image-wrapper': heroImageWrapper,
         'section-title': sectionTitle,
         'section-body': sectionBody,
         'what-i-do-section': whatIDoSection
@@ -120,10 +156,16 @@ function initParallaxHero() {
     console.log('✓ All required DOM elements found and validated');
     console.log('Element validation results:', {
         heroContainer: '✓',
+        heroImageWrapper: heroImageWrapper ? '✓' : '✗',
         sectionTitle: '✓',
         sectionBody: '✓',
         whatIDoSection: '✓',
-        expertiseItems: `✓ (${expertiseItems.length} cards)`
+        expertiseItems: `✓ (${expertiseItems.length} cards)`,
+        skillsSection: skillsSection ? '✓' : '✗',
+        experienceSection: experienceSection ? '✓' : '✗',
+        educationSection: educationSection ? '✓' : '✗',
+        projectsSection: projectsSection ? '✓' : '✗',
+        certificationsSection: certificationsSection ? '✓' : '✗'
     });
     console.log('Creating animation timeline...');
 
@@ -136,8 +178,8 @@ function initParallaxHero() {
     });
 
     // Adjust animation parameters for mobile
-    const scaleTarget = isMobile ? 0.25 : 0.35;
-    const translateTarget = isMobile ? '-120vw' : '-150vw';
+    const scaleTarget = isMobile ? 0.4 : 0.5;
+    const translateTarget = isMobile ? '-80vw' : '-90vw';
     const scrubSpeed = isMobile ? 0.5 : 1;
     
     console.log('Animation parameters configured:', {
@@ -160,10 +202,9 @@ function initParallaxHero() {
         const scrollTriggerConfig = {
             trigger: '.parallax-hero',
             start: 'top top',       // When hero top hits viewport top (start of scroll)
-            end: '+=100%',          // Scroll distance relative to trigger height (100vh)
+            end: 'bottom top',      // End when hero bottom reaches viewport top
             scrub: scrubSpeed,      // Smooth scrubbing
-            pin: true,              // Pin the hero section while animating
-            anticipatePin: 1,       // Smooth pin start
+            pin: false,             // Allow natural scrolling (no pinning)
             markers: false,         // Set to true for debugging
             invalidateOnRefresh: true, // Recalculate on resize
 
@@ -227,32 +268,158 @@ function initParallaxHero() {
     // ========================================
 
     console.log('========================================');
-    console.log('🎨 ADDING ANIMATIONS TO TIMELINE');
+    console.log('🎨 CREATING INITIAL LOAD ANIMATION');
     console.log('========================================');
 
-    try {
-        // 1. Hero Container: Scale down & slide left
-        console.log('Adding animation 1/5: Hero container transform');
-        console.log('  - Target: #hero-container');
-        console.log('  - Properties: scale, translateX');
-        console.log('  - Values: scale(' + scaleTarget + '), translateX(' + translateTarget + ')');
-        console.log('  - Timeline position: 0 (simultaneous start)');
-        console.log('  - Note: Vertical position maintained by ScrollTrigger pin');
-        
-        masterTimeline.to(heroContainer, {
-            scale: scaleTarget,
-            x: translateTarget,
-            duration: 1,
+    // ========================================
+    // INITIAL PAGE LOAD ANIMATION
+    // Sequence: Lion slides to 20vw + scales to 50% → ScrambleText "About Leon Madara"
+    // ========================================
+
+    const aboutTextContainer = document.getElementById('about-text-container');
+    const aboutText = document.getElementById('about-text');
+    const nameText = document.getElementById('name-text');
+    const greenSection = document.getElementById('green-section');
+
+    // Create initial load timeline (plays once on page load)
+    const loadTimeline = gsap.timeline({
+        onComplete: () => {
+            console.log('✓ Initial load animation complete');
+        }
+    });
+
+    // Step 1: Slide lion to 20vw and scale to 50%
+    console.log('Step 1: Animating lion graphic to final position (image only)');
+    loadTimeline.to(heroImageWrapper, {
+        x: '-40vw',
+        scale: 0.5,
+        duration: 2.5,
+        ease: 'power2.inOut',
+        onStart: () => {
+            console.log('▶️ Lion image sliding to 10vw (from center) and scaling to 50%');
+        },
+        onComplete: () => {
+            console.log('✓ Lion image positioned at 10vw, scale 50%');
+        }
+    });
+
+    // Fade in green section (0vw to 20vw) as lion moves
+    if (greenSection) {
+        console.log('Step 1b: Fading in green section from 0vw to 20vw');
+        loadTimeline.to(greenSection, {
+            opacity: 1,
+            duration: 2.5,
             ease: 'power2.inOut',
             onStart: () => {
-                console.log('▶️ Animation started: Hero scaling & sliding');
-                console.log('  Current scale: 1 → Target: ' + scaleTarget);
-                console.log('  Current x: 0 → Target: ' + translateTarget);
+                console.log('▶️ Green section fading in (0vw to 20vw)');
             },
             onComplete: () => {
-                console.log('✓ Animation complete: Hero container transform');
+                console.log('✓ Green section fully visible');
             }
-        }, 0); // Start at timeline position 0
+        }, '<'); // '<' makes it start at the same time as the previous animation
+    } else {
+        console.warn('⚠️ Green section element not found - skipping fade-in animation');
+    }
+
+    loadTimeline.addLabel('lion-positioned');
+
+    // Step 2: Reveal hero text container after lion finishes moving
+    loadTimeline.fromTo(aboutTextContainer, {
+        opacity: 0,
+        scale: 0.9
+    }, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.4,
+        ease: 'power2.out',
+        onStart: () => {
+            console.log('▶️ Hero text container fading in at center');
+        },
+        onComplete: () => {
+            console.log('✓ Hero text container visible – ready for ScrambleText');
+        }
+    }, 'lion-positioned+=0.1');
+
+    // Step 3: ScrambleText for "About" and "Leon Madara"
+    if (typeof ScrambleTextPlugin !== 'undefined' && aboutText && nameText) {
+        console.log('Step 3: Applying ScrambleText to About and Leon Madara');
+
+        // Scramble "About" text
+        loadTimeline.from(aboutText, {
+            duration: 1,
+            scrambleText: {
+                text: "About",
+                chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                revealDelay: 0.2,
+                speed: 0.4,
+                delimiter: ""
+            }
+        }, '>-0.1');
+
+        // Scramble "Leon Madara" text
+        loadTimeline.from(nameText, {
+            duration: 1.5,
+            scrambleText: {
+                text: "Leon Madara",
+                chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                revealDelay: 0.3,
+                speed: 0.3,
+                delimiter: ""
+            }
+        }, '>-0.4');
+
+        // Animate red underline from left to right after scramble completes
+        const nameUnderline = document.getElementById('name-underline');
+        if (nameUnderline) {
+            console.log('✓ Name underline element found, adding animation');
+            loadTimeline.to(nameUnderline, {
+                scaleX: 1,
+                duration: 0.8,
+                ease: 'power2.out'
+            }, '>-0.2');
+        } else {
+            console.warn('⚠️ Name underline element not found');
+        }
+
+        console.log('✓ ScrambleText configured for hero text');
+    } else {
+        console.warn('⚠️ ScrambleText not available - using fade in fallback');
+        // Fallback: simple fade in
+        loadTimeline.to(aboutTextContainer, {
+            opacity: 1,
+            duration: 1
+        }, 'lion-positioned+=0.1');
+    }
+
+    console.log('========================================');
+    console.log('🎨 CREATING SCROLL ANIMATION');
+    console.log('========================================');
+
+    // ========================================
+    // SCROLL ANIMATION: Disintegrate text, keep lion in place
+    // ========================================
+
+    try {
+        console.log('Configuring scroll animation: Text disintegration');
+
+        // Disintegrate "About Leon Madara" text on scroll
+        masterTimeline.to(aboutTextContainer, {
+            opacity: 0,
+            scale: 0.8,
+            y: -50,
+            filter: 'blur(10px)',
+            duration: 0.6,
+            ease: 'power2.in',
+            onStart: () => {
+                console.log('▶️ Text disintegrating on scroll');
+            },
+            onComplete: () => {
+                console.log('✓ Text disintegration complete');
+            }
+        }, 0);
+
+        // Lion stays in position (no animation on scroll)
+        console.log('Lion remains at 20vw position during scroll');
 
         // 2. Section Container: Fade in during hero animation
         console.log('Adding animation 2/5: Section container fade');
@@ -383,6 +550,313 @@ function initParallaxHero() {
         });
         throw new Error('Animation sequence failed: ' + error.message);
     }
+
+    // ========================================
+    // NEW SECTIONS: Scroll Animations
+    // ========================================
+
+    console.log('========================================');
+    console.log('🎨 ADDING NEW SECTION ANIMATIONS');
+    console.log('========================================');
+
+    // ========================================
+    // PHASE 2: Helper Function for SplitText Masks on Section Titles
+    // ========================================
+    function applySplitTextMask(titleElement, sectionName) {
+        if (!titleElement || typeof SplitText === 'undefined') {
+            console.warn(`⚠️ SplitText mask skipped for ${sectionName}: SplitText or element not found`);
+            return null;
+        }
+
+        try {
+            console.log(`🎯 PHASE 2: Applying SplitText mask to ${sectionName} title`);
+
+            // Split text into words and chars with masking
+            const split = new SplitText(titleElement, {
+                type: "words,chars",
+                wordsClass: "word",
+                charsClass: "char-masked"
+            });
+
+            // Set initial state - characters masked (hidden)
+            gsap.set(split.chars, {
+                yPercent: 100,
+                opacity: 0
+            });
+
+            console.log(`✓ SplitText mask applied to ${sectionName}:`, split.chars.length, 'characters');
+            return split;
+
+        } catch (error) {
+            console.warn(`⚠️ SplitText mask failed for ${sectionName}:`, error);
+            return null;
+        }
+    }
+
+    // Skills Section Animation
+    if (skillsSection) {
+        const skillCategories = document.querySelectorAll('.skill-category');
+        const skillTags = document.querySelectorAll('.skill-tag');
+        const skillsTitle = skillsSection.querySelector('.section-title');
+        console.log('Adding Skills section animation:', skillCategories.length, 'categories');
+        console.log('Found skill tags for ScrambleText:', skillTags.length);
+
+        // Apply SplitText mask to title
+        const skillsTitleSplit = applySplitTextMask(skillsTitle, 'Skills');
+
+        // Create timeline for Skills section
+        const skillsTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: skillsSection,
+                start: 'top 80%',
+                end: 'top 30%',
+                scrub: 0.5,
+                markers: false
+            }
+        });
+
+        // Animate title with SplitText mask reveal if available, otherwise use standard animation
+        if (skillsTitleSplit) {
+            skillsTimeline.to(skillsTitleSplit.chars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.02,
+                ease: 'power2.out'
+            });
+        } else {
+            skillsTimeline.fromTo(skillsTitle,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+            );
+        }
+
+        // Animate skill categories
+        skillsTimeline.fromTo(skillCategories,
+            { opacity: 0, y: 60 },
+            { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power2.out' },
+            '-=0.5'
+        );
+
+        // ========================================
+        // PHASE 1: ScrambleText on Skill Tags
+        // ========================================
+        if (typeof ScrambleTextPlugin !== 'undefined' && skillTags.length > 0) {
+            console.log('🎯 PHASE 1: Applying ScrambleText to', skillTags.length, 'skill tags');
+
+            skillTags.forEach((tag, index) => {
+                const originalText = tag.textContent;
+
+                // Create individual ScrollTrigger for each skill tag
+                gsap.from(tag, {
+                    duration: 1.5,
+                    scrambleText: {
+                        text: originalText,
+                        chars: "01",
+                        revealDelay: 0.3,
+                        speed: 0.3,
+                        delimiter: ""
+                    },
+                    scrollTrigger: {
+                        trigger: tag,
+                        start: "top 90%",
+                        toggleActions: "play none none none",
+                        markers: false,
+                        onEnter: () => {
+                            console.log(`ScrambleText triggered for tag ${index + 1}:`, originalText);
+                        }
+                    }
+                });
+            });
+
+            console.log('✓ ScrambleText animations configured for all skill tags');
+        } else {
+            if (typeof ScrambleTextPlugin === 'undefined') {
+                console.warn('⚠️ ScrambleText skipped: ScrambleTextPlugin not found');
+            } else {
+                console.warn('⚠️ ScrambleText skipped: No skill tags found');
+            }
+        }
+    }
+
+    // Experience Section Animation
+    if (experienceSection) {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const experienceTitle = experienceSection.querySelector('.section-title');
+        console.log('Adding Experience section animation:', timelineItems.length, 'timeline items');
+
+        // Apply SplitText mask to title
+        const experienceTitleSplit = applySplitTextMask(experienceTitle, 'Experience');
+
+        // Create timeline for Experience section
+        const experienceTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: experienceSection,
+                start: 'top 80%',
+                end: 'top 20%',
+                scrub: 0.5,
+                markers: false
+            }
+        });
+
+        // Animate title with SplitText mask or standard animation
+        if (experienceTitleSplit) {
+            experienceTimeline.to(experienceTitleSplit.chars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.02,
+                ease: 'power2.out'
+            });
+        } else {
+            experienceTimeline.fromTo(experienceTitle,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+            );
+        }
+
+        // Animate timeline items
+        experienceTimeline.fromTo(timelineItems,
+            { opacity: 0, x: -60 },
+            { opacity: 1, x: 0, duration: 1, stagger: 0.2, ease: 'power2.out' },
+            '-=0.5'
+        );
+    }
+
+    // Education Section Animation
+    if (educationSection) {
+        const educationItems = document.querySelectorAll('.education-item');
+        const educationTitle = educationSection.querySelector('.section-title');
+        console.log('Adding Education section animation:', educationItems.length, 'education items');
+
+        // Apply SplitText mask to title
+        const educationTitleSplit = applySplitTextMask(educationTitle, 'Education');
+
+        // Create timeline for Education section
+        const educationTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: educationSection,
+                start: 'top 80%',
+                end: 'top 30%',
+                scrub: 0.5,
+                markers: false
+            }
+        });
+
+        // Animate title with SplitText mask or standard animation
+        if (educationTitleSplit) {
+            educationTimeline.to(educationTitleSplit.chars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.02,
+                ease: 'power2.out'
+            });
+        } else {
+            educationTimeline.fromTo(educationTitle,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+            );
+        }
+
+        // Animate education items
+        educationTimeline.fromTo(educationItems,
+            { opacity: 0, scale: 0.85, y: 40 },
+            { opacity: 1, scale: 1, y: 0, duration: 1, stagger: 0.15, ease: 'back.out(1.2)' },
+            '-=0.5'
+        );
+    }
+
+    // Projects Section Animation
+    if (projectsSection) {
+        const projectCards = document.querySelectorAll('.project-card');
+        const projectsTitle = projectsSection.querySelector('.section-title');
+        console.log('Adding Projects section animation:', projectCards.length, 'project cards');
+
+        // Apply SplitText mask to title
+        const projectsTitleSplit = applySplitTextMask(projectsTitle, 'Projects');
+
+        // Create timeline for Projects section
+        const projectsTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: projectsSection,
+                start: 'top 80%',
+                end: 'top 30%',
+                scrub: 0.5,
+                markers: false
+            }
+        });
+
+        // Animate title with SplitText mask or standard animation
+        if (projectsTitleSplit) {
+            projectsTimeline.to(projectsTitleSplit.chars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.02,
+                ease: 'power2.out'
+            });
+        } else {
+            projectsTimeline.fromTo(projectsTitle,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+            );
+        }
+
+        // Animate project cards
+        projectsTimeline.fromTo(projectCards,
+            { opacity: 0, y: 60, scale: 0.9 },
+            { opacity: 1, y: 0, scale: 1, duration: 1, stagger: 0.15, ease: 'back.out(1.1)' },
+            '-=0.5'
+        );
+    }
+
+    // Certifications Section Animation
+    if (certificationsSection) {
+        const certCards = document.querySelectorAll('.certification-card');
+        const certificationsTitle = certificationsSection.querySelector('.section-title');
+        console.log('Adding Certifications section animation:', certCards.length, 'certification cards');
+
+        // Apply SplitText mask to title
+        const certificationsTitleSplit = applySplitTextMask(certificationsTitle, 'Certifications');
+
+        // Create timeline for Certifications section
+        const certificationsTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: certificationsSection,
+                start: 'top 80%',
+                end: 'top 30%',
+                scrub: 0.5,
+                markers: false
+            }
+        });
+
+        // Animate title with SplitText mask or standard animation
+        if (certificationsTitleSplit) {
+            certificationsTimeline.to(certificationsTitleSplit.chars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.02,
+                ease: 'power2.out'
+            });
+        } else {
+            certificationsTimeline.fromTo(certificationsTitle,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+            );
+        }
+
+        // Animate certification cards
+        certificationsTimeline.fromTo(certCards,
+            { opacity: 0, scale: 0.85, y: 40 },
+            { opacity: 1, scale: 1, y: 0, duration: 1, stagger: 0.15, ease: 'back.out(1.2)' },
+            '-=0.5'
+        );
+    }
+
+    console.log('✅ All section animations configured');
+    console.log('Total ScrollTriggers:', ScrollTrigger.getAll().length);
 
     // ========================================
     // RESPONSIVE: Refresh on resize
