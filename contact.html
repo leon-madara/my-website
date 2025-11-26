@@ -26,6 +26,7 @@
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/sidebar-profile-card.css">
 
     <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -34,7 +35,7 @@
 
 <body class="contact-page">
     <!-- Skip Navigation -->
-    <a href="#contact-content" class="skip-link">Skip to contact content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Live region for screen reader announcements -->
     <div id="sr-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -82,37 +83,88 @@
         </nav>
     </nav>
 
-    <!-- Pill-shaped Sidebar -->
-    <aside class="pill-sidebar" aria-label="Profile and social links">
-        <div class="profile-section">
-            <img src="images/Leon.jpg" class="profile-photo" alt="Leon Madara Profile Photo" />
+    <!-- Profile Card Sidebar -->
+    <aside class="pill-sidebar" role="complementary" aria-label="Profile and social links">
+        <!-- Card Header with Kenyan Gradient -->
+        <header class="sidebar-header">
+            <!-- Follow Button -->
+            <button class="sidebar-follow-button" aria-label="Follow Leon Madara" aria-pressed="false">
+                <span>Follow</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+            </button>
+
+            <!-- Profile Avatar - Asymmetric at 25% -->
+            <div class="profile-section">
+                <img src="images/Leon.jpg"
+                     alt="Leon Madara"
+                     class="profile-photo" />
+            </div>
+
+            <!-- Experience Progress Bar -->
+            <div class="experience-bar" role="group" aria-label="Experience level">
+                <span class="exp-label" aria-hidden="true">exp.</span>
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Experience: 65%"></div>
+                <span class="sr-only">Experience level: 65%</span>
+            </div>
+        </header>
+
+        <!-- Identity Section -->
+        <div class="identity-section">
+            <h2 class="sidebar-name">Leon Madara</h2>
+            <p class="sidebar-title">Full Stack AI Developer from Nairobi, Kenya</p>
         </div>
 
+        <!-- Stats Section -->
+        <div class="stats-section" role="list">
+            <div class="stat-item" role="listitem">
+                <span class="stat-number">72.9K</span>
+                <span class="stat-label">Likes</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-number">828</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item" role="listitem">
+                <span class="stat-number">342.9K</span>
+                <span class="stat-label">Views</span>
+            </div>
+        </div>
+
+        <!-- Social Icons -->
         <nav class="social-nav" aria-label="Social media links">
             <ul class="social-icons-list">
                 <li class="social-icon-item">
-                    <a href="https://github.com/leon-madara" class="social-icon-link" aria-label="GitHub Profile"
-                        target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/leon-madara"
+                       class="social-icon-link"
+                       aria-label="GitHub Profile"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                     </a>
                 </li>
                 <li class="social-icon-item">
-                    <a href="https://www.linkedin.com/in/leon-madara/" class="social-icon-link"
-                        aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/leon-madara/"
+                       class="social-icon-link"
+                       aria-label="LinkedIn Profile"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
                     </a>
                 </li>
                 <li class="social-icon-item">
-                    <a href="#contact-form" class="social-icon-link" aria-label="Contact Form">
+                    <a href="https://twitter.com/leon_madara"
+                       class="social-icon-link"
+                       aria-label="Twitter/X Profile"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
                     </a>
                 </li>
@@ -121,234 +173,285 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="contact-container" id="contact-content">
-        <!-- Hero Section -->
-        <section class="contact-hero" id="contact-hero">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-main">Let's</span>
-                    <span class="title-accent kenyan-gradient">Connect</span>
-                </h1>
-                <p class="hero-subtitle">Ready to collaborate on your next project</p>
+    <main class="contact-container" id="main-content">
 
-                <!-- Scroll indicator -->
-                <div class="scroll-indicator" aria-hidden="true">
-                    <span class="scroll-text">Scroll to explore</span>
-                    <svg class="scroll-arrow" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7 10l5 5 5-5z" />
-                    </svg>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-background">
+                <div class="animated-gradient"></div>
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                    <div class="shape shape-4"></div>
                 </div>
             </div>
 
-            <!-- Decorative shapes -->
-            <div class="decorative-shapes contact-decorative-shapes" aria-hidden="true">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">Let's Build</span>
+                        <span class="title-line kenyan-gradient">Something Amazing</span>
+                    </h1>
+                    <p class="hero-description">
+                        Based in Nairobi, Kenya. Ready to collaborate on your next big idea.
+                    </p>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="#contact-cards" class="cta-button primary">
+                        <span>Get In Touch</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#faq" class="cta-button secondary">
+                        <span>View FAQ</span>
+                    </a>
+                </div>
             </div>
         </section>
 
-        <!-- Contact Methods Section -->
-        <section class="contact-methods-section" id="contact-methods">
-            <h2 class="section-title kenyan-gradient">Get In Touch</h2>
+        <!-- Contact Cards Section -->
+        <section class="contact-cards-section" id="contact-cards">
+            <div class="section-header">
+                <h2 class="section-title">Reach Out</h2>
+                <p class="section-subtitle">Choose your preferred method of communication</p>
+            </div>
 
-            <div class="contact-methods-grid">
+            <div class="cards-grid">
                 <!-- Email Card -->
-                <div class="contact-card" data-method="email">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                        </svg>
+                <div class="contact-card email-card" data-aos="fade-up">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Email</h3>
                     </div>
-                    <h3 class="card-title">Email</h3>
-                    <p class="card-value" id="email-value">leon.madara@email.com</p>
-                    <button class="card-action" id="copy-email-btn" aria-label="Copy email to clipboard">
-                        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                        <span class="action-text">Copy Email</span>
-                    </button>
-                </div>
-
-                <!-- LinkedIn Card -->
-                <div class="contact-card" data-method="linkedin">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                        </svg>
+                    <div class="card-body">
+                        <p class="card-label">Primary Contact</p>
+                        <p class="card-value" id="email-value">leon.madara@outlook.com</p>
+                        <div class="card-actions">
+                            <button class="action-btn copy-btn" id="copy-email" aria-label="Copy email address">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                            <a href="mailto:leon.madara@outlook.com" class="action-btn primary-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Send Email</span>
+                            </a>
+                        </div>
                     </div>
-                    <h3 class="card-title">LinkedIn</h3>
-                    <p class="card-value">Connect professionally</p>
-                    <a href="https://www.linkedin.com/in/leon-madara/" class="card-action" target="_blank"
-                        rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
-                        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                        <span class="action-text">Visit Profile</span>
-                    </a>
                 </div>
 
                 <!-- GitHub Card -->
-                <div class="contact-card" data-method="github">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
+                <div class="contact-card github-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title">GitHub</h3>
                     </div>
-                    <h3 class="card-title">GitHub</h3>
-                    <p class="card-value">Explore my code</p>
-                    <a href="https://github.com/leon-madara" class="card-action" target="_blank"
-                        rel="noopener noreferrer" aria-label="Visit GitHub profile">
-                        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                        <span class="action-text">View Code</span>
-                    </a>
+                    <div class="card-body">
+                        <p class="card-label">View My Code</p>
+                        <p class="card-value">@leon-madara</p>
+                        <div class="card-actions">
+                            <a href="https://github.com/leon-madara" target="_blank" rel="noopener noreferrer" class="action-btn primary-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                <span>Visit Profile</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Card -->
+                <div class="contact-card phone-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Phone</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-label">Direct Line</p>
+                        <p class="card-value" id="phone-value">+254-704-505-52</p>
+                        <div class="card-actions">
+                            <button class="action-btn copy-btn" id="copy-phone" aria-label="Copy phone number">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                            <a href="tel:+254704505052" class="action-btn primary-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                                <span>Call Now</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Form Section -->
-        <section class="contact-form-section" id="contact-form">
-            <h2 class="section-title kenyan-gradient">Send a Message</h2>
-
-            <form class="contact-form" id="contact-form-element" novalidate>
-                <!-- Name Field -->
-                <div class="form-group">
-                    <label for="name" class="form-label">
-                        Name <span class="required">*</span>
-                    </label>
-                    <input type="text" id="name" name="name" class="form-input" required
-                        aria-required="true" aria-describedby="name-error">
-                    <span class="form-error" id="name-error" role="alert"></span>
-                </div>
-
-                <!-- Email Field -->
-                <div class="form-group">
-                    <label for="email" class="form-label">
-                        Email <span class="required">*</span>
-                    </label>
-                    <input type="email" id="email" name="email" class="form-input" required
-                        aria-required="true" aria-describedby="email-error">
-                    <span class="form-error" id="email-error" role="alert"></span>
-                </div>
-
-                <!-- Subject Field -->
-                <div class="form-group">
-                    <label for="subject" class="form-label">
-                        Subject <span class="required">*</span>
-                    </label>
-                    <input type="text" id="subject" name="subject" class="form-input" required
-                        aria-required="true" aria-describedby="subject-error">
-                    <span class="form-error" id="subject-error" role="alert"></span>
-                </div>
-
-                <!-- Message Field -->
-                <div class="form-group">
-                    <label for="message" class="form-label">
-                        Message <span class="required">*</span>
-                    </label>
-                    <textarea id="message" name="message" class="form-textarea" rows="6" required
-                        maxlength="500" aria-required="true" aria-describedby="message-error message-counter"></textarea>
-                    <div class="textarea-footer">
-                        <span class="form-error" id="message-error" role="alert"></span>
-                        <span class="character-counter" id="message-counter" aria-live="polite">0 / 500</span>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="form-submit" id="submit-btn">
-                    <span class="submit-text">Send Message</span>
-                    <span class="submit-loading" aria-hidden="true">
-                        <svg class="loading-spinner" viewBox="0 0 24 24">
-                            <circle class="spinner-circle" cx="12" cy="12" r="10" fill="none" stroke-width="3"></circle>
-                        </svg>
-                        Sending...
-                    </span>
-                </button>
-            </form>
-        </section>
-
-        <!-- Location & Availability Section -->
+        <!-- Location & Timezone Section -->
         <section class="location-section" id="location">
-            <div class="location-content">
-                <div class="location-item">
-                    <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                    </svg>
-                    <div class="location-details">
-                        <h3 class="location-label">Location</h3>
-                        <p class="location-value">Nairobi, Kenya</p>
+            <div class="location-grid">
+                <div class="location-card" data-aos="zoom-in">
+                    <div class="location-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                        </svg>
+                    </div>
+                    <h3 class="location-title">Location</h3>
+                    <p class="location-value">Nairobi, Kenya</p>
+                    <p class="location-detail">East Africa</p>
+                </div>
+
+                <div class="location-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="location-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        </svg>
+                    </div>
+                    <h3 class="location-title">Timezone</h3>
+                    <p class="location-value">EAT (GMT+3)</p>
+                    <p class="location-detail" id="current-time">--:-- --</p>
+                </div>
+
+                <div class="location-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="location-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="location-title">Availability</h3>
+                    <p class="location-value">Open to Work</p>
+                    <p class="location-detail">Freelance & Full-time</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked</h2>
+                <p class="section-subtitle">Common questions about working together</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item" data-aos="fade-right">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What services do you offer?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>I specialize in full-stack development with a focus on AI integration, web applications, and cloud solutions. My expertise includes React, Node.js, Python, and various AI/ML frameworks.</p>
                     </div>
                 </div>
 
-                <div class="location-item">
-                    <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                    </svg>
-                    <div class="location-details">
-                        <h3 class="location-label">Timezone</h3>
-                        <p class="location-value">EAT (GMT+3)</p>
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="50">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What's your typical response time?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>I typically respond to emails within 24 hours during weekdays. For urgent matters, feel free to call directly for a faster response.</p>
                     </div>
                 </div>
 
-                <div class="location-item">
-                    <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
-                    </svg>
-                    <div class="location-details">
-                        <h3 class="location-label">Availability</h3>
-                        <p class="location-value">Open to opportunities</p>
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="100">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Do you work with international clients?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! I work with clients globally and am experienced in remote collaboration across different time zones. Communication and project management tools ensure smooth workflows.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="150">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What's your project timeline?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Project timelines vary based on scope and complexity. After discussing your requirements, I'll provide a detailed timeline with milestones. Small projects typically take 1-2 weeks, while larger applications may take several months.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="200">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How do you handle project pricing?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>I offer both hourly and project-based pricing depending on the scope. After our initial consultation, I'll provide a detailed proposal with transparent pricing and deliverables.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="250">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Can you help with existing projects?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! I can help with debugging, feature additions, performance optimization, or complete overhauls of existing projects. I'm comfortable working with various tech stacks and codebases.</p>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
-            <p class="footer-text">&copy; 2024 Leon Madara. All rights reserved.</p>
+            <p class="footer-text">&copy; 2024 Leon Madara. Built with passion in Nairobi, Kenya.</p>
         </div>
     </footer>
 
     <!-- Toast Notification -->
     <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-content">
-            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span class="toast-message"></span>
-        </div>
+        <div class="toast-icon"></div>
+        <span class="toast-message"></span>
     </div>
 
-    <!-- Dotted Background Pattern -->
-    <div class="background-pattern" aria-hidden="true" role="presentation"></div>
+    <!-- Background Elements -->
+    <div class="background-pattern" aria-hidden="true"></div>
 
-    <!-- Kenyan Programming Elements -->
-    <div class="kenyan-code-elements" aria-hidden="true" role="presentation">
-        <div class="code-element code-element-1" aria-hidden="true">&lt;/&gt;</div>
-        <div class="code-element code-element-2" aria-hidden="true">{ }</div>
-        <div class="code-element code-element-3" aria-hidden="true">[ ]</div>
-        <div class="code-element code-element-4" aria-hidden="true">( )</div>
-        <div class="code-element code-element-5" aria-hidden="true">=&gt;</div>
-        <div class="code-element code-element-6" aria-hidden="true">&amp;&amp;</div>
-    </div>
-
-    <!-- JavaScript -->
+    <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/contact.js"></script>
+    <script src="js/profile-card.js"></script>
 </body>
 
 </html>
