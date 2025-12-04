@@ -191,13 +191,15 @@ const ContactPage = {
         // Use native Intersection Observer for scroll animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
+                    entry.target.classList.add('visible');
+                    // Unobserve after animating to improve performance
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -218,45 +220,10 @@ const ContactPage = {
     // SCROLL EFFECTS
     // ===================================
     initScrollEffects() {
-        // Parallax effect for floating shapes
-        const shapes = document.querySelectorAll('.floating-shapes .shape');
+        // Floating shapes use pure CSS animation - no JavaScript parallax needed
+        // This prevents conflicts and provides smoother performance
 
-        if (shapes.length > 0) {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-
-                shapes.forEach((shape, index) => {
-                    const speed = (index + 1) * 0.3;
-                    const yPos = -(scrolled * speed);
-                    shape.style.transform = `translateY(${yPos}px)`;
-                });
-            });
-        }
-
-        // Fade in elements on scroll (lightweight alternative to AOS)
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements with data-aos attribute
-        document.querySelectorAll('[data-aos]').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        console.log('✓ Scroll effects initialized');
+        console.log('✓ Scroll effects initialized (CSS-only)');
     },
 
     // ===================================
