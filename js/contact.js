@@ -185,87 +185,33 @@ const ContactPage = {
     },
 
     // ===================================
-    // GSAP ANIMATIONS
+    // CSS ANIMATIONS WITH INTERSECTION OBSERVER
     // ===================================
     initAnimations() {
-        if (typeof gsap === 'undefined') {
-            console.warn('⚠ GSAP not loaded, skipping animations');
-            return;
-        }
+        // Use native Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-        // Register ScrollTrigger
-        if (typeof ScrollTrigger !== 'undefined') {
-            gsap.registerPlugin(ScrollTrigger);
-        }
-
-        // Animate Contact Cards
-        const cards = document.querySelectorAll('.contact-card');
-        if (cards.length > 0) {
-            gsap.from(cards, {
-                scrollTrigger: {
-                    trigger: '.contact-cards-section',
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                opacity: 0,
-                y: 60,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: 'power3.out'
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
             });
-        }
+        }, observerOptions);
 
-        // Animate Location Cards
-        const locationCards = document.querySelectorAll('.location-card');
-        if (locationCards.length > 0) {
-            gsap.from(locationCards, {
-                scrollTrigger: {
-                    trigger: '.location-section',
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.6,
-                stagger: 0.15,
-                ease: 'back.out(1.7)'
-            });
-        }
+        // Observe all animated elements
+        const animatedElements = document.querySelectorAll(
+            '.contact-card, .location-card, .faq-item, .section-header'
+        );
 
-        // Animate FAQ Items
-        const faqItems = document.querySelectorAll('.faq-item');
-        if (faqItems.length > 0) {
-            gsap.from(faqItems, {
-                scrollTrigger: {
-                    trigger: '.faq-section',
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                opacity: 0,
-                x: -50,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: 'power2.out'
-            });
-        }
-
-        // Section Headers
-        const sectionHeaders = document.querySelectorAll('.section-header');
-        sectionHeaders.forEach(header => {
-            gsap.from(header, {
-                scrollTrigger: {
-                    trigger: header,
-                    start: 'top 85%',
-                    toggleActions: 'play none none reverse'
-                },
-                opacity: 0,
-                y: 30,
-                duration: 0.8,
-                ease: 'power2.out'
-            });
+        animatedElements.forEach(el => {
+            observer.observe(el);
         });
 
-        console.log('✓ GSAP animations initialized');
+        console.log('✓ CSS animations initialized');
     },
 
     // ===================================

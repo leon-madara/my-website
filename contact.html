@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/sidebar-profile-card.css">
+    <link rel="stylesheet" href="css/liquid-navbar.css">
 
     <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -38,50 +39,62 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Live region for screen reader announcements -->
-    <div id="sr-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    <div id="sr-announcements" aria-live="polite" aria-atomic="true" class="sr-only">
+    </div>
 
-    <!-- Advanced Floating Header Navigation -->
-    <nav class="floating-navigation" aria-label="Main navigation">
-        <div class="floating-header">
-            <div class="header-container">
-                <a href="index.html" class="header-logo" aria-label="Leon Madara Logo">
-                    <img src="images/LeonDevLogo.svg" class="leon-logo" alt="Leon Madara Logo" />
-                </a>
+    <!-- Liquid Navigation Bar -->
+    <div class="liquid-navbar-wrapper">
+      <nav class="liquid-navbar" role="navigation" aria-label="Main navigation">
+        <div class="liquid-navbar-container" id="liquid-navbar-container">
+          <div class="liquid-navbar-indicator" id="liquid-navbar-indicator">
+            <div class="liquid-navbar-indicator-icon-container">
+              <svg class="liquid-navbar-indicator-icon" data-icon-index="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+              <svg class="liquid-navbar-indicator-icon" data-icon-index="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <svg class="liquid-navbar-indicator-icon" data-icon-index="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+              <svg class="liquid-navbar-indicator-icon active" data-icon-index="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
             </div>
+          </div>
+          <div class="liquid-nav-items-wrapper">
+            <a href="index.html" class="liquid-nav-item" data-index="0" aria-label="Home">
+              <svg class="liquid-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </a>
+            <a href="about.html" class="liquid-nav-item" data-index="1" aria-label="About">
+              <svg class="liquid-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </a>
+            <a href="portfolio.html" class="liquid-nav-item" data-index="2" aria-label="Portfolio">
+              <svg class="liquid-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+            </a>
+            <a href="contact.html" class="liquid-nav-item active" data-index="3" aria-label="Contact">
+              <svg class="liquid-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </a>
+          </div>
         </div>
-
-        <div class="nav-background-blur"></div>
-
-        <nav class="nav-icons-container" role="navigation" aria-label="Main navigation">
-            <button class="nav-icon" data-section="home" data-label="Home" aria-label="Home" type="button"
-                onclick="window.location.href='index.html'">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                </svg>
-            </button>
-            <button class="nav-icon" data-section="about" data-label="About" aria-label="About" type="button"
-                onclick="window.location.href='about.html'">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z" />
-                </svg>
-            </button>
-            <button class="nav-icon" data-section="portfolio" data-label="Portfolio" aria-label="Portfolio"
-                type="button" onclick="window.location.href='portfolio.html'">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M10 4h4c1.1 0 2 .9 2 2v1h4c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V6c0-1.1.9-2 2-2zm4 3V6h-4v1h4z" />
-                </svg>
-            </button>
-            <button class="nav-icon active" data-section="contact" data-label="Contact Me" aria-label="Contact Me"
-                type="button" aria-current="page">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
-            </button>
-        </nav>
-    </nav>
+      </nav>
+    </div>
 
     <!-- Profile Card Sidebar -->
     <aside class="pill-sidebar" role="complementary" aria-label="Profile and social links">
@@ -462,9 +475,14 @@
     <div class="background-pattern" aria-hidden="true"></div>
 
     <!-- Scripts -->
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- Main Scripts -->
     <script src="js/main.js"></script>
     <script src="js/contact.js"></script>
     <script src="js/profile-card.js"></script>
+    <script src="js/liquid-navbar.js"></script>
 </body>
 
 </html>

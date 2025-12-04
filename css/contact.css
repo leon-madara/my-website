@@ -178,6 +178,28 @@ body.contact-page {
     }
 }
 
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .hero-description {
     font-family: var(--font-role);
     font-size: clamp(1.25rem, 3vw, 1.75rem);
@@ -269,6 +291,12 @@ body.contact-page {
 .section-header {
     text-align: center;
     margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.section-header.animate-in {
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .section-title {
@@ -308,6 +336,20 @@ body.contact-page {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(60px);
+}
+
+.contact-card.animate-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.contact-card:nth-child(2).animate-in {
+    animation-delay: 0.2s;
+}
+
+.contact-card:nth-child(3).animate-in {
+    animation-delay: 0.4s;
 }
 
 .contact-card::before {
@@ -484,6 +526,20 @@ body.contact-page {
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 20px;
     transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.location-card.animate-in {
+    animation: scaleIn 0.6s ease-out forwards;
+}
+
+.location-card:nth-child(2).animate-in {
+    animation-delay: 0.15s;
+}
+
+.location-card:nth-child(3).animate-in {
+    animation-delay: 0.3s;
 }
 
 .location-card:hover {
@@ -546,6 +602,32 @@ body.contact-page {
     border-radius: 16px;
     overflow: hidden;
     transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+.faq-item.animate-in {
+    animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.faq-item:nth-child(2).animate-in {
+    animation-delay: 0.1s;
+}
+
+.faq-item:nth-child(3).animate-in {
+    animation-delay: 0.2s;
+}
+
+.faq-item:nth-child(4).animate-in {
+    animation-delay: 0.3s;
+}
+
+.faq-item:nth-child(5).animate-in {
+    animation-delay: 0.4s;
+}
+
+.faq-item:nth-child(6).animate-in {
+    animation-delay: 0.5s;
 }
 
 .faq-item:hover {
