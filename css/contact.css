@@ -1145,9 +1145,23 @@ body.contact-page {
    RESPONSIVE DESIGN
    =================================== */
 
-@media (max-width: 1024px) {
+/* Tablet Layout (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
     .cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .location-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Form stays 2-column on tablet for better UX */
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-form-section {
+        padding: 5rem 2rem;
     }
 }
 
@@ -1176,6 +1190,7 @@ body.contact-page {
     }
 
     .contact-cards-section,
+    .contact-form-section,
     .faq-section {
         padding: 4rem 1.5rem;
     }
@@ -1199,6 +1214,37 @@ body.contact-page {
     }
 
     .action-btn {
+        width: 100%;
+    }
+
+    /* Contact Form - Single column on mobile */
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-group {
+        margin-bottom: 1.75rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 1rem 0.75rem;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+
+    .calendar-option {
+        text-align: center;
+    }
+
+    .btn-calendar {
         width: 100%;
     }
 
