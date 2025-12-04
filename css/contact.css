@@ -1305,10 +1305,51 @@ body.contact-page {
     }
 }
 
-/* Focus styles for accessibility */
+/* Screen Reader Only Content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus styles for accessibility - WCAG 2.2 Compliant */
 .cta-button:focus,
 .action-btn:focus,
-.faq-question:focus {
+.faq-question:focus,
+.btn-submit:focus,
+.btn-calendar:focus,
+.copy-btn:focus,
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: 3px solid var(--kenyan-green);
+    outline-offset: 2px;
+}
+
+/* Focus visible - only show outline on keyboard focus */
+.cta-button:focus:not(:focus-visible),
+.action-btn:focus:not(:focus-visible),
+.btn-submit:focus:not(:focus-visible),
+.btn-calendar:focus:not(:focus-visible),
+.copy-btn:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.cta-button:focus-visible,
+.action-btn:focus-visible,
+.btn-submit:focus-visible,
+.btn-calendar:focus-visible,
+.copy-btn:focus-visible,
+.faq-question:focus-visible,
+.form-group input:focus-visible,
+.form-group textarea:focus-visible,
+.form-group select:focus-visible {
     outline: 3px solid var(--kenyan-green);
     outline-offset: 2px;
 }
@@ -1320,6 +1361,36 @@ body.contact-page {
     .faq-item {
         border: 2px solid currentColor;
     }
+
+    .cta-button,
+    .action-btn,
+    .btn-submit,
+    .btn-calendar {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Skip to main content link for keyboard users */
+.skip-link,
+.skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--kenyan-green);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    z-index: 10000;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus,
+.skip-to-main:focus {
+    top: 0;
+    outline: 3px solid white;
+    outline-offset: -3px;
 }
 
 /* ===================================
