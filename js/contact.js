@@ -18,7 +18,10 @@ const ContactPage = {
         // Setup Live Time Display
         this.initLiveTime();
 
-        // Setup GSAP Animations
+        // Setup Contact Form
+        this.initContactForm();
+
+        // Setup CSS Animations
         this.initAnimations();
 
         // Setup Scroll Effects
@@ -155,6 +158,229 @@ const ContactPage = {
     },
 
     // ===================================
+    // CONTACT FORM
+    // ===================================
+    initContactForm() {
+        const form = document.getElementById('contact-form-element');
+        if (!form) return;
+
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const projectTypeSelect = document.getElementById('project-type');
+        const messageTextarea = document.getElementById('message');
+
+        // Real-time validation
+        if (nameInput) {
+            nameInput.addEventListener('blur', () => this.validateName(nameInput));
+            nameInput.addEventListener('input', () => {
+                if (nameInput.classList.contains('error')) {
+                    this.validateName(nameInput);
+                }
+            });
+        }
+
+        if (emailInput) {
+            emailInput.addEventListener('blur', () => this.validateEmail(emailInput));
+            emailInput.addEventListener('input', () => {
+                if (emailInput.classList.contains('error')) {
+                    this.validateEmail(emailInput);
+                }
+            });
+        }
+
+        if (projectTypeSelect) {
+            projectTypeSelect.addEventListener('change', () => this.validateProjectType(projectTypeSelect));
+        }
+
+        if (messageTextarea) {
+            messageTextarea.addEventListener('blur', () => this.validateMessage(messageTextarea));
+            messageTextarea.addEventListener('input', () => {
+                if (messageTextarea.classList.contains('error')) {
+                    this.validateMessage(messageTextarea);
+                }
+            });
+        }
+
+        // Form submission
+        form.addEventListener('submit', (e) => this.handleFormSubmit(e));
+
+        console.log('✓ Contact form initialized');
+    },
+
+    // Validate Name
+    validateName(input) {
+        const value = input.value.trim();
+        const errorSpan = input.parentElement.querySelector('.form-error');
+
+        if (value.length === 0) {
+            this.setError(input, errorSpan, 'Name is required');
+            return false;
+        }
+
+        if (value.length < 2) {
+            this.setError(input, errorSpan, 'Name must be at least 2 characters');
+            return false;
+        }
+
+        if (!/^[a-zA-Z\s]+$/.test(value)) {
+            this.setError(input, errorSpan, 'Name can only contain letters and spaces');
+            return false;
+        }
+
+        this.setSuccess(input, errorSpan);
+        return true;
+    },
+
+    // Validate Email
+    validateEmail(input) {
+        const value = input.value.trim();
+        const errorSpan = input.parentElement.querySelector('.form-error');
+
+        if (value.length === 0) {
+            this.setError(input, errorSpan, 'Email is required');
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            this.setError(input, errorSpan, 'Please enter a valid email address');
+            return false;
+        }
+
+        this.setSuccess(input, errorSpan);
+        return true;
+    },
+
+    // Validate Project Type
+    validateProjectType(select) {
+        const value = select.value;
+        const errorSpan = select.parentElement.querySelector('.form-error');
+
+        if (value === '') {
+            this.setError(select, errorSpan, 'Please select a project type');
+            return false;
+        }
+
+        this.setSuccess(select, errorSpan);
+        return true;
+    },
+
+    // Validate Message
+    validateMessage(textarea) {
+        const value = textarea.value.trim();
+        const errorSpan = textarea.parentElement.querySelector('.form-error');
+
+        if (value.length === 0) {
+            this.setError(textarea, errorSpan, 'Message is required');
+            return false;
+        }
+
+        if (value.length < 10) {
+            this.setError(textarea, errorSpan, 'Message must be at least 10 characters');
+            return false;
+        }
+
+        if (value.length > 1000) {
+            this.setError(textarea, errorSpan, 'Message must not exceed 1000 characters');
+            return false;
+        }
+
+        this.setSuccess(textarea, errorSpan);
+        return true;
+    },
+
+    // Set Error State
+    setError(input, errorSpan, message) {
+        input.classList.add('error');
+        input.classList.remove('success');
+        input.setAttribute('aria-invalid', 'true');
+        if (errorSpan) {
+            errorSpan.textContent = message;
+        }
+    },
+
+    // Set Success State
+    setSuccess(input, errorSpan) {
+        input.classList.remove('error');
+        input.classList.add('success');
+        input.setAttribute('aria-invalid', 'false');
+        if (errorSpan) {
+            errorSpan.textContent = '';
+        }
+    },
+
+    // Handle Form Submission
+    async handleFormSubmit(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const projectTypeSelect = document.getElementById('project-type');
+        const messageTextarea = document.getElementById('message');
+        const submitBtn = form.querySelector('.btn-submit');
+
+        // Validate all fields
+        const isNameValid = this.validateName(nameInput);
+        const isEmailValid = this.validateEmail(emailInput);
+        const isProjectTypeValid = this.validateProjectType(projectTypeSelect);
+        const isMessageValid = this.validateMessage(messageTextarea);
+
+        if (!isNameValid || !isEmailValid || !isProjectTypeValid || !isMessageValid) {
+            this.announceToScreenReader('Please fix the errors in the form');
+            return;
+        }
+
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+
+        // Simulate form submission (replace with actual API call)
+        try {
+            // TODO: Replace with actual form submission
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Show success message
+            this.showFormSuccess(form);
+
+            // Clear form
+            form.reset();
+
+            // Remove validation classes
+            [nameInput, emailInput, projectTypeSelect, messageTextarea].forEach(input => {
+                input.classList.remove('error', 'success');
+                input.removeAttribute('aria-invalid');
+            });
+
+        } catch (error) {
+            console.error('Form submission error:', error);
+            this.showToast('Failed to send message. Please try again.', 'error');
+        } finally {
+            // Remove loading state
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+        }
+    },
+
+    // Show Form Success
+    showFormSuccess(form) {
+        const successMessage = document.getElementById('form-success');
+
+        if (successMessage) {
+            form.style.display = 'none';
+            successMessage.classList.add('show');
+
+            this.announceToScreenReader('Message sent successfully!');
+
+            // Hide success message and show form again after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+                form.style.display = 'block';
+            }, 5000);
+        }
+    },
+
+    // ===================================
     // LIVE TIME DISPLAY
     // ===================================
     initLiveTime() {
@@ -206,7 +432,7 @@ const ContactPage = {
 
         // Observe all animated elements
         const animatedElements = document.querySelectorAll(
-            '.contact-card, .location-card, .faq-item, .section-header'
+            '.contact-card, .location-card, .faq-item, .section-header, .contact-form, .calendar-option'
         );
 
         animatedElements.forEach(el => {

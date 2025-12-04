@@ -336,6 +336,78 @@
             </div>
         </section>
 
+        <!-- Contact Form Section -->
+        <section class="contact-form-section" id="contact-form">
+            <div class="section-header">
+                <h2 class="section-title">Send a Message</h2>
+                <p class="section-subtitle">Fill out the form below and I'll get back to you within 24 hours</p>
+            </div>
+
+            <div class="form-container">
+                <form class="contact-form" id="contact-form-element" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required aria-required="true">
+                            <label for="name">Your Name</label>
+                            <span class="form-error" role="alert" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required aria-required="true">
+                            <label for="email">Email Address</label>
+                            <span class="form-error" role="alert" aria-live="polite"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select id="project-type" name="project-type" required aria-required="true">
+                            <option value="">Select Project Type</option>
+                            <option value="web-development">Web Development</option>
+                            <option value="ai-integration">AI Integration</option>
+                            <option value="consultation">Consultation</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <label for="project-type">Project Type</label>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                        <label for="message">Your Message</label>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <span class="btn-text">Send Message</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                        <span class="loading-spinner" aria-hidden="true"></span>
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div class="form-success" id="form-success" role="alert" aria-live="assertive">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h3>Message Sent Successfully!</h3>
+                    <p>Thank you for reaching out. I'll get back to you within 24 hours.</p>
+                </div>
+
+                <!-- Calendar Option -->
+                <div class="calendar-option">
+                    <p class="calendar-text">Prefer to schedule a call instead?</p>
+                    <a href="#" class="btn-calendar" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span>Schedule a Meeting</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Location & Timezone Section -->
         <section class="location-section" id="location">
             <div class="location-grid">

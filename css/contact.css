@@ -547,6 +547,313 @@ body.contact-page {
 }
 
 /* ===================================
+   CONTACT FORM SECTION
+   =================================== */
+
+.contact-form-section {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Contact Form */
+.contact-form {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 24px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Form Group with Floating Labels */
+.form-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 1rem 1rem 1rem 0.5rem;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--primary-text);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group label {
+    position: absolute;
+    left: 0.5rem;
+    top: 1rem;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--secondary-text);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Floating label animation */
+.form-group input:focus ~ label,
+.form-group input:not(:placeholder-shown) ~ label,
+.form-group input:valid ~ label,
+.form-group textarea:focus ~ label,
+.form-group textarea:not(:placeholder-shown) ~ label,
+.form-group textarea:valid ~ label,
+.form-group select:focus ~ label,
+.form-group select:valid ~ label,
+.form-group select:not([value=""]) ~ label {
+    top: -0.5rem;
+    font-size: 0.875rem;
+    color: var(--kenyan-green);
+    font-weight: 600;
+}
+
+/* Focus states */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-bottom-color: var(--kenyan-green);
+}
+
+/* Valid states */
+.form-group input:valid:not(:placeholder-shown),
+.form-group textarea:valid:not(:placeholder-shown),
+.form-group select:valid {
+    border-bottom-color: var(--kenyan-green);
+}
+
+/* Error states */
+.form-group input.error,
+.form-group textarea.error,
+.form-group select.error {
+    border-bottom-color: var(--kenyan-red);
+}
+
+.form-group input.error ~ label,
+.form-group textarea.error ~ label,
+.form-group select.error ~ label {
+    color: var(--kenyan-red);
+}
+
+/* Form Error Message */
+.form-error {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    color: var(--kenyan-red);
+    margin-top: 0.5rem;
+    min-height: 1.25rem;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-error:not(:empty) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Select specific styling */
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5rem;
+    padding-right: 2.5rem;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    font-family: var(--font-greeting);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--kenyan-green), var(--accent-green-light));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 107, 63, 0.4);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn-submit:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.btn-submit.loading .loading-spinner {
+    display: block;
+}
+
+.btn-submit.loading .btn-text,
+.btn-submit.loading .btn-icon {
+    display: none;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Success Message */
+.form-success {
+    display: none;
+    text-align: center;
+    padding: 3rem;
+    background: rgba(0, 107, 63, 0.1);
+    border: 2px solid var(--kenyan-green);
+    border-radius: 24px;
+    margin-bottom: 2rem;
+}
+
+.form-success.show {
+    display: block;
+    animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-success svg {
+    width: 60px;
+    height: 60px;
+    color: var(--kenyan-green);
+    margin-bottom: 1rem;
+}
+
+.form-success h3 {
+    font-family: var(--font-role);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--kenyan-green);
+    margin: 0 0 1rem;
+}
+
+.form-success p {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--secondary-text);
+    margin: 0;
+}
+
+/* Calendar Option */
+.calendar-option {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+}
+
+.calendar-text {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--secondary-text);
+    margin: 0 0 1rem;
+}
+
+.btn-calendar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-greeting);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--kenyan-green);
+    background: white;
+    border: 2px solid var(--kenyan-green);
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-calendar:hover {
+    background: var(--kenyan-green);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 107, 63, 0.3);
+}
+
+.btn-calendar svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===================================
    LOCATION SECTION
    =================================== */
 
