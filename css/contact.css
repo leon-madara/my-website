@@ -974,7 +974,7 @@ body.contact-page {
     margin-top: 3rem;
 }
 
-/* FAQ Item */
+/* FAQ Item - Native Details Element */
 .faq-item {
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.06);
@@ -982,7 +982,7 @@ body.contact-page {
     overflow: hidden;
     opacity: 0;
     transform: translateX(-20px);
-    transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease, margin 0.2s ease;
 }
 
 .faq-item.visible {
@@ -990,32 +990,33 @@ body.contact-page {
     transform: translateX(0);
 }
 
-/* Remove stagger delays - all FAQ items animate together */
-.faq-item.visible {
-    transition-delay: 0ms;
-}
-
 .faq-item:hover {
     box-shadow: 0 8px 24px rgba(0, 107, 63, 0.1);
 }
 
-/* FAQ Question */
+/* FAQ Question - Native Summary Element */
 .faq-question {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     padding: 1.5rem 2rem;
-    background: transparent;
-    border: none;
     font-family: var(--font-role);
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--primary-text);
-    text-align: left;
     cursor: pointer;
-    transition: all 0.3s ease;
+    list-style: none;
+    transition: color 0.2s ease;
+}
+
+/* Remove default marker */
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-question::marker {
+    display: none;
 }
 
 .faq-question:hover {
@@ -1030,20 +1031,26 @@ body.contact-page {
     flex-shrink: 0;
 }
 
-.faq-item.active .faq-icon {
+/* Rotate icon when details is open */
+.faq-item[open] .faq-icon {
     transform: rotate(180deg);
 }
 
 /* FAQ Answer */
 .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 2rem 1.5rem;
+    animation: fadeIn 0.3s ease;
 }
 
-.faq-item.active .faq-answer {
-    max-height: 500px;
-    padding: 0 2rem 1.5rem;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .faq-answer p {
@@ -1200,7 +1207,7 @@ body.contact-page {
         padding: 1.25rem 1.5rem;
     }
 
-    .faq-item.active .faq-answer {
+    .faq-answer {
         padding: 0 1.5rem 1.25rem;
     }
 
