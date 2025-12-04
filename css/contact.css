@@ -936,6 +936,27 @@ body.contact-page {
     margin: 0;
 }
 
+/* Availability Status */
+.availability-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    background: var(--kenyan-green);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-message {
+    font-family: var(--font-role);
+    font-size: inherit;
+    color: inherit;
+}
+
 /* ===================================
    FAQ SECTION
    =================================== */
