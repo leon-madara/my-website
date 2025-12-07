@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="css/sidebar-profile-card.css">
     <link rel="stylesheet" href="css/portfolio.css?v=2.1">
     <link rel="stylesheet" href="css/portfolio-entrance.css">
+    <link rel="stylesheet" href="css/liquid-nav.css">
 
     <!-- FOUC Prevention - Hide portfolio until entrance complete -->
     <style>
@@ -48,47 +49,44 @@
 
 <body class="portfolio-page">
     <!-- Skip Navigation -->
-    <a href="#portfolio-content" class="skip-link">Skip to portfolio content</a>
 
-    <!-- Advanced Floating Header Navigation -->
-    <nav class="floating-navigation" aria-label="Main navigation">
-        <div class="floating-header">
-            <div class="header-container">
-                <a href="index.html" class="header-logo" aria-label="Leon Madara Logo">
-                    <img src="images/LeonDevLogo.svg" class="leon-logo" alt="Leon Madara Logo" />
-                </a>
-            </div>
-        </div>
 
-        <div class="nav-background-blur"></div>
+    <!-- Logo -->
+    <a href="index.html" class="header-logo" aria-label="Home">
+        <img src="images/LeonDevLogo.svg" alt="Leon Madara" />
+    </a>
 
-        <nav class="nav-icons-container" role="navigation" aria-label="Main navigation">
-            <button class="nav-icon" data-section="home" data-label="Home" aria-label="Home" type="button"
-                onclick="window.location.href='index.html'">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                </svg>
-            </button>
-            <button class="nav-icon" data-section="about" data-label="About" aria-label="About" type="button" onclick="window.location.href='about.html'">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z" />
-                </svg>
-            </button>
-            <button class="nav-icon active" data-section="portfolio" data-label="Portfolio" aria-label="Portfolio"
-                type="button">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M10 4h4c1.1 0 2 .9 2 2v1h4c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V6c0-1.1.9-2 2-2zm4 3V6h-4v1h4z" />
-                </svg>
-            </button>
-            <a href="contact.html" class="nav-icon-link" data-section="contact" data-label="Contact Me" aria-label="Contact Me">
-                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
-            </a>
-        </nav>
+    <!-- Navigation -->
+    <nav class="nav-pills">
+        <div class="indicator"></div>
+        <a href="index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span class="label">Home</span>
+        </a>
+        <a href="about.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span class="label">About</span>
+        </a>
+        <a href="portfolio.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+            <span class="label">Portfolio</span>
+        </a>
+        <a href="contact.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <span class="label">Contact</span>
+        </a>
     </nav>
 
     <!-- Profile Card Sidebar -->
@@ -105,15 +103,14 @@
 
             <!-- Profile Avatar - Asymmetric at 25% -->
             <div class="profile-section">
-                <img src="images/Leon.jpg"
-                     alt="Leon Madara"
-                     class="profile-photo" />
+                <img src="images/Leon.jpg" alt="Leon Madara" class="profile-photo" />
             </div>
 
             <!-- Experience Progress Bar -->
             <div class="experience-bar" role="group" aria-label="Experience level">
                 <span class="exp-label" aria-hidden="true">exp.</span>
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Experience: 65%"></div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"
+                    aria-label="Experience: 65%"></div>
                 <span class="sr-only">Experience level: 65%</span>
             </div>
         </header>
@@ -121,7 +118,8 @@
         <!-- Identity Section -->
         <div class="identity-section">
             <h2 class="sidebar-name">Leon Madara</h2>
-            <p class="sidebar-title">Full Stack AI Developer from Nairobi, Kenya. Building innovative solutions with modern web technologies.</p>
+            <p class="sidebar-title">Full Stack AI Developer from Nairobi, Kenya. Building innovative solutions with
+                modern web technologies.</p>
         </div>
 
         <!-- Stats Section -->
@@ -144,35 +142,29 @@
         <nav class="social-nav" aria-label="Social media links">
             <ul class="social-icons-list">
                 <li class="social-icon-item">
-                    <a href="https://github.com/leon-madara"
-                       class="social-icon-link"
-                       aria-label="GitHub Profile"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                    <a href="https://github.com/leon-madara" class="social-icon-link" aria-label="GitHub Profile"
+                        target="_blank" rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                     </a>
                 </li>
                 <li class="social-icon-item">
-                    <a href="https://www.linkedin.com/in/leon-madara/"
-                       class="social-icon-link"
-                       aria-label="LinkedIn Profile"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/leon-madara/" class="social-icon-link"
+                        aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
                     </a>
                 </li>
                 <li class="social-icon-item">
-                    <a href="https://twitter.com/leon_madara"
-                       class="social-icon-link"
-                       aria-label="Twitter/X Profile"
-                       target="_blank"
-                       rel="noopener noreferrer">
+                    <a href="https://twitter.com/leon_madara" class="social-icon-link" aria-label="Twitter/X Profile"
+                        target="_blank" rel="noopener noreferrer">
                         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                         </svg>
                     </a>
                 </li>
@@ -182,45 +174,66 @@
 
     <!-- Main Portfolio Content -->
     <main class="portfolio-container" id="portfolio-content">
-        <!-- Portfolio Header with Kenyan Background -->
-        <header class="portfolio-header">
-            <h1 class="portfolio-title" aria-label="My Portfolio">
-                <span class="title-my">My </span><span class="title-portfolio">Portfolio</span>
-            </h1>
+        <!-- Portfolio Header Section -->
+        <header class="portfolio-header-section">
+            <p class="portfolio-header-label">Selected work</p>
+            <h1 class="portfolio-header-title">Portfolio</h1>
+            <p class="portfolio-header-description">A curated set of Kenyan-inspired digital products ☒ from e-commerce
+                to education ☒ designed, engineered, and iterated with care.</p>
         </header>
 
         <!-- Project Toggle Section -->
-        <section class="project-toggle-section" aria-label="Project selector">
-            <div class="project-toggle-container">
-                <button class="project-toggle-btn" data-project="1" aria-label="View Eastleigh Turf Flow project">
-                    <span class="toggle-number">01</span>
-                    <span class="toggle-label">Eastleigh</span>
-                </button>
-                <button class="project-toggle-btn active" data-project="2" aria-label="View Delivah Dispatch Hub project">
-                    <span class="toggle-number">02</span>
-                    <span class="toggle-label">Delivah</span>
-                </button>
-                <button class="project-toggle-btn" data-project="3" aria-label="View EduManage SMS project">
-                    <span class="toggle-number">03</span>
-                    <span class="toggle-label">EduManage</span>
-                </button>
-            </div>
-        </section>
+        <div class="project-toggle-container" aria-label="Project selector">
+            <button class="project-toggle-btn active" data-project="1" aria-label="View Eastleigh Turf Flow project">
+                <span class="toggle-badge">01</span>
+                <span class="toggle-label">EASTLEIGH TURF FLOW</span>
+            </button>
+            <button class="project-toggle-btn" data-project="2" aria-label="View Delivah Dispatch Hub project">
+                <span class="toggle-badge">02</span>
+                <span class="toggle-label">DELIVAH LOGISTICS</span>
+            </button>
+            <button class="project-toggle-btn" data-project="3" aria-label="View EduManage SMS project">
+                <span class="toggle-badge">03</span>
+                <span class="toggle-label">EDUMANAGE</span>
+            </button>
+        </div>
 
         <!-- Main Content Area: Accordion + Horizontal Pages -->
         <section class="content-wrapper">
             <!-- Left Sidebar: Accordion Navigation -->
             <aside class="accordion-nav" aria-label="Case study navigation">
+                <!-- Card Header -->
+                <div class="accordion-nav-header">
+                    <h3 class="accordion-nav-title">SECTIONS</h3>
+                    <div class="accordion-completion-badge" id="completion-badge">
+                        <span class="completion-percentage" id="completion-percentage">0%</span>
+                        <span class="completion-label">COMPLETE</span>
+                    </div>
+                </div>
                 <nav class="accordion-menu">
                     <!-- Project Details Section -->
                     <div class="accordion-item active" data-chapter="details">
                         <button class="accordion-header" aria-expanded="true">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Project Details</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 15l7-7 7 7" />
+                            </svg>
                         </button>
                         <div class="accordion-content" style="display: block;">
+                            <p class="accordion-description">Short description for the Project Details step of this case
+                                study.</p>
                             <a href="#overview" class="accordion-link active" data-page="0">Overview</a>
                             <a href="#role-timeline" class="accordion-link" data-page="1">Role & Timeline</a>
                             <a href="#tech-stack" class="accordion-link" data-page="2">Tech Stack</a>
@@ -230,12 +243,26 @@
                     <!-- Problem Section -->
                     <div class="accordion-item" data-chapter="problem">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Problem</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Problem step of this case study.
+                            </p>
                             <a href="#challenge" class="accordion-link" data-page="3">The Challenge</a>
                             <a href="#pain-points" class="accordion-link" data-page="4">Pain Points</a>
                         </div>
@@ -244,12 +271,25 @@
                     <!-- Goal Section -->
                     <div class="accordion-item" data-chapter="goal">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Goal</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Goal step of this case study.</p>
                             <a href="#objectives" class="accordion-link" data-page="5">Objectives</a>
                             <a href="#success-criteria" class="accordion-link" data-page="6">Success Criteria</a>
                         </div>
@@ -258,12 +298,26 @@
                     <!-- Impact Section -->
                     <div class="accordion-item" data-chapter="impact">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Impact</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Impact step of this case study.
+                            </p>
                             <a href="#metrics" class="accordion-link" data-page="7">Metrics & Results</a>
                             <a href="#user-feedback" class="accordion-link" data-page="8">User Feedback</a>
                         </div>
@@ -272,12 +326,26 @@
                     <!-- Early Adoption Section -->
                     <div class="accordion-item" data-chapter="adoption">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Early Adoption</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Early Adoption step of this case
+                                study.</p>
                             <a href="#beta-testing" class="accordion-link" data-page="9">Beta Testing</a>
                             <a href="#iterations" class="accordion-link" data-page="10">Iterations</a>
                         </div>
@@ -286,12 +354,26 @@
                     <!-- Testing Section -->
                     <div class="accordion-item" data-chapter="testing">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Testing</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Testing step of this case study.
+                            </p>
                             <a href="#qa-process" class="accordion-link" data-page="11">QA Process</a>
                             <a href="#usability" class="accordion-link" data-page="12">Usability Testing</a>
                         </div>
@@ -300,12 +382,26 @@
                     <!-- Final Designs Section -->
                     <div class="accordion-item" data-chapter="designs">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Final Designs</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Final Designs step of this case
+                                study.</p>
                             <a href="#ui-showcase" class="accordion-link" data-page="13">UI Showcase</a>
                             <a href="#design-system" class="accordion-link" data-page="14">Design System</a>
                         </div>
@@ -314,12 +410,26 @@
                     <!-- Development Section -->
                     <div class="accordion-item" data-chapter="development">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Development</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Development step of this case
+                                study.</p>
                             <a href="#architecture" class="accordion-link" data-page="15">Architecture</a>
                             <a href="#implementation" class="accordion-link" data-page="16">Implementation</a>
                         </div>
@@ -328,12 +438,26 @@
                     <!-- Future Steps Section -->
                     <div class="accordion-item" data-chapter="future">
                         <button class="accordion-header" aria-expanded="false">
-                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 5l7 7-7 7" />
-                            </svg>
+                            <!-- Progress Circle -->
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 32 32">
+                                    <circle class="progress-circle-bg" cx="16" cy="16" r="14" />
+                                    <circle class="progress-circle-fill" cx="16" cy="16" r="14"
+                                        style="stroke-dashoffset: 88;" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+
                             <span class="accordion-title">Future Steps</span>
+
+                            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                         <div class="accordion-content">
+                            <p class="accordion-description">Short description for the Future Steps step of this case
+                                study.</p>
                             <a href="#roadmap" class="accordion-link" data-page="17">Roadmap</a>
                             <a href="#enhancements" class="accordion-link" data-page="18">Planned Enhancements</a>
                         </div>
@@ -347,14 +471,16 @@
                     <!-- Pages will be dynamically loaded based on active project -->
                     <!-- Page 0: Overview -->
                     <div class="content-page" id="overview" data-page="0">
-                        <h2 class="page-title kenyan-gradient">Delivah Dispatch Hub</h2>
-                        <p class="page-subtitle">Freight Logistics Platform</p>
+                        <h2 class="page-title kenyan-gradient">Eastleigh Turf Flow</h2>
+                        <p class="page-subtitle">Modern E-Commerce Platform</p>
                         <div class="page-content">
-                            <p>Enterprise-grade freight logistics management platform revolutionizing cargo dispatch operations in Kenya. Built with React 18, TypeScript, and Supabase.</p>
+                            <p>Full-stack e-commerce platform designed for a professional turf installation business in
+                                Kenya. Built with React 18, TypeScript, and Supabase, featuring interactive product
+                                showcases, broker authentication, and seamless order management.</p>
                             <div class="info-grid">
                                 <div class="info-item">
                                     <span class="info-label">Timeline</span>
-                                    <span class="info-value">3 months</span>
+                                    <span class="info-value">3 weeks</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Role</span>
@@ -362,7 +488,7 @@
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Status</span>
-                                    <span class="info-value">Production</span>
+                                    <span class="info-value">Production-Ready</span>
                                 </div>
                             </div>
                         </div>
@@ -374,7 +500,8 @@
                         <div class="page-content">
                             <div class="role-section">
                                 <h3>My Role: Full Stack Developer</h3>
-                                <p class="role-description">As the sole developer on this project, I was responsible for end-to-end system design, implementation, and deployment.</p>
+                                <p class="role-description">As the sole developer on this project, I was responsible for
+                                    end-to-end system design, implementation, and deployment.</p>
 
                                 <div class="responsibilities-grid">
                                     <div class="responsibility-card">
@@ -501,13 +628,15 @@
                                     <div class="tech-list">
                                         <div class="tech-item">
                                             <div class="tech-name">React 18</div>
-                                            <div class="tech-description">Concurrent rendering, Suspense for lazy loading</div>
+                                            <div class="tech-description">Concurrent rendering, Suspense for lazy
+                                                loading</div>
                                             <div class="tech-version">Latest (18.2+)</div>
                                         </div>
 
                                         <div class="tech-item">
                                             <div class="tech-name">TypeScript</div>
-                                            <div class="tech-description">97.2% coverage, strict mode, prevented 20+ bugs</div>
+                                            <div class="tech-description">97.2% coverage, strict mode, prevented 20+
+                                                bugs</div>
                                             <div class="tech-version">5.0+</div>
                                         </div>
 
@@ -519,13 +648,15 @@
 
                                         <div class="tech-item">
                                             <div class="tech-name">TanStack Query</div>
-                                            <div class="tech-description">Server state management, caching, auto-refetch</div>
+                                            <div class="tech-description">Server state management, caching, auto-refetch
+                                            </div>
                                             <div class="tech-version">v5</div>
                                         </div>
 
                                         <div class="tech-item">
                                             <div class="tech-name">shadcn/ui</div>
-                                            <div class="tech-description">Accessible component library (WCAG 2.1 AA)</div>
+                                            <div class="tech-description">Accessible component library (WCAG 2.1 AA)
+                                            </div>
                                             <div class="tech-version">Latest</div>
                                         </div>
                                     </div>
@@ -548,13 +679,15 @@
 
                                         <div class="tech-item">
                                             <div class="tech-name">Supabase Storage</div>
-                                            <div class="tech-description">Cloud storage with CDN delivery, 50MB+ files</div>
+                                            <div class="tech-description">Cloud storage with CDN delivery, 50MB+ files
+                                            </div>
                                             <div class="tech-version">Latest</div>
                                         </div>
 
                                         <div class="tech-item">
                                             <div class="tech-name">Row-Level Security</div>
-                                            <div class="tech-description">Database-level security policies, data isolation</div>
+                                            <div class="tech-description">Database-level security policies, data
+                                                isolation</div>
                                             <div class="tech-version">PostgreSQL RLS</div>
                                         </div>
                                     </div>
@@ -588,7 +721,8 @@
                                     <div class="tech-list">
                                         <div class="tech-item">
                                             <div class="tech-name">Vite</div>
-                                            <div class="tech-description">Lightning-fast dev server, optimized builds</div>
+                                            <div class="tech-description">Lightning-fast dev server, optimized builds
+                                            </div>
                                             <div class="tech-version">5.0+</div>
                                         </div>
 
@@ -619,25 +753,31 @@
                                     <div class="decision-item">
                                         <h4>React 18 + TypeScript</h4>
                                         <p><strong>Decision:</strong> Modern React with strict TypeScript</p>
-                                        <p><strong>Rationale:</strong> Type safety prevented 20+ runtime errors, concurrent rendering improved performance, largest talent pool for future hiring</p>
+                                        <p><strong>Rationale:</strong> Type safety prevented 20+ runtime errors,
+                                            concurrent rendering improved performance, largest talent pool for future
+                                            hiring</p>
                                     </div>
 
                                     <div class="decision-item">
                                         <h4>Supabase vs Custom Backend</h4>
                                         <p><strong>Decision:</strong> Supabase Backend-as-a-Service</p>
-                                        <p><strong>Rationale:</strong> Saved 3 months development time, built-in auth/storage, database-level security with RLS, cost-effective at $25/month vs $500+ custom backend</p>
+                                        <p><strong>Rationale:</strong> Saved 3 months development time, built-in
+                                            auth/storage, database-level security with RLS, cost-effective at $25/month
+                                            vs $500+ custom backend</p>
                                     </div>
 
                                     <div class="decision-item">
                                         <h4>Tailwind CSS vs CSS-in-JS</h4>
                                         <p><strong>Decision:</strong> Tailwind utility-first approach</p>
-                                        <p><strong>Rationale:</strong> Faster development, smaller bundle size, consistent design system, no runtime overhead</p>
+                                        <p><strong>Rationale:</strong> Faster development, smaller bundle size,
+                                            consistent design system, no runtime overhead</p>
                                     </div>
 
                                     <div class="decision-item">
                                         <h4>Vercel vs AWS/Digital Ocean</h4>
                                         <p><strong>Decision:</strong> Vercel serverless hosting</p>
-                                        <p><strong>Rationale:</strong> Zero-config deployment, automatic HTTPS, edge network, preview deployments for testing</p>
+                                        <p><strong>Rationale:</strong> Zero-config deployment, automatic HTTPS, edge
+                                            network, preview deployments for testing</p>
                                     </div>
                                 </div>
                             </div>
@@ -647,34 +787,82 @@
                     <!-- Page 3: The Challenge -->
                     <div class="content-page" id="challenge" data-page="3">
                         <h2 class="page-title">The Challenge</h2>
-                        <div class="page-content">
-                            <p class="lead-text">The freight logistics industry operates in a margin-sensitive environment where inefficiency directly impacts profitability.</p>
+                        <div class="page-content challenge-content">
+                            <p class="lead-text">
+                                The freight logistics industry operates in a margin-sensitive environment where
+                                inefficiency, manual paperwork, and scattered communication directly erode
+                                profitability.
+                            </p>
 
-                            <div class="challenge-list">
-                                <div class="challenge-item">
-                                    <h3>💰 High Commission Rates</h3>
-                                    <p>Standard 15-25% commissions erode carrier profits, leaving minimal margins for operations.</p>
-                                </div>
-                                <div class="challenge-item">
-                                    <h3>⏱️ Slow Onboarding</h3>
-                                    <p>Manual paperwork delays carrier approval by 3-5 days, resulting in lost revenue opportunities.</p>
-                                </div>
-                                <div class="challenge-item">
-                                    <h3>📄 Document Chaos</h3>
-                                    <p>Physical files, email attachments, and lost documents create compliance nightmares.</p>
-                                </div>
-                                <div class="challenge-item">
-                                    <h3>📧 Poor Communication</h3>
-                                    <p>Missed notifications, spam folders, and delayed confirmations slow down operations.</p>
-                                </div>
-                                <div class="challenge-item">
-                                    <h3>🔒 Security Concerns</h3>
-                                    <p>Sensitive carrier information stored insecurely puts both parties at risk.</p>
-                                </div>
-                                <div class="challenge-item">
-                                    <h3>📋 Compliance Complexity</h3>
-                                    <p>FMCSA regulations require meticulous record-keeping that's difficult to maintain manually.</p>
-                                </div>
+                            <div class="challenge-summary">
+                                <article class="summary-card">
+                                    <p class="summary-label">Commission drag</p>
+                                    <p class="summary-value">15-25%</p>
+                                    <p class="summary-text">Average broker fees reducing carrier profit on every load.
+                                    </p>
+                                </article>
+                                <article class="summary-card">
+                                    <p class="summary-label">Onboarding delay</p>
+                                    <p class="summary-value">3-5 days</p>
+                                    <p class="summary-text">Manual compliance packets slow activation and cash flow.</p>
+                                </article>
+                                <article class="summary-card">
+                                    <p class="summary-label">Compliance load</p>
+                                    <p class="summary-value">40+ docs</p>
+                                    <p class="summary-text">Insurance, W9s, and FMCSA filings scattered across email
+                                        threads.</p>
+                                </article>
+                            </div>
+
+                            <div class="challenge-grid">
+                                <article class="challenge-card">
+                                    <div class="card-index">01</div>
+                                    <div>
+                                        <h3>High Commission Rates</h3>
+                                        <p>Standard 15-25% broker commissions erode already thin carrier margins,
+                                            leaving little for fuel, drivers, or growth.</p>
+                                    </div>
+                                </article>
+                                <article class="challenge-card">
+                                    <div class="card-index">02</div>
+                                    <div>
+                                        <h3>Slow Onboarding</h3>
+                                        <p>Paper packets and manual review delay carrier approval by up to five days,
+                                            creating costly idle time.</p>
+                                    </div>
+                                </article>
+                                <article class="challenge-card">
+                                    <div class="card-index">03</div>
+                                    <div>
+                                        <h3>Document Chaos</h3>
+                                        <p>Physical files, inbox attachments, and outdated links make it impossible to
+                                            keep an auditable trail.</p>
+                                    </div>
+                                </article>
+                                <article class="challenge-card">
+                                    <div class="card-index">04</div>
+                                    <div>
+                                        <h3>Communication Gaps</h3>
+                                        <p>Missed notifications and spam-filtered emails delay confirmations and
+                                            frustrate partners.</p>
+                                    </div>
+                                </article>
+                                <article class="challenge-card">
+                                    <div class="card-index">05</div>
+                                    <div>
+                                        <h3>Security Concerns</h3>
+                                        <p>Sensitive tax IDs and banking data are stored in unsecured shared drives and
+                                            inboxes.</p>
+                                    </div>
+                                </article>
+                                <article class="challenge-card">
+                                    <div class="card-index">06</div>
+                                    <div>
+                                        <h3>Compliance Complexity</h3>
+                                        <p>FMCSA regulations demand meticulous record keeping that manual workflows
+                                            can?t sustain.</p>
+                                    </div>
+                                </article>
                             </div>
                         </div>
                     </div>
@@ -683,13 +871,15 @@
                     <div class="content-page" id="pain-points" data-page="4">
                         <h2 class="page-title">User Pain Points</h2>
                         <div class="page-content">
-                            <p class="lead-text">Insights from 8 independent carriers revealed critical operational challenges:</p>
+                            <p class="lead-text">Insights from 8 independent carriers revealed critical operational
+                                challenges:</p>
 
                             <div class="pain-point-card">
                                 <div class="pain-point-stat">90%</div>
                                 <h3>Insurance Certificate Management</h3>
                                 <blockquote>
-                                    "I've lost contracts because my insurance certificate expired and I didn't notice. Cost me $15,000 in revenue."
+                                    "I've lost contracts because my insurance certificate expired and I didn't notice.
+                                    Cost me $15,000 in revenue."
                                     <cite>— Independent Carrier, 5 trucks</cite>
                                 </blockquote>
                             </div>
@@ -698,7 +888,8 @@
                                 <div class="pain-point-stat">75%</div>
                                 <h3>W9 Form Confusion</h3>
                                 <blockquote>
-                                    "Every broker asks for the same W9, but I have to email it separately each time. It's ridiculous."
+                                    "Every broker asks for the same W9, but I have to email it separately each time.
+                                    It's ridiculous."
                                     <cite>— Fleet Owner, 12 trucks</cite>
                                 </blockquote>
                             </div>
@@ -707,7 +898,8 @@
                                 <div class="pain-point-stat">60%</div>
                                 <h3>MC Authority Verification</h3>
                                 <blockquote>
-                                    "The verification process takes days. Meanwhile, I'm sitting idle instead of hauling freight."
+                                    "The verification process takes days. Meanwhile, I'm sitting idle instead of hauling
+                                    freight."
                                     <cite>— Owner-Operator, 2 trucks</cite>
                                 </blockquote>
                             </div>
@@ -716,7 +908,8 @@
                                 <div class="pain-point-stat">55%</div>
                                 <h3>Credit Check Delays</h3>
                                 <blockquote>
-                                    "I need to know if a shipper will actually pay me before I take the load. Current systems are too slow."
+                                    "I need to know if a shipper will actually pay me before I take the load. Current
+                                    systems are too slow."
                                     <cite>— Carrier, 8 trucks</cite>
                                 </blockquote>
                             </div>
@@ -740,7 +933,8 @@
                                     <div class="objective-icon">📤</div>
                                     <h3>Achieve 95%+ Upload Success Rate</h3>
                                     <p><strong>Target:</strong> Reliable uploads even on slow 3G connections</p>
-                                    <p><strong>Approach:</strong> Intelligent retry mechanism with exponential backoff</p>
+                                    <p><strong>Approach:</strong> Intelligent retry mechanism with exponential backoff
+                                    </p>
                                     <p class="result-badge success">✅ 98% success rate achieved</p>
                                 </div>
 
@@ -748,7 +942,8 @@
                                     <div class="objective-icon">🔐</div>
                                     <h3>Ensure Enterprise-Grade Security</h3>
                                     <p><strong>Target:</strong> Zero unauthorized access, encrypted storage</p>
-                                    <p><strong>Approach:</strong> Multi-layer security (Supabase Auth + RLS + file validation)</p>
+                                    <p><strong>Approach:</strong> Multi-layer security (Supabase Auth + RLS + file
+                                        validation)</p>
                                     <p class="result-badge success">✅ Zero security incidents</p>
                                 </div>
 
@@ -803,566 +998,579 @@
                                 <div class="metric-row">
                                     <div class="metric-label">Page Load Time</div>
                                     <div class="metric-bar">
-                                        <div class="metric-target">Target: <2s</div>
-                                        <div class="metric-achieved" style="width: 70%;">Achieved: 1.4s</div>
+                                        <div class="metric-target">Target: <2s< /div>
+                                                <div class="metric-achieved" style="width: 70%;">Achieved: 1.4s</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="success-summary">
-                                <h3>All Critical Metrics Exceeded Targets</h3>
-                                <p>The project successfully achieved or exceeded all defined success criteria, demonstrating strong technical execution and business value delivery.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 7: Metrics & Results -->
-                    <div class="content-page" id="metrics" data-page="7">
-                        <h2 class="page-title">Impact & Results</h2>
-                        <div class="page-content">
-                            <div class="impact-stat-grid">
-                                <div class="impact-stat">
-                                    <div class="stat-number">85%</div>
-                                    <div class="stat-label">Faster Onboarding</div>
-                                    <div class="stat-detail">3-5 days → 30 minutes</div>
-                                </div>
-
-                                <div class="impact-stat">
-                                    <div class="stat-number">3%</div>
-                                    <div class="stat-label">Commission Rate</div>
-                                    <div class="stat-detail">vs 15-25% industry standard</div>
-                                </div>
-
-                                <div class="impact-stat">
-                                    <div class="stat-number">98%</div>
-                                    <div class="stat-label">Upload Success</div>
-                                    <div class="stat-detail">Even on 3G connections</div>
-                                </div>
-
-                                <div class="impact-stat">
-                                    <div class="stat-number">$150K</div>
-                                    <div class="stat-label">Annual Savings</div>
-                                    <div class="stat-detail">Per carrier (100 loads/year)</div>
-                                </div>
-
-                                <div class="impact-stat">
-                                    <div class="stat-number">98%</div>
-                                    <div class="stat-label">Email Delivery</div>
-                                    <div class="stat-detail">Inbox placement rate</div>
-                                </div>
-
-                                <div class="impact-stat">
-                                    <div class="stat-number">$5K</div>
-                                    <div class="stat-label">Storage Savings</div>
-                                    <div class="stat-detail">Annual cost reduction</div>
-                                </div>
-                            </div>
-
-                            <div class="business-value-section">
-                                <h3>Business Model Viability</h3>
-                                <p>The 3% commission model is sustainable through operational efficiency. For 100 carriers averaging 50 loads/year each:</p>
-                                <ul>
-                                    <li><strong>Gross Revenue:</strong> $1.5M (5,000 loads × $10K × 3%)</li>
-                                    <li><strong>Infrastructure:</strong> -$3K/year (Supabase + SendGrid)</li>
-                                    <li><strong>Net Margin:</strong> ~98% vs traditional brokers at ~72%</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 8: User Feedback -->
-                    <div class="content-page" id="user-feedback" data-page="8">
-                        <h2 class="page-title">User Feedback</h2>
-                        <div class="page-content">
-                            <div class="testimonial-grid">
-                                <div class="testimonial-card">
-                                    <div class="testimonial-quote">"The registration process took me less time than my coffee break. I was approved and hauling freight the same day."</div>
-                                    <div class="testimonial-author">— Independent Carrier, 3 trucks</div>
-                                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-
-                                <div class="testimonial-card">
-                                    <div class="testimonial-quote">"Finally, a platform that understands carriers work on slim margins. The 3% commission is game-changing."</div>
-                                    <div class="testimonial-author">— Fleet Owner, 15 trucks</div>
-                                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-
-                                <div class="testimonial-card">
-                                    <div class="testimonial-quote">"I uploaded my insurance certificate on 3G in rural Kenya. It worked perfectly with the retry system."</div>
-                                    <div class="testimonial-author">— Owner-Operator, 2 trucks</div>
-                                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-
-                            <div class="satisfaction-metrics">
-                                <h3>Beta Testing Results (20 Carriers)</h3>
-                                <div class="satisfaction-grid">
-                                    <div class="satisfaction-item">
-                                        <div class="satisfaction-score">4.7/5</div>
-                                        <div class="satisfaction-label">Registration Ease</div>
-                                    </div>
-                                    <div class="satisfaction-item">
-                                        <div class="satisfaction-score">4.5/5</div>
-                                        <div class="satisfaction-label">Upload Experience</div>
-                                    </div>
-                                    <div class="satisfaction-item">
-                                        <div class="satisfaction-score">4.8/5</div>
-                                        <div class="satisfaction-label">Email Clarity</div>
-                                    </div>
-                                    <div class="satisfaction-item">
-                                        <div class="satisfaction-score">65</div>
-                                        <div class="satisfaction-label">NPS Score</div>
-                                    </div>
+                                <div class="success-summary">
+                                    <h3>All Critical Metrics Exceeded Targets</h3>
+                                    <p>The project successfully achieved or exceeded all defined success criteria,
+                                        demonstrating strong technical execution and business value delivery.</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Page 9: Beta Testing -->
-                    <div class="content-page" id="beta-testing" data-page="9">
-                        <h2 class="page-title">Beta Testing Program</h2>
-                        <div class="page-content">
-                            <div class="beta-phases">
-                                <div class="phase-card">
-                                    <h3>Phase 1: Closed Beta</h3>
-                                    <p><strong>Duration:</strong> 2 weeks</p>
-                                    <p><strong>Participants:</strong> 3 hand-picked carriers (1, 5, 12 trucks)</p>
-                                    <p><strong>Goal:</strong> Identify critical bugs and UX friction</p>
+                        <!-- Page 7: Metrics & Results -->
+                        <div class="content-page" id="metrics" data-page="7">
+                            <h2 class="page-title">Impact & Results</h2>
+                            <div class="page-content">
+                                <div class="impact-stat-grid">
+                                    <div class="impact-stat">
+                                        <div class="stat-number">85%</div>
+                                        <div class="stat-label">Faster Onboarding</div>
+                                        <div class="stat-detail">3-5 days → 30 minutes</div>
+                                    </div>
 
-                                    <h4>Key Findings:</h4>
+                                    <div class="impact-stat">
+                                        <div class="stat-number">3%</div>
+                                        <div class="stat-label">Commission Rate</div>
+                                        <div class="stat-detail">vs 15-25% industry standard</div>
+                                    </div>
+
+                                    <div class="impact-stat">
+                                        <div class="stat-number">98%</div>
+                                        <div class="stat-label">Upload Success</div>
+                                        <div class="stat-detail">Even on 3G connections</div>
+                                    </div>
+
+                                    <div class="impact-stat">
+                                        <div class="stat-number">$150K</div>
+                                        <div class="stat-label">Annual Savings</div>
+                                        <div class="stat-detail">Per carrier (100 loads/year)</div>
+                                    </div>
+
+                                    <div class="impact-stat">
+                                        <div class="stat-number">98%</div>
+                                        <div class="stat-label">Email Delivery</div>
+                                        <div class="stat-detail">Inbox placement rate</div>
+                                    </div>
+
+                                    <div class="impact-stat">
+                                        <div class="stat-number">$5K</div>
+                                        <div class="stat-label">Storage Savings</div>
+                                        <div class="stat-detail">Annual cost reduction</div>
+                                    </div>
+                                </div>
+
+                                <div class="business-value-section">
+                                    <h3>Business Model Viability</h3>
+                                    <p>The 3% commission model is sustainable through operational efficiency. For 100
+                                        carriers averaging 50 loads/year each:</p>
                                     <ul>
-                                        <li><strong>Issue #1:</strong> Insurance certificate upload timing out on slow connections
-                                            <br>→ <em>Solution:</em> Implemented retry mechanism → 98% success rate</li>
-                                        <li><strong>Issue #2:</strong> Email confirmations landing in spam
-                                            <br>→ <em>Solution:</em> SPF/DKIM/DMARC configuration → 98% inbox delivery</li>
-                                        <li><strong>Issue #3:</strong> Confusing MC number format
-                                            <br>→ <em>Solution:</em> Added input mask and validation → 95% first-time correct entry</li>
-                                    </ul>
-                                </div>
-
-                                <div class="phase-card">
-                                    <h3>Phase 2: Open Beta</h3>
-                                    <p><strong>Duration:</strong> 4 weeks</p>
-                                    <p><strong>Participants:</strong> 20 carriers (public invitation)</p>
-                                    <p><strong>Goal:</strong> Stress test system and validate business model</p>
-
-                                    <h4>Results:</h4>
-                                    <ul>
-                                        <li>18/20 carriers completed registration (90% completion rate)</li>
-                                        <li>Average registration time: 32 minutes</li>
-                                        <li>Upload success rate: 96%</li>
-                                        <li>Average satisfaction score: 4.6/5</li>
+                                        <li><strong>Gross Revenue:</strong> $1.5M (5,000 loads × $10K × 3%)</li>
+                                        <li><strong>Infrastructure:</strong> -$3K/year (Supabase + SendGrid)</li>
+                                        <li><strong>Net Margin:</strong> ~98% vs traditional brokers at ~72%</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Page 10: Iterations -->
-                    <div class="content-page" id="iterations" data-page="10">
-                        <h2 class="page-title">Iterative Improvements</h2>
-                        <div class="page-content">
-                            <div class="iteration-timeline">
-                                <div class="iteration-item">
-                                    <div class="iteration-week">Week 1-2</div>
-                                    <div class="iteration-content">
-                                        <h3>Initial MVP Release</h3>
-                                        <p>Basic registration and document upload functionality</p>
-                                        <ul>
-                                            <li>Simple form validation</li>
-                                            <li>Basic file upload (no retry)</li>
-                                            <li>Manual email notifications</li>
-                                        </ul>
-                                        <p class="iteration-issue">⚠️ 40% upload failure rate, 56% spam rate</p>
+                        <!-- Page 8: User Feedback -->
+                        <div class="content-page" id="user-feedback" data-page="8">
+                            <h2 class="page-title">User Feedback</h2>
+                            <div class="page-content">
+                                <div class="testimonial-grid">
+                                    <div class="testimonial-card">
+                                        <div class="testimonial-quote">"The registration process took me less time than
+                                            my coffee break. I was approved and hauling freight the same day."</div>
+                                        <div class="testimonial-author">— Independent Carrier, 3 trucks</div>
+                                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                                    </div>
+
+                                    <div class="testimonial-card">
+                                        <div class="testimonial-quote">"Finally, a platform that understands carriers
+                                            work on slim margins. The 3% commission is game-changing."</div>
+                                        <div class="testimonial-author">— Fleet Owner, 15 trucks</div>
+                                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                                    </div>
+
+                                    <div class="testimonial-card">
+                                        <div class="testimonial-quote">"I uploaded my insurance certificate on 3G in
+                                            rural Kenya. It worked perfectly with the retry system."</div>
+                                        <div class="testimonial-author">— Owner-Operator, 2 trucks</div>
+                                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
                                     </div>
                                 </div>
 
-                                <div class="iteration-item">
-                                    <div class="iteration-week">Week 3-4</div>
-                                    <div class="iteration-content">
-                                        <h3>Upload Reliability Enhancement</h3>
-                                        <p>Implemented retry mechanism based on beta feedback</p>
+                                <div class="satisfaction-metrics">
+                                    <h3>Beta Testing Results (20 Carriers)</h3>
+                                    <div class="satisfaction-grid">
+                                        <div class="satisfaction-item">
+                                            <div class="satisfaction-score">4.7/5</div>
+                                            <div class="satisfaction-label">Registration Ease</div>
+                                        </div>
+                                        <div class="satisfaction-item">
+                                            <div class="satisfaction-score">4.5/5</div>
+                                            <div class="satisfaction-label">Upload Experience</div>
+                                        </div>
+                                        <div class="satisfaction-item">
+                                            <div class="satisfaction-score">4.8/5</div>
+                                            <div class="satisfaction-label">Email Clarity</div>
+                                        </div>
+                                        <div class="satisfaction-item">
+                                            <div class="satisfaction-score">65</div>
+                                            <div class="satisfaction-label">NPS Score</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 9: Beta Testing -->
+                        <div class="content-page" id="beta-testing" data-page="9">
+                            <h2 class="page-title">Beta Testing Program</h2>
+                            <div class="page-content">
+                                <div class="beta-phases">
+                                    <div class="phase-card">
+                                        <h3>Phase 1: Closed Beta</h3>
+                                        <p><strong>Duration:</strong> 2 weeks</p>
+                                        <p><strong>Participants:</strong> 3 hand-picked carriers (1, 5, 12 trucks)</p>
+                                        <p><strong>Goal:</strong> Identify critical bugs and UX friction</p>
+
+                                        <h4>Key Findings:</h4>
                                         <ul>
-                                            <li>3-tier retry with exponential backoff</li>
-                                            <li>Progress indicators</li>
-                                            <li>Better error messaging</li>
+                                            <li><strong>Issue #1:</strong> Insurance certificate upload timing out on
+                                                slow connections
+                                                <br>→ <em>Solution:</em> Implemented retry mechanism → 98% success rate
+                                            </li>
+                                            <li><strong>Issue #2:</strong> Email confirmations landing in spam
+                                                <br>→ <em>Solution:</em> SPF/DKIM/DMARC configuration → 98% inbox
+                                                delivery
+                                            </li>
+                                            <li><strong>Issue #3:</strong> Confusing MC number format
+                                                <br>→ <em>Solution:</em> Added input mask and validation → 95%
+                                                first-time correct entry
+                                            </li>
                                         </ul>
-                                        <p class="iteration-success">✅ Upload success improved to 96%</p>
+                                    </div>
+
+                                    <div class="phase-card">
+                                        <h3>Phase 2: Open Beta</h3>
+                                        <p><strong>Duration:</strong> 4 weeks</p>
+                                        <p><strong>Participants:</strong> 20 carriers (public invitation)</p>
+                                        <p><strong>Goal:</strong> Stress test system and validate business model</p>
+
+                                        <h4>Results:</h4>
+                                        <ul>
+                                            <li>18/20 carriers completed registration (90% completion rate)</li>
+                                            <li>Average registration time: 32 minutes</li>
+                                            <li>Upload success rate: 96%</li>
+                                            <li>Average satisfaction score: 4.6/5</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 10: Iterations -->
+                        <div class="content-page" id="iterations" data-page="10">
+                            <h2 class="page-title">Iterative Improvements</h2>
+                            <div class="page-content">
+                                <div class="iteration-timeline">
+                                    <div class="iteration-item">
+                                        <div class="iteration-week">Week 1-2</div>
+                                        <div class="iteration-content">
+                                            <h3>Initial MVP Release</h3>
+                                            <p>Basic registration and document upload functionality</p>
+                                            <ul>
+                                                <li>Simple form validation</li>
+                                                <li>Basic file upload (no retry)</li>
+                                                <li>Manual email notifications</li>
+                                            </ul>
+                                            <p class="iteration-issue">⚠️ 40% upload failure rate, 56% spam rate</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="iteration-item">
+                                        <div class="iteration-week">Week 3-4</div>
+                                        <div class="iteration-content">
+                                            <h3>Upload Reliability Enhancement</h3>
+                                            <p>Implemented retry mechanism based on beta feedback</p>
+                                            <ul>
+                                                <li>3-tier retry with exponential backoff</li>
+                                                <li>Progress indicators</li>
+                                                <li>Better error messaging</li>
+                                            </ul>
+                                            <p class="iteration-success">✅ Upload success improved to 96%</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="iteration-item">
+                                        <div class="iteration-week">Week 5-6</div>
+                                        <div class="iteration-content">
+                                            <h3>Email Deliverability Fix</h3>
+                                            <p>Professional email infrastructure setup</p>
+                                            <ul>
+                                                <li>SPF/DKIM/DMARC configuration</li>
+                                                <li>SendGrid integration</li>
+                                                <li>Email template optimization</li>
+                                            </ul>
+                                            <p class="iteration-success">✅ Inbox delivery improved to 98%</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="iteration-item">
+                                        <div class="iteration-week">Week 7-8</div>
+                                        <div class="iteration-content">
+                                            <h3>UX Polish & Optimization</h3>
+                                            <p>Refinements based on usability testing</p>
+                                            <ul>
+                                                <li>Input masks for MC/DOT numbers</li>
+                                                <li>Real-time validation feedback</li>
+                                                <li>Loading state improvements</li>
+                                            </ul>
+                                            <p class="iteration-success">✅ Form completion rate: 90%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 11: QA Process -->
+                        <div class="content-page" id="qa-process" data-page="11">
+                            <h2 class="page-title">QA Process</h2>
+                            <div class="page-content">
+                                <div class="qa-layers">
+                                    <div class="qa-layer">
+                                        <h3>1. Unit Testing</h3>
+                                        <p>Component-level testing with Jest and React Testing Library</p>
+                                        <ul>
+                                            <li>File upload validation (type, size, format)</li>
+                                            <li>Retry mechanism logic</li>
+                                            <li>Form validation rules</li>
+                                        </ul>
+                                        <p class="qa-coverage">Coverage: 87%</p>
+                                    </div>
+
+                                    <div class="qa-layer">
+                                        <h3>2. Integration Testing</h3>
+                                        <p>API and database interaction testing</p>
+                                        <ul>
+                                            <li>Carrier registration flow</li>
+                                            <li>Document upload to Supabase Storage</li>
+                                            <li>Email notification triggers</li>
+                                        </ul>
+                                        <p class="qa-coverage">Coverage: 92%</p>
+                                    </div>
+
+                                    <div class="qa-layer">
+                                        <h3>3. End-to-End Testing</h3>
+                                        <p>Full user journey testing with Playwright</p>
+                                        <ul>
+                                            <li>Complete registration workflow</li>
+                                            <li>Network interruption scenarios</li>
+                                            <li>Cross-browser compatibility</li>
+                                        </ul>
+                                        <p class="qa-coverage">Critical paths: 100%</p>
+                                    </div>
+
+                                    <div class="qa-layer">
+                                        <h3>4. Security Testing</h3>
+                                        <p>OWASP Top 10 compliance verification</p>
+                                        <ul>
+                                            <li>SQL injection prevention</li>
+                                            <li>File upload security (malware scanning)</li>
+                                            <li>Authentication & authorization</li>
+                                        </ul>
+                                        <p class="qa-coverage">Status: ✅ Compliant</p>
+                                    </div>
+
+                                    <div class="qa-layer">
+                                        <h3>5. Performance Testing</h3>
+                                        <p>Load testing with k6</p>
+                                        <ul>
+                                            <li>100 concurrent users</li>
+                                            <li>95th percentile < 2s</li>
+                                            <li>Error rate < 1%</li>
+                                        </ul>
+                                        <p class="qa-coverage">Result: ✅ Passed (1.4s avg)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 12: Usability Testing -->
+                        <div class="content-page" id="usability" data-page="12">
+                            <h2 class="page-title">Usability Testing</h2>
+                            <div class="page-content">
+                                <div class="usability-findings">
+                                    <div class="finding-card">
+                                        <h3>Test: Registration Form Completion</h3>
+                                        <p><strong>Participants:</strong> 10 carriers (varied tech proficiency)</p>
+                                        <p><strong>Task:</strong> Complete registration without assistance</p>
+                                        <p><strong>Success Rate:</strong> 9/10 (90%)</p>
+                                        <p><strong>Avg Time:</strong> 28 minutes</p>
+                                        <h4>Insight:</h4>
+                                        <p>1 participant confused about MC number format → Added input mask and example
+                                        </p>
+                                    </div>
+
+                                    <div class="finding-card">
+                                        <h3>Test: Document Upload on Mobile</h3>
+                                        <p><strong>Participants:</strong> 8 carriers using phones</p>
+                                        <p><strong>Task:</strong> Upload insurance certificate from truck stop
+                                            (simulated 3G)</p>
+                                        <p><strong>Success Rate:</strong> 7/8 (88%)</p>
+                                        <p><strong>Avg Time:</strong> 4.5 minutes</p>
+                                        <h4>Insight:</h4>
+                                        <p>Progress indicators critical for slow uploads → Enhanced visual feedback</p>
+                                    </div>
+
+                                    <div class="finding-card">
+                                        <h3>Test: Admin Dashboard Navigation</h3>
+                                        <p><strong>Participants:</strong> 3 dispatch managers</p>
+                                        <p><strong>Task:</strong> Review pending carriers and approve/reject</p>
+                                        <p><strong>Success Rate:</strong> 3/3 (100%)</p>
+                                        <p><strong>Avg Time:</strong> 2 minutes per carrier</p>
+                                        <h4>Insight:</h4>
+                                        <p>Intuitive interface required no training</p>
                                     </div>
                                 </div>
 
-                                <div class="iteration-item">
-                                    <div class="iteration-week">Week 5-6</div>
-                                    <div class="iteration-content">
-                                        <h3>Email Deliverability Fix</h3>
-                                        <p>Professional email infrastructure setup</p>
-                                        <ul>
-                                            <li>SPF/DKIM/DMARC configuration</li>
-                                            <li>SendGrid integration</li>
-                                            <li>Email template optimization</li>
-                                        </ul>
-                                        <p class="iteration-success">✅ Inbox delivery improved to 98%</p>
-                                    </div>
+                                <div class="heuristic-evaluation">
+                                    <h3>Nielsen's Usability Heuristics Evaluation</h3>
+                                    <ul>
+                                        <li>✅ Visibility of system status: Real-time upload progress</li>
+                                        <li>✅ Match between system and real world: Industry terminology</li>
+                                        <li>✅ User control and freedom: Clear cancel/retry options</li>
+                                        <li>✅ Consistency: Standard form patterns throughout</li>
+                                        <li>✅ Error prevention: Input validation before submission</li>
+                                        <li>✅ Recognition rather than recall: Examples provided</li>
+                                        <li>✅ Flexibility and efficiency: Keyboard shortcuts for power users</li>
+                                        <li>✅ Aesthetic design: Clean, professional interface</li>
+                                        <li>✅ Help users recover from errors: Clear error messages with solutions</li>
+                                        <li>✅ Help and documentation: Tooltip hints and FAQ section</li>
+                                    </ul>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div class="iteration-item">
-                                    <div class="iteration-week">Week 7-8</div>
-                                    <div class="iteration-content">
-                                        <h3>UX Polish & Optimization</h3>
-                                        <p>Refinements based on usability testing</p>
+                        <!-- Page 13: UI Showcase -->
+                        <div class="content-page" id="ui-showcase" data-page="13">
+                            <h2 class="page-title">UI Showcase</h2>
+                            <div class="page-content">
+                                <div class="ui-features">
+                                    <div class="ui-feature">
+                                        <h3>Carrier Registration Form</h3>
+                                        <p>Clean, progressive disclosure design with real-time validation</p>
                                         <ul>
+                                            <li>Multi-step form (Company Info → Documents → Review)</li>
                                             <li>Input masks for MC/DOT numbers</li>
-                                            <li>Real-time validation feedback</li>
-                                            <li>Loading state improvements</li>
+                                            <li>Inline validation with helpful error messages</li>
+                                            <li>Progress indicator showing completion status</li>
                                         </ul>
-                                        <p class="iteration-success">✅ Form completion rate: 90%</p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Page 11: QA Process -->
-                    <div class="content-page" id="qa-process" data-page="11">
-                        <h2 class="page-title">QA Process</h2>
-                        <div class="page-content">
-                            <div class="qa-layers">
-                                <div class="qa-layer">
-                                    <h3>1. Unit Testing</h3>
-                                    <p>Component-level testing with Jest and React Testing Library</p>
-                                    <ul>
-                                        <li>File upload validation (type, size, format)</li>
-                                        <li>Retry mechanism logic</li>
-                                        <li>Form validation rules</li>
-                                    </ul>
-                                    <p class="qa-coverage">Coverage: 87%</p>
-                                </div>
-
-                                <div class="qa-layer">
-                                    <h3>2. Integration Testing</h3>
-                                    <p>API and database interaction testing</p>
-                                    <ul>
-                                        <li>Carrier registration flow</li>
-                                        <li>Document upload to Supabase Storage</li>
-                                        <li>Email notification triggers</li>
-                                    </ul>
-                                    <p class="qa-coverage">Coverage: 92%</p>
-                                </div>
-
-                                <div class="qa-layer">
-                                    <h3>3. End-to-End Testing</h3>
-                                    <p>Full user journey testing with Playwright</p>
-                                    <ul>
-                                        <li>Complete registration workflow</li>
-                                        <li>Network interruption scenarios</li>
-                                        <li>Cross-browser compatibility</li>
-                                    </ul>
-                                    <p class="qa-coverage">Critical paths: 100%</p>
-                                </div>
-
-                                <div class="qa-layer">
-                                    <h3>4. Security Testing</h3>
-                                    <p>OWASP Top 10 compliance verification</p>
-                                    <ul>
-                                        <li>SQL injection prevention</li>
-                                        <li>File upload security (malware scanning)</li>
-                                        <li>Authentication & authorization</li>
-                                    </ul>
-                                    <p class="qa-coverage">Status: ✅ Compliant</p>
-                                </div>
-
-                                <div class="qa-layer">
-                                    <h3>5. Performance Testing</h3>
-                                    <p>Load testing with k6</p>
-                                    <ul>
-                                        <li>100 concurrent users</li>
-                                        <li>95th percentile < 2s</li>
-                                        <li>Error rate < 1%</li>
-                                    </ul>
-                                    <p class="qa-coverage">Result: ✅ Passed (1.4s avg)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 12: Usability Testing -->
-                    <div class="content-page" id="usability" data-page="12">
-                        <h2 class="page-title">Usability Testing</h2>
-                        <div class="page-content">
-                            <div class="usability-findings">
-                                <div class="finding-card">
-                                    <h3>Test: Registration Form Completion</h3>
-                                    <p><strong>Participants:</strong> 10 carriers (varied tech proficiency)</p>
-                                    <p><strong>Task:</strong> Complete registration without assistance</p>
-                                    <p><strong>Success Rate:</strong> 9/10 (90%)</p>
-                                    <p><strong>Avg Time:</strong> 28 minutes</p>
-                                    <h4>Insight:</h4>
-                                    <p>1 participant confused about MC number format → Added input mask and example</p>
-                                </div>
-
-                                <div class="finding-card">
-                                    <h3>Test: Document Upload on Mobile</h3>
-                                    <p><strong>Participants:</strong> 8 carriers using phones</p>
-                                    <p><strong>Task:</strong> Upload insurance certificate from truck stop (simulated 3G)</p>
-                                    <p><strong>Success Rate:</strong> 7/8 (88%)</p>
-                                    <p><strong>Avg Time:</strong> 4.5 minutes</p>
-                                    <h4>Insight:</h4>
-                                    <p>Progress indicators critical for slow uploads → Enhanced visual feedback</p>
-                                </div>
-
-                                <div class="finding-card">
-                                    <h3>Test: Admin Dashboard Navigation</h3>
-                                    <p><strong>Participants:</strong> 3 dispatch managers</p>
-                                    <p><strong>Task:</strong> Review pending carriers and approve/reject</p>
-                                    <p><strong>Success Rate:</strong> 3/3 (100%)</p>
-                                    <p><strong>Avg Time:</strong> 2 minutes per carrier</p>
-                                    <h4>Insight:</h4>
-                                    <p>Intuitive interface required no training</p>
-                                </div>
-                            </div>
-
-                            <div class="heuristic-evaluation">
-                                <h3>Nielsen's Usability Heuristics Evaluation</h3>
-                                <ul>
-                                    <li>✅ Visibility of system status: Real-time upload progress</li>
-                                    <li>✅ Match between system and real world: Industry terminology</li>
-                                    <li>✅ User control and freedom: Clear cancel/retry options</li>
-                                    <li>✅ Consistency: Standard form patterns throughout</li>
-                                    <li>✅ Error prevention: Input validation before submission</li>
-                                    <li>✅ Recognition rather than recall: Examples provided</li>
-                                    <li>✅ Flexibility and efficiency: Keyboard shortcuts for power users</li>
-                                    <li>✅ Aesthetic design: Clean, professional interface</li>
-                                    <li>✅ Help users recover from errors: Clear error messages with solutions</li>
-                                    <li>✅ Help and documentation: Tooltip hints and FAQ section</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 13: UI Showcase -->
-                    <div class="content-page" id="ui-showcase" data-page="13">
-                        <h2 class="page-title">UI Showcase</h2>
-                        <div class="page-content">
-                            <div class="ui-features">
-                                <div class="ui-feature">
-                                    <h3>Carrier Registration Form</h3>
-                                    <p>Clean, progressive disclosure design with real-time validation</p>
-                                    <ul>
-                                        <li>Multi-step form (Company Info → Documents → Review)</li>
-                                        <li>Input masks for MC/DOT numbers</li>
-                                        <li>Inline validation with helpful error messages</li>
-                                        <li>Progress indicator showing completion status</li>
-                                    </ul>
-                                </div>
-
-                                <div class="ui-feature">
-                                    <h3>Document Upload Interface</h3>
-                                    <p>Drag-and-drop with mobile-friendly file picker</p>
-                                    <ul>
-                                        <li>Visual preview before upload</li>
-                                        <li>Real-time progress bar with percentage</li>
-                                        <li>Retry status with attempt counter</li>
-                                        <li>Success confirmation with next steps</li>
-                                    </ul>
-                                </div>
-
-                                <div class="ui-feature">
-                                    <h3>Admin Dashboard</h3>
-                                    <p>Data-dense interface optimized for efficiency</p>
-                                    <ul>
-                                        <li>Tabbed navigation (Pending, Approved, Rejected)</li>
-                                        <li>Filterable data table with search</li>
-                                        <li>Quick actions (Approve/Reject/View Details)</li>
-                                        <li>Document viewer with expiration warnings</li>
-                                    </ul>
-                                </div>
-
-                                <div class="ui-feature">
-                                    <h3>Email Templates</h3>
-                                    <p>Professional, branded transactional emails</p>
-                                    <ul>
-                                        <li>Registration confirmation with next steps</li>
-                                        <li>Document upload success notification</li>
-                                        <li>Application status updates</li>
-                                        <li>Insurance expiration reminders</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="design-principles">
-                                <h3>Design Principles</h3>
-                                <ul>
-                                    <li><strong>Clarity:</strong> No ambiguous states or actions</li>
-                                    <li><strong>Feedback:</strong> Immediate response to user actions</li>
-                                    <li><strong>Forgiveness:</strong> Easy to undo/retry actions</li>
-                                    <li><strong>Efficiency:</strong> Minimize clicks and cognitive load</li>
-                                    <li><strong>Accessibility:</strong> WCAG 2.1 AA compliant</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 14: Design System -->
-                    <div class="content-page" id="design-system" data-page="14">
-                        <h2 class="page-title">Design System</h2>
-                        <div class="page-content">
-                            <div class="design-system-section">
-                                <h3>Color Palette</h3>
-                                <div class="color-grid">
-                                    <div class="color-swatch" style="background: #006b3f;">
-                                        <span>Kenyan Green</span>
-                                        <code>#006b3f</code>
-                                    </div>
-                                    <div class="color-swatch" style="background: #ce1126; color: white;">
-                                        <span>Kenyan Red</span>
-                                        <code>#ce1126</code>
-                                    </div>
-                                    <div class="color-swatch" style="background: #000; color: white;">
-                                        <span>Kenyan Black</span>
-                                        <code>#000000</code>
-                                    </div>
-                                    <div class="color-swatch" style="background: #10cf74;">
-                                        <span>Accent Green</span>
-                                        <code>#10cf74</code>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="design-system-section">
-                                <h3>Typography</h3>
-                                <ul>
-                                    <li><strong>Headings:</strong> Space Mono (Bold)</li>
-                                    <li><strong>Body Text:</strong> Inter (Regular, Medium)</li>
-                                    <li><strong>Code/Data:</strong> JetBrains Mono</li>
-                                </ul>
-                            </div>
-
-                            <div class="design-system-section">
-                                <h3>Component Library (shadcn/ui)</h3>
-                                <ul>
-                                    <li>Button variants: Primary, Secondary, Outline, Ghost</li>
-                                    <li>Form inputs: Text, Select, File Upload, Checkbox</li>
-                                    <li>Feedback: Alert, Toast, Progress Bar</li>
-                                    <li>Navigation: Tabs, Breadcrumb, Dropdown</li>
-                                    <li>Data Display: Table, Card, Badge</li>
-                                </ul>
-                            </div>
-
-                            <div class="design-system-section">
-                                <h3>Spacing Scale</h3>
-                                <p>Consistent 8px grid system:</p>
-                                <ul>
-                                    <li>XS: 4px (0.25rem)</li>
-                                    <li>SM: 8px (0.5rem)</li>
-                                    <li>MD: 16px (1rem)</li>
-                                    <li>LG: 24px (1.5rem)</li>
-                                    <li>XL: 32px (2rem)</li>
-                                    <li>2XL: 48px (3rem)</li>
-                                </ul>
-                            </div>
-
-                            <div class="design-system-section">
-                                <h3>Responsive Breakpoints</h3>
-                                <ul>
-                                    <li><strong>Mobile:</strong> 0-640px</li>
-                                    <li><strong>Tablet:</strong> 641-1024px</li>
-                                    <li><strong>Desktop:</strong> 1025-1920px</li>
-                                    <li><strong>Wide:</strong> 1921px+</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Page 15: Architecture -->
-                    <div class="content-page" id="architecture" data-page="15">
-                        <h2 class="page-title">System Architecture</h2>
-                        <div class="page-content">
-                            <div class="architecture-diagram">
-                                <h3>Technology Stack</h3>
-                                <div class="tech-layers">
-                                    <div class="tech-layer">
-                                        <h4>Frontend Layer</h4>
+                                    <div class="ui-feature">
+                                        <h3>Document Upload Interface</h3>
+                                        <p>Drag-and-drop with mobile-friendly file picker</p>
                                         <ul>
-                                            <li>React 18 (Concurrent rendering, Suspense)</li>
-                                            <li>TypeScript (97.2% coverage, strict mode)</li>
-                                            <li>Tailwind CSS (Utility-first styling)</li>
-                                            <li>TanStack Query (Server state management)</li>
-                                            <li>shadcn/ui (Accessible components)</li>
+                                            <li>Visual preview before upload</li>
+                                            <li>Real-time progress bar with percentage</li>
+                                            <li>Retry status with attempt counter</li>
+                                            <li>Success confirmation with next steps</li>
                                         </ul>
                                     </div>
 
-                                    <div class="tech-layer">
-                                        <h4>Backend Layer</h4>
+                                    <div class="ui-feature">
+                                        <h3>Admin Dashboard</h3>
+                                        <p>Data-dense interface optimized for efficiency</p>
                                         <ul>
-                                            <li>Supabase PostgreSQL (Relational database)</li>
-                                            <li>Supabase Auth (JWT authentication)</li>
-                                            <li>Supabase Storage (Document management)</li>
-                                            <li>Row-Level Security (Data isolation)</li>
-                                            <li>Real-time subscriptions (Live updates)</li>
+                                            <li>Tabbed navigation (Pending, Approved, Rejected)</li>
+                                            <li>Filterable data table with search</li>
+                                            <li>Quick actions (Approve/Reject/View Details)</li>
+                                            <li>Document viewer with expiration warnings</li>
                                         </ul>
                                     </div>
 
-                                    <div class="tech-layer">
-                                        <h4>Integration Layer</h4>
+                                    <div class="ui-feature">
+                                        <h3>Email Templates</h3>
+                                        <p>Professional, branded transactional emails</p>
                                         <ul>
-                                            <li>SendGrid (Transactional email)</li>
-                                            <li>Cloudflare CDN (Global content delivery)</li>
-                                            <li>Vercel (CI/CD & hosting)</li>
+                                            <li>Registration confirmation with next steps</li>
+                                            <li>Document upload success notification</li>
+                                            <li>Application status updates</li>
+                                            <li>Insurance expiration reminders</li>
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="architecture-decisions">
-                                <h3>Key Architectural Decisions</h3>
-
-                                <div class="decision-card">
-                                    <h4>Why Supabase over custom backend?</h4>
-                                    <p><strong>Benefits:</strong></p>
+                                <div class="design-principles">
+                                    <h3>Design Principles</h3>
                                     <ul>
-                                        <li>PostgreSQL for relational freight data</li>
-                                        <li>Built-in authentication system</li>
-                                        <li>Real-time subscriptions for live updates</li>
-                                        <li>Storage for carrier documents</li>
-                                        <li>Row-level security for data protection</li>
+                                        <li><strong>Clarity:</strong> No ambiguous states or actions</li>
+                                        <li><strong>Feedback:</strong> Immediate response to user actions</li>
+                                        <li><strong>Forgiveness:</strong> Easy to undo/retry actions</li>
+                                        <li><strong>Efficiency:</strong> Minimize clicks and cognitive load</li>
+                                        <li><strong>Accessibility:</strong> WCAG 2.1 AA compliant</li>
                                     </ul>
-                                    <p class="decision-impact">⚡ Accelerated MVP by 3 months</p>
-                                </div>
-
-                                <div class="decision-card">
-                                    <h4>Why 97.2% TypeScript coverage?</h4>
-                                    <p><strong>Impact:</strong></p>
-                                    <ul>
-                                        <li>Prevented 20+ potential runtime errors</li>
-                                        <li>Enabled confident refactoring</li>
-                                        <li>Self-documenting interfaces</li>
-                                        <li>Caught bugs related to missing data</li>
-                                    </ul>
-                                    <p class="decision-impact">🐛 Zero null reference errors in production</p>
-                                </div>
-
-                                <div class="decision-card">
-                                    <h4>File Upload Reliability Strategy</h4>
-                                    <p><strong>Three-tier retry system:</strong></p>
-                                    <ul>
-                                        <li>Automatic retry on network errors (up to 3 attempts)</li>
-                                        <li>Exponential backoff delay (1s, 2s, 4s)</li>
-                                        <li>Timeout protection (30 seconds max)</li>
-                                        <li>User-friendly error messages</li>
-                                    </ul>
-                                    <p class="decision-impact">📈 98% upload success rate even on 3G</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Page 16: Implementation -->
-                    <div class="content-page" id="implementation" data-page="16">
-                        <h2 class="page-title">Implementation Highlights</h2>
-                        <div class="page-content">
-                            <div class="implementation-section">
-                                <h3>File Upload with Retry Mechanism</h3>
-                                <pre><code class="language-typescript">const uploadWithRetry = async (file: File, maxRetries = 3) => {
+                        <!-- Page 14: Design System -->
+                        <div class="content-page" id="design-system" data-page="14">
+                            <h2 class="page-title">Design System</h2>
+                            <div class="page-content">
+                                <div class="design-system-section">
+                                    <h3>Color Palette</h3>
+                                    <div class="color-grid">
+                                        <div class="color-swatch" style="background: #006b3f;">
+                                            <span>Kenyan Green</span>
+                                            <code>#006b3f</code>
+                                        </div>
+                                        <div class="color-swatch" style="background: #ce1126; color: white;">
+                                            <span>Kenyan Red</span>
+                                            <code>#ce1126</code>
+                                        </div>
+                                        <div class="color-swatch" style="background: #000; color: white;">
+                                            <span>Kenyan Black</span>
+                                            <code>#000000</code>
+                                        </div>
+                                        <div class="color-swatch" style="background: #10cf74;">
+                                            <span>Accent Green</span>
+                                            <code>#10cf74</code>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="design-system-section">
+                                    <h3>Typography</h3>
+                                    <ul>
+                                        <li><strong>Headings:</strong> Space Mono (Bold)</li>
+                                        <li><strong>Body Text:</strong> Inter (Regular, Medium)</li>
+                                        <li><strong>Code/Data:</strong> JetBrains Mono</li>
+                                    </ul>
+                                </div>
+
+                                <div class="design-system-section">
+                                    <h3>Component Library (shadcn/ui)</h3>
+                                    <ul>
+                                        <li>Button variants: Primary, Secondary, Outline, Ghost</li>
+                                        <li>Form inputs: Text, Select, File Upload, Checkbox</li>
+                                        <li>Feedback: Alert, Toast, Progress Bar</li>
+                                        <li>Navigation: Tabs, Breadcrumb, Dropdown</li>
+                                        <li>Data Display: Table, Card, Badge</li>
+                                    </ul>
+                                </div>
+
+                                <div class="design-system-section">
+                                    <h3>Spacing Scale</h3>
+                                    <p>Consistent 8px grid system:</p>
+                                    <ul>
+                                        <li>XS: 4px (0.25rem)</li>
+                                        <li>SM: 8px (0.5rem)</li>
+                                        <li>MD: 16px (1rem)</li>
+                                        <li>LG: 24px (1.5rem)</li>
+                                        <li>XL: 32px (2rem)</li>
+                                        <li>2XL: 48px (3rem)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="design-system-section">
+                                    <h3>Responsive Breakpoints</h3>
+                                    <ul>
+                                        <li><strong>Mobile:</strong> 0-640px</li>
+                                        <li><strong>Tablet:</strong> 641-1024px</li>
+                                        <li><strong>Desktop:</strong> 1025-1920px</li>
+                                        <li><strong>Wide:</strong> 1921px+</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 15: Architecture -->
+                        <div class="content-page" id="architecture" data-page="15">
+                            <h2 class="page-title">System Architecture</h2>
+                            <div class="page-content">
+                                <div class="architecture-diagram">
+                                    <h3>Technology Stack</h3>
+                                    <div class="tech-layers">
+                                        <div class="tech-layer">
+                                            <h4>Frontend Layer</h4>
+                                            <ul>
+                                                <li>React 18 (Concurrent rendering, Suspense)</li>
+                                                <li>TypeScript (97.2% coverage, strict mode)</li>
+                                                <li>Tailwind CSS (Utility-first styling)</li>
+                                                <li>TanStack Query (Server state management)</li>
+                                                <li>shadcn/ui (Accessible components)</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="tech-layer">
+                                            <h4>Backend Layer</h4>
+                                            <ul>
+                                                <li>Supabase PostgreSQL (Relational database)</li>
+                                                <li>Supabase Auth (JWT authentication)</li>
+                                                <li>Supabase Storage (Document management)</li>
+                                                <li>Row-Level Security (Data isolation)</li>
+                                                <li>Real-time subscriptions (Live updates)</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="tech-layer">
+                                            <h4>Integration Layer</h4>
+                                            <ul>
+                                                <li>SendGrid (Transactional email)</li>
+                                                <li>Cloudflare CDN (Global content delivery)</li>
+                                                <li>Vercel (CI/CD & hosting)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="architecture-decisions">
+                                    <h3>Key Architectural Decisions</h3>
+
+                                    <div class="decision-card">
+                                        <h4>Why Supabase over custom backend?</h4>
+                                        <p><strong>Benefits:</strong></p>
+                                        <ul>
+                                            <li>PostgreSQL for relational freight data</li>
+                                            <li>Built-in authentication system</li>
+                                            <li>Real-time subscriptions for live updates</li>
+                                            <li>Storage for carrier documents</li>
+                                            <li>Row-level security for data protection</li>
+                                        </ul>
+                                        <p class="decision-impact">⚡ Accelerated MVP by 3 months</p>
+                                    </div>
+
+                                    <div class="decision-card">
+                                        <h4>Why 97.2% TypeScript coverage?</h4>
+                                        <p><strong>Impact:</strong></p>
+                                        <ul>
+                                            <li>Prevented 20+ potential runtime errors</li>
+                                            <li>Enabled confident refactoring</li>
+                                            <li>Self-documenting interfaces</li>
+                                            <li>Caught bugs related to missing data</li>
+                                        </ul>
+                                        <p class="decision-impact">🐛 Zero null reference errors in production</p>
+                                    </div>
+
+                                    <div class="decision-card">
+                                        <h4>File Upload Reliability Strategy</h4>
+                                        <p><strong>Three-tier retry system:</strong></p>
+                                        <ul>
+                                            <li>Automatic retry on network errors (up to 3 attempts)</li>
+                                            <li>Exponential backoff delay (1s, 2s, 4s)</li>
+                                            <li>Timeout protection (30 seconds max)</li>
+                                            <li>User-friendly error messages</li>
+                                        </ul>
+                                        <p class="decision-impact">📈 98% upload success rate even on 3G</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 16: Implementation -->
+                        <div class="content-page" id="implementation" data-page="16">
+                            <h2 class="page-title">Implementation Highlights</h2>
+                            <div class="page-content">
+                                <div class="implementation-section">
+                                    <h3>File Upload with Retry Mechanism</h3>
+                                    <pre><code class="language-typescript">const uploadWithRetry = async (file: File, maxRetries = 3) => {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       const { data, error } = await supabase.storage
@@ -1383,12 +1591,12 @@
     }
   }
 };</code></pre>
-                                <p class="implementation-result">Result: 98% success rate on 3G connections</p>
-                            </div>
+                                    <p class="implementation-result">Result: 98% success rate on 3G connections</p>
+                                </div>
 
-                            <div class="implementation-section">
-                                <h3>Type-Safe Database Queries</h3>
-                                <pre><code class="language-typescript">// Type-safe Supabase client
+                                <div class="implementation-section">
+                                    <h3>Type-Safe Database Queries</h3>
+                                    <pre><code class="language-typescript">// Type-safe Supabase client
 const supabase = createClient<Database>(
   process.env.SUPABASE_URL!,
   process.env.SUPABASE_ANON_KEY!
@@ -1399,12 +1607,12 @@ const { data: carriers } = await supabase
   .from('carriers')
   .select('*')
   .eq('status', 'pending'); // ✅ Type-checked!</code></pre>
-                                <p class="implementation-result">Result: Zero type-related bugs in production</p>
-                            </div>
+                                    <p class="implementation-result">Result: Zero type-related bugs in production</p>
+                                </div>
 
-                            <div class="implementation-section">
-                                <h3>Row-Level Security Policy</h3>
-                                <pre><code class="language-sql">-- Users can only see their own data
+                                <div class="implementation-section">
+                                    <h3>Row-Level Security Policy</h3>
+                                    <pre><code class="language-sql">-- Users can only see their own data
 CREATE POLICY "Users can view own carrier profile"
   ON carriers FOR SELECT
   USING (auth.uid() = user_id);
@@ -1418,12 +1626,13 @@ CREATE POLICY "Admins can view all carriers"
       WHERE admin_users.user_id = auth.uid()
     )
   );</code></pre>
-                                <p class="implementation-result">Result: Database-level security, impossible to bypass</p>
-                            </div>
+                                    <p class="implementation-result">Result: Database-level security, impossible to
+                                        bypass</p>
+                                </div>
 
-                            <div class="implementation-section">
-                                <h3>Server State Management</h3>
-                                <pre><code class="language-typescript">// TanStack Query for caching
+                                <div class="implementation-section">
+                                    <h3>Server State Management</h3>
+                                    <pre><code class="language-typescript">// TanStack Query for caching
 const { data: carriers } = useQuery({
   queryKey: ['carriers', 'pending'],
   queryFn: async () => {
@@ -1436,197 +1645,376 @@ const { data: carriers } = useQuery({
   staleTime: 30000, // Cache for 30s
   refetchInterval: 60000 // Auto-refetch every minute
 });</code></pre>
-                                <p class="implementation-result">Result: Optimized network requests, instant UI updates</p>
+                                    <p class="implementation-result">Result: Optimized network requests, instant UI
+                                        updates</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 17: Roadmap -->
+                        <div class="content-page" id="roadmap" data-page="17">
+                            <h2 class="page-title">Future Roadmap</h2>
+                            <div class="page-content">
+                                <div class="roadmap-timeline">
+                                    <div class="roadmap-quarter">
+                                        <h3>Q1 2025: Load Matching Engine</h3>
+                                        <p>AI-powered algorithm to match carriers with optimal loads</p>
+                                        <ul>
+                                            <li>Analyze carrier capacity, routes, and preferences</li>
+                                            <li>Calculate match scores based on profitability</li>
+                                            <li>Reduce empty backhaul miles by 40%</li>
+                                            <li>Increase carrier utilization from 65% to 85%</li>
+                                        </ul>
+                                        <p class="roadmap-value">Business Value: $8K additional revenue/carrier/year</p>
+                                    </div>
+
+                                    <div class="roadmap-quarter">
+                                        <h3>Q2 2025: Mobile App (React Native)</h3>
+                                        <p>Cross-platform app for iOS and Android</p>
+                                        <ul>
+                                            <li>Push notifications for new load assignments</li>
+                                            <li>GPS tracking for real-time location updates</li>
+                                            <li>Mobile document capture with phone camera</li>
+                                            <li>Offline mode with sync when back online</li>
+                                            <li>Digital signature for load confirmations</li>
+                                        </ul>
+                                        <p class="roadmap-value">Business Value: Enable on-the-go operations</p>
+                                    </div>
+
+                                    <div class="roadmap-quarter">
+                                        <h3>Q3 2025: Advanced Analytics Dashboard</h3>
+                                        <p>Data-driven insights for carriers and admins</p>
+                                        <ul>
+                                            <li>Revenue per mile analysis</li>
+                                            <li>Utilization rate tracking</li>
+                                            <li>Hot lanes identification</li>
+                                            <li>Fuel price forecasting</li>
+                                            <li>Profitability recommendations</li>
+                                        </ul>
+                                        <p class="roadmap-value">Business Value: 15-20% profitability increase</p>
+                                    </div>
+
+                                    <div class="roadmap-quarter">
+                                        <h3>Q4 2025: Blockchain Payment System</h3>
+                                        <p>Smart contracts for instant freight payment</p>
+                                        <ul>
+                                            <li>Instant payment upon delivery confirmation</li>
+                                            <li>Reduced factoring fees (carriers save 3-5%)</li>
+                                            <li>Transparent payment status</li>
+                                            <li>Automated dispute resolution</li>
+                                        </ul>
+                                        <p class="roadmap-value">Business Value: Improved cash flow</p>
+                                    </div>
+                                </div>
+
+                                <div class="technical-debt">
+                                    <h3>Technical Debt Backlog</h3>
+                                    <h4>High Priority:</h4>
+                                    <ul>
+                                        <li>Implement comprehensive error logging (Sentry)</li>
+                                        <li>Add end-to-end monitoring (Datadog)</li>
+                                        <li>Set up automated database backups</li>
+                                        <li>Implement rate limiting for API endpoints</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 18: Planned Enhancements -->
+                        <div class="content-page" id="enhancements" data-page="18">
+                            <h2 class="page-title">Planned Enhancements</h2>
+                            <div class="page-content">
+                                <div class="enhancement-grid">
+                                    <div class="enhancement-card priority-high">
+                                        <div class="priority-badge">High Priority</div>
+                                        <h3>Multi-Language Support</h3>
+                                        <p>Internationalization (i18n) for Spanish-speaking carriers</p>
+                                        <ul>
+                                            <li>Spanish language toggle</li>
+                                            <li>Localized date/number formats</li>
+                                            <li>Translated email templates</li>
+                                        </ul>
+                                        <p class="enhancement-impact">Expand to Latin American market</p>
+                                    </div>
+
+                                    <div class="enhancement-card priority-high">
+                                        <div class="priority-badge">High Priority</div>
+                                        <h3>Advanced Search & Filtering</h3>
+                                        <p>Powerful search for admin dashboard</p>
+                                        <ul>
+                                            <li>Full-text search across carriers</li>
+                                            <li>Multi-criteria filtering</li>
+                                            <li>Saved search presets</li>
+                                            <li>Export filtered results</li>
+                                        </ul>
+                                        <p class="enhancement-impact">Improve admin efficiency</p>
+                                    </div>
+
+                                    <div class="enhancement-card priority-medium">
+                                        <div class="priority-badge">Medium Priority</div>
+                                        <h3>Accounting Integration</h3>
+                                        <p>Export data to QuickBooks/Xero</p>
+                                        <ul>
+                                            <li>Automated invoice generation</li>
+                                            <li>Sync carrier payments</li>
+                                            <li>Tax document preparation</li>
+                                        </ul>
+                                        <p class="enhancement-impact">Streamline bookkeeping</p>
+                                    </div>
+
+                                    <div class="enhancement-card priority-medium">
+                                        <div class="priority-badge">Medium Priority</div>
+                                        <h3>Dark Mode Support</h3>
+                                        <p>Reduce eye strain for night operations</p>
+                                        <ul>
+                                            <li>System preference detection</li>
+                                            <li>Manual toggle</li>
+                                            <li>WCAG contrast compliance</li>
+                                        </ul>
+                                        <p class="enhancement-impact">Better UX for 24/7 operations</p>
+                                    </div>
+
+                                    <div class="enhancement-card priority-low">
+                                        <div class="priority-badge">Low Priority</div>
+                                        <h3>Automated Compliance Alerts</h3>
+                                        <p>Proactive notifications for expiring documents</p>
+                                        <ul>
+                                            <li>30-day expiration warnings</li>
+                                            <li>Automated renewal reminders</li>
+                                            <li>Compliance dashboard</li>
+                                        </ul>
+                                        <p class="enhancement-impact">Prevent compliance issues</p>
+                                    </div>
+
+                                    <div class="enhancement-card priority-low">
+                                        <div class="priority-badge">Low Priority</div>
+                                        <h3>Carrier Performance Ratings</h3>
+                                        <p>Star rating system for reliability</p>
+                                        <ul>
+                                            <li>On-time delivery tracking</li>
+                                            <li>Customer satisfaction scores</li>
+                                            <li>Badge system for top performers</li>
+                                        </ul>
+                                        <p class="enhancement-impact">Incentivize quality service</p>
+                                    </div>
+                                </div>
+
+                                <div class="lessons-learned">
+                                    <h3>Lessons Learned</h3>
+                                    <ul>
+                                        <li><strong>TypeScript Prevents Production Bugs:</strong> 97.2% coverage
+                                            prevented 20+ runtime errors</li>
+                                        <li><strong>Retry Mechanisms Are Mission-Critical:</strong> Increased upload
+                                            success from 60% to 98%</li>
+                                        <li><strong>Email Deliverability Matters:</strong> Proper setup increased inbox
+                                            rate from 44% to 98%</li>
+                                        <li><strong>User Research Drives Features:</strong> Direct feedback shaped the
+                                            retry mechanism and input validation</li>
+                                        <li><strong>Disruptive Pricing Requires Excellence:</strong> 3% commission only
+                                            works with operational efficiency</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Page 17: Roadmap -->
-                    <div class="content-page" id="roadmap" data-page="17">
-                        <h2 class="page-title">Future Roadmap</h2>
-                        <div class="page-content">
-                            <div class="roadmap-timeline">
-                                <div class="roadmap-quarter">
-                                    <h3>Q1 2025: Load Matching Engine</h3>
-                                    <p>AI-powered algorithm to match carriers with optimal loads</p>
-                                    <ul>
-                                        <li>Analyze carrier capacity, routes, and preferences</li>
-                                        <li>Calculate match scores based on profitability</li>
-                                        <li>Reduce empty backhaul miles by 40%</li>
-                                        <li>Increase carrier utilization from 65% to 85%</li>
-                                    </ul>
-                                    <p class="roadmap-value">Business Value: $8K additional revenue/carrier/year</p>
-                                </div>
+                </div>
+        </section>
+    </main>
 
-                                <div class="roadmap-quarter">
-                                    <h3>Q2 2025: Mobile App (React Native)</h3>
-                                    <p>Cross-platform app for iOS and Android</p>
-                                    <ul>
-                                        <li>Push notifications for new load assignments</li>
-                                        <li>GPS tracking for real-time location updates</li>
-                                        <li>Mobile document capture with phone camera</li>
-                                        <li>Offline mode with sync when back online</li>
-                                        <li>Digital signature for load confirmations</li>
-                                    </ul>
-                                    <p class="roadmap-value">Business Value: Enable on-the-go operations</p>
-                                </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">&copy; 2024 Leon Madara. All rights reserved.</p>
+        </div>
+    </footer>
 
-                                <div class="roadmap-quarter">
-                                    <h3>Q3 2025: Advanced Analytics Dashboard</h3>
-                                    <p>Data-driven insights for carriers and admins</p>
-                                    <ul>
-                                        <li>Revenue per mile analysis</li>
-                                        <li>Utilization rate tracking</li>
-                                        <li>Hot lanes identification</li>
-                                        <li>Fuel price forecasting</li>
-                                        <li>Profitability recommendations</li>
-                                    </ul>
-                                    <p class="roadmap-value">Business Value: 15-20% profitability increase</p>
-                                </div>
+    <!-- Dotted Background Pattern -->
+    <div class="background-pattern" aria-hidden="true" role="presentation"></div>
 
-                                <div class="roadmap-quarter">
-                                    <h3>Q4 2025: Blockchain Payment System</h3>
-                                    <p>Smart contracts for instant freight payment</p>
-                                    <ul>
-                                        <li>Instant payment upon delivery confirmation</li>
-                                        <li>Reduced factoring fees (carriers save 3-5%)</li>
-                                        <li>Transparent payment status</li>
-                                        <li>Automated dispute resolution</li>
-                                    </ul>
-                                    <p class="roadmap-value">Business Value: Improved cash flow</p>
-                                </div>
-                            </div>
+    <!-- Decorative Blur Shapes -->
+    <div class="portfolio-decorative-shapes" aria-hidden="true" role="presentation">
+        <div class="portfolio-shape portfolio-shape-1"></div>
+        <div class="portfolio-shape portfolio-shape-2"></div>
+        <div class="portfolio-shape portfolio-shape-3"></div>
+    </div>
 
-                            <div class="technical-debt">
-                                <h3>Technical Debt Backlog</h3>
-                                <h4>High Priority:</h4>
-                                <ul>
-                                    <li>Implement comprehensive error logging (Sentry)</li>
-                                    <li>Add end-to-end monitoring (Datadog)</li>
-                                    <li>Set up automated database backups</li>
-                                    <li>Implement rate limiting for API endpoints</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Kenyan Programming Elements (Blurry Symbols) -->
+    <div class="kenyan-code-elements" aria-hidden="true" role="presentation">
+        <!-- Left Side Symbols -->
+        <div class="code-element code-element-left-1" aria-hidden="true">&lt;/&gt;</div>
+        <div class="code-element code-element-left-2" aria-hidden="true">{ }</div>
+        <div class="code-element code-element-left-3" aria-hidden="true">fn()</div>
 
-                    <!-- Page 18: Planned Enhancements -->
-                    <div class="content-page" id="enhancements" data-page="18">
-                        <h2 class="page-title">Planned Enhancements</h2>
-                        <div class="page-content">
-                            <div class="enhancement-grid">
-                                <div class="enhancement-card priority-high">
-                                    <div class="priority-badge">High Priority</div>
-                                    <h3>Multi-Language Support</h3>
-                                    <p>Internationalization (i18n) for Spanish-speaking carriers</p>
-                                    <ul>
-                                        <li>Spanish language toggle</li>
-                                        <li>Localized date/number formats</li>
-                                        <li>Translated email templates</li>
-                                    </ul>
-                                    <p class="enhancement-impact">Expand to Latin American market</p>
-                                </div>
+        <!-- Right Side Symbols -->
+        <div class="code-element code-element-right-1" aria-hidden="true">=&gt;</div>
+        <div class="code-element code-element-right-2" aria-hidden="true">[ ]</div>
+        <div class="code-element code-element-right-3" aria-hidden="true">&amp;&amp;</div>
+    </div>
+    <div class="roadmap-quarter">
+        <h3>Q1 2025: Load Matching Engine</h3>
+        <p>AI-powered algorithm to match carriers with optimal loads</p>
+        <ul>
+            <li>Analyze carrier capacity, routes, and preferences</li>
+            <li>Calculate match scores based on profitability</li>
+            <li>Reduce empty backhaul miles by 40%</li>
+            <li>Increase carrier utilization from 65% to 85%</li>
+        </ul>
+        <p class="roadmap-value">Business Value: $8K additional revenue/carrier/year</p>
+    </div>
 
-                                <div class="enhancement-card priority-high">
-                                    <div class="priority-badge">High Priority</div>
-                                    <h3>Advanced Search & Filtering</h3>
-                                    <p>Powerful search for admin dashboard</p>
-                                    <ul>
-                                        <li>Full-text search across carriers</li>
-                                        <li>Multi-criteria filtering</li>
-                                        <li>Saved search presets</li>
-                                        <li>Export filtered results</li>
-                                    </ul>
-                                    <p class="enhancement-impact">Improve admin efficiency</p>
-                                </div>
+    <div class="roadmap-quarter">
+        <h3>Q2 2025: Mobile App (React Native)</h3>
+        <p>Cross-platform app for iOS and Android</p>
+        <ul>
+            <li>Push notifications for new load assignments</li>
+            <li>GPS tracking for real-time location updates</li>
+            <li>Mobile document capture with phone camera</li>
+            <li>Offline mode with sync when back online</li>
+            <li>Digital signature for load confirmations</li>
+        </ul>
+        <p class="roadmap-value">Business Value: Enable on-the-go operations</p>
+    </div>
 
-                                <div class="enhancement-card priority-medium">
-                                    <div class="priority-badge">Medium Priority</div>
-                                    <h3>Accounting Integration</h3>
-                                    <p>Export data to QuickBooks/Xero</p>
-                                    <ul>
-                                        <li>Automated invoice generation</li>
-                                        <li>Sync carrier payments</li>
-                                        <li>Tax document preparation</li>
-                                    </ul>
-                                    <p class="enhancement-impact">Streamline bookkeeping</p>
-                                </div>
+    <div class="roadmap-quarter">
+        <h3>Q3 2025: Advanced Analytics Dashboard</h3>
+        <p>Data-driven insights for carriers and admins</p>
+        <ul>
+            <li>Revenue per mile analysis</li>
+            <li>Utilization rate tracking</li>
+            <li>Hot lanes identification</li>
+            <li>Fuel price forecasting</li>
+            <li>Profitability recommendations</li>
+        </ul>
+        <p class="roadmap-value">Business Value: 15-20% profitability increase</p>
+    </div>
 
-                                <div class="enhancement-card priority-medium">
-                                    <div class="priority-badge">Medium Priority</div>
-                                    <h3>Dark Mode Support</h3>
-                                    <p>Reduce eye strain for night operations</p>
-                                    <ul>
-                                        <li>System preference detection</li>
-                                        <li>Manual toggle</li>
-                                        <li>WCAG contrast compliance</li>
-                                    </ul>
-                                    <p class="enhancement-impact">Better UX for 24/7 operations</p>
-                                </div>
+    <div class="roadmap-quarter">
+        <h3>Q4 2025: Blockchain Payment System</h3>
+        <p>Smart contracts for instant freight payment</p>
+        <ul>
+            <li>Instant payment upon delivery confirmation</li>
+            <li>Reduced factoring fees (carriers save 3-5%)</li>
+            <li>Transparent payment status</li>
+            <li>Automated dispute resolution</li>
+        </ul>
+        <p class="roadmap-value">Business Value: Improved cash flow</p>
+    </div>
+    </div>
 
-                                <div class="enhancement-card priority-low">
-                                    <div class="priority-badge">Low Priority</div>
-                                    <h3>Automated Compliance Alerts</h3>
-                                    <p>Proactive notifications for expiring documents</p>
-                                    <ul>
-                                        <li>30-day expiration warnings</li>
-                                        <li>Automated renewal reminders</li>
-                                        <li>Compliance dashboard</li>
-                                    </ul>
-                                    <p class="enhancement-impact">Prevent compliance issues</p>
-                                </div>
+    <div class="technical-debt">
+        <h3>Technical Debt Backlog</h3>
+        <h4>High Priority:</h4>
+        <ul>
+            <li>Implement comprehensive error logging (Sentry)</li>
+            <li>Add end-to-end monitoring (Datadog)</li>
+            <li>Set up automated database backups</li>
+            <li>Implement rate limiting for API endpoints</li>
+        </ul>
+    </div>
+    </div>
+    </div>
 
-                                <div class="enhancement-card priority-low">
-                                    <div class="priority-badge">Low Priority</div>
-                                    <h3>Carrier Performance Ratings</h3>
-                                    <p>Star rating system for reliability</p>
-                                    <ul>
-                                        <li>On-time delivery tracking</li>
-                                        <li>Customer satisfaction scores</li>
-                                        <li>Badge system for top performers</li>
-                                    </ul>
-                                    <p class="enhancement-impact">Incentivize quality service</p>
-                                </div>
-                            </div>
-
-                            <div class="lessons-learned">
-                                <h3>Lessons Learned</h3>
-                                <ul>
-                                    <li><strong>TypeScript Prevents Production Bugs:</strong> 97.2% coverage prevented 20+ runtime errors</li>
-                                    <li><strong>Retry Mechanisms Are Mission-Critical:</strong> Increased upload success from 60% to 98%</li>
-                                    <li><strong>Email Deliverability Matters:</strong> Proper setup increased inbox rate from 44% to 98%</li>
-                                    <li><strong>User Research Drives Features:</strong> Direct feedback shaped the retry mechanism and input validation</li>
-                                    <li><strong>Disruptive Pricing Requires Excellence:</strong> 3% commission only works with operational efficiency</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Page 18: Planned Enhancements -->
+    <div class="content-page" id="enhancements" data-page="18">
+        <h2 class="page-title">Planned Enhancements</h2>
+        <div class="page-content">
+            <div class="enhancement-grid">
+                <div class="enhancement-card priority-high">
+                    <div class="priority-badge">High Priority</div>
+                    <h3>Multi-Language Support</h3>
+                    <p>Internationalization (i18n) for Spanish-speaking carriers</p>
+                    <ul>
+                        <li>Spanish language toggle</li>
+                        <li>Localized date/number formats</li>
+                        <li>Translated email templates</li>
+                    </ul>
+                    <p class="enhancement-impact">Expand to Latin American market</p>
                 </div>
 
-                <!-- Page Indicators -->
-                <div class="page-indicators" aria-label="Page navigation">
-                    <button class="page-dot active" data-page="0" aria-label="Go to page 1"></button>
-                    <button class="page-dot" data-page="1" aria-label="Go to page 2"></button>
-                    <button class="page-dot" data-page="2" aria-label="Go to page 3"></button>
-                    <button class="page-dot" data-page="3" aria-label="Go to page 4"></button>
-                    <button class="page-dot" data-page="4" aria-label="Go to page 5"></button>
-                    <button class="page-dot" data-page="5" aria-label="Go to page 6"></button>
-                    <button class="page-dot" data-page="6" aria-label="Go to page 7"></button>
-                    <button class="page-dot" data-page="7" aria-label="Go to page 8"></button>
-                    <button class="page-dot" data-page="8" aria-label="Go to page 9"></button>
-                    <button class="page-dot" data-page="9" aria-label="Go to page 10"></button>
-                    <button class="page-dot" data-page="10" aria-label="Go to page 11"></button>
-                    <button class="page-dot" data-page="11" aria-label="Go to page 12"></button>
-                    <button class="page-dot" data-page="12" aria-label="Go to page 13"></button>
-                    <button class="page-dot" data-page="13" aria-label="Go to page 14"></button>
-                    <button class="page-dot" data-page="14" aria-label="Go to page 15"></button>
-                    <button class="page-dot" data-page="15" aria-label="Go to page 16"></button>
-                    <button class="page-dot" data-page="16" aria-label="Go to page 17"></button>
-                    <button class="page-dot" data-page="17" aria-label="Go to page 18"></button>
-                    <button class="page-dot" data-page="18" aria-label="Go to page 19"></button>
+                <div class="enhancement-card priority-high">
+                    <div class="priority-badge">High Priority</div>
+                    <h3>Advanced Search & Filtering</h3>
+                    <p>Powerful search for admin dashboard</p>
+                    <ul>
+                        <li>Full-text search across carriers</li>
+                        <li>Multi-criteria filtering</li>
+                        <li>Saved search presets</li>
+                        <li>Export filtered results</li>
+                    </ul>
+                    <p class="enhancement-impact">Improve admin efficiency</p>
+                </div>
+
+                <div class="enhancement-card priority-medium">
+                    <div class="priority-badge">Medium Priority</div>
+                    <h3>Accounting Integration</h3>
+                    <p>Export data to QuickBooks/Xero</p>
+                    <ul>
+                        <li>Automated invoice generation</li>
+                        <li>Sync carrier payments</li>
+                        <li>Tax document preparation</li>
+                    </ul>
+                    <p class="enhancement-impact">Streamline bookkeeping</p>
+                </div>
+
+                <div class="enhancement-card priority-medium">
+                    <div class="priority-badge">Medium Priority</div>
+                    <h3>Dark Mode Support</h3>
+                    <p>Reduce eye strain for night operations</p>
+                    <ul>
+                        <li>System preference detection</li>
+                        <li>Manual toggle</li>
+                        <li>WCAG contrast compliance</li>
+                    </ul>
+                    <p class="enhancement-impact">Better UX for 24/7 operations</p>
+                </div>
+
+                <div class="enhancement-card priority-low">
+                    <div class="priority-badge">Low Priority</div>
+                    <h3>Automated Compliance Alerts</h3>
+                    <p>Proactive notifications for expiring documents</p>
+                    <ul>
+                        <li>30-day expiration warnings</li>
+                        <li>Automated renewal reminders</li>
+                        <li>Compliance dashboard</li>
+                    </ul>
+                    <p class="enhancement-impact">Prevent compliance issues</p>
+                </div>
+
+                <div class="enhancement-card priority-low">
+                    <div class="priority-badge">Low Priority</div>
+                    <h3>Carrier Performance Ratings</h3>
+                    <p>Star rating system for reliability</p>
+                    <ul>
+                        <li>On-time delivery tracking</li>
+                        <li>Customer satisfaction scores</li>
+                        <li>Badge system for top performers</li>
+                    </ul>
+                    <p class="enhancement-impact">Incentivize quality service</p>
                 </div>
             </div>
-        </section>
+
+            <div class="lessons-learned">
+                <h3>Lessons Learned</h3>
+                <ul>
+                    <li><strong>TypeScript Prevents Production Bugs:</strong> 97.2% coverage
+                        prevented 20+ runtime errors</li>
+                    <li><strong>Retry Mechanisms Are Mission-Critical:</strong> Increased upload
+                        success from 60% to 98%</li>
+                    <li><strong>Email Deliverability Matters:</strong> Proper setup increased inbox
+                        rate from 44% to 98%</li>
+                    <li><strong>User Research Drives Features:</strong> Direct feedback shaped the
+                        retry mechanism and input validation</li>
+                    <li><strong>Disruptive Pricing Requires Excellence:</strong> 3% commission only
+                        works with operational efficiency</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+    </section>
     </main>
 
     <!-- Footer -->
@@ -1663,11 +2051,12 @@ const { data: carriers } = useQuery({
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-    <!-- Portfolio Entrance Animation (must load before portfolio.js) -->
-    <script src="js/portfolio-entrance.js"></script>
-
-    <!-- Portfolio JavaScript -->
+    <!-- Main Scripts -->
+    <script src="js/main.js"></script>
     <script src="js/portfolio.js"></script>
+    <script src="js/portfolio-entrance.js"></script>
+    <script src="js/profile-card.js"></script>
+    <script src="js/liquid-nav.js"></script>
 </body>
 
 </html>

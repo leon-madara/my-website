@@ -8,7 +8,8 @@
     position: fixed;
     left: 2rem;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scale(1.176); /* Counter body scale to keep normal size */
+    transform-origin: left center;
     width: 320px;
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(20px);
@@ -32,7 +33,7 @@ body.contact-page .pill-sidebar {
 }
 
 .pill-sidebar:hover {
-    transform: translateY(-50%) translateY(-8px);
+    transform: translateY(-50%) translateY(-8px) scale(1.176); /* Maintain scale on hover */
     box-shadow:
         0 28px 80px rgba(0, 0, 0, 0.16),
         0 12px 24px rgba(0, 0, 0, 0.12);

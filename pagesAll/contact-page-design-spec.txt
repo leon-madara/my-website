@@ -1,0 +1,476 @@
+# Contact Page Design Specification
+
+## Overview
+The Contact page (`contact.html`) features an animated hero section, contact method cards, location information, and an FAQ section with smooth interactions.
+
+---
+
+## Color Theme
+**Same Kenyan Flag Palette**:
+- Black: `#000000`
+- Red: `#ce1126`
+- Green: `#006b3f`
+- White: `#ffffff`
+- Background: `hsl(48, 10%, 90%)`
+
+---
+
+## Typography
+**Same Font System**:
+- **Asimovian** - Display
+- **Space Mono** - Monospace
+- **Enriqueta** - Serif
+
+---
+
+## Layout Structure
+
+### Page Hierarchy
+```
+contact-page (body)
+├── liquid-navbar
+├── pill-sidebar (visible on contact page)
+├── contact-container (main)
+│   ├── hero-section
+│   │   ├── hero-background
+│   │   │   ├── animated-gradient
+│   │   │   └── floating-shapes (4 shapes)
+│   │   ├── hero-content
+│   │   │   ├── hero-text
+│   │   │   │   ├── hero-title ("Let's Build Something Amazing")
+│   │   │   │   └── hero-description
+│   │   │   └── hero-cta
+│   │   │       ├── cta-button primary ("Get In Touch")
+│   │   │       └── cta-button secondary ("View FAQ")
+│   ├── contact-cards-section
+│   │   ├── section-header
+│   │   └── cards-grid
+│   │       ├── email-card
+│   │       ├── github-card
+│   │       └── phone-card
+│   ├── location-section
+│   │   └── location-grid
+│   │       ├── location-card (Location)
+│   │       ├── location-card (Timezone)
+│   │       └── location-card (Availability)
+│   └── faq-section
+│       ├── section-header
+│       └── faq-container
+│           └── faq-item (6 questions)
+├── footer
+├── toast (notification)
+└── background-pattern
+```
+
+---
+
+## Hero Section
+
+### Hero Background
+- **Class**: `.hero-background`
+- **Position**: Absolute, full section
+- **Z-index**: Behind content
+
+#### Animated Gradient
+- **Class**: `.animated-gradient`
+- **Colors**: Subtle Kenyan color gradient
+- **Animation**: Slow, continuous gradient shift
+- **Opacity**: Low for subtle effect
+
+#### Floating Shapes
+- **Count**: 4 shapes
+- **Classes**: `.shape-1` through `.shape-4`
+- **Animation**: Floating, rotating motion
+- **Blur**: CSS filter blur for depth
+- **Colors**: Kenyan flag colors with low opacity
+- **Sizes**: Varying (100px - 300px)
+- **Positions**: Scattered across hero
+
+### Hero Content
+
+#### Hero Title
+- **Text**: "Let's Build" + "Something Amazing"
+- **Layout**: Two lines
+- **Line 1**: Regular text
+- **Line 2**: Kenyan gradient text
+- **Font**: Asimovian, large display size
+- **Animation**: Fade in + slide up
+
+#### Hero Description
+- **Text**: "Based in Nairobi, Kenya. Ready to collaborate on your next big idea."
+- **Font**: Enriqueta, serif
+- **Color**: Secondary text gray
+- **Animation**: Fade in with delay
+
+#### CTA Buttons
+- **Primary Button**:
+  - Text: "Get In Touch"
+  - Icon: Right arrow
+  - Link: `#contact-cards` (smooth scroll)
+  - Style: Filled, Kenyan green background
+
+- **Secondary Button**:
+  - Text: "View FAQ"
+  - Link: `#faq` (smooth scroll)
+  - Style: Outlined, transparent background
+
+---
+
+## Contact Cards Section
+
+### Section Header
+- **Title**: "Reach Out"
+- **Subtitle**: "Choose your preferred method of communication"
+- **Alignment**: Centered
+
+### Cards Grid
+- **Layout**: 3-column grid (responsive)
+- **Gap**: Consistent spacing
+- **Animation**: Staggered fade-in (AOS library)
+
+### Card Structure
+```html
+<div class="contact-card email-card">
+  <div class="card-header">
+    <div class="card-icon"><!-- SVG --></div>
+    <h3 class="card-title">Email</h3>
+  </div>
+  <div class="card-body">
+    <p class="card-label">Primary Contact</p>
+    <p class="card-value">leon.madara@outlook.com</p>
+    <div class="card-actions">
+      <button class="action-btn copy-btn">Copy</button>
+      <a href="mailto:..." class="action-btn primary-btn">Send Email</a>
+    </div>
+  </div>
+</div>
+```
+
+### Email Card
+- **Icon**: Envelope SVG
+- **Label**: "Primary Contact"
+- **Value**: `leon.madara@outlook.com`
+- **Actions**:
+  - Copy button (copies to clipboard)
+  - Send Email link (opens mail client)
+
+### GitHub Card
+- **Icon**: GitHub logo SVG
+- **Label**: "View My Code"
+- **Value**: `@leon-madara`
+- **Action**: Visit Profile link (opens in new tab)
+
+### Phone Card
+- **Icon**: Phone SVG
+- **Label**: "Direct Line"
+- **Value**: `+254-704-505-52`
+- **Actions**:
+  - Copy button
+  - Call Now link (tel: protocol)
+
+### Card Styling
+- **Background**: White with subtle shadow
+- **Border Radius**: Rounded corners
+- **Padding**: Generous internal padding
+- **Hover**: Lift effect + shadow enhancement
+- **Icon**: Circular background, colored
+
+### Action Buttons
+- **Copy Button**:
+  - Icon: Copy icon SVG
+  - Text: "Copy"
+  - Behavior: Copies value to clipboard
+  - Feedback: Toast notification
+
+- **Primary Button**:
+  - Icon: Relevant action icon
+  - Text: Action label
+  - Style: Filled, colored background
+  - Hover: Darker shade
+
+---
+
+## Location Section
+
+### Location Grid
+- **Layout**: 3-column grid
+- **Cards**: Info cards with icons
+- **Animation**: Zoom-in effect (AOS)
+
+### Location Cards
+
+#### 1. Location Card
+- **Icon**: Map pin SVG
+- **Title**: "Location"
+- **Value**: "Nairobi, Kenya"
+- **Detail**: "East Africa"
+
+#### 2. Timezone Card
+- **Icon**: Clock SVG
+- **Title**: "Timezone"
+- **Value**: "EAT (GMT+3)"
+- **Detail**: Current time (dynamic, JavaScript)
+  - Format: "HH:MM AM/PM"
+  - Updates: Real-time
+
+#### 3. Availability Card
+- **Icon**: Checkmark SVG
+- **Title**: "Availability"
+- **Value**: "Open to Work"
+- **Detail**: "Freelance & Full-time"
+
+### Card Styling
+- **Background**: White
+- **Icon**: Large, colored, circular background
+- **Title**: Bold heading
+- **Value**: Larger, emphasized text
+- **Detail**: Smaller, muted text
+
+---
+
+## FAQ Section
+
+### Section Header
+- **Title**: "Frequently Asked"
+- **Subtitle**: "Common questions about working together"
+- **Alignment**: Centered
+
+### FAQ Container
+- **Layout**: Stacked accordion items
+- **Animation**: Fade-in from right (AOS)
+
+### FAQ Items
+- **Count**: 6 questions
+- **Structure**:
+  ```html
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">
+      <span>What services do you offer?</span>
+      <svg class="faq-icon"><!-- Chevron --></svg>
+    </button>
+    <div class="faq-answer">
+      <p>Answer text...</p>
+    </div>
+  </div>
+  ```
+
+### Questions
+1. **What services do you offer?**
+   - Full-stack development, AI integration, web applications
+
+2. **What's your typical response time?**
+   - 24 hours on weekdays, faster for urgent matters
+
+3. **Do you work with international clients?**
+   - Yes, experienced with remote collaboration
+
+4. **What's your project timeline?**
+   - Varies by scope, 1-2 weeks to several months
+
+5. **How do you handle project pricing?**
+   - Hourly or project-based, transparent proposals
+
+6. **Can you help with existing projects?**
+   - Yes, debugging, features, optimization, overhauls
+
+### Accordion Behavior
+- **Click**: Expands/collapses answer
+- **Icon**: Chevron rotates 180deg when expanded
+- **Animation**: Smooth height transition
+- **Max Open**: Multiple can be open simultaneously
+
+### Styling
+- **Question Button**:
+  - Full width, left-aligned
+  - Hover: Background color change
+  - Active: Highlighted
+
+- **Answer**:
+  - Hidden by default (`display: none` or `max-height: 0`)
+  - Expanded: Smooth height animation
+  - Padding: Internal spacing
+  - Text: Gray body text
+
+---
+
+## Toast Notification
+
+### Toast Element
+- **Class**: `.toast`
+- **Position**: Fixed, bottom-right
+- **Initial**: Hidden (off-screen)
+- **Trigger**: Copy button click
+
+### Toast Structure
+```html
+<div class="toast" id="toast">
+  <div class="toast-icon"></div>
+  <span class="toast-message"></span>
+</div>
+```
+
+### Toast Behavior
+- **Show**: Slides in from bottom
+- **Message**: "Email copied!" or "Phone copied!"
+- **Icon**: Checkmark or copy icon
+- **Duration**: 3 seconds
+- **Hide**: Slides out to bottom
+
+### Toast Styling
+- **Background**: Dark gray or black
+- **Text**: White
+- **Border Radius**: Rounded
+- **Shadow**: Elevated shadow
+- **Animation**: Slide + fade
+
+---
+
+## Animations
+
+### Hero Animations
+- **Gradient**: Continuous slow shift
+- **Shapes**: Floating, rotating motion
+- **Title**: Fade in + slide up
+- **Description**: Fade in with delay
+- **Buttons**: Fade in with stagger
+
+### Card Animations
+- **Library**: AOS (Animate On Scroll)
+- **Effect**: `fade-up` for cards
+- **Delay**: Staggered (0ms, 100ms, 200ms)
+- **Duration**: 600ms
+- **Easing**: Ease-out
+
+### FAQ Animations
+- **Accordion**: Height transition
+- **Icon**: Rotate 180deg
+- **Content**: Fade in
+
+### Toast Animation
+- **Enter**: Slide up + fade in
+- **Exit**: Slide down + fade out
+- **Duration**: 300ms
+- **Easing**: Cubic-bezier
+
+---
+
+## Interactive Features
+
+### Copy to Clipboard
+- **JavaScript**: `js/contact.js`
+- **Method**: `navigator.clipboard.writeText()`
+- **Feedback**: Toast notification
+- **Fallback**: `document.execCommand('copy')` for older browsers
+
+### Current Time Display
+- **Element**: `#current-time`
+- **Update**: Every second (setInterval)
+- **Format**: 12-hour with AM/PM
+- **Timezone**: EAT (GMT+3)
+
+### Smooth Scrolling
+- **Links**: CTA buttons, section links
+- **Behavior**: `scrollIntoView({ behavior: 'smooth' })`
+- **Offset**: Account for fixed navbar
+
+---
+
+## Responsive Behavior
+
+### Desktop (> 1024px)
+- **Cards Grid**: 3 columns
+- **Location Grid**: 3 columns
+- **Hero**: Full height with large text
+
+### Tablet (768px - 1024px)
+- **Cards Grid**: 2 columns
+- **Location Grid**: 3 columns (may stack)
+- **Hero**: Reduced text size
+
+### Mobile (< 768px)
+- **Cards Grid**: 1 column (stacked)
+- **Location Grid**: 1 column
+- **Hero**: Smaller text, reduced padding
+- **Sidebar**: Hidden
+
+---
+
+## Navigation
+- **Liquid Navbar**: Active on Contact (index 3)
+- **Sidebar**: Visible on contact page
+
+---
+
+## Background Elements
+**Same as Homepage**:
+- Dotted pattern background
+- No floating code elements (cleaner look)
+
+---
+
+## Accessibility
+
+### ARIA Attributes
+- **Buttons**: `aria-label` for context
+- **Accordion**: `aria-expanded` state
+- **Toast**: `role="alert"`, `aria-live="assertive"`
+
+### Keyboard Navigation
+- **Tab**: Through all interactive elements
+- **Enter/Space**: Activate buttons, expand FAQ
+- **Focus**: Visible focus indicators
+
+### Screen Reader
+- **Announcements**: Toast messages announced
+- **Labels**: All form elements labeled
+- **Landmarks**: Proper section roles
+
+---
+
+## Performance
+
+### Lazy Loading
+- **Images**: None on this page
+- **Scripts**: Loaded at end of body
+
+### Animation Performance
+- **GPU Acceleration**: Transform3d for smooth animations
+- **Will-change**: Applied to animated elements
+- **Throttling**: Scroll events optimized
+
+---
+
+## File References
+
+### HTML
+- `contact.html` - Main contact page
+
+### CSS
+- `css/styles.css` - Global styles
+- `css/contact.css` - Page-specific styles
+- `css/sidebar-profile-card.css` - Sidebar
+- `css/liquid-navbar.css` - Navigation
+
+### JavaScript
+- `js/main.js` - Core functionality
+- `js/contact.js` - Contact page interactions
+- `js/profile-card.js` - Sidebar
+- `js/liquid-navbar.js` - Navigation
+- GSAP 3.12.5 + ScrollTrigger (CDN)
+
+---
+
+## Notes for Recreation
+
+1. **Copy Functionality**: Implement clipboard API with fallback
+2. **Toast Timing**: Show for 3 seconds, then auto-hide
+3. **Time Update**: Use JavaScript setInterval for real-time clock
+4. **Smooth Scroll**: Ensure smooth scrolling to anchors
+5. **Card Hover**: Subtle lift effect enhances interactivity
+6. **FAQ Accordion**: Allow multiple items open simultaneously
+7. **Icon SVGs**: Use inline SVG for styling flexibility
+8. **Gradient Animation**: Subtle, slow movement for background
+9. **Floating Shapes**: Random positions, different sizes
+10. **Responsive Grid**: Cards stack gracefully on mobile
+11. **Toast Position**: Bottom-right on desktop, bottom-center on mobile
+12. **Accessibility**: Ensure all actions work with keyboard only

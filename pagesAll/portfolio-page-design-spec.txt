@@ -1,0 +1,436 @@
+# Portfolio Page Design Specification
+
+## Overview
+The Portfolio page (`portfolio.html`) features a unique entrance animation, project toggle system, accordion navigation, and horizontal scrolling case study pages.
+
+---
+
+## Color Theme
+**Same Kenyan Flag Palette**:
+- Black: `#000000`
+- Red: `#ce1126`
+- Green: `#006b3f`
+- White: `#ffffff`
+- Background: `hsl(48, 10%, 90%)`
+
+---
+
+## Typography
+**Same Font System**:
+- **Asimovian** - Display
+- **Space Mono** - Monospace
+- **Enriqueta** - Serif
+
+---
+
+## Layout Structure
+
+### Page Hierarchy
+```
+portfolio-page (body)
+├── entrance-animation (SVG effect)
+├── liquid-navbar
+├── pill-sidebar (hidden on portfolio page)
+├── portfolio-container (main)
+│   ├── portfolio-header
+│   ├── project-toggle-section
+│   │   └── project-toggle-container
+│   │       ├── project-toggle-btn (01 Eastleigh)
+│   │       ├── project-toggle-btn (02 Delivah)
+│   │       └── project-toggle-btn (03 EduManage)
+│   └── content-wrapper
+│       ├── accordion-nav (left sidebar)
+│       │   └── accordion-menu
+│       │       ├── accordion-item (Project Details)
+│       │       ├── accordion-item (Problem)
+│       │       ├── accordion-item (Goal)
+│       │       ├── accordion-item (Impact)
+│       │       ├── accordion-item (Early Adoption)
+│       │       ├── accordion-item (Testing)
+│       │       ├── accordion-item (Final Designs)
+│       │       ├── accordion-item (Development)
+│       │       └── accordion-item (Future Steps)
+│       └── content-area (horizontal pages)
+│           └── horizontal-pages
+│               ├── content-page (Overview)
+│               ├── content-page (Role & Timeline)
+│               ├── content-page (Tech Stack)
+│               └── ... (18 total pages)
+```
+
+---
+
+## Entrance Animation
+
+### SVG Effect
+- **File**: `css/portfolio-entrance.css`, `js/portfolio-entrance.js`
+- **Asset**: `images/PortFolioImageDesign.svg` [PLACEHOLDER]
+- **Animation Sequence**:
+  1. SVG graphic appears
+  2. Morphs/transitions
+  3. Fades out
+  4. Portfolio content fades in
+- **Duration**: ~2-3 seconds
+- **Timing**: Runs once on page load
+
+### FOUC Prevention
+- **Style**: Portfolio content hidden until entrance complete
+- **Class**: `.entrance-complete` added to body when done
+- **Opacity**: 0 until animation finishes
+
+---
+
+## Project Toggle System
+
+### Toggle Container
+- **Class**: `.project-toggle-section`
+- **Layout**: Horizontal flex, centered
+- **Position**: Below header, above content
+
+### Toggle Buttons
+- **Count**: 3 projects
+- **Structure**:
+  ```html
+  <button class="project-toggle-btn active" data-project="1">
+    <span class="toggle-number">01</span>
+    <span class="toggle-label">Eastleigh</span>
+  </button>
+  ```
+
+#### Projects
+1. **Eastleigh Turf Flow** (01)
+   - E-commerce platform
+   - React 18, TypeScript, Supabase
+
+2. **Delivah Dispatch Hub** (02)
+   - Logistics platform
+   - Freight carrier management
+
+3. **EduManage SMS** (03)
+   - School management system
+
+#### Button Styling
+- **Active State**: Highlighted, larger
+- **Inactive State**: Muted, smaller
+- **Transition**: Smooth scale and color change
+- **Number**: Large, bold
+- **Label**: Smaller, below number
+
+---
+
+## Accordion Navigation
+
+### Container
+- **Class**: `.accordion-nav`
+- **Position**: Fixed left sidebar
+- **Width**: ~250-300px
+- **Scroll**: Independent vertical scroll
+
+### Accordion Items
+- **Count**: 9 chapters per project
+- **Structure**:
+  ```html
+  <div class="accordion-item active" data-chapter="details">
+    <button class="accordion-header" aria-expanded="true">
+      <div class="progress-circle">...</div>
+      <span class="accordion-title">Project Details</span>
+      <svg class="accordion-icon">...</svg>
+    </button>
+    <div class="accordion-content">
+      <a href="#overview" class="accordion-link active">Overview</a>
+      <a href="#role-timeline" class="accordion-link">Role & Timeline</a>
+      <a href="#tech-stack" class="accordion-link">Tech Stack</a>
+    </div>
+  </div>
+  ```
+
+### Progress Circles
+- **Size**: Small circular SVG
+- **Fill**: Animates based on scroll progress
+- **Percentage**: Displayed as text inside circle
+- **Color**: Kenyan green when active
+
+#### Circle Animation
+- **Stroke**: Circular progress indicator
+- **Dash Offset**: Animates from 88 (0%) to 0 (100%)
+- **Timing**: Updates as user scrolls through pages
+
+### Accordion Behavior
+- **Click**: Expands/collapses content
+- **Active State**: Expanded, highlighted
+- **Icon**: Chevron rotates 90deg when expanded
+- **Transition**: Smooth height animation
+
+### Chapter Links
+- **Display**: Nested under accordion header
+- **Active State**: Bold, colored
+- **Click**: Scrolls to corresponding page
+- **Hover**: Subtle background color
+
+---
+
+## Horizontal Scrolling Pages
+
+### Content Area
+- **Class**: `.content-area`
+- **Scroll**: Horizontal scroll (snap points)
+- **Layout**: Pages arranged side-by-side
+
+### Horizontal Pages Container
+- **Class**: `.horizontal-pages`
+- **Display**: Flex row
+- **Scroll Behavior**: Smooth horizontal scroll
+- **Snap**: CSS scroll-snap to pages
+
+### Content Pages
+- **Class**: `.content-page`
+- **Width**: Full viewport width
+- **Height**: Full viewport height
+- **Padding**: Generous internal padding
+
+#### Page Structure
+```html
+<div class="content-page" id="overview" data-page="0">
+  <h2 class="page-title kenyan-gradient">Eastleigh Turf Flow</h2>
+  <p class="page-subtitle">Modern E-Commerce Platform</p>
+  <div class="page-content">
+    <!-- Content varies by page -->
+  </div>
+</div>
+```
+
+### Page Types
+
+#### 1. Overview Page (Page 0)
+- **Title**: Project name with gradient
+- **Subtitle**: Project tagline
+- **Content**: Brief description
+- **Info Grid**: Timeline, Role, Status
+
+#### 2. Role & Timeline (Page 1)
+- **Sections**:
+  - My Role (responsibilities grid)
+  - Project Timeline (visual timeline)
+- **Cards**: 4 responsibility cards
+- **Timeline**: 5 milestone items
+
+#### 3. Tech Stack (Page 2)
+- **Categories**:
+  - Frontend (React, TypeScript, Tailwind)
+  - Backend & Database (Supabase, PostgreSQL)
+  - Integrations (SendGrid, Cloudflare, Vercel)
+  - Development Tools (Vite, ESLint, Jest)
+- **Tech Items**: Name, description, version
+- **Decisions**: Why these technologies?
+
+#### 4-18. Additional Pages
+- Challenge, Pain Points
+- Objectives, Success Criteria
+- Metrics & Results, User Feedback
+- Beta Testing, Iterations
+- QA Process, Usability Testing
+- UI Showcase, Design System
+- Architecture, Implementation
+- Roadmap, Planned Enhancements
+
+---
+
+## Content Components
+
+### Info Grid
+- **Layout**: 3-column grid
+- **Items**: Key-value pairs
+- **Style**: Label above value
+- **Example**: Timeline: 3 weeks
+
+### Responsibility Cards
+- **Layout**: 2x2 grid
+- **Icon**: Emoji at top
+- **Title**: Bold heading
+- **List**: Bulleted achievements
+
+### Timeline
+- **Display**: Vertical timeline
+- **Marker**: Week indicator
+- **Content**: Phase description + bullet points
+- **Line**: Connecting vertical line
+
+### Tech List
+- **Layout**: Stacked tech items
+- **Components**:
+  - Tech name (bold)
+  - Description (gray)
+  - Version (small, muted)
+
+### Decision Items
+- **Title**: Technology choice
+- **Decision**: What was chosen
+- **Rationale**: Why it was chosen
+
+---
+
+## Scroll Behavior
+
+### Horizontal Scroll
+- **Method**: CSS `overflow-x: scroll`
+- **Snap**: `scroll-snap-type: x mandatory`
+- **Smooth**: `scroll-behavior: smooth`
+
+### Page Navigation
+- **Accordion Links**: Click to scroll to page
+- **Progress Tracking**: Updates as pages scroll
+- **Keyboard**: Arrow keys navigate pages
+
+### Scroll Indicators
+- **Progress Circles**: Show chapter completion
+- **Active Link**: Highlights current page
+
+---
+
+## Animations
+
+### Entrance Animation
+- **SVG Morph**: Complex SVG animation
+- **Fade Transition**: From animation to content
+- **Duration**: 2-3 seconds
+
+### Accordion Animations
+- **Expand/Collapse**: Height transition
+- **Icon Rotation**: Chevron rotates 90deg
+- **Progress Fill**: Circle fills as scrolling
+
+### Page Transitions
+- **Horizontal Slide**: Smooth scroll between pages
+- **Content Fade**: Elements fade in as page enters view
+
+---
+
+## Responsive Behavior
+
+### Desktop (> 1024px)
+- **Layout**: Accordion sidebar + horizontal pages
+- **Scroll**: Both vertical (accordion) and horizontal (pages)
+
+### Tablet (768px - 1024px)
+- **Accordion**: Collapsible, narrower
+- **Pages**: Smaller padding
+
+### Mobile (< 768px)
+- **Accordion**: Top horizontal tabs or hamburger menu
+- **Pages**: Vertical scroll instead of horizontal
+- **Simplified**: Reduced complexity
+
+---
+
+## Navigation
+- **Liquid Navbar**: Active on Portfolio (index 2)
+- **Sidebar**: Hidden on portfolio page
+- **Accordion**: Primary navigation within page
+
+---
+
+## Background Elements
+**Same as Homepage**:
+- Dotted pattern
+- Floating code elements (reduced opacity)
+
+---
+
+## Accessibility
+
+### ARIA Attributes
+- **Accordion**: `aria-expanded` on headers
+- **Links**: `aria-label` for context
+- **Progress**: `role="progressbar"` on circles
+
+### Keyboard Navigation
+- **Tab**: Through accordion items
+- **Enter/Space**: Expand/collapse
+- **Arrow Keys**: Navigate pages
+
+### Screen Reader
+- **Announcements**: Page changes announced
+- **Skip Links**: Jump to content
+
+---
+
+## Performance
+
+### Lazy Loading
+- **Pages**: Only render visible pages
+- **Images**: Lazy load off-screen images
+
+### Scroll Performance
+- **Throttling**: Scroll event handlers optimized
+- **GPU Acceleration**: Transform3d for smooth scrolling
+
+### Cache Control
+- **Meta Tags**: No-cache for fresh content
+- **Version**: CSS/JS versioned (`?v=2.1`)
+
+---
+
+## Special Features
+
+### Dynamic Content Loading
+- **JavaScript**: `js/portfolio.js`
+- **Data**: `js/projectData.js`
+- **Switching**: Projects switch content dynamically
+
+### Project Data Structure
+```javascript
+{
+  id: 1,
+  name: "Eastleigh Turf Flow",
+  pages: [
+    { id: "overview", title: "Overview", content: "..." },
+    { id: "role-timeline", title: "Role & Timeline", content: "..." },
+    // ... more pages
+  ]
+}
+```
+
+### Modal System
+- **File**: `js/projectModal.js`
+- **Purpose**: Detailed project views
+- **Trigger**: Click on certain elements
+
+---
+
+## File References
+
+### HTML
+- `portfolio.html` - Main portfolio page
+
+### CSS
+- `css/styles.css` - Global styles
+- `css/portfolio.css` - Page-specific styles
+- `css/portfolio-entrance.css` - Entrance animation
+- `css/modal.css` - Modal styles
+- `css/liquid-navbar.css` - Navigation
+
+### JavaScript
+- `js/portfolio.js` - Main portfolio logic
+- `js/portfolio-entrance.js` - Entrance animation
+- `js/projectData.js` - Project content data
+- `js/projectModal.js` - Modal functionality
+- `js/liquid-navbar.js` - Navigation
+
+### Images
+- `images/PortFolioImageDesign.svg` - Entrance animation [PLACEHOLDER]
+- `images/LeonDevLogo.svg` - Logo [PLACEHOLDER]
+
+---
+
+## Notes for Recreation
+
+1. **Entrance Animation**: SVG should be preloaded for smooth playback
+2. **Horizontal Scroll**: Use CSS scroll-snap for page alignment
+3. **Progress Circles**: Calculate based on scroll position within chapter
+4. **Accordion State**: Persist active state during navigation
+5. **Page Content**: Load from data structure for easy updates
+6. **Smooth Scrolling**: Use `scrollIntoView({ behavior: 'smooth' })`
+7. **Active States**: Sync between accordion, pages, and progress
+8. **Mobile Layout**: Convert horizontal to vertical scroll
+9. **Performance**: Limit DOM nodes, use virtual scrolling if needed
+10. **Accessibility**: Ensure all interactions work with keyboard only

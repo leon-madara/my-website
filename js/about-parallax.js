@@ -107,6 +107,19 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Activating fallback mode due to initialization error.');
         activateFallbackMode('Initialization error: ' + error.message);
     }
+
+    // Initialize Animal Carousel after parallax setup
+    if (typeof AnimalCarousel !== 'undefined') {
+        console.log('Initializing Animal Carousel...');
+        try {
+            AnimalCarousel.init();
+        } catch (error) {
+            console.warn('⚠️ Animal Carousel initialization failed:', error);
+            console.log('Continuing without carousel functionality');
+        }
+    } else {
+        console.warn('⚠️ AnimalCarousel module not found - carousel disabled');
+    }
 });
 
 /**
@@ -181,7 +194,7 @@ function initParallaxHero() {
     const scaleTarget = isMobile ? 0.4 : 0.5;
     const translateTarget = isMobile ? '-80vw' : '-90vw';
     const scrubSpeed = isMobile ? 0.5 : 1;
-    
+
     console.log('Animation parameters configured:', {
         scaleTarget: scaleTarget,
         translateTarget: translateTarget,
@@ -196,7 +209,7 @@ function initParallaxHero() {
     console.log('========================================');
     console.log('📊 CREATING MASTER TIMELINE');
     console.log('========================================');
-    
+
     let masterTimeline;
     try {
         const scrollTriggerConfig = {
@@ -236,7 +249,7 @@ function initParallaxHero() {
                 // console.log('Scroll progress:', (self.progress * 100).toFixed(1) + '%');
             }
         };
-        
+
         console.log('ScrollTrigger configuration:', {
             trigger: '.parallax-hero',
             start: scrollTriggerConfig.start,
@@ -245,11 +258,11 @@ function initParallaxHero() {
             pin: scrollTriggerConfig.pin,
             markers: scrollTriggerConfig.markers
         });
-        
+
         masterTimeline = gsap.timeline({
             scrollTrigger: scrollTriggerConfig
         });
-        
+
         console.log('✓ Master timeline created successfully');
         console.log('Timeline ID:', masterTimeline.data ? masterTimeline.data.id : 'N/A');
     } catch (error) {
@@ -428,7 +441,7 @@ function initParallaxHero() {
         console.log('  - From: opacity(0)');
         console.log('  - To: opacity(1)');
         console.log('  - Timeline position: 0.3 (starts early)');
-        
+
         masterTimeline.fromTo(whatIDoSection,
             {
                 opacity: 0
@@ -448,7 +461,7 @@ function initParallaxHero() {
         console.log('  - From: opacity(0), scale(0.9), y(-30)');
         console.log('  - To: opacity(1), scale(1), y(0)');
         console.log('  - Timeline position: 0.5 (starts halfway through)');
-        
+
         masterTimeline.fromTo(sectionTitle,
             {
                 opacity: 0,
@@ -478,7 +491,7 @@ function initParallaxHero() {
         console.log('  - From: opacity(0), y(50)');
         console.log('  - To: opacity(1), y(0)');
         console.log('  - Timeline position: 0.6 (slightly delayed)');
-        
+
         masterTimeline.fromTo(sectionBody,
             {
                 opacity: 0,
@@ -510,7 +523,7 @@ function initParallaxHero() {
             console.log('  - To: opacity(1), y(0)');
             console.log('  - Stagger: 0.15s between cards');
             console.log('  - Timeline position: 0.7 (delayed start)');
-            
+
             masterTimeline.fromTo(expertiseItems,
                 {
                     opacity: 0,
@@ -864,10 +877,10 @@ function initParallaxHero() {
 
     console.log('Setting up viewport resize handler...');
     console.log('Note: ScrollTrigger handles resize automatically with invalidateOnRefresh');
-    
+
     // ScrollTrigger automatically handles resize events when invalidateOnRefresh is true
     // Manual refresh is only needed for custom logic or dynamic parameter changes
-    
+
     let resizeTimeout;
     window.addEventListener('resize', () => {
         // Log resize event for debugging
@@ -883,15 +896,15 @@ function initParallaxHero() {
         // Clear previous timeout to debounce
         clearTimeout(resizeTimeout);
         console.log('Debounce timer reset - waiting 250ms...');
-        
+
         // Debounced resize handler (250ms timeout)
         resizeTimeout = setTimeout(() => {
             console.log('Debounced resize handler executing...');
-            
+
             // Detect if device type changed (mobile/desktop)
             const wasMobile = scaleTarget === 0.25;
             const isNowMobile = window.innerWidth <= 768;
-            
+
             if (wasMobile !== isNowMobile) {
                 console.log('⚠️ Device type changed:', {
                     from: wasMobile ? 'mobile' : 'desktop',
@@ -903,11 +916,11 @@ function initParallaxHero() {
             } else {
                 console.log('Device type unchanged:', isNowMobile ? 'mobile' : 'desktop');
             }
-            
+
             // Log active ScrollTrigger count
             const activeTriggers = ScrollTrigger.getAll();
             console.log('Active ScrollTriggers:', activeTriggers.length);
-            
+
             // Log each trigger's configuration
             activeTriggers.forEach((trigger, index) => {
                 console.log(`  Trigger ${index + 1}:`, {
@@ -917,13 +930,13 @@ function initParallaxHero() {
                     scrub: trigger.vars.scrub
                 });
             });
-            
+
             console.log('Resize handling complete');
             console.log('========================================');
-            
+
         }, 250); // 250ms debounce timeout
     });
-    
+
     console.log('✓ Resize handler registered successfully');
 }
 
@@ -981,8 +994,8 @@ function activateFallbackMode(reason) {
     }
 
     console.log('Fallback mode complete - all content is now visible and accessible');
-    console.log('Total elements made visible:', 
-        [whatIDoSection, sectionTitle, sectionBody, heroContainer].filter(el => el).length + 
+    console.log('Total elements made visible:',
+        [whatIDoSection, sectionTitle, sectionBody, heroContainer].filter(el => el).length +
         expertiseItems.length
     );
 }

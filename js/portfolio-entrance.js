@@ -133,28 +133,8 @@ class PortfolioEntranceAnimation {
         this.entranceWrapper.setAttribute('role', 'presentation');
         this.entranceWrapper.setAttribute('aria-hidden', 'true');
 
-        // Build HTML structure
+        // Build HTML structure - logo only
         this.entranceWrapper.innerHTML = `
-            <!-- Persistent Backgrounds -->
-            <div class="entrance-backgrounds">
-                <div class="background-pattern"></div>
-
-                <div class="kenyan-code-elements">
-                    <div class="code-element code-element-1">&lt;/&gt;</div>
-                    <div class="code-element code-element-2">{ }</div>
-                    <div class="code-element code-element-3">[ ]</div>
-                    <div class="code-element code-element-4">( )</div>
-                    <div class="code-element code-element-5">=&gt;</div>
-                    <div class="code-element code-element-6">&amp;&amp;</div>
-                </div>
-
-                <div class="decorative-shapes">
-                    <div class="shape shape-1"></div>
-                    <div class="shape shape-2"></div>
-                    <div class="shape shape-3"></div>
-                </div>
-            </div>
-
             <!-- 3D Flip Scene -->
             <div class="flip-scene-3d">
                 <!-- Part A: Splash Face -->
@@ -164,12 +144,6 @@ class PortfolioEntranceAnimation {
                              alt="Portfolio Logo"
                              class="splash-logo"
                              loading="eager">
-
-                        <button id="entrance-skip-btn"
-                                class="entrance-control-btn"
-                                aria-label="Pause to view or skip animation">
-                            <span class="btn-label"></span>
-                        </button>
                     </div>
                 </div>
 
@@ -181,8 +155,8 @@ class PortfolioEntranceAnimation {
         // Insert at beginning of body
         document.body.insertBefore(this.entranceWrapper, document.body.firstChild);
 
-        // Cache skip button reference
-        this.skipButton = document.getElementById('entrance-skip-btn');
+        // Cache skip button reference (null since button removed)
+        this.skipButton = null;
 
         console.log('✅ Entrance DOM built');
     }
@@ -193,12 +167,7 @@ class PortfolioEntranceAnimation {
     setupEventListeners() {
         console.log('👂 Setting up event listeners...');
 
-        // Skip button click
-        if (this.skipButton) {
-            this.skipButton.addEventListener('click', () => this.handleSkipClick());
-        }
-
-        // Keyboard support (Space/Enter)
+        // Keyboard support (Space/Enter) for skipping
         document.addEventListener('keydown', (e) => {
             if (e.key === ' ' || e.key === 'Enter') {
                 if (!this.isSkipping && this.entranceWrapper && !this.entranceWrapper.classList.contains('completed')) {
@@ -244,7 +213,6 @@ class PortfolioEntranceAnimation {
             console.log('▶️ Phase A: Logo entrance');
 
             const logo = this.entranceWrapper.querySelector('.splash-logo');
-            const button = this.skipButton;
 
             // Animate logo
             setTimeout(() => {
@@ -254,16 +222,8 @@ class PortfolioEntranceAnimation {
                 }
             }, this.config.logoEntranceDelay);
 
-            // Animate button
-            setTimeout(() => {
-                if (button) {
-                    button.classList.add('animate-in');
-                    console.log('  ✓ Button animating in');
-                }
-            }, this.config.buttonEntranceDelay);
-
             // Resolve after entrance completes
-            setTimeout(resolve, this.config.logoEntranceDuration + this.config.buttonEntranceDelay);
+            setTimeout(resolve, this.config.logoEntranceDuration);
         });
     }
 
@@ -337,18 +297,13 @@ class PortfolioEntranceAnimation {
     }
 
     /**
-     * Handle skip button click
+     * Handle skip (keyboard triggered)
      */
     handleSkipClick() {
         if (this.isSkipping) return;
 
         console.log('⏭️ Skip triggered by user');
         this.isSkipping = true;
-
-        // Update button state
-        if (this.skipButton) {
-            this.skipButton.classList.add('skipping');
-        }
 
         // Clear auto-skip timer
         if (this.autoSkipTimer) {

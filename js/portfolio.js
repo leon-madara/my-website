@@ -172,6 +172,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup sound controls (Phase 5)
     setupSoundControls();
 
+    // Collapse header to free up vertical space
+    collapsePortfolioHeaderSection();
+
     console.log('Portfolio initialization complete');
 });
 
@@ -198,11 +201,22 @@ function cacheDOMElements() {
     // Containers
     DOM.contentWrapper = document.querySelector('.content-wrapper');
 
+    // Completion badge
+    DOM.completionBadge = document.getElementById('completion-percentage');
+
     console.log('DOM elements cached:', {
         projectToggles: DOM.projectToggles.length,
         accordionItems: DOM.accordionItems.length,
         contentPages: DOM.contentPages.length,
         pageDots: DOM.pageDots.length
+    });
+}
+
+function collapsePortfolioHeaderSection() {
+    if (!document.body.classList.contains('portfolio-page')) return;
+
+    requestAnimationFrame(() => {
+        document.body.classList.add('portfolio-header-collapsed');
     });
 }
 
@@ -235,15 +249,35 @@ function updateProjectToggleUI(projectNumber) {
 function initializeAccordion() {
     console.log('Initializing accordion...');
 
-    // First item is expanded by default
-    // This is already set in HTML, just verify
-    const firstItem = DOM.accordionItems[0];
-    if (firstItem && !firstItem.classList.contains('active')) {
-        firstItem.classList.add('active');
-    }
+    // Initialize accordion content heights for smooth transitions
+    DOM.accordionItems.forEach((item, index) => {
+        const content = item.querySelector('.accordion-content');
+        const header = item.querySelector('.accordion-header');
+
+        if (!content || !header) return;
+
+        // Set initial state based on active class
+        if (item.classList.contains('active')) {
+            // Set max-height to scrollHeight for smooth transitions
+            content.style.maxHeight = content.scrollHeight + 'px';
+            content.style.opacity = '1';
+            header.setAttribute('aria-expanded', 'true');
+        } else {
+            // Collapsed state
+            content.style.maxHeight = '0';
+            content.style.opacity = '0';
+            header.setAttribute('aria-expanded', 'false');
+        }
+    });
 
     // Build page-to-chapter mapping for auto-sync
     buildPageToChapterMap();
+
+    // Initialize progress circles
+    updateChapterProgress(PortfolioState.currentPage);
+    
+    // Initialize overall completion
+    updateOverallCompletion(PortfolioState.currentPage);
 }
 
 // ====================================
@@ -331,21 +365,28 @@ function setupProjectToggleListeners() {
 function setupAccordionListeners() {
     // Header click to expand/collapse + scroll to first page
     DOM.accordionHeaders.forEach(header => {
-        header.addEventListener('click', function() {
+        header.addEventListener('click', function(e) {
+            e.stopPropagation();
+
             const accordionItem = this.closest('.accordion-item');
+            const content = accordionItem.querySelector('.accordion-content');
             const isActive = accordionItem.classList.contains('active');
 
             console.log(`Accordion header clicked: ${accordionItem.dataset.chapter}, currently active: ${isActive}`);
 
-            // Toggle active state
+            // Toggle active state with smooth height transition
             if (isActive) {
                 // Collapse
                 accordionItem.classList.remove('active');
                 this.setAttribute('aria-expanded', 'false');
+                content.style.maxHeight = '0';
+                content.style.opacity = '0';
             } else {
                 // Expand
                 accordionItem.classList.add('active');
                 this.setAttribute('aria-expanded', 'true');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.style.opacity = '1';
 
                 // Auto-scroll to first page in this chapter
                 const firstLink = accordionItem.querySelector('.accordion-link');
@@ -364,6 +405,9 @@ function setupAccordionListeners() {
             if (soundManager) {
                 soundManager.playAccordionToggle();
             }
+
+            // Update overall completion (based on expanded sections)
+            updateOverallCompletion(PortfolioState.currentPage);
         });
     });
 
@@ -508,6 +552,9 @@ function detectCurrentPage() {
 
         // Sync with accordion - auto-expand and highlight
         syncAccordionWithPage(currentPage);
+
+        // Update progress circles
+        updateChapterProgress(currentPage);
     }
 }
 
@@ -529,6 +576,13 @@ function scrollToPage(pageIndex, fromAccordion = false) {
 
     console.log(`Scrolling to page ${pageIndex} at offset ${scrollLeft}px`);
 
+    // Add page transition fade effect when triggered from accordion
+    if (fromAccordion) {
+        // Start with fade out and slight translate
+        targetPage.style.opacity = '0';
+        targetPage.style.transform = 'translateX(20px)';
+    }
+
     // Smooth scroll to target page
     DOM.horizontalPages.scrollTo({
         left: scrollLeft,
@@ -545,12 +599,116 @@ function scrollToPage(pageIndex, fromAccordion = false) {
     // (to prevent circular updates)
     if (!fromAccordion) {
         syncAccordionWithPage(pageIndex);
+    } else {
+        // Animate page entrance after scroll starts
+        setTimeout(() => {
+            targetPage.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            targetPage.style.opacity = '1';
+            targetPage.style.transform = 'translateX(0)';
+        }, 100);
     }
+
+    // Update progress circles after scroll completes
+    setTimeout(() => {
+        updateChapterProgress(pageIndex);
+    }, 350);
 
     // Reset scrolling flag after animation completes
     setTimeout(() => {
         PortfolioState.isScrolling = false;
     }, 600); // Match scroll animation duration
+}
+
+// ====================================
+// PROGRESS CIRCLE UPDATES
+// ====================================
+
+function updateChapterProgress(currentPageIndex) {
+    if (!DOM.accordionItems) return;
+
+    DOM.accordionItems.forEach(item => {
+        const chapterLinks = item.querySelectorAll('.accordion-link');
+        if (chapterLinks.length === 0) return;
+
+        // Get all page indices for this chapter
+        const chapterPages = Array.from(chapterLinks).map(link =>
+            parseInt(link.dataset.page)
+        );
+
+        const minPage = Math.min(...chapterPages);
+        const maxPage = Math.max(...chapterPages);
+        const chapterLength = maxPage - minPage + 1;
+
+        // Calculate progress percentage
+        let progress = 0;
+        if (currentPageIndex >= minPage && currentPageIndex <= maxPage) {
+            // Currently viewing a page in this chapter
+            progress = ((currentPageIndex - minPage + 1) / chapterLength) * 100;
+        } else if (currentPageIndex > maxPage) {
+            // Already passed this chapter
+            progress = 100;
+        }
+        // If currentPageIndex < minPage, progress stays 0
+
+        // Update progress circle
+        const progressCircleFill = item.querySelector('.progress-circle-fill');
+        const progressText = item.querySelector('.progress-text');
+
+        if (progressCircleFill && progressText) {
+            const circumference = 88; // 2πr = 2 × π × 14 ≈ 88
+            const offset = circumference - (progress / 100) * circumference;
+
+            // Animate the progress circle
+            progressCircleFill.style.strokeDashoffset = offset;
+            progressText.textContent = `${Math.round(progress)}%`;
+        }
+    });
+
+    // Update overall completion percentage
+    updateOverallCompletion(currentPageIndex);
+}
+
+// ====================================
+// OVERALL COMPLETION CALCULATION
+// ====================================
+
+function updateOverallCompletion(currentPageIndex) {
+    if (!DOM.accordionItems || !DOM.completionBadge) return;
+
+    let totalPages = 0;
+    let completedPages = 0;
+
+    DOM.accordionItems.forEach(item => {
+        const chapterLinks = item.querySelectorAll('.accordion-link');
+        if (chapterLinks.length === 0) return;
+
+        const chapterPages = Array.from(chapterLinks).map(link =>
+            parseInt(link.dataset.page)
+        );
+
+        const minPage = Math.min(...chapterPages);
+        const maxPage = Math.max(...chapterPages);
+        const chapterLength = maxPage - minPage + 1;
+
+        totalPages += chapterLength;
+
+        // Count completed pages in this chapter
+        if (currentPageIndex >= maxPage) {
+            // Entire chapter completed
+            completedPages += chapterLength;
+        } else if (currentPageIndex >= minPage) {
+            // Partially completed
+            completedPages += (currentPageIndex - minPage + 1);
+        }
+    });
+
+    // Calculate overall percentage
+    const overallProgress = totalPages > 0 ? Math.round((completedPages / totalPages) * 100) : 0;
+
+    // Update completion badge
+    if (DOM.completionBadge) {
+        DOM.completionBadge.textContent = `${overallProgress}%`;
+    }
 }
 
 // ====================================
@@ -599,16 +757,27 @@ async function switchProject(newProjectNumber) {
 function animateProjectExit() {
     return new Promise((resolve) => {
         const contentWrapper = DOM.contentWrapper;
+        const accordionNav = document.querySelector('.accordion-nav');
 
         if (!contentWrapper) {
             resolve();
             return;
         }
 
-        // Add exit animation class
-        contentWrapper.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        // Apply blinking animation to both accordion-nav and content-wrapper
+        const animationStyle = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Animate content-wrapper
+        contentWrapper.style.transition = animationStyle;
         contentWrapper.style.opacity = '0';
-        contentWrapper.style.transform = 'scale(0.95) translateX(-30px)';
+        contentWrapper.style.transform = 'scale(0.95)';
+        
+        // Animate accordion-nav if it exists
+        if (accordionNav) {
+            accordionNav.style.transition = animationStyle;
+            accordionNav.style.opacity = '0';
+            accordionNav.style.transform = 'scale(0.95)';
+        }
 
         setTimeout(resolve, 400);
     });
@@ -617,24 +786,39 @@ function animateProjectExit() {
 function animateProjectEnter() {
     return new Promise((resolve) => {
         const contentWrapper = DOM.contentWrapper;
+        const accordionNav = document.querySelector('.accordion-nav');
 
         if (!contentWrapper) {
             resolve();
             return;
         }
 
-        // Start from right side
-        contentWrapper.style.transform = 'scale(0.95) translateX(30px)';
+        // Start both elements from scaled/opacity state
+        const startStyle = 'scale(0.95)';
+        contentWrapper.style.transform = startStyle;
         contentWrapper.style.opacity = '0';
+        
+        if (accordionNav) {
+            accordionNav.style.transform = startStyle;
+            accordionNav.style.opacity = '0';
+        }
 
         // Force reflow
         contentWrapper.offsetHeight;
 
-        // Animate to normal position
+        // Animate both to normal position
         setTimeout(() => {
-            contentWrapper.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            const animationStyle = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            contentWrapper.style.transition = animationStyle;
             contentWrapper.style.opacity = '1';
-            contentWrapper.style.transform = 'scale(1) translateX(0)';
+            contentWrapper.style.transform = 'scale(1)';
+            
+            if (accordionNav) {
+                accordionNav.style.transition = animationStyle;
+                accordionNav.style.opacity = '1';
+                accordionNav.style.transform = 'scale(1)';
+            }
 
             setTimeout(resolve, 500);
         }, 50);
@@ -1097,6 +1281,90 @@ function initGSAPAnimations() {
                 });
             }
         });
+    }
+
+    // ====================================
+    // 4A. OVERVIEW PAGE - Neumorphic Entrance Animations
+    // ====================================
+    const overviewPage = document.querySelector('#overview');
+
+    if (overviewPage) {
+        const tl = gsap.timeline({ delay: 0.5 });
+
+        // Title with Kenyan gradient - subtle reveal
+        const pageTitle = overviewPage.querySelector('.page-title.kenyan-gradient');
+        if (pageTitle) {
+            gsap.set(pageTitle, { opacity: 1 });
+            tl.from(pageTitle, {
+                opacity: 0,
+                y: 15,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        }
+
+        // Subtitle fade in
+        const pageSubtitle = overviewPage.querySelector('.page-subtitle');
+        if (pageSubtitle) {
+            gsap.set(pageSubtitle, { opacity: 1 });
+            tl.from(pageSubtitle, {
+                opacity: 0,
+                y: 10,
+                duration: 0.3,
+                ease: 'power2.out'
+            }, '-=0.1');
+        }
+
+        // Content paragraph
+        const contentParagraph = overviewPage.querySelector('.page-content > p');
+        if (contentParagraph) {
+            gsap.set(contentParagraph, { opacity: 1 });
+            tl.from(contentParagraph, {
+                opacity: 0,
+                y: 10,
+                duration: 0.3,
+                ease: 'power2.out'
+            }, '-=0.1');
+        }
+
+        // Info cards with stagger and neumorphic float effect
+        const infoItems = overviewPage.querySelectorAll('.info-item');
+        if (infoItems.length > 0) {
+            // Ensure info items are visible first
+            gsap.set(infoItems, { opacity: 1 });
+
+            tl.from(infoItems, {
+                opacity: 0,
+                y: 20,
+                scale: 0.95,
+                duration: 0.3,
+                stagger: 0.08,
+                ease: 'power2.out'
+            }, '-=0.2');
+
+            // Add subtle hover float animation
+            infoItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    if (!prefersReducedMotion) {
+                        gsap.to(item, {
+                            y: -6,
+                            duration: 0.3,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    if (!prefersReducedMotion) {
+                        gsap.to(item, {
+                            y: 0,
+                            duration: 0.3,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+            });
+        }
     }
 
     // ====================================

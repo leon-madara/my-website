@@ -29,37 +29,37 @@
     --font-size-hero-scaled: clamp(6rem, 16vw, 12rem);
     --font-size-subtitle-scaled: clamp(3rem, 8vw, 5rem);
 
-    /* Typography Improvements - Adjusted Font Sizes */
-    --font-size-greeting-2x: clamp(5rem, 12vw, 6rem);
-    /* 2x increase for greeting */
-    --font-size-greeting-64px: clamp(3rem, 6vw, 4rem);
-    /* 64px equivalent greeting size */
-    --font-size-name-reduced: clamp(3.6rem, 9.6vw, 7.2rem);
-    /* 40% reduction for name */
-    --font-size-name-80px: clamp(3.5rem, 7vw, 4.5rem);
-    /* 80px equivalent name size - reduced for single line */
-    --font-size-role-reduced: clamp(2.1rem, 5.6vw, 3.5rem);
-    /* 30% reduction for role */
+    /* Typography Improvements - Adjusted Font Sizes - Reduced by 20% */
+    --font-size-greeting-2x: clamp(4rem, 9.6vw, 4.8rem);
+    /* 2x increase for greeting - 20% reduction */
+    --font-size-greeting-64px: clamp(2.4rem, 4.8vw, 3.2rem);
+    /* 64px equivalent greeting size - 20% reduction */
+    --font-size-name-reduced: clamp(2.88rem, 7.68vw, 5.76rem);
+    /* 40% reduction for name - 20% further reduction */
+    --font-size-name-80px: clamp(4.2rem, 8.4vw, 5.4rem);
+    /* 80px equivalent name size - 20% reduction */
+    --font-size-role-reduced: clamp(1.68rem, 4.48vw, 2.8rem);
+    /* 30% reduction for role - 20% further reduction */
 
     /* Typography Improvements - Hover Effects */
     --name-glow-color: var(--accent-green);
     --name-glow-intensity: 0 0 20px rgba(0, 107, 63, 0.4);
-    --font-size-role-reduced: clamp(2.1rem, 5.6vw, 3.5rem);
-    /* 30% reduction for role */
+    --font-size-role-reduced: clamp(1.68rem, 4.48vw, 2.8rem);
+    /* 30% reduction for role - 20% further reduction */
 
     /* Custom Font Families */
     --font-greeting: "Space Mono", monospace;
     --font-name: "Asimovian", sans-serif;
     --font-role: "Enriqueta", serif;
 
-    /* Layout - Essential Only */
+    /* Layout - Essential Only - Reduced by 20% */
     --container-max-width: 2560px;
-    --section-padding: clamp(3rem, 6vw, 5rem);
-    --content-padding: clamp(1.5rem, 4vw, 3rem);
-    --grid-gap: clamp(2rem, 4vw, 3rem);
-    --space-sm: clamp(0.5rem, 1.5vw, 1rem);
-    --space-md: clamp(1rem, 2.5vw, 1.5rem);
-    --space-lg: clamp(1.5rem, 3.5vw, 2.5rem);
+    --section-padding: clamp(2.4rem, 4.8vw, 4rem);
+    --content-padding: clamp(1.2rem, 3.2vw, 2.4rem);
+    --grid-gap: clamp(1.6rem, 3.2vw, 2.4rem);
+    --space-sm: clamp(0.4rem, 1.2vw, 0.8rem);
+    --space-md: clamp(0.8rem, 2vw, 1.2rem);
+    --space-lg: clamp(1.2rem, 2.8vw, 2rem);
     --transition-fast: 0.15s ease-in-out;
     --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -136,29 +136,14 @@
 
 /* Kenyan Flag Gradient Class */
 .kenyan-gradient {
-    /* Fallback color for browsers that don't support gradient text */
-    color: #ce1126;
+    /* Gradient text defaults */
+    color: transparent;
 
     /* Cross-browser gradient support */
-    background: linear-gradient(45deg, #000000 0%, #ce1126 50%, #006b3f 100%);
-    background: -webkit-linear-gradient(
-        45deg,
-        #000000 0%,
-        #ce1126 50%,
-        #006b3f 100%
-    );
-    background: -moz-linear-gradient(
-        45deg,
-        #000000 0%,
-        #ce1126 50%,
-        #006b3f 100%
-    );
-    background: -o-linear-gradient(
-        45deg,
-        #000000 0%,
-        #ce1126 50%,
-        #006b3f 100%
-    );
+    background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -webkit-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -moz-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -o-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
 
     /* Gradient text effect with webkit prefixes */
     -webkit-background-clip: text;
@@ -173,10 +158,11 @@
 }
 
 /* Fallback for browsers without gradient text support */
-@supports not (-webkit-background-clip: text) {
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
     .kenyan-gradient {
-        color: #ce1126 !important;
+        color: #004d2e !important;
         background: none !important;
+        -webkit-text-fill-color: currentColor !important;
     }
 }
 
@@ -305,15 +291,11 @@
 @supports (-webkit-background-clip: text) {
     .kenyan-gradient {
         /* Only apply gradient if browser supports it */
-        background: linear-gradient(
-            45deg,
-            #000000 0%,
-            #ce1126 50%,
-            #006b3f 100%
-        );
+        background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        color: transparent;
     }
 }
 
@@ -329,6 +311,7 @@
 }
 
 body,
+main,
 h1,
 h2,
 h3,
@@ -349,23 +332,155 @@ ol {
 
 html {
     width: 100vw;
-    height: 100vh;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    overflow-y: auto;
+    /* Default: allow scrolling */
+    overflow-x: hidden;
+}
+
+/* Home page - no scrolling on html and body */
+body.home-page {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+body.home-page,
+html body.home-page {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* JavaScript will handle html overflow for home page via class */
+html.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    height: 100vh;
 }
 
 body {
     width: 100vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
     /* Dynamic viewport height for mobile browsers */
     line-height: var(--line-height-normal);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* Home page - no scrolling */
+body.home-page {
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* All other pages - scrollable */
+body:not(.home-page) {
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Desktop/Laptop: Scrollable behavior */
+@media (min-width: 769px) {
+
+    /* Home page - no scrolling */
+    html body.home-page,
+    body.home-page {
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    /* All other pages - scrollable */
+    body:not(.home-page) {
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* HTML element - scrollable for non-home pages */
+    html:not(:has(body.home-page)) {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Zoom out all direct children of body except sidebar (main, nav, footer, decorative elements) */
+    /* Removed scale transformation for proper responsive design */
+    body:not(.portfolio-page)>nav,
+    body:not(.portfolio-page)>main,
+    body:not(.portfolio-page)>footer,
+    body:not(.portfolio-page)>.background-pattern,
+    body:not(.portfolio-page)>.kenyan-code-elements,
+    body:not(.portfolio-page)>a:not(.pill-sidebar),
+    body:not(.portfolio-page)>div:not(.pill-sidebar):not(.sr-only) {
+        /* transform: scale(0.85); - REMOVED */
+        /* transform-origin: top left; - REMOVED */
+    }
+
+    /* No scrolling - fixed at 100vh (home page only) */
+    body.home-page .landing-page {
+        max-height: 100vh;
+        overflow: hidden;
+        /* Prevent all scrolling */
+    }
+
+    /* Other pages - allow scrolling */
+    body:not(.home-page) .landing-page,
+    body:not(.home-page) main {
+        overflow-y: visible;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* HTML element - allow scrolling on non-home pages */
+    html body:not(.home-page) {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+/* Portfolio, About, Contact pages can scroll */
+body.portfolio-page,
+body.about-page,
+body.contact-page {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Sidebar positioning - counter-scale removed for proper responsive design */
+.pill-sidebar {
+    transform: translateY(-50%);
+    /* Keep vertical centering only */
+    transform-origin: left center;
+}
+
+.pill-sidebar:hover {
+    transform: translateY(-50%) translateY(-8px);
+    /* Removed scale, keep hover lift */
+}
+
+/* Ensure content doesn't overflow horizontally */
+body,
+html {
+    max-width: 100%;
+    /* Changed from 100vw to avoid scrollbar width issues */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 img,
@@ -385,6 +500,7 @@ button {
 
 /* Enhanced Performance Optimization and Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -537,6 +653,7 @@ button {
 
 /* Performance-based animation quality scaling */
 @media (max-resolution: 1dppx) {
+
     /* Reduce animation complexity on low-DPI displays */
     .circular-halo {
         box-shadow:
@@ -552,6 +669,7 @@ button {
 
 /* High refresh rate display optimizations */
 @media (min-resolution: 120dpi) and (min-refresh: 90Hz) {
+
     /* Enhanced animations for high refresh rate displays */
     .circular-halo.materializing {
         animation-duration: 0.3s;
@@ -699,6 +817,7 @@ button {
 }
 
 @-webkit-keyframes pulse {
+
     0%,
     100% {
         -webkit-transform: scale(1);
@@ -712,6 +831,7 @@ button {
 }
 
 @keyframes pulse {
+
     0%,
     100% {
         -webkit-transform: scale(1);
@@ -934,16 +1054,15 @@ button {
 
 /* Fallback dotted pattern using CSS for older browsers */
 .no-svg .background-pattern {
-    background-image: radial-gradient(
-        circle,
-        rgba(51, 51, 51, 0.4) 1px,
-        transparent 1px
-    );
+    background-image: radial-gradient(circle,
+            rgba(51, 51, 51, 0.4) 1px,
+            transparent 1px);
     background-size: 20px 20px;
 }
 
 /* Internet Explorer 11 specific fixes */
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
     .background-pattern {
         background-image: none;
         background-color: rgba(51, 51, 51, 0.1);
@@ -1167,6 +1286,7 @@ button {
 }
 
 @keyframes float-code {
+
     0%,
     100% {
         transform: translate3d(0, 0, 0) rotate(0deg);
@@ -1194,16 +1314,12 @@ body {
     background: hsl(48, 10%, 90%);
 
     /* Modern styles with CSS custom properties */
-    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem) /
-        var(--line-height-normal, 1.5)
-        var(
-            --font-primary,
+    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem) / var(--line-height-normal, 1.5) var(--font-primary,
             -apple-system,
             BlinkMacSystemFont,
             "Segoe UI",
             Roboto,
-            sans-serif
-        );
+            sans-serif);
     color: var(--primary-text, #333);
     background: var(--background-light, hsl(48, 10%, 90%));
 }
@@ -1221,6 +1337,13 @@ h6 {
 
 h1 {
     font-size: var(--font-size-hero);
+}
+
+/* Override h1 font-size for name class - Reduced by 20% */
+h1.name {
+    font-size: var(--font-size-name-80px);
+    /* Fallback for browsers without CSS custom properties */
+    font-size: clamp(4.2rem, 8.4vw, 5.4rem);
 }
 
 h2 {
@@ -1250,12 +1373,9 @@ a {
     /* Modern styles with CSS custom properties */
     color: var(--accent-green, #006b3f);
     transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
-    -webkit-transition: all
-        var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
-    -moz-transition: all
-        var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
-    -o-transition: all
-        var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -webkit-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -moz-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -o-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 a:hover,
@@ -1328,25 +1448,7 @@ a:active {
 }
 
 /* Skip Link for Screen Readers */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 6px;
-    background: var(--accent-green);
-    color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 4px;
-    z-index: 1000;
-    font-weight: bold;
-    transition: top 0.3s ease;
-}
 
-.skip-link:focus {
-    top: 6px;
-    outline: 3px solid #fff;
-    outline-offset: 2px;
-}
 
 /* Optimized Responsive Breakpoints with 2x Font Scaling */
 @media (min-width: 768px) {
@@ -1366,7 +1468,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(4.2rem, 10.8vw, 7.8rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4rem, 8vw, 5rem);
+        --font-size-name-80px: clamp(6rem, 12vw, 7.5rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(2.45rem, 6.3vw, 3.85rem);
         /* 30% reduction for role */
@@ -1390,7 +1492,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(4.8rem, 12vw, 8.4rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4.5rem, 8.5vw, 5.5rem);
+        --font-size-name-80px: clamp(6.75rem, 12.75vw, 8.25rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(2.8rem, 7vw, 4.2rem);
         /* 30% reduction for role */
@@ -1414,7 +1516,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(5.4rem, 13.2vw, 9rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4.5rem, 9vw, 6rem);
+        --font-size-name-80px: clamp(6.75rem, 13.5vw, 9rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(3.15rem, 7.7vw, 4.55rem);
         /* 30% reduction for role */
@@ -1438,7 +1540,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(6rem, 14.4vw, 9.6rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4.5rem, 9.5vw, 6.5rem);
+        --font-size-name-80px: clamp(6.75rem, 14.25vw, 9.75rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(3.5rem, 8.4vw, 4.9rem);
         /* 30% reduction for role */
@@ -1461,82 +1563,6 @@ a:active {
     padding: 0;
 }
 
-/* Blurry Black Background Effect for Navigation Icons */
-.nav-background-blur {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 20px;
-    z-index: 100;
-    pointer-events: none;
-    /* Subtle appearance like page decorations */
-    opacity: 0.8;
-    /* Smooth transitions for dynamic sizing */
-    transition:
-        width 0.3s ease,
-        opacity 0.3s ease;
-    /* GPU acceleration for smooth performance */
-    will-change: transform, width;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
-
-/* Fallback for browsers without backdrop-filter support */
-@supports not (backdrop-filter: blur(8px)) {
-    .nav-background-blur {
-        background: rgba(0, 0, 0, 0.3);
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-    }
-}
-
-/* Enhanced fallback for older browsers */
-@supports not (-webkit-backdrop-filter: blur(8px)) and not
-    (backdrop-filter: blur(8px)) {
-    .nav-background-blur {
-        background: rgba(0, 0, 0, 0.35);
-        box-shadow:
-            inset 0 0 20px rgba(0, 0, 0, 0.3),
-            0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-}
-
-/* Responsive adjustments for background blur */
-@media (max-width: 768px) {
-    .nav-background-blur {
-        height: 36px;
-        border-radius: 18px;
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-    }
-}
-
-/* Performance optimizations for reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .nav-background-blur {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        background: rgba(0, 0, 0, 0.25);
-        will-change: auto;
-    }
-}
-
-/* High contrast mode adjustments */
-@media (prefers-contrast: high) {
-    .nav-background-blur {
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-}
 
 .floating-header {
     position: fixed;
@@ -1561,8 +1587,8 @@ a:active {
     position: absolute;
     left: 20vw;
     /* Direct positioning at 20vw from viewport edge */
-    top: 15px;
-    /* Positioned 15px from top */
+    top: 25px;
+    /* Positioned 25px from top (moved down 10px from 15px) */
     transform: scale(40.5);
     /* 40.5x scaling (doubled from 20.25x) */
     transform-origin: left center;
@@ -1759,7 +1785,7 @@ a:active {
     box-shadow:
         0 0 20px var(--page-background-color),
         /* Enhanced shadow effects beneath floating containers for depth perception */
-            0 15px 35px rgba(0, 0, 0, 0.4),
+        0 15px 35px rgba(0, 0, 0, 0.4),
         0 5px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
@@ -2545,6 +2571,7 @@ a:active {
 
 /* Accessibility Enhancements for Tooltips */
 @media (prefers-reduced-motion: reduce) {
+
     .nav-icon::after,
     .nav-icon::before {
         transition: none !important;
@@ -2598,6 +2625,7 @@ a:active {
 
 /* Touch Device Adjustments - Hide tooltips on touch to prevent conflicts */
 @media (hover: none) and (pointer: coarse) {
+
     .nav-icon::after,
     .nav-icon::before {
         display: none;
@@ -3009,20 +3037,20 @@ a:active {
         border-radius: 19px;
     }
 
-    /* Typography responsive adjustments for tablet */
+    /* Typography responsive adjustments for tablet - Reduced by 20% */
     .greeting {
         font-size: var(--font-size-greeting-64px);
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.6rem;
     }
 
     .name {
         font-size: var(--font-size-name-80px);
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
     }
 
     .role {
         font-size: var(--font-size-role-reduced);
-        margin-bottom: 1.75rem;
+        margin-bottom: 1.4rem;
     }
 }
 
@@ -3041,7 +3069,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(3.3rem, 7.8vw, 5.4rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(3rem, 6.5vw, 4rem);
+        --font-size-name-80px: clamp(4.5rem, 9.75vw, 6rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(1.925rem, 4.55vw, 3.15rem);
         /* 30% reduction for role */
@@ -3209,7 +3237,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(2.7rem, 6.6vw, 4.2rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(2.5rem, 5.5vw, 3.5rem);
+        --font-size-name-80px: clamp(3.75rem, 8.25vw, 5.25rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(1.575rem, 3.85vw, 2.45rem);
         /* 30% reduction for role */
@@ -3249,20 +3277,23 @@ a:active {
     }
 }
 
-/* Typography responsive adjustments for mobile small */
+/* Typography responsive adjustments for mobile small - Reduced by 20% */
 .greeting {
     font-size: var(--font-size-greeting-64px);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .name {
     font-size: var(--font-size-name-80px);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 .role {
     font-size: var(--font-size-role-reduced);
-    margin-bottom: 1.5rem;
+    margin: 0 auto 1.2rem auto;
+    text-align: center;
+    width: 100%;
+    display: block;
 }
 
 .floating-navigation {
@@ -3426,7 +3457,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(2.4rem, 6vw, 3.6rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(2rem, 5vw, 3rem);
+        --font-size-name-80px: clamp(3rem, 7.5vw, 4.5rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(1.4rem, 3.5vw, 2.1rem);
         /* 30% reduction for role */
@@ -3583,65 +3614,61 @@ a:active {
 
 /* Landing Page - Optimized */
 .landing-page {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
-    display: flex;
-    align-items: center;
+    height: calc(var(--vh, 1vh) * 100);
+    /* Use actual viewport height from JS */
     overflow: hidden;
+    /* Prevent all scrolling */
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 0;
 }
 
-/* Cross-Browser Hero Section */
-.hero-section {
-    display: grid;
-    display: -ms-grid;
-    /* IE11 support */
-    grid-template-columns: 1fr 2fr 1fr;
-    -ms-grid-columns: 1fr 2fr 1fr;
-    /* IE11 support */
-    grid-template-areas: "flags content social";
-    align-items: center;
-    -ms-grid-row-align: center;
-    /* IE11 support */
-    gap: var(--grid-gap);
-    grid-gap: var(--grid-gap);
-    /* Older browsers */
-    width: 100%;
-    height: 100%;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: var(--section-padding) var(--content-padding);
-    box-sizing: border-box;
+/* Ensure main element has no default margins */
+main.landing-page {
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
-    /* Fallback for browsers without CSS Grid */
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -moz-box-pack: justify;
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
+/* Cross-Browser Hero Section - Desktop Only (No Grid Layout) */
+.hero-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    z-index: 1;
+    /* Removed grid layout for desktop-only centered design */
 }
 
 /* IE11 Grid positioning with standard properties */
-.hero-section > .flag-container {
+.hero-section>.flag-container {
     grid-column: 1;
     -ms-grid-column: 1;
 }
 
-.hero-section > .hero-content {
-    grid-column: 2;
-    -ms-grid-column: 2;
+.hero-section>.hero-content {
+    /* Fixed positioning for perfect center alignment */
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 690px !important;
 }
 
-.hero-section > .social-links {
+.hero-section>.social-links {
     grid-column: 3;
     -ms-grid-column: 3;
 }
@@ -3666,16 +3693,10 @@ a:active {
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     opacity: 0;
-    animation: fadeInLeft var(--animation-duration-slow)
-        var(--transition-smooth) forwards;
-    -webkit-animation: fadeInLeft var(--animation-duration-slow)
-        var(--transition-smooth) forwards;
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 4
-    );
-    -webkit-animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 4
-    );
+    animation: fadeInLeft var(--animation-duration-slow) var(--transition-smooth) forwards;
+    -webkit-animation: fadeInLeft var(--animation-duration-slow) var(--transition-smooth) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 4);
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 4);
 }
 
 .background-flag,
@@ -3716,14 +3737,22 @@ a:active {
 
 /* Hero Content - Optimized with Animations */
 .hero-content {
-    grid-area: content;
-    text-align: center;
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 690px !important;
 }
 
-.hero-content > * {
+.hero-content>* {
     opacity: 0;
-    animation: fadeInUp var(--animation-duration-normal)
-        var(--transition-bounce) forwards;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
 }
 
 .greeting {
@@ -3731,17 +3760,17 @@ a:active {
     font-family: var(--font-greeting);
     font-family: "Space Mono", monospace;
 
-    /* Use 64px equivalent font size for greeting text */
+    /* Use 64px equivalent font size for greeting text - Reduced by 20% */
     font-size: var(--font-size-greeting-64px);
     /* Fallback for browsers without CSS custom properties */
-    font-size: clamp(3rem, 6vw, 4rem);
+    font-size: clamp(2.4rem, 4.8vw, 3.2rem);
 
     color: var(--secondary-text);
     /* Fallback for browsers without CSS custom properties */
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: var(--space-sm);
     /* Fallback for browsers without CSS custom properties */
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     animation-delay: var(--animation-delay-base);
     -webkit-animation-delay: var(--animation-delay-base);
 }
@@ -3751,10 +3780,10 @@ a:active {
     font-family: var(--font-name);
     font-family: "Asimovian", sans-serif;
 
-    /* Use 80px equivalent font size for name text */
+    /* Use 80px equivalent font size for name text - Reduced by 20% */
     font-size: var(--font-size-name-80px);
     /* Fallback for browsers without CSS custom properties */
-    font-size: clamp(3.5rem, 7vw, 4.5rem);
+    font-size: clamp(4.2rem, 8.4vw, 5.4rem);
 
     font-weight: var(--font-weight-bold);
     /* Fallback for browsers without CSS custom properties */
@@ -3764,7 +3793,7 @@ a:active {
     color: #006b3f;
     margin-bottom: var(--space-md);
     /* Fallback for browsers without CSS custom properties */
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     line-height: var(--line-height-tight);
     /* Fallback for browsers without CSS custom properties */
     line-height: 1.1;
@@ -3773,12 +3802,8 @@ a:active {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment)
-    );
-    -webkit-animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment)
-    );
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -3807,22 +3832,21 @@ a:active {
     font-family: var(--font-role);
     font-family: "Enriqueta", serif;
 
-    /* Use reduced font size (30% reduction) */
+    /* Use reduced font size (30% reduction) - Reduced by 20% */
     font-size: var(--font-size-role-reduced);
     /* Fallback for browsers without CSS custom properties */
-    font-size: clamp(2.1rem, 5.6vw, 3.5rem);
+    font-size: clamp(1.68rem, 4.48vw, 2.8rem);
 
     font-weight: var(--font-weight-semibold);
     color: var(--accent-green);
     /* Fallback for browsers without CSS custom properties */
     color: #006b3f;
-    margin-bottom: 1rem;
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 2
-    );
-    -webkit-animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 2
-    );
+    margin: 0 auto 0.8rem auto;
+    text-align: center;
+    width: 100%;
+    display: block;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -3836,27 +3860,24 @@ a:active {
 .action-buttons {
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
-    margin-top: 2rem;
-    animation: fadeInUp var(--animation-duration-normal)
-        var(--transition-bounce) forwards;
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 3
-    );
+    gap: 0.6rem;
+    margin-top: 1.6rem;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
 }
 
 .btn-primary,
 .btn-secondary {
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     font-family: "Enriqueta", serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
     text-align: center;
     text-decoration: none;
-    border-radius: 2rem;
+    border-radius: 1.6rem;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 1.6px solid transparent;
 }
 
 .btn-primary {
@@ -3869,15 +3890,15 @@ a:active {
     background: #006b3f;
     color: #ffffff;
     border-color: #006b3f;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 107, 63, 0.3);
+    transform: translateY(-1.6px);
+    box-shadow: 0 3.2px 9.6px rgba(0, 107, 63, 0.3);
 }
 
 .btn-secondary {
     background: transparent;
     color: #1a1a1a;
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);    
+    -webkit-backdrop-filter: blur(20px);
     border-color: #1a1a1a;
 
 }
@@ -3885,8 +3906,8 @@ a:active {
 .btn-secondary:hover {
     background: #1a1a1a;
     color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1.6px);
+    box-shadow: 0 3.2px 9.6px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:active,
@@ -3901,19 +3922,16 @@ a:active {
 .decorative-lines {
     display: flex;
     justify-content: center;
-    gap: 0.625rem;
-    margin-top: 1rem;
-    animation: fadeInUp var(--animation-duration-normal)
-        var(--transition-bounce) forwards;
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 3.5
-    );
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.5);
 }
 
 .line {
-    height: 3px;
-    width: 40px;
-    border-radius: 2px;
+    height: 2.4px;
+    width: 32px;
+    border-radius: 1.6px;
 }
 
 .line-black {
@@ -3947,141 +3965,62 @@ a:active {
     z-index: 10;
 }
 
-/* AI Text - Starts with animation, then rests visible */
+/* AI Text - JavaScript-controlled switching animation */
 .ai-text {
     display: inline-block;
     position: relative;
     z-index: 2;
-    animation: aiTextAlternate 6s ease-in-out infinite;
     transform-origin: center center;
     will-change: transform, opacity;
-    /* Start visible */
+    /* Start visible - JS will control transitions */
     opacity: 1;
     transform: scale(1);
+    /* Smooth transitions controlled by JS - using ease curve */
+    transition: opacity 0.4s cubic-bezier(.25, .1, .25, 1),
+        transform 0.4s cubic-bezier(.25, .1, .25, 1);
 }
 
-/* AI Text - Resting state (visible after animation) */
+/* AI Text - Resting state (visible) */
 .ai-text.resting {
-    animation: none;
     opacity: 1;
     transform: scale(1);
 }
 
-/* AI Text - Hidden state (when logo is shown on hover) */
+/* AI Text - Hidden state (when logo is shown) */
 .ai-text.hidden {
-    animation: none;
     opacity: 0;
     transform: scale(0.5);
-    transition:
-        opacity 0.4s ease,
-        transform 0.4s ease;
 }
 
-/* Logo Icon - Starts with animation, then rests hidden */
+/* Logo Icon - JavaScript-controlled switching animation */
 .ai-logo-pulse {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0.5);
     width: 1.2em;
     height: auto;
     z-index: 1;
-    animation: logoAlternate 6s ease-in-out infinite;
     transform-origin: center center;
     pointer-events: none;
     will-change: transform, opacity;
-    /* Start hidden */
+    /* Start hidden - JS will control transitions */
     opacity: 0;
+    /* Smooth transitions controlled by JS - using ease curve */
+    transition: opacity 0.4s cubic-bezier(.25, .1, .25, 1),
+        transform 0.4s cubic-bezier(.25, .1, .25, 1);
 }
 
-/* Logo - Resting state (hidden after animation) */
+/* Logo - Resting state (hidden) */
 .ai-logo-pulse.resting {
-    animation: none;
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0.5);
 }
 
-/* Logo - Visible state (shown on hover) */
+/* Logo - Visible state (shown) */
 .ai-logo-pulse.visible {
-    animation: none;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.2);
-    transition:
-        opacity 0.4s ease,
-        transform 0.4s ease;
-}
-
-/* AI Text Alternating Animation: Grow → Shrink & Fade → Hidden */
-@keyframes aiTextAlternate {
-    0% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-
-    16.67% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    33.33% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    41.67% {
-        transform: scale(0.25);
-        opacity: 0;
-    }
-
-    50%,
-    83.33% {
-        transform: scale(0);
-        opacity: 0;
-    }
-
-    91.67% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Logo Alternating Animation: Hidden → Grow → Shrink & Fade */
-@keyframes logoAlternate {
-    0%,
-    41.67% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-    }
-
-    66.67% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-    }
-
-    83.33% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-    }
-
-    91.67% {
-        transform: translate(-50%, -50%) scale(0.3);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-    }
 }
 
 .location {
@@ -4094,23 +4033,16 @@ a:active {
     margin-top: var(--space-sm);
     /* Fallback for browsers without CSS custom properties */
     margin-top: 0.5rem;
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 3
-    );
-    -webkit-animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 3
-    );
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
 }
 
 /* Social Links - Optimized with Animations */
 .social-links {
     grid-area: social;
     opacity: 0;
-    animation: fadeInRight var(--animation-duration-slow)
-        var(--transition-smooth) forwards;
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 5
-    );
+    animation: fadeInRight var(--animation-duration-slow) var(--transition-smooth) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 5);
 }
 
 .social-list {
@@ -4122,26 +4054,19 @@ a:active {
 
 .social-item {
     opacity: 0;
-    animation: scaleIn var(--animation-duration-fast) var(--transition-bounce)
-        forwards;
+    animation: scaleIn var(--animation-duration-fast) var(--transition-bounce) forwards;
 }
 
 .social-item:nth-child(1) {
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 6
-    );
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 6);
 }
 
 .social-item:nth-child(2) {
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 6.5
-    );
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 6.5);
 }
 
 .social-item:nth-child(3) {
-    animation-delay: calc(
-        var(--animation-delay-base) + var(--animation-delay-increment) * 7
-    );
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 7);
 }
 
 .social-link {
@@ -4190,12 +4115,18 @@ a:active {
 
 /* Footer - Optimized with Animation */
 .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
     background: rgba(0, 0, 0, 0.8);
     padding: 2rem var(--content-padding);
     text-align: center;
     opacity: 0;
     transform: translateY(20px);
     transition: all var(--transition-smooth);
+    z-index: 10;
+    box-sizing: border-box;
 }
 
 .footer.animate-in {
@@ -4241,7 +4172,7 @@ a:active {
 }
 
 /* Loading State Improvements */
-body:not(.loaded) .hero-content > *,
+body:not(.loaded) .hero-content>*,
 body:not(.loaded) .flag-container,
 body:not(.loaded) .social-links {
     opacity: 0;
@@ -4387,15 +4318,11 @@ body:not(.loaded) .social-links {
     margin: 0.5rem;
 }
 
-/* Viewport height fallback */
-.landing-page {
-    width: 100vw;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-}
+/* Viewport height fallback - consolidated with main definition above */
 
 /* High DPI display optimizations */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
     .background-pattern {
         background-size: 10px 10px;
     }
@@ -4418,7 +4345,8 @@ body:not(.loaded) .social-links {
 }
 
 /* Ultra-high DPI display optimizations (3x and above) */
-@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+@media (-webkit-min-device-pixel-ratio: 3),
+(min-resolution: 288dpi) {
     .leon-logo {
         /* Further optimize for ultra-high DPI displays */
         width: clamp(38px, 6vw, 78px);
@@ -4436,13 +4364,11 @@ body:not(.loaded) .social-links {
     }
 
     .flag-container {
-        animation: fadeInUp var(--animation-duration-normal)
-            var(--transition-smooth) forwards;
+        animation: fadeInUp var(--animation-duration-normal) var(--transition-smooth) forwards;
     }
 
     .social-links {
-        animation: fadeInUp var(--animation-duration-normal)
-            var(--transition-smooth) forwards;
+        animation: fadeInUp var(--animation-duration-normal) var(--transition-smooth) forwards;
     }
 }
 
@@ -4483,19 +4409,19 @@ body:not(.loaded) .social-links {
     /* Typography responsive adjustments for mobile */
     .greeting {
         font-size: var(--font-size-greeting-64px);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
         text-align: center;
     }
 
     .name {
         font-size: var(--font-size-name-80px);
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
         text-align: center;
     }
 
     .role {
         font-size: var(--font-size-role-reduced);
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
         text-align: center;
     }
 
@@ -4546,39 +4472,23 @@ body:not(.loaded) .social-links {
     /* Adjust animation delays for mobile */
     .flag-container,
     .social-links {
-        animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 2
-        );
-        -webkit-animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 2
-        );
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
     }
 
     .social-item:nth-child(1) {
-        animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 3
-        );
-        -webkit-animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 3
-        );
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
     }
 
     .social-item:nth-child(2) {
-        animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 3.3
-        );
-        -webkit-animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 3.3
-        );
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.3);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.3);
     }
 
     .social-item:nth-child(3) {
-        animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 3.6
-        );
-        -webkit-animation-delay: calc(
-            var(--animation-delay-base) + var(--animation-delay-increment) * 3.6
-        );
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.6);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.6);
     }
 
     /* Improved typography scaling for small screens with 2x scaling */
@@ -4597,25 +4507,36 @@ body:not(.loaded) .social-links {
 /*
 Updated Hero Section for Pill Layout */
 .hero-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
-    padding: var(--section-padding) var(--content-padding);
-    margin-left: 140px;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 .hero-content {
-    text-align: center;
-    max-width: 600px;
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    max-width: 690px !important;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
 }
 
 /* Organic Background Shapes */
 .hero-section::before {
     content: "";
     position: absolute;
-    top: 20%;
+    top: 15vh;
     left: 20vw;
     width: 18.75rem;
     height: 12.5rem;
@@ -4629,7 +4550,7 @@ Updated Hero Section for Pill Layout */
 .hero-section::after {
     content: "";
     position: absolute;
-    top: 80vh;
+    top: 60vh;
     right: 20%;
     width: 12.5rem;
     height: 9.375rem;
@@ -4644,7 +4565,7 @@ Updated Hero Section for Pill Layout */
 .landing-page::before {
     content: "";
     position: absolute;
-    top: 80vh;
+    top: 60vh;
     left: 60%;
     width: 9.375rem;
     height: 6.25rem;
@@ -4657,24 +4578,12 @@ Updated Hero Section for Pill Layout */
 
 /* Header Background Shape - Black blurred shape for navigation contrast */
 .landing-page::after {
-    content: "";
-    position: fixed;
-    top: 15px;
-    left: 60vw;
-    right: 20vw;
-    width: 20vw;
-    height: 64px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    z-index: 50;
-    /* Below navigation icons but above other background elements */
-    filter: blur(20px);
-    pointer-events: none;
-    /* Ensure it doesn't interfere with navigation interactions */
-    animation: float 12s ease-in-out infinite;
+    content: none;
+    display: none;
 }
 
 @keyframes float {
+
     0%,
     100% {
         transform: translateY(0px) rotate(0deg);
@@ -4685,46 +4594,42 @@ Updated Hero Section for Pill Layout */
     }
 }
 
-/* Enhanced hero section positioning */
-.landing-page {
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-section {
-    position: relative;
-    z-index: 1;
-}
-
 /* Location Container Styling */
 .location-container {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+    /* Pill shape */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .location-pin {
-    width: 20px;
-    height: 20px;
-    color: var(--accent-green);
-    /* Fallback */
+    width: 18px;
+    height: 18px;
     color: #006b3f;
+    flex-shrink: 0;
 }
 
 .location {
     margin: 0;
-    font-size: var(--font-size-body);
-    /* Fallback */
-    font-size: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #2d2d2d;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: "Space Mono", monospace;
 }
 
 /* Decorative Shapes on Right Side */
 .decorative-shapes {
     position: absolute;
-    right: 5%;
-    top: 80vh;
+    left: 70vw;
+    top: 90vh;
     transform: translateY(-50%);
     z-index: -1;
 }
@@ -4767,27 +4672,28 @@ Updated Hero Section for Pill Layout */
 
 /* Typography Classes with Responsive Font Sizes */
 .greeting {
-    color: var(--secondary-text);
-    /* Fallback */
-    color: rgba(51, 51, 51, 0.7);
+    color: #2d2d2d;
+    /* Small, dark grey text */
     font-family: var(--font-greeting);
-    font-size: var(--font-size-greeting-64px);
-    /* 64px equivalent greeting size */
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+    font-weight: 400;
     margin-bottom: 0.5rem;
-    line-height: var(--line-height-tight);
+    line-height: 1.5;
+    opacity: 0.8;
 }
 
 .name {
-    color: var(--accent-green);
-    /* Fallback */
     color: #006b3f;
+    /* Green color for name */
     font-family: var(--font-name);
-    font-size: var(--font-size-name-80px);
-    /* 80px equivalent name size */
+    font-family: "Asimovian", sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
     margin-bottom: 1rem;
     position: relative;
     z-index: 2;
-    line-height: var(--line-height-tight);
+    line-height: 1.2;
     transition: all var(--transition-smooth);
 }
 
@@ -4797,23 +4703,57 @@ Updated Hero Section for Pill Layout */
 }
 
 .role {
-    /* Fallback color - will be overridden by gradient class */
-    color: var(--accent-green);
-    color: #006b3f;
+    /* Red/maroon color for role - override gradient */
+    color: #ce1126 !important;
     font-family: var(--font-role);
-    font-size: var(--font-size-role-reduced);
-    /* 30% reduction for role */
-    margin-bottom: 1.5rem;
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin: 0 auto 1.5rem auto;
     position: relative;
     z-index: 2;
-    line-height: var(--line-height-tight);
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+/* Override gradient for role to use solid red/maroon color */
+.role.kenyan-gradient {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #ce1126 !important;
+    color: #ce1126 !important;
+}
+
+/* Ensure AI wrapper within role maintains color */
+.role .ai-wrapper {
+    color: #ce1126;
+}
+
+.role .ai-text {
+    color: #ce1126;
+}
+
+/* Description paragraph styling */
+.description {
+    color: #2d2d2d;
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 auto 2rem auto;
+    max-width: 690px;
+    text-align: center;
+    opacity: 0.85;
 }
 
 /* Final
  Polish and Refinements */
 
 /* Smooth entrance animations */
-.hero-content > * {
+.hero-content>* {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
 }
@@ -4828,6 +4768,10 @@ Updated Hero Section for Pill Layout */
 
 .role {
     animation-delay: 0.6s;
+}
+
+.description {
+    animation-delay: 0.7s;
 }
 
 .location-container {
@@ -4869,9 +4813,7 @@ Updated Hero Section for Pill Layout */
 
 /* Better responsive behavior */
 @media (max-width: 1024px) {
-    .decorative-shapes {
-        display: none;
-    }
+    /* Decorative shapes removed from hiding - desktop only design */
 
     .hero-section::before,
     .hero-section::after,
@@ -5118,7 +5060,8 @@ Updated Hero Section for Pill Layout */
 }
 
 /* High DPI Display Optimizations */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
     .nav-icon-svg {
         /* Ensure crisp icons on high-DPI displays */
         image-rendering: -webkit-optimize-contrast;
@@ -5303,7 +5246,8 @@ Updated Hero Section for Pill Layout */
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-    .hero-content > *,
+
+    .hero-content>*,
     .shape,
     .social-icon-link,
     .profile-photo,
@@ -5352,6 +5296,7 @@ Updated Hero Section for Pill Layout */
 
 /* Touch Device Adjustments - Hide tooltips on touch to prevent conflicts */
 @media (hover: none) and (pointer: coarse) {
+
     .nav-icon::after,
     .nav-icon::before {
         display: none;
@@ -5373,6 +5318,7 @@ Updated Hero Section for Pill Layout */
 
 /* Orientation-specific logo optimizations */
 @media (orientation: landscape) and (max-height: 500px) {
+
     /* Optimize logo for landscape mobile devices with limited height */
     .leon-logo {
         width: clamp(28px, 4vw, 45px);
@@ -5401,6 +5347,7 @@ Updated Hero Section for Pill Layout */
 }
 
 @media (orientation: portrait) and (max-width: 480px) {
+
     /* Optimize logo for portrait mobile devices */
     .leon-logo {
         width: clamp(32px, 7vw, 42px);
@@ -5442,6 +5389,7 @@ Updated Hero Section for Pill Layout */
 /* P
 erformance optimizations and reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -5456,7 +5404,7 @@ erformance optimizations and reduced motion support */
         transition: opacity 0.2s ease !important;
     }
 
-    .hero-content > * {
+    .hero-content>* {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
@@ -5464,11 +5412,17 @@ erformance optimizations and reduced motion support */
 }
 
 /* Performance optimizations */
-.nav-halo,
-.hero-content > * {
+.nav-halo {
     will-change: transform, opacity;
     backface-visibility: hidden;
     transform: translateZ(0);
+}
+
+/* Hero content children - preserve parent centering */
+.hero-content>* {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    /* Removed translateZ(0) to avoid transform conflicts with parent centering */
 }
 
 /* Optimize animations for 60fps */
@@ -5497,6 +5451,7 @@ erformance optimizations and reduced motion support */
 }
 
 @keyframes float {
+
     0%,
     100% {
         transform: translateY(0px);
@@ -5508,6 +5463,7 @@ erformance optimizations and reduced motion support */
 }
 
 @keyframes float-code {
+
     0%,
     100% {
         transform: translateY(0px) rotate(0deg);
@@ -5521,6 +5477,7 @@ erformance optimizations and reduced motion support */
 /*
 Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 @media (hover: none) and (pointer: coarse) {
+
     /* Enhanced touch interactions - Requirement 8.4 */
     .floating-navigation {
         /* Ensure header works on touch devices */
@@ -5592,6 +5549,7 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 
 /* Mouse Device Optimizations - Requirement 8.4 */
 @media (hover: hover) and (pointer: fine) {
+
     /* Enhanced hover effects for mouse devices */
     .nav-icon:hover {
         /* Full hover effects for mouse devices */
@@ -5686,7 +5644,8 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 }
 
 /* High DPI Display Support */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
     .nav-icon-svg {
         /* Ensure crisp icons on high DPI displays */
         image-rendering: -webkit-optimize-contrast;
@@ -5728,6 +5687,7 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 
 /* Keyboard Navigation Support */
 @media (any-hover: none) {
+
     /* For devices without hover capability */
     .nav-icon:focus {
         background: rgba(255, 255, 255, 0.1);
@@ -5765,6 +5725,7 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
         transform: translate3d(0, -20px, 0) scale(1.1);
     }
 }
+
 /* ===================================
    ABOUT SECTION
    =================================== */
