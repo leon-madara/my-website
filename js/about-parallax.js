@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.warn('⚠️ AnimalCarousel module not found - carousel disabled');
     }
+
+    // Initialize scroll-based random image changer
+    initScrollImageRandomizer();
 });
 
 /**
@@ -313,6 +316,36 @@ function initParallaxHero() {
         },
         onComplete: () => {
             console.log('✓ Lion image positioned at 10vw, scale 50%');
+            // Ensure lion stays fixed after animation completes
+            // Get the actual screen position after GSAP animation and lock it in place
+            if (heroImageWrapper) {
+                // Get the bounding rect to find the actual screen position after transform
+                const rect = heroImageWrapper.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate the center point of the element (since we use translate(-50%, -50%))
+                const elementCenterX = rect.left + (rect.width / 2);
+                const elementCenterY = rect.top + (rect.height / 2);
+                
+                // Set position fixed explicitly
+                heroImageWrapper.style.position = 'fixed';
+                // Set left and top to the center position (since translate(-50%, -50%) will center it)
+                heroImageWrapper.style.left = `${elementCenterX}px`;
+                heroImageWrapper.style.top = `${elementCenterY}px`;
+                // Reset transform to only include scale and centering (remove x translation)
+                // translate(-50%, -50%) centers the element at the left/top position
+                heroImageWrapper.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                
+                console.log('✓ Lion image locked in fixed position:', {
+                    left: `${elementCenterX}px`,
+                    top: `${elementCenterY}px`,
+                    scale: '0.5',
+                    position: 'fixed',
+                    'final-screen-position': `center at (${elementCenterX}px, ${elementCenterY}px)`
+                });
+                console.log('✓ Lion image will remain static during scroll');
+            }
         }
     });
 
@@ -432,7 +465,13 @@ function initParallaxHero() {
         }, 0);
 
         // Lion stays in position (no animation on scroll)
-        console.log('Lion remains at 20vw position during scroll');
+        // Ensure lion remains static at its final position after initial animation
+        console.log('Lion remains at final position during scroll - no scroll animations applied');
+        
+        // Explicitly set the lion to remain static during scroll
+        // The initial loadTimeline animation moves it to -40vw and scale 0.5
+        // After that, it should stay fixed in that position
+        // We don't add any animations to heroImageWrapper in masterTimeline
 
         // 2. Section Container: Fade in during hero animation
         console.log('Adding animation 2/5: Section container fade');
@@ -1064,6 +1103,157 @@ window.logScrollTriggers = function () {
         });
     }
 };
+
+/**
+ * Initialize Section-Based Random Image Changer
+ * Changes the hero image randomly when transitioning between sections
+ */
+function initScrollImageRandomizer() {
+    console.log('🦁 Initializing section-based random image changer...');
+    
+    const heroImage = document.getElementById('hero-image');
+    if (!heroImage) {
+        console.warn('⚠️ Hero image element not found - image randomizer disabled');
+        return;
+    }
+
+    // Available animal images
+    const animalImages = [
+        'images/lion1.PNG',      // Original lion (shown at top)
+        'images/lion2.png',      // Alternate lion
+        'images/giraffe1.png',   // Giraffe
+        'images/frog1.png'       // Frog
+    ];
+
+    const originalImage = 'images/lion1.PNG';
+    let isChanging = false;
+    let currentSectionIndex = -1;
+    let lastChangedTime = 0;
+    const minChangeInterval = 800; // Minimum 800ms between changes for smooth transitions
+
+    // Sections to observe (excluding parallax-hero)
+    const sectionSelectors = [
+        '.parallax-hero',
+        '.what-i-do-section',
+        '.skills-section',
+        '.experience-section',
+        '.education-section',
+        '.projects-section',
+        '.certifications-section'
+    ];
+
+    // Get random image from all available images
+    function getRandomImage() {
+        const randomIndex = Math.floor(Math.random() * animalImages.length);
+        return animalImages[randomIndex];
+    }
+
+    // Change image with smooth fade effect
+    function changeImage(newSrc) {
+        // Prevent too frequent changes
+        const now = Date.now();
+        if (isChanging || (now - lastChangedTime) < minChangeInterval) {
+            return;
+        }
+
+        isChanging = true;
+        lastChangedTime = now;
+
+        // Smooth fade out (longer duration for smoother transition)
+        heroImage.style.transition = 'opacity 0.6s ease-in-out';
+        heroImage.style.opacity = '0';
+
+        setTimeout(() => {
+            // Change source
+            heroImage.src = newSrc;
+            
+            // Smooth fade in
+            setTimeout(() => {
+                heroImage.style.opacity = '1';
+                isChanging = false;
+            }, 100);
+        }, 600); // Wait for fade out to complete
+    }
+
+    // Handle section intersection
+    function handleSectionChange(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const section = entry.target;
+                const sectionIndex = sectionSelectors.findIndex(selector => 
+                    section.matches(selector)
+                );
+
+                // Only change if entering a new section
+                if (sectionIndex !== currentSectionIndex && sectionIndex !== -1) {
+                    currentSectionIndex = sectionIndex;
+                    
+                    // If at the top (parallax-hero), show original lion
+                    if (sectionIndex === 0) {
+                        const currentImageName = heroImage.src.split('/').pop().toLowerCase();
+                        const originalImageName = originalImage.split('/').pop().toLowerCase();
+                        if (!currentImageName.includes(originalImageName.replace('.png', ''))) {
+                            changeImage(originalImage);
+                            console.log('📍 Entered hero section - showing original lion');
+                        }
+                    } else {
+                        // For other sections, randomly change to any of the four images
+                        const currentImageName = heroImage.src.split('/').pop().toLowerCase();
+                        let randomImage;
+                        let attempts = 0;
+                        const maxAttempts = 10;
+                        
+                        // Try to get a different image (avoid immediate repeats)
+                        do {
+                            randomImage = getRandomImage();
+                            attempts++;
+                        } while (randomImage.split('/').pop().toLowerCase() === currentImageName && attempts < maxAttempts);
+                        
+                        changeImage(randomImage);
+                        const imageName = randomImage.split('/').pop().split('.')[0];
+                        const sectionName = section.className.split(' ')[0].replace('-section', '');
+                        console.log(`🎲 Entered ${sectionName} section - changed to: ${imageName}`);
+                    }
+                }
+            }
+        });
+    }
+
+    // Setup Intersection Observer for sections
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -20% 0px', // Trigger when section is 20% into viewport
+        threshold: 0.3 // Trigger when 30% of section is visible
+    };
+
+    const observer = new IntersectionObserver(handleSectionChange, observerOptions);
+
+    // Observe all sections
+    sectionSelectors.forEach(selector => {
+        const section = document.querySelector(selector);
+        if (section) {
+            observer.observe(section);
+            console.log(`✓ Observing section: ${selector}`);
+        } else {
+            console.warn(`⚠️ Section not found: ${selector}`);
+        }
+    });
+
+    // Preload all images for smooth transitions
+    console.log('🦁 Preloading animal images...');
+    animalImages.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+            console.log(`✓ Preloaded: ${src}`);
+        };
+        img.onerror = () => {
+            console.warn(`⚠️ Failed to preload: ${src}`);
+        };
+    });
+
+    console.log('✓ Section-based random image changer initialized');
+}
 
 // Log initialization
 console.log('≡ƒô£ about-parallax.js loaded');

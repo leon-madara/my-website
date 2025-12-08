@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -59,6 +59,12 @@
         <a href="index.html" class="header-logo" aria-label="Home">
             <img src="images/LeonDevLogo.svg" alt="Leon Madara" />
         </a>
+        
+        <!-- Dark/Light Mode Toggle - At body level to avoid layout conflicts -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
+            <img src="images/lighMode.svg" alt="Light mode" class="theme-icon light-icon" id="light-icon">
+            <img src="images/darkMode.svg" alt="Dark mode" class="theme-icon dark-icon" id="dark-icon" style="display: none;">
+        </button>
 
         <!-- Navigation -->
         <nav class="nav-pills">
@@ -277,21 +283,21 @@
         <main class="about-page" id="main-content">
             <!-- PARALLAX HERO SECTION -->
             <section class="parallax-hero" id="parallax-hero">
-                <!-- Green Section (0vw to 20vw) -->
-                <div class="green-section" id="green-section"></div>
+                <!-- Top Gradient Section -->
+                <div class="top-gradient-section" id="top-gradient-section"></div>
+
+                <!-- Lion Image - Moved outside hero-container to fix stacking context -->
+                <div class="hero-image-wrapper">
+                    <img
+                        src="images/lion1.PNG"
+                        alt="Leon Madara - Professional portrait"
+                        class="hero-image"
+                        id="hero-image"
+                    />
+                </div>
 
                 <!-- Hero Container (will scale & slide) -->
                 <div class="hero-container" id="hero-container">
-                    <!-- Lion Image -->
-                    <div class="hero-image-wrapper">
-                        <img
-                            src="images/lion1.PNG"
-                            alt="Leon Madara - Professional portrait"
-                            class="hero-image"
-                            id="hero-image"
-                        />
-                    </div>
-
                     <!-- About Text Typography -->
                     <div class="hero-text-wrapper">
                         <div
@@ -346,14 +352,29 @@
                         </p>
 
                         <div class="expertise-grid">
-                            <div class="expertise-item">
-                                <span class="expertise-icon">💻</span>
-                                <h3>Web Development</h3>
-                                <p>
-                                    Building responsive websites and dashboards
-                                    using HTML, CSS, JavaScript, React, and
-                                    Tailwind CSS.
-                                </p>
+                            <div class="expertise-item featured-expertise">
+                                <div class="expertise-header">
+                                    <div class="expertise-icon-wrapper">
+                                        <span class="expertise-icon">💻</span>
+                                    </div>
+                                    <h3>Web Design & Development</h3>
+                                </div>
+                                <div class="expertise-content">
+                                    <p>
+                                        Combining analytical rigor with intuitive design. I build responsive websites 
+                                        and dashboards using modern code, while ensuring accessibility and user-centric 
+                                        layouts via Figma and Adobe XD.
+                                    </p>
+                                    <div class="expertise-tags">
+                                        <span class="tag">React</span>
+                                        <span class="tag">Tailwind CSS</span>
+                                        <span class="tag">JavaScript</span>
+                                        <span class="tag">Figma</span>
+                                        <span class="tag">Adobe XD</span>
+                                        <span class="tag">UI/UX</span>
+                                        <span class="tag">Accessibility</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="expertise-item">
@@ -682,5 +703,83 @@
         <script src="js/main.js"></script>
         <script src="js/about-parallax.js"></script>
         <script src="js/liquid-nav.js"></script>
+        <script>
+            // Change nav link colors on scroll (dark-mode aware)
+            document.addEventListener('DOMContentLoaded', function() {
+                const navLinks = document.querySelectorAll('.nav-pills a');
+                
+                function updateNavColors() {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const isDark = document.body.classList.contains('dark-theme');
+                    
+                    // Get colors based on theme
+                    const scrolledColor = isDark ? '#a8b5c7' : '#000000';  // Gray in dark, black in light
+                    const topColor = isDark ? '#a8b5c7' : '#ffffff';       // Gray in dark, white in light
+                    const activeColor = '#14ff8e';  // Always bright green for active state
+                    
+                    navLinks.forEach(link => {
+                        const svg = link.querySelector('svg');
+                        
+                        if (link.classList.contains('active')) {
+                            // Keep active color (#14ff8e) regardless of scroll or theme
+                            link.style.color = activeColor;
+                            if (svg) {
+                                svg.style.color = activeColor;
+                                svg.style.stroke = activeColor;
+                            }
+                        } else {
+                            // Apply color based on scroll position and theme
+                            const color = scrollTop > 50 ? scrolledColor : topColor;
+                            link.style.color = color;
+                            if (svg) {
+                                svg.style.color = color;
+                                svg.style.stroke = color;
+                            }
+                        }
+                    });
+                }
+                
+                // Update on scroll
+                window.addEventListener('scroll', updateNavColors);
+                
+                // Update on theme change (listen for class changes on body)
+                const observer = new MutationObserver(updateNavColors);
+                observer.observe(document.body, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+                
+                // Initial update
+                updateNavColors();
+            });
+        </script>
+        <script>
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('light-icon');
+            const darkIcon = document.getElementById('dark-icon');
+
+            if (themeToggle && lightIcon && darkIcon) {
+                // Check for saved theme preference on page load
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'night') {
+                    document.body.classList.add('dark-theme');
+                    lightIcon.style.display = 'none';
+                    darkIcon.style.display = 'block';
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    lightIcon.style.display = 'block';
+                    darkIcon.style.display = 'none';
+                }
+
+                // Toggle theme on click
+                themeToggle.addEventListener('click', function() {
+                    const isDark = document.body.classList.toggle('dark-theme');
+                    lightIcon.style.display = isDark ? 'none' : 'block';
+                    darkIcon.style.display = isDark ? 'block' : 'none';
+                    localStorage.setItem('theme', isDark ? 'night' : 'day');
+                });
+            }
+        </script>
     </body>
 </html>
