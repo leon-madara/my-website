@@ -319,10 +319,10 @@ function Show-Status {
     # Check for updates
     Write-Host "`nChecking for remote updates..."
     if (Test-RemoteUpdates) {
-        Write-Host "${YELLOW}⚠ Updates available from remote!${RESET}"
-        Write-Host "  Run: ${CYAN}.\\.github\\scripts\\local-sync-main-fusion.ps1 -Once${RESET}"
+        Write-Host "$YELLOW⚠ Updates available from remote!$RESET"
+        Write-Host "  Run: .\.github\scripts\local-sync-main-fusion.ps1 -Once" -ForegroundColor Cyan
     } else {
-        Write-Host "${GREEN}✓ Up to date with remote${RESET}"
+        Write-Host "$GREEN✓ Up to date with remote$RESET"
     }
     
     Write-Host "`n${CYAN}═══════════════════════════════════════════════════${RESET}`n"

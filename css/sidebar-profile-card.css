@@ -1,0 +1,533 @@
+/* ============================================
+   SIDEBAR PROFILE CARD
+   Full ProfileCard design adapted for sidebar positioning
+   ============================================ */
+
+/* Container - Fixed Sidebar Positioning (Same dimensions as standalone card) */
+.pill-sidebar {
+    position: fixed;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%) scale(1.176); /* Counter body scale to keep normal size */
+    transform-origin: left center;
+    width: 320px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 1rem;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.12),
+        0 8px 16px rgba(0, 0, 0, 0.08);
+    overflow: visible;
+    z-index: 50;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Hide by default - show only on specific pages */
+    display: none;
+}
+
+/* Show on home and contact pages only */
+body.home-page .pill-sidebar,
+body.contact-page .pill-sidebar {
+    display: block;
+}
+
+.pill-sidebar:hover {
+    transform: translateY(-50%) translateY(-8px) scale(1.176); /* Maintain scale on hover */
+    box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.16),
+        0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   CARD HEADER - Kenyan Gradient
+   ============================================ */
+
+.sidebar-header {
+    height: 150px;
+    background: linear-gradient(135deg, rgba(0, 107, 63, 0.85) 0%, rgba(179, 0, 0, 0.85) 100%);
+    position: relative;
+    overflow: visible;
+    border-radius: 1rem 1rem 0 0;
+}
+
+/* Noise texture overlay */
+.sidebar-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    border-radius: 1rem 1rem 0 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4' fill='white'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+/* Gradient overlay for depth */
+.sidebar-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.08) 100%
+    );
+    border-radius: 1rem 1rem 0 0;
+    pointer-events: none;
+}
+
+/* ============================================
+   FOLLOW BUTTON
+   ============================================ */
+
+.sidebar-follow-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: #ffffff;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.sidebar-follow-button:hover {
+    background: #006b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 107, 63, 0.3);
+}
+
+.sidebar-follow-button:active {
+    transform: translateY(0);
+}
+
+.sidebar-follow-button svg {
+    width: 1rem;
+    height: 1rem;
+    stroke-width: 2.5;
+}
+
+/* ============================================
+   AVATAR - Asymmetric at 25%
+   ============================================ */
+
+.profile-section {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    transform: translate(-50%, 50%);
+    z-index: 10;
+}
+
+.profile-photo {
+    width: 107px;
+    height: 107px;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    object-fit: cover;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-photo:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+/* ============================================
+   EXPERIENCE BAR - Rainbow
+   ============================================ */
+
+.experience-bar {
+    position: absolute;
+    bottom: -21px;
+    right: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.exp-label {
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #4a5568;
+    text-transform: lowercase;
+}
+
+.progress-bar {
+    position: relative;
+    width: 112px;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 65%;
+    border-radius: 1rem;
+    background: linear-gradient(
+        to right,
+        #ff0000 0%,
+        #ff7f00 14.28%,
+        #ffff00 28.56%,
+        #00ff00 42.84%,
+        #0000ff 57.12%,
+        #4b0082 71.4%,
+        #9400d3 85.68%,
+        #ff0000 100%
+    );
+    animation: fillBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+}
+
+@keyframes fillBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 65%;
+    }
+}
+
+/* Shimmer effect */
+.progress-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 100%
+    );
+    animation: shimmer 2s infinite;
+    z-index: 1;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ============================================
+   IDENTITY SECTION
+   ============================================ */
+
+.identity-section {
+    width: 100%;
+    text-align: center;
+    padding: 3rem 1.25rem 0;
+    margin-top: 10px;
+}
+
+.sidebar-name {
+    font-family: "Enriqueta", serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.25;
+}
+
+.sidebar-title {
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+}
+
+/* ============================================
+   STATS SECTION
+   ============================================ */
+
+.stats-section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 1.25rem;
+    padding: 0 0.5rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 0.5rem 0;
+    border-right: 1px solid #e5e7eb;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-item:last-child {
+    border-right: none;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    display: block;
+    font-family: "Space Mono", monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    display: block;
+    font-family: "Enriqueta", serif;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: capitalize;
+}
+
+/* ============================================
+   SOCIAL ICONS
+   ============================================ */
+
+.social-nav {
+    width: 100%;
+    padding: 1rem 0 1.25rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.social-icons-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-icon-item {
+    list-style: none;
+}
+
+.social-icon-link {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 0.5rem;
+    color: #6b7280;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.social-icon-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f3f4f6;
+    border-radius: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-icon-link:hover::before {
+    opacity: 1;
+}
+
+.social-icon-link:hover {
+    transform: translateY(-2px);
+}
+
+.social-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom colors for each social icon */
+/* GitHub - Red */
+.social-icon-item:nth-child(1) .social-icon-link {
+    color: #e74c3c;
+}
+
+.social-icon-item:nth-child(1) .social-icon-link:hover {
+    color: #c0392b;
+}
+
+/* LinkedIn - Black */
+.social-icon-item:nth-child(2) .social-icon-link {
+    color: #1a1a1a;
+}
+
+.social-icon-item:nth-child(2) .social-icon-link:hover {
+    color: #000000;
+}
+
+/* Twitter/X - Kenyan Green */
+.social-icon-item:nth-child(3) .social-icon-link {
+    color: #006b3f;
+}
+
+.social-icon-item:nth-child(3) .social-icon-link:hover {
+    color: #004d2d;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1280px) {
+    .pill-sidebar {
+        left: 1rem;
+        width: 240px;
+    }
+
+    .sidebar-header {
+        height: 120px;
+    }
+
+    .profile-photo {
+        width: 85px;
+        height: 85px;
+    }
+
+    .progress-bar {
+        width: 85px;
+    }
+
+    .sidebar-name {
+        font-size: 1.0625rem;
+    }
+
+    .sidebar-title {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .pill-sidebar {
+        left: 0.5rem;
+        width: 220px;
+    }
+
+    .sidebar-header {
+        height: 110px;
+    }
+
+    .profile-photo {
+        width: 75px;
+        height: 75px;
+    }
+
+    .progress-bar {
+        width: 75px;
+        height: 6px;
+    }
+
+    .sidebar-name {
+        font-size: 1rem;
+    }
+
+    .sidebar-title {
+        font-size: 0.6875rem;
+    }
+
+    .stat-number {
+        font-size: 0.9375rem;
+    }
+
+    .stat-label {
+        font-size: 0.625rem;
+    }
+
+    .social-icon-link {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .social-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .pill-sidebar {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sidebar-follow-button:focus-visible,
+.social-icon-link:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+    outline: 2px solid #006b3f;
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes sidebarEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+.pill-sidebar {
+    animation: sidebarEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s
+        backwards;
+}

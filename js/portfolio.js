@@ -36,13 +36,14 @@ class SoundManager {
         this.sounds.accordionToggle = new Audio();
         this.sounds.accordionToggle.volume = this.volume * 0.6;
 
-        // Note: Audio files will need to be added to sounds/ directory
-        // For now, these will fail silently if files don't exist
-        this.sounds.pageFlip.src = 'sounds/page-flip.mp3';
-        this.sounds.projectSwitch.src = 'sounds/project-switch.mp3';
-        this.sounds.accordionToggle.src = 'sounds/accordion-toggle.mp3';
+        // Note: Sound files can be added to sounds/ directory when available
+        // Leave src empty to avoid 404 errors - sounds will be silent until files are added
+        // Uncomment the lines below once you add the sound files to the sounds/ directory:
+        // this.sounds.pageFlip.src = 'sounds/page-flip.mp3';
+        // this.sounds.projectSwitch.src = 'sounds/project-switch.mp3';
+        // this.sounds.accordionToggle.src = 'sounds/accordion-toggle.mp3';
 
-        console.log('Sounds loaded (will use external files if available)');
+        console.log('Sound system initialized (add sound files to sounds/ directory to enable audio)');
     }
 
     play(soundName) {
@@ -171,6 +172,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup sound controls (Phase 5)
     setupSoundControls();
 
+    // Collapse header to free up vertical space
+    collapsePortfolioHeaderSection();
+
     console.log('Portfolio initialization complete');
 });
 
@@ -197,11 +201,22 @@ function cacheDOMElements() {
     // Containers
     DOM.contentWrapper = document.querySelector('.content-wrapper');
 
+    // Completion badge
+    DOM.completionBadge = document.getElementById('completion-percentage');
+
     console.log('DOM elements cached:', {
         projectToggles: DOM.projectToggles.length,
         accordionItems: DOM.accordionItems.length,
         contentPages: DOM.contentPages.length,
         pageDots: DOM.pageDots.length
+    });
+}
+
+function collapsePortfolioHeaderSection() {
+    if (!document.body.classList.contains('portfolio-page')) return;
+
+    requestAnimationFrame(() => {
+        document.body.classList.add('portfolio-header-collapsed');
     });
 }
 
@@ -234,15 +249,35 @@ function updateProjectToggleUI(projectNumber) {
 function initializeAccordion() {
     console.log('Initializing accordion...');
 
-    // First item is expanded by default
-    // This is already set in HTML, just verify
-    const firstItem = DOM.accordionItems[0];
-    if (firstItem && !firstItem.classList.contains('active')) {
-        firstItem.classList.add('active');
-    }
+    // Initialize accordion content heights for smooth transitions
+    DOM.accordionItems.forEach((item, index) => {
+        const content = item.querySelector('.accordion-content');
+        const header = item.querySelector('.accordion-header');
+
+        if (!content || !header) return;
+
+        // Set initial state based on active class
+        if (item.classList.contains('active')) {
+            // Set max-height to scrollHeight for smooth transitions
+            content.style.maxHeight = content.scrollHeight + 'px';
+            content.style.opacity = '1';
+            header.setAttribute('aria-expanded', 'true');
+        } else {
+            // Collapsed state
+            content.style.maxHeight = '0';
+            content.style.opacity = '0';
+            header.setAttribute('aria-expanded', 'false');
+        }
+    });
 
     // Build page-to-chapter mapping for auto-sync
     buildPageToChapterMap();
+
+    // Initialize progress circles
+    updateChapterProgress(PortfolioState.currentPage);
+    
+    // Initialize overall completion
+    updateOverallCompletion(PortfolioState.currentPage);
 }
 
 // ====================================
@@ -330,21 +365,28 @@ function setupProjectToggleListeners() {
 function setupAccordionListeners() {
     // Header click to expand/collapse + scroll to first page
     DOM.accordionHeaders.forEach(header => {
-        header.addEventListener('click', function() {
+        header.addEventListener('click', function(e) {
+            e.stopPropagation();
+
             const accordionItem = this.closest('.accordion-item');
+            const content = accordionItem.querySelector('.accordion-content');
             const isActive = accordionItem.classList.contains('active');
 
             console.log(`Accordion header clicked: ${accordionItem.dataset.chapter}, currently active: ${isActive}`);
 
-            // Toggle active state
+            // Toggle active state with smooth height transition
             if (isActive) {
                 // Collapse
                 accordionItem.classList.remove('active');
                 this.setAttribute('aria-expanded', 'false');
+                content.style.maxHeight = '0';
+                content.style.opacity = '0';
             } else {
                 // Expand
                 accordionItem.classList.add('active');
                 this.setAttribute('aria-expanded', 'true');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.style.opacity = '1';
 
                 // Auto-scroll to first page in this chapter
                 const firstLink = accordionItem.querySelector('.accordion-link');
@@ -363,6 +405,9 @@ function setupAccordionListeners() {
             if (soundManager) {
                 soundManager.playAccordionToggle();
             }
+
+            // Update overall completion (based on expanded sections)
+            updateOverallCompletion(PortfolioState.currentPage);
         });
     });
 
@@ -507,6 +552,9 @@ function detectCurrentPage() {
 
         // Sync with accordion - auto-expand and highlight
         syncAccordionWithPage(currentPage);
+
+        // Update progress circles
+        updateChapterProgress(currentPage);
     }
 }
 
@@ -528,6 +576,13 @@ function scrollToPage(pageIndex, fromAccordion = false) {
 
     console.log(`Scrolling to page ${pageIndex} at offset ${scrollLeft}px`);
 
+    // Add page transition fade effect when triggered from accordion
+    if (fromAccordion) {
+        // Start with fade out and slight translate
+        targetPage.style.opacity = '0';
+        targetPage.style.transform = 'translateX(20px)';
+    }
+
     // Smooth scroll to target page
     DOM.horizontalPages.scrollTo({
         left: scrollLeft,
@@ -544,12 +599,116 @@ function scrollToPage(pageIndex, fromAccordion = false) {
     // (to prevent circular updates)
     if (!fromAccordion) {
         syncAccordionWithPage(pageIndex);
+    } else {
+        // Animate page entrance after scroll starts
+        setTimeout(() => {
+            targetPage.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            targetPage.style.opacity = '1';
+            targetPage.style.transform = 'translateX(0)';
+        }, 100);
     }
+
+    // Update progress circles after scroll completes
+    setTimeout(() => {
+        updateChapterProgress(pageIndex);
+    }, 350);
 
     // Reset scrolling flag after animation completes
     setTimeout(() => {
         PortfolioState.isScrolling = false;
     }, 600); // Match scroll animation duration
+}
+
+// ====================================
+// PROGRESS CIRCLE UPDATES
+// ====================================
+
+function updateChapterProgress(currentPageIndex) {
+    if (!DOM.accordionItems) return;
+
+    DOM.accordionItems.forEach(item => {
+        const chapterLinks = item.querySelectorAll('.accordion-link');
+        if (chapterLinks.length === 0) return;
+
+        // Get all page indices for this chapter
+        const chapterPages = Array.from(chapterLinks).map(link =>
+            parseInt(link.dataset.page)
+        );
+
+        const minPage = Math.min(...chapterPages);
+        const maxPage = Math.max(...chapterPages);
+        const chapterLength = maxPage - minPage + 1;
+
+        // Calculate progress percentage
+        let progress = 0;
+        if (currentPageIndex >= minPage && currentPageIndex <= maxPage) {
+            // Currently viewing a page in this chapter
+            progress = ((currentPageIndex - minPage + 1) / chapterLength) * 100;
+        } else if (currentPageIndex > maxPage) {
+            // Already passed this chapter
+            progress = 100;
+        }
+        // If currentPageIndex < minPage, progress stays 0
+
+        // Update progress circle
+        const progressCircleFill = item.querySelector('.progress-circle-fill');
+        const progressText = item.querySelector('.progress-text');
+
+        if (progressCircleFill && progressText) {
+            const circumference = 88; // 2πr = 2 × π × 14 ≈ 88
+            const offset = circumference - (progress / 100) * circumference;
+
+            // Animate the progress circle
+            progressCircleFill.style.strokeDashoffset = offset;
+            progressText.textContent = `${Math.round(progress)}%`;
+        }
+    });
+
+    // Update overall completion percentage
+    updateOverallCompletion(currentPageIndex);
+}
+
+// ====================================
+// OVERALL COMPLETION CALCULATION
+// ====================================
+
+function updateOverallCompletion(currentPageIndex) {
+    if (!DOM.accordionItems || !DOM.completionBadge) return;
+
+    let totalPages = 0;
+    let completedPages = 0;
+
+    DOM.accordionItems.forEach(item => {
+        const chapterLinks = item.querySelectorAll('.accordion-link');
+        if (chapterLinks.length === 0) return;
+
+        const chapterPages = Array.from(chapterLinks).map(link =>
+            parseInt(link.dataset.page)
+        );
+
+        const minPage = Math.min(...chapterPages);
+        const maxPage = Math.max(...chapterPages);
+        const chapterLength = maxPage - minPage + 1;
+
+        totalPages += chapterLength;
+
+        // Count completed pages in this chapter
+        if (currentPageIndex >= maxPage) {
+            // Entire chapter completed
+            completedPages += chapterLength;
+        } else if (currentPageIndex >= minPage) {
+            // Partially completed
+            completedPages += (currentPageIndex - minPage + 1);
+        }
+    });
+
+    // Calculate overall percentage
+    const overallProgress = totalPages > 0 ? Math.round((completedPages / totalPages) * 100) : 0;
+
+    // Update completion badge
+    if (DOM.completionBadge) {
+        DOM.completionBadge.textContent = `${overallProgress}%`;
+    }
 }
 
 // ====================================
@@ -598,16 +757,27 @@ async function switchProject(newProjectNumber) {
 function animateProjectExit() {
     return new Promise((resolve) => {
         const contentWrapper = DOM.contentWrapper;
+        const accordionNav = document.querySelector('.accordion-nav');
 
         if (!contentWrapper) {
             resolve();
             return;
         }
 
-        // Add exit animation class
-        contentWrapper.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        // Apply blinking animation to both accordion-nav and content-wrapper
+        const animationStyle = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Animate content-wrapper
+        contentWrapper.style.transition = animationStyle;
         contentWrapper.style.opacity = '0';
-        contentWrapper.style.transform = 'scale(0.95) translateX(-30px)';
+        contentWrapper.style.transform = 'scale(0.95)';
+        
+        // Animate accordion-nav if it exists
+        if (accordionNav) {
+            accordionNav.style.transition = animationStyle;
+            accordionNav.style.opacity = '0';
+            accordionNav.style.transform = 'scale(0.95)';
+        }
 
         setTimeout(resolve, 400);
     });
@@ -616,24 +786,39 @@ function animateProjectExit() {
 function animateProjectEnter() {
     return new Promise((resolve) => {
         const contentWrapper = DOM.contentWrapper;
+        const accordionNav = document.querySelector('.accordion-nav');
 
         if (!contentWrapper) {
             resolve();
             return;
         }
 
-        // Start from right side
-        contentWrapper.style.transform = 'scale(0.95) translateX(30px)';
+        // Start both elements from scaled/opacity state
+        const startStyle = 'scale(0.95)';
+        contentWrapper.style.transform = startStyle;
         contentWrapper.style.opacity = '0';
+        
+        if (accordionNav) {
+            accordionNav.style.transform = startStyle;
+            accordionNav.style.opacity = '0';
+        }
 
         // Force reflow
         contentWrapper.offsetHeight;
 
-        // Animate to normal position
+        // Animate both to normal position
         setTimeout(() => {
-            contentWrapper.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            const animationStyle = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            contentWrapper.style.transition = animationStyle;
             contentWrapper.style.opacity = '1';
-            contentWrapper.style.transform = 'scale(1) translateX(0)';
+            contentWrapper.style.transform = 'scale(1)';
+            
+            if (accordionNav) {
+                accordionNav.style.transition = animationStyle;
+                accordionNav.style.opacity = '1';
+                accordionNav.style.transform = 'scale(1)';
+            }
 
             setTimeout(resolve, 500);
         }, 50);
@@ -898,6 +1083,35 @@ console.log(`
 // ====================================
 
 /**
+ * Ensure all animated elements are visible
+ * Fallback for when GSAP is disabled or not loaded
+ */
+function ensureElementsVisible() {
+    const elements = [
+        '.portfolio-title .letter',
+        '.project-toggle-btn',
+        '.accordion-item',
+        '.content-page',
+        '.page-dot',
+        '.sound-toggle-btn',
+        '.header-logo',
+        '.accordion-link',
+        '.code-element'
+    ];
+
+    elements.forEach(selector => {
+        const els = document.querySelectorAll(selector);
+        els.forEach(el => {
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+            el.style.transform = 'none';
+        });
+    });
+
+    console.log('✅ All portfolio elements ensured visible');
+}
+
+/**
  * Initialize GSAP and ScrollTrigger
  * Enhanced polish with scroll-triggered animations
  */
@@ -907,12 +1121,14 @@ function initGSAPAnimations() {
 
     if (prefersReducedMotion) {
         console.log('⚠️ Reduced motion preference detected - GSAP animations disabled');
+        ensureElementsVisible(); // Ensure all elements are visible
         return;
     }
 
     // Check if GSAP is available
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.warn('⚠️ GSAP or ScrollTrigger not loaded');
+        console.warn('⚠️ GSAP or ScrollTrigger not loaded - ensuring elements remain visible');
+        ensureElementsVisible(); // Ensure all elements are visible even without GSAP
         return;
     }
 
@@ -927,18 +1143,21 @@ function initGSAPAnimations() {
     const titleLetters = document.querySelectorAll('.portfolio-title .letter');
 
     if (titleLetters.length > 0) {
+        // Ensure letters are visible first, then animate
+        gsap.set(titleLetters, { opacity: 1 });
+
         gsap.from(titleLetters, {
-            duration: 0.8,
+            duration: 0.6,
             opacity: 0,
-            y: -30,
+            y: -20,
             rotationX: -90,
             stagger: {
-                each: 0.05,
+                each: 0.03,
                 from: "start",
                 ease: "power2.out"
             },
             ease: "back.out(1.7)",
-            delay: 0.3
+            delay: 0.1
         });
 
         // Add subtle floating animation
@@ -950,7 +1169,8 @@ function initGSAPAnimations() {
                 repeat: -1,
                 yoyo: true
             },
-            ease: "sine.inOut"
+            ease: "sine.inOut",
+            delay: 0.8
         });
     }
 
@@ -960,14 +1180,17 @@ function initGSAPAnimations() {
     const projectToggles = document.querySelectorAll('.project-toggle-btn');
 
     if (projectToggles.length > 0) {
+        // Ensure buttons are visible first
+        gsap.set(projectToggles, { opacity: 1 });
+
         gsap.from(projectToggles, {
-            duration: 0.6,
+            duration: 0.5,
             opacity: 0,
-            scale: 0.8,
-            y: 20,
-            stagger: 0.1,
+            scale: 0.9,
+            y: 15,
+            stagger: 0.08,
             ease: "back.out(1.5)",
-            delay: 0.8
+            delay: 0.2
         });
 
         // Add hover scale effect
@@ -1000,13 +1223,16 @@ function initGSAPAnimations() {
     const accordionItems = document.querySelectorAll('.accordion-item');
 
     if (accordionItems.length > 0) {
+        // Ensure accordion items are visible first
+        gsap.set(accordionItems, { opacity: 1 });
+
         gsap.from(accordionItems, {
-            duration: 0.5,
+            duration: 0.4,
             opacity: 0,
-            x: -30,
-            stagger: 0.08,
+            x: -20,
+            stagger: 0.05,
             ease: "power2.out",
-            delay: 1.2
+            delay: 0.3
         });
 
         // Accordion expand/collapse animation enhancement
@@ -1033,63 +1259,112 @@ function initGSAPAnimations() {
     }
 
     // ====================================
-    // 4. CONTENT PAGES - Fade In on Scroll
+    // 4. CONTENT PAGES - Simple Initial Fade In
     // ====================================
+    // Note: Disabled ScrollTrigger for horizontal scroll compatibility
+    // Pages will have a simple initial fade-in only
     const contentPages = document.querySelectorAll('.content-page');
 
     if (contentPages.length > 0) {
+        // Ensure pages are visible first
+        gsap.set(contentPages, { opacity: 1 });
+
         contentPages.forEach((page, index) => {
-            gsap.from(page, {
-                scrollTrigger: {
-                    trigger: page,
-                    containerAnimation: null,
-                    start: "left 80%",
-                    end: "left 20%",
-                    toggleActions: "play none none reverse",
-                    // markers: true // Enable for debugging
-                },
-                opacity: 0,
-                x: 50,
-                duration: 0.8,
-                ease: "power2.out"
-            });
-
-            // Page title animation
-            const pageTitle = page.querySelector('.page-title');
-            if (pageTitle) {
-                gsap.from(pageTitle, {
-                    scrollTrigger: {
-                        trigger: page,
-                        containerAnimation: null,
-                        start: "left 80%",
-                        toggleActions: "play none none reverse"
-                    },
+            // Only animate the first visible page
+            if (index === 0) {
+                gsap.from(page, {
                     opacity: 0,
-                    y: 30,
-                    duration: 0.6,
-                    ease: "power2.out",
-                    delay: 0.2
-                });
-            }
-
-            // Page content animation
-            const pageContent = page.querySelector('.page-content');
-            if (pageContent) {
-                gsap.from(pageContent, {
-                    scrollTrigger: {
-                        trigger: page,
-                        containerAnimation: null,
-                        start: "left 80%",
-                        toggleActions: "play none none reverse"
-                    },
-                    opacity: 0,
-                    y: 20,
-                    duration: 0.8,
+                    x: 20,
+                    duration: 0.5,
                     ease: "power2.out",
                     delay: 0.4
                 });
             }
         });
+    }
+
+    // ====================================
+    // 4A. OVERVIEW PAGE - Neumorphic Entrance Animations
+    // ====================================
+    const overviewPage = document.querySelector('#overview');
+
+    if (overviewPage) {
+        const tl = gsap.timeline({ delay: 0.5 });
+
+        // Title with Kenyan gradient - subtle reveal
+        const pageTitle = overviewPage.querySelector('.page-title.kenyan-gradient');
+        if (pageTitle) {
+            gsap.set(pageTitle, { opacity: 1 });
+            tl.from(pageTitle, {
+                opacity: 0,
+                y: 15,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        }
+
+        // Subtitle fade in
+        const pageSubtitle = overviewPage.querySelector('.page-subtitle');
+        if (pageSubtitle) {
+            gsap.set(pageSubtitle, { opacity: 1 });
+            tl.from(pageSubtitle, {
+                opacity: 0,
+                y: 10,
+                duration: 0.3,
+                ease: 'power2.out'
+            }, '-=0.1');
+        }
+
+        // Content paragraph
+        const contentParagraph = overviewPage.querySelector('.page-content > p');
+        if (contentParagraph) {
+            gsap.set(contentParagraph, { opacity: 1 });
+            tl.from(contentParagraph, {
+                opacity: 0,
+                y: 10,
+                duration: 0.3,
+                ease: 'power2.out'
+            }, '-=0.1');
+        }
+
+        // Info cards with stagger and neumorphic float effect
+        const infoItems = overviewPage.querySelectorAll('.info-item');
+        if (infoItems.length > 0) {
+            // Ensure info items are visible first
+            gsap.set(infoItems, { opacity: 1 });
+
+            tl.from(infoItems, {
+                opacity: 0,
+                y: 20,
+                scale: 0.95,
+                duration: 0.3,
+                stagger: 0.08,
+                ease: 'power2.out'
+            }, '-=0.2');
+
+            // Add subtle hover float animation
+            infoItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    if (!prefersReducedMotion) {
+                        gsap.to(item, {
+                            y: -6,
+                            duration: 0.3,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    if (!prefersReducedMotion) {
+                        gsap.to(item, {
+                            y: 0,
+                            duration: 0.3,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+            });
+        }
     }
 
     // ====================================
@@ -1141,13 +1416,16 @@ function initGSAPAnimations() {
     const pageIndicators = document.querySelectorAll('.page-dot');
 
     if (pageIndicators.length > 0) {
+        // Ensure indicators are visible first
+        gsap.set(pageIndicators, { opacity: 1 });
+
         gsap.from(pageIndicators, {
             opacity: 0,
             scale: 0,
-            duration: 0.4,
-            stagger: 0.05,
+            duration: 0.3,
+            stagger: 0.03,
             ease: "back.out(1.7)",
-            delay: 1.8
+            delay: 0.5
         });
     }
 
@@ -1157,13 +1435,16 @@ function initGSAPAnimations() {
     const soundToggle = document.querySelector('.sound-toggle-btn');
 
     if (soundToggle) {
+        // Ensure button is visible first
+        gsap.set(soundToggle, { opacity: 1 });
+
         gsap.from(soundToggle, {
             opacity: 0,
             scale: 0,
-            rotation: -180,
-            duration: 0.6,
+            rotation: -90,
+            duration: 0.4,
             ease: "back.out(1.7)",
-            delay: 2
+            delay: 0.6
         });
 
         // Add pulsing attention effect
@@ -1172,7 +1453,8 @@ function initGSAPAnimations() {
             duration: 1.5,
             repeat: -1,
             yoyo: true,
-            ease: "sine.inOut"
+            ease: "sine.inOut",
+            delay: 1
         });
     }
 
@@ -1182,13 +1464,16 @@ function initGSAPAnimations() {
     const headerLogo = document.querySelector('.header-logo');
 
     if (headerLogo) {
+        // Ensure logo is visible first
+        gsap.set(headerLogo, { opacity: 1 });
+
         gsap.from(headerLogo, {
             opacity: 0,
-            rotation: -10,
-            scale: 0.9,
-            duration: 0.8,
+            rotation: -5,
+            scale: 0.95,
+            duration: 0.5,
             ease: "back.out(1.7)",
-            delay: 0.2
+            delay: 0.05
         });
     }
 
@@ -1241,9 +1526,13 @@ function initGSAPAnimations() {
     console.log('✅ GSAP ScrollTrigger animations initialized successfully!');
 }
 
-// Initialize GSAP animations when DOM is fully loaded
+// Initialize GSAP animations AFTER main portfolio initialization
+// This ensures proper element setup before animations run
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGSAPAnimations);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Wait for main portfolio init to complete
+        setTimeout(initGSAPAnimations, 100);
+    });
 } else {
-    initGSAPAnimations();
+    setTimeout(initGSAPAnimations, 100);
 }

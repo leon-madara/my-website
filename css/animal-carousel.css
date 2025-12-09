@@ -1,0 +1,63 @@
+/* ========================================
+   ANIMAL CAROUSEL STYLES
+   Fixed element for carousel animation
+   ======================================== */
+
+/* Gradient Background Element - Fixed on left side */
+.gradient-background-element {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 20vw;
+    height: 100vh;
+    background: linear-gradient(135deg,
+            rgba(0, 107, 63, 0.85) 0%,
+            rgba(179, 0, 0, 0.85) 50%,
+            rgba(255, 255, 255, 1) 100%);
+    z-index: 1;
+    pointer-events: none;
+    will-change: opacity;
+}
+
+/* Noise texture overlay for depth */
+.gradient-background-element::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4' fill='white'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+/* Fixed Carousel Wrapper - Stays visible during scroll */
+.fixed-carousel-wrapper {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20vw;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.fixed-carousel-image {
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+    will-change: opacity, transform;
+}
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+
+    .gradient-background-element,
+    .fixed-carousel-wrapper {
+        display: none;
+    }
+}

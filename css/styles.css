@@ -8,11 +8,12 @@
     --primary-text: #333;
     --secondary-text: rgba(51, 51, 51, 0.7);
     --accent-green: var(--kenyan-green);
-    --accent-green-light: #10CF74;
+    --accent-green-light: #10cf74;
     --background-light: hsl(48, 10%, 90%);
 
     /* Typography - Critical Path Only */
-    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-primary:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-size-hero: clamp(3rem, 8vw, 6rem);
     --font-size-subtitle: clamp(1.5rem, 4vw, 2.5rem);
     --font-size-body: clamp(1rem, 2.5vw, 1.125rem);
@@ -28,37 +29,37 @@
     --font-size-hero-scaled: clamp(6rem, 16vw, 12rem);
     --font-size-subtitle-scaled: clamp(3rem, 8vw, 5rem);
 
-    /* Typography Improvements - Adjusted Font Sizes */
-    --font-size-greeting-2x: clamp(5rem, 12vw, 6rem);
-    /* 2x increase for greeting */
-    --font-size-greeting-64px: clamp(3rem, 6vw, 4rem);
-    /* 64px equivalent greeting size */
-    --font-size-name-reduced: clamp(3.6rem, 9.6vw, 7.2rem);
-    /* 40% reduction for name */
-    --font-size-name-80px: clamp(3.5rem, 7vw, 4.5rem);
-    /* 80px equivalent name size - reduced for single line */
-    --font-size-role-reduced: clamp(2.1rem, 5.6vw, 3.5rem);
-    /* 30% reduction for role */
+    /* Typography Improvements - Adjusted Font Sizes - Reduced by 20% */
+    --font-size-greeting-2x: clamp(4rem, 9.6vw, 4.8rem);
+    /* 2x increase for greeting - 20% reduction */
+    --font-size-greeting-64px: clamp(2.4rem, 4.8vw, 3.2rem);
+    /* 64px equivalent greeting size - 20% reduction */
+    --font-size-name-reduced: clamp(2.88rem, 7.68vw, 5.76rem);
+    /* 40% reduction for name - 20% further reduction */
+    --font-size-name-80px: clamp(4.2rem, 8.4vw, 5.4rem);
+    /* 80px equivalent name size - 20% reduction */
+    --font-size-role-reduced: clamp(1.68rem, 4.48vw, 2.8rem);
+    /* 30% reduction for role - 20% further reduction */
 
     /* Typography Improvements - Hover Effects */
     --name-glow-color: var(--accent-green);
     --name-glow-intensity: 0 0 20px rgba(0, 107, 63, 0.4);
-    --font-size-role-reduced: clamp(2.1rem, 5.6vw, 3.5rem);
-    /* 30% reduction for role */
+    --font-size-role-reduced: clamp(1.68rem, 4.48vw, 2.8rem);
+    /* 30% reduction for role - 20% further reduction */
 
     /* Custom Font Families */
     --font-greeting: "Space Mono", monospace;
     --font-name: "Asimovian", sans-serif;
     --font-role: "Enriqueta", serif;
 
-    /* Layout - Essential Only */
+    /* Layout - Essential Only - Reduced by 20% */
     --container-max-width: 2560px;
-    --section-padding: clamp(3rem, 6vw, 5rem);
-    --content-padding: clamp(1.5rem, 4vw, 3rem);
-    --grid-gap: clamp(2rem, 4vw, 3rem);
-    --space-sm: clamp(0.5rem, 1.5vw, 1rem);
-    --space-md: clamp(1rem, 2.5vw, 1.5rem);
-    --space-lg: clamp(1.5rem, 3.5vw, 2.5rem);
+    --section-padding: clamp(2.4rem, 4.8vw, 4rem);
+    --content-padding: clamp(1.2rem, 3.2vw, 2.4rem);
+    --grid-gap: clamp(1.6rem, 3.2vw, 2.4rem);
+    --space-sm: clamp(0.4rem, 1.2vw, 0.8rem);
+    --space-md: clamp(0.8rem, 2vw, 1.2rem);
+    --space-lg: clamp(1.2rem, 2.8vw, 2rem);
     --transition-fast: 0.15s ease-in-out;
     --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -135,14 +136,14 @@
 
 /* Kenyan Flag Gradient Class */
 .kenyan-gradient {
-    /* Fallback color for browsers that don't support gradient text */
-    color: #CE1126;
+    /* Gradient text defaults */
+    color: transparent;
 
     /* Cross-browser gradient support */
-    background: linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
-    background: -webkit-linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
-    background: -moz-linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
-    background: -o-linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
+    background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -webkit-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -moz-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -o-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
 
     /* Gradient text effect with webkit prefixes */
     -webkit-background-clip: text;
@@ -157,10 +158,11 @@
 }
 
 /* Fallback for browsers without gradient text support */
-@supports not (-webkit-background-clip: text) {
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
     .kenyan-gradient {
-        color: #CE1126 !important;
+        color: #004d2e !important;
         background: none !important;
+        -webkit-text-fill-color: currentColor !important;
     }
 }
 
@@ -278,21 +280,22 @@
 /* Enhanced accessibility for gradient text */
 .kenyan-gradient:focus {
     /* Ensure focus state is visible even with gradient */
-    outline: 3px solid #CE1126;
+    outline: 3px solid #ce1126;
     outline-offset: 2px;
     background: none !important;
-    color: #CE1126 !important;
-    -webkit-text-fill-color: #CE1126 !important;
+    color: #ce1126 !important;
+    -webkit-text-fill-color: #ce1126 !important;
 }
 
 /* Ensure gradient works across different browsers */
 @supports (-webkit-background-clip: text) {
     .kenyan-gradient {
         /* Only apply gradient if browser supports it */
-        background: linear-gradient(45deg, #000000 0%, #CE1126 50%, #006B3F 100%);
+        background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        color: transparent;
     }
 }
 
@@ -308,6 +311,7 @@
 }
 
 body,
+main,
 h1,
 h2,
 h3,
@@ -328,23 +332,155 @@ ol {
 
 html {
     width: 100vw;
-    height: 100vh;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    overflow-y: auto;
+    /* Default: allow scrolling */
+    overflow-x: hidden;
+}
+
+/* Home page - no scrolling on html and body */
+body.home-page {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+body.home-page,
+html body.home-page {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* JavaScript will handle html overflow for home page via class */
+html.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    height: 100vh;
 }
 
 body {
     width: 100vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
     /* Dynamic viewport height for mobile browsers */
     line-height: var(--line-height-normal);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* Home page - no scrolling */
+body.home-page {
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* All other pages - scrollable */
+body:not(.home-page) {
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Desktop/Laptop: Scrollable behavior */
+@media (min-width: 769px) {
+
+    /* Home page - no scrolling */
+    html body.home-page,
+    body.home-page {
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    /* All other pages - scrollable */
+    body:not(.home-page) {
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* HTML element - scrollable for non-home pages */
+    html:not(:has(body.home-page)) {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Zoom out all direct children of body except sidebar (main, nav, footer, decorative elements) */
+    /* Removed scale transformation for proper responsive design */
+    body:not(.portfolio-page)>nav,
+    body:not(.portfolio-page)>main,
+    body:not(.portfolio-page)>footer,
+    body:not(.portfolio-page)>.background-pattern,
+    body:not(.portfolio-page)>.kenyan-code-elements,
+    body:not(.portfolio-page)>a:not(.pill-sidebar),
+    body:not(.portfolio-page)>div:not(.pill-sidebar):not(.sr-only) {
+        /* transform: scale(0.85); - REMOVED */
+        /* transform-origin: top left; - REMOVED */
+    }
+
+    /* No scrolling - fixed at 100vh (home page only) */
+    body.home-page .landing-page {
+        max-height: 100vh;
+        overflow: hidden;
+        /* Prevent all scrolling */
+    }
+
+    /* Other pages - allow scrolling */
+    body:not(.home-page) .landing-page,
+    body:not(.home-page) main {
+        overflow-y: visible;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* HTML element - allow scrolling on non-home pages */
+    html body:not(.home-page) {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+/* Portfolio, About, Contact pages can scroll */
+body.portfolio-page,
+body.about-page,
+body.contact-page {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Sidebar positioning - counter-scale removed for proper responsive design */
+.pill-sidebar {
+    transform: translateY(-50%);
+    /* Keep vertical centering only */
+    transform-origin: left center;
+}
+
+.pill-sidebar:hover {
+    transform: translateY(-50%) translateY(-8px);
+    /* Removed scale, keep hover lift */
+}
+
+/* Ensure content doesn't overflow horizontally */
+body,
+html {
+    max-width: 100%;
+    /* Changed from 100vw to avoid scrollbar width issues */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 img,
@@ -520,7 +656,9 @@ button {
 
     /* Reduce animation complexity on low-DPI displays */
     .circular-halo {
-        box-shadow: 0 0 15px var(--page-background-color), 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+        box-shadow:
+            0 0 15px var(--page-background-color),
+            0 10px 25px rgba(0, 0, 0, 0.3) !important;
     }
 
     .nav-icon.floating {
@@ -530,7 +668,7 @@ button {
 }
 
 /* High refresh rate display optimizations */
-@media (min-resolution: 120dpi) and (min-refresh: 90hz) {
+@media (min-resolution: 120dpi) and (min-refresh: 90Hz) {
 
     /* Enhanced animations for high refresh rate displays */
     .circular-halo.materializing {
@@ -835,14 +973,18 @@ button {
         transform: translate3d(-50%, 10px, 0) scale(0.3);
         -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
         opacity: 0;
-        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow:
+            0 0 0 var(--page-background-color),
+            0 0 0 rgba(0, 0, 0, 0);
     }
 
     50% {
         transform: translate3d(-50%, -5px, 0) scale(0.8);
         -webkit-transform: translate3d(-50%, -5px, 0) scale(0.8);
         opacity: 0.7;
-        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow:
+            0 0 10px var(--page-background-color),
+            0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     100% {
@@ -871,14 +1013,18 @@ button {
         transform: translate3d(-50%, 5px, 0) scale(0.8);
         -webkit-transform: translate3d(-50%, 5px, 0) scale(0.8);
         opacity: 0.7;
-        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow:
+            0 0 10px var(--page-background-color),
+            0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     100% {
         transform: translate3d(-50%, 10px, 0) scale(0.3);
         -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
         opacity: 0;
-        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow:
+            0 0 0 var(--page-background-color),
+            0 0 0 rgba(0, 0, 0, 0);
     }
 }
 
@@ -889,7 +1035,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../images/dot-pattern.svg');
+    background-image: url("../images/dot-pattern.svg");
     background-repeat: repeat;
     background-size: 20px 20px;
     opacity: 0.4;
@@ -908,7 +1054,9 @@ button {
 
 /* Fallback dotted pattern using CSS for older browsers */
 .no-svg .background-pattern {
-    background-image: radial-gradient(circle, rgba(51, 51, 51, 0.4) 1px, transparent 1px);
+    background-image: radial-gradient(circle,
+            rgba(51, 51, 51, 0.4) 1px,
+            transparent 1px);
     background-size: 20px 20px;
 }
 
@@ -923,11 +1071,6 @@ button {
     .kenyan-code-elements {
         display: none;
         /* Hide complex animations in IE11 */
-    }
-
-    .pill-sidebar {
-        transform: translateY(-50%) translateX(20px);
-        /* Remove scale for IE11 compatibility */
     }
 }
 
@@ -951,11 +1094,6 @@ button {
         transform: translateZ(0);
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-    }
-
-    .pill-sidebar {
-        -webkit-transform: translateY(-50%) translateX(20px) scale(1.2);
-        transform: translateY(-50%) translateX(20px) scale(1.2);
     }
 }
 
@@ -1080,7 +1218,7 @@ button {
     width: 100%;
     height: 100%;
     z-index: -5;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     pointer-events: none;
     /* GPU acceleration */
     -webkit-transform: translateZ(0);
@@ -1166,12 +1304,22 @@ button {
 /* Updated Base Styles with Light Background */
 body {
     /* Fallback styles for browsers without CSS custom properties */
-    font: 400 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font:
+        400 1rem/1.5 -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
     color: #333;
     background: hsl(48, 10%, 90%);
 
     /* Modern styles with CSS custom properties */
-    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem)/var(--line-height-normal, 1.5) var(--font-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem) / var(--line-height-normal, 1.5) var(--font-primary,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            sans-serif);
     color: var(--primary-text, #333);
     background: var(--background-light, hsl(48, 10%, 90%));
 }
@@ -1189,6 +1337,13 @@ h6 {
 
 h1 {
     font-size: var(--font-size-hero);
+}
+
+/* Override h1 font-size for name class - Reduced by 20% */
+h1.name {
+    font-size: var(--font-size-name-80px);
+    /* Fallback for browsers without CSS custom properties */
+    font-size: clamp(4.2rem, 8.4vw, 5.4rem);
 }
 
 h2 {
@@ -1293,25 +1448,7 @@ a:active {
 }
 
 /* Skip Link for Screen Readers */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 6px;
-    background: var(--accent-green);
-    color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 4px;
-    z-index: 1000;
-    font-weight: bold;
-    transition: top 0.3s ease;
-}
 
-.skip-link:focus {
-    top: 6px;
-    outline: 3px solid #fff;
-    outline-offset: 2px;
-}
 
 /* Optimized Responsive Breakpoints with 2x Font Scaling */
 @media (min-width: 768px) {
@@ -1331,7 +1468,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(4.2rem, 10.8vw, 7.8rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4rem, 8vw, 5rem);
+        --font-size-name-80px: clamp(6rem, 12vw, 7.5rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(2.45rem, 6.3vw, 3.85rem);
         /* 30% reduction for role */
@@ -1355,7 +1492,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(4.8rem, 12vw, 8.4rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4.5rem, 8.5vw, 5.5rem);
+        --font-size-name-80px: clamp(6.75rem, 12.75vw, 8.25rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(2.8rem, 7vw, 4.2rem);
         /* 30% reduction for role */
@@ -1379,7 +1516,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(5.4rem, 13.2vw, 9rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4.5rem, 9vw, 6rem);
+        --font-size-name-80px: clamp(6.75rem, 13.5vw, 9rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(3.15rem, 7.7vw, 4.55rem);
         /* 30% reduction for role */
@@ -1403,7 +1540,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(6rem, 14.4vw, 9.6rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(4.5rem, 9.5vw, 6.5rem);
+        --font-size-name-80px: clamp(6.75rem, 14.25vw, 9.75rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(3.5rem, 8.4vw, 4.9rem);
         /* 30% reduction for role */
@@ -1426,79 +1563,6 @@ a:active {
     padding: 0;
 }
 
-/* Blurry Black Background Effect for Navigation Icons */
-.nav-background-blur {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 20px;
-    z-index: 100;
-    pointer-events: none;
-    /* Subtle appearance like page decorations */
-    opacity: 0.8;
-    /* Smooth transitions for dynamic sizing */
-    transition: width 0.3s ease, opacity 0.3s ease;
-    /* GPU acceleration for smooth performance */
-    will-change: transform, width;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
-
-/* Fallback for browsers without backdrop-filter support */
-@supports not (backdrop-filter: blur(8px)) {
-    .nav-background-blur {
-        background: rgba(0, 0, 0, 0.3);
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-    }
-}
-
-/* Enhanced fallback for older browsers */
-@supports not (-webkit-backdrop-filter: blur(8px)) and not (backdrop-filter: blur(8px)) {
-    .nav-background-blur {
-        background: rgba(0, 0, 0, 0.35);
-        box-shadow:
-            inset 0 0 20px rgba(0, 0, 0, 0.3),
-            0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-}
-
-/* Responsive adjustments for background blur */
-@media (max-width: 768px) {
-    .nav-background-blur {
-        height: 36px;
-        border-radius: 18px;
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-    }
-}
-
-/* Performance optimizations for reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .nav-background-blur {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        background: rgba(0, 0, 0, 0.25);
-        will-change: auto;
-    }
-}
-
-/* High contrast mode adjustments */
-@media (prefers-contrast: high) {
-    .nav-background-blur {
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-}
 
 .floating-header {
     position: fixed;
@@ -1523,8 +1587,8 @@ a:active {
     position: absolute;
     left: 20vw;
     /* Direct positioning at 20vw from viewport edge */
-    top: 15px;
-    /* Positioned 15px from top */
+    top: 25px;
+    /* Positioned 25px from top (moved down 10px from 15px) */
     transform: scale(40.5);
     /* 40.5x scaling (doubled from 20.25x) */
     transform-origin: left center;
@@ -1542,8 +1606,8 @@ a:active {
 /* No active state - logo is completely static */
 
 .leon-logo {
-    width: 70px;
-    /* Fixed size, scaled by parent transform */
+    width: 35px;
+    /* Reduced to half size for better proportion */
     height: auto;
     aspect-ratio: auto;
     image-rendering: -webkit-optimize-contrast;
@@ -1591,14 +1655,38 @@ a:active {
     position: absolute;
     top: 15px;
     /* Same vertical level as logo */
-    right: 0;
-    /* Keep original right positioning */
-    background: transparent;
-    border: none;
+    right: 2rem;
+    /* Add spacing from right edge */
     padding: 0.5rem 1rem;
-    border-radius: 25px;
+    border-radius: 50px;
     height: fit-content;
-    max-height: 50px;
+    max-height: 52px;
+    position: relative;
+
+    /* Transparent background with blur */
+    background: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Gradient border using pseudo-element for pill-shaped corners */
+.nav-icons-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    padding: 4px;
+    background: linear-gradient(135deg, #000000 0%, #ce1126 50%, #006b3f 100%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* Responsive adjustments for navigation icons container */
@@ -1606,7 +1694,7 @@ a:active {
     .nav-icons-container {
         gap: 1.5rem;
         padding: 0.375rem 0.75rem;
-        max-height: 45px;
+        max-height: 47px;
         top: 20px;
         /* Same vertical level as logo */
     }
@@ -1616,7 +1704,7 @@ a:active {
     .nav-icons-container {
         gap: 1rem;
         padding: 0.25rem 0.5rem;
-        max-height: 40px;
+        max-height: 42px;
         top: 20px;
         /* Same vertical level as logo */
     }
@@ -1784,7 +1872,6 @@ a:active {
 
 /* Enhanced focus indicators for reduced motion users */
 @media (prefers-reduced-motion: reduce) {
-
     .nav-icon.keyboard-focused,
     .nav-icon.keyboard-focused.floating,
     /* No keyboard focus effects - logo is completely static */
@@ -1820,9 +1907,9 @@ a:active {
     align-items: center;
     justify-content: center;
     width: auto;
-    height: 30px;
+    height: 31px;
     color: #fff;
-    /* White default color as specified in requirements */
+    /* White color for icons */
     background: none;
     border: none;
     border-radius: 0;
@@ -1847,7 +1934,7 @@ a:active {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     padding: 7px;
-    /* Padding to maintain 44px touch target while keeping icon at 30px */
+    /* Padding to maintain 44px touch target while keeping icon at 31px */
 }
 
 /* Navigation Icon Link - Same styles as nav-icon but for anchor tags */
@@ -1856,7 +1943,7 @@ a:active {
     align-items: center;
     justify-content: center;
     width: auto;
-    height: 30px;
+    height: 31px;
     color: #fff;
     /* White default color as specified in requirements */
     background: none;
@@ -1883,7 +1970,7 @@ a:active {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     padding: 7px;
-    /* Padding to maintain 44px touch target while keeping icon at 30px */
+    /* Padding to maintain 44px touch target while keeping icon at 31px */
     text-decoration: none;
 }
 
@@ -1911,12 +1998,26 @@ a:active {
     z-index: 104;
     margin-top: 8px;
     /* Smooth transitions for tooltip appearance/disappearance - Requirements 6.3, 6.4 */
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease, -webkit-transform 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease, -moz-transform 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease, -o-transform 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -webkit-transform 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -moz-transform 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -o-transform 0.3s ease;
     /* Enhanced readability against page background - Requirement 6.5 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-family: var(--font-primary);
     line-height: 1.2;
@@ -1924,7 +2025,7 @@ a:active {
 
 /* Tooltip arrow pointing upward */
 .nav-icon::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;
@@ -1944,10 +2045,18 @@ a:active {
     z-index: 103;
     margin-top: 2px;
     /* Smooth transitions matching tooltip */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 /* Show tooltip on hover - Requirements 6.1, 6.2 */
@@ -2023,18 +2132,32 @@ a:active {
     pointer-events: none;
     z-index: 104;
     margin-top: 8px;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease, -webkit-transform 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease, -moz-transform 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease, -o-transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -webkit-transform 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -moz-transform 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -o-transform 0.3s ease;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-family: var(--font-primary);
     line-height: 1.2;
 }
 
 .nav-icon-link::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;
@@ -2053,10 +2176,18 @@ a:active {
     pointer-events: none;
     z-index: 103;
     margin-top: 2px;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
-    -o-transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 .nav-icon-link:hover::after,
@@ -2088,9 +2219,9 @@ a:active {
 
 /* Navigation Icon SVG Styles */
 .nav-icon-svg {
-    width: 30px;
-    height: 30px;
-    /* 30px height as specified in requirements */
+    width: 31px;
+    height: 31px;
+    /* 31px icon size */
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -2237,8 +2368,13 @@ a:active {
 
 /* Active state SVG styling */
 .nav-icon.active .nav-icon-svg {
-    color: #ff0000;
-    /* Ensure SVG inherits red color */
+    color: #006b3f;
+    /* Kenyan green for active state */
+}
+
+.nav-icon.active {
+    color: #006b3f;
+    /* Kenyan green for active state */
 }
 
 /* Active state hover effects - maintain red color but add glow */
@@ -2289,8 +2425,6 @@ a:active {
         border-radius 0.3s ease-in;
 }
 
-
-
 .nav-icon:hover {
     transform: scale(1.15);
     /* 10-15% scale increase */
@@ -2315,9 +2449,9 @@ a:active {
 }
 
 .nav-icon-svg {
-    width: 30px;
-    height: 30px;
-    /* Maintain 30px icon size across all devices - Requirement 8.2 */
+    width: 31px;
+    height: 31px;
+    /* Maintain 31px icon size across all devices */
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -2332,7 +2466,16 @@ a:active {
     -o-transform: scale(1.1);
 }
 
+/* White circle hover effect for nav icons */
+.nav-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
+.nav-icon-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
 /* Navigation Label Styles */
 .nav-label {
@@ -2364,7 +2507,7 @@ a:active {
 }
 
 .nav-label::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -4px;
     left: 50%;
@@ -2455,7 +2598,9 @@ a:active {
         background: #000000 !important;
         color: #ffffff !important;
         border: 2px solid #ffffff !important;
-        box-shadow: 0 0 0 1px #000000, 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+        box-shadow:
+            0 0 0 1px #000000,
+            0 2px 8px rgba(0, 0, 0, 0.8) !important;
         font-weight: 600 !important;
     }
 
@@ -2546,26 +2691,26 @@ a:active {
         gap: 2.5rem;
         /* Increased spacing for ultra-wide - Requirement 8.3 */
         padding: 0.75rem 1.5rem;
-        max-height: 50px;
+        max-height: 52px;
         top: 20px;
         /* Same vertical level as logo */
     }
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 52px;
         /* Enhanced touch targets - Requirement 8.5 */
         min-height: 52px;
         padding: 11px;
-        /* Calculated to maintain 30px icon with 52px touch target */
+        /* Calculated to maintain 31px icon with 52px touch target */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Enhanced tooltip sizing for ultra-wide displays */
@@ -2648,26 +2793,26 @@ a:active {
         gap: 2rem;
         /* Optimized spacing for large desktop - Requirement 8.3 */
         padding: 0.625rem 1.25rem;
-        max-height: 48px;
+        max-height: 50px;
         top: 20px;
         /* Same vertical level as logo */
     }
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 48px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 48px;
         padding: 9px;
-        /* Calculated to maintain 30px icon with 48px touch target */
+        /* Calculated to maintain 31px icon with 48px touch target */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     .nav-label {
@@ -2749,19 +2894,19 @@ a:active {
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
         padding: 7px;
-        /* Calculated to maintain 30px icon with 44px touch target */
+        /* Calculated to maintain 31px icon with 44px touch target */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     .nav-label {
@@ -2836,29 +2981,29 @@ a:active {
         gap: 1.5rem;
         /* Optimized spacing for tablet - Requirement 8.3 */
         padding: 0.375rem 0.75rem;
-        max-height: 45px;
+        max-height: 47px;
         top: 20px;
         /* Same vertical level as logo */
     }
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
         padding: 7px;
-        /* Calculated to maintain 30px icon with 44px touch target */
+        /* Calculated to maintain 31px icon with 44px touch target */
         /* Enhanced touch interaction for tablet */
         -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
         tap-highlight-color: rgba(255, 255, 255, 0.2);
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Enhanced touch feedback for tablet */
@@ -2892,20 +3037,20 @@ a:active {
         border-radius: 19px;
     }
 
-    /* Typography responsive adjustments for tablet */
+    /* Typography responsive adjustments for tablet - Reduced by 20% */
     .greeting {
         font-size: var(--font-size-greeting-64px);
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.6rem;
     }
 
     .name {
         font-size: var(--font-size-name-80px);
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
     }
 
     .role {
         font-size: var(--font-size-role-reduced);
-        margin-bottom: 1.75rem;
+        margin-bottom: 1.4rem;
     }
 }
 
@@ -2924,7 +3069,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(3.3rem, 7.8vw, 5.4rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(3rem, 6.5vw, 4rem);
+        --font-size-name-80px: clamp(4.5rem, 9.75vw, 6rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(1.925rem, 4.55vw, 3.15rem);
         /* 30% reduction for role */
@@ -2961,7 +3106,7 @@ a:active {
         /* Positioned at 20vw */
         top: 20px;
         /* Move down 20px from default position */
-        transform: scale(9.0);
+        transform: scale(9);
         /* 9.0x scaling (doubled from 4.5x) */
     }
 
@@ -2970,7 +3115,7 @@ a:active {
     .header-logo:focus,
     .header-logo:focus-visible,
     .header-logo:active {
-        transform: scale(9.0) !important;
+        transform: scale(9) !important;
         /* Maintain only the scaling, no other transforms */
         color: inherit !important;
         outline: none !important;
@@ -3011,13 +3156,13 @@ a:active {
 
     .nav-icon {
         width: auto;
-        height: 30px;
-        /* Maintain 30px icon height - Requirement 8.2 */
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
         /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
         padding: 7px;
-        /* Calculated to maintain 30px icon with 44px touch target */
+        /* Calculated to maintain 31px icon with 44px touch target */
         /* Enhanced touch interaction for mobile */
         -webkit-tap-highlight-color: rgba(255, 255, 255, 0.25);
         tap-highlight-color: rgba(255, 255, 255, 0.25);
@@ -3026,9 +3171,9 @@ a:active {
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Enhanced touch feedback for mobile large */
@@ -3092,7 +3237,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(2.7rem, 6.6vw, 4.2rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(2.5rem, 5.5vw, 3.5rem);
+        --font-size-name-80px: clamp(3.75rem, 8.25vw, 5.25rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(1.575rem, 3.85vw, 2.45rem);
         /* 30% reduction for role */
@@ -3132,20 +3277,23 @@ a:active {
     }
 }
 
-/* Typography responsive adjustments for mobile small */
+/* Typography responsive adjustments for mobile small - Reduced by 20% */
 .greeting {
     font-size: var(--font-size-greeting-64px);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .name {
     font-size: var(--font-size-name-80px);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 .role {
     font-size: var(--font-size-role-reduced);
-    margin-bottom: 1.5rem;
+    margin: 0 auto 1.2rem auto;
+    text-align: center;
+    width: 100%;
+    display: block;
 }
 
 .floating-navigation {
@@ -3193,7 +3341,7 @@ a:active {
     gap: 1rem;
     /* Optimized spacing for mobile small - Requirement 8.3 */
     padding: 0.25rem 0.5rem;
-    max-height: 40px;
+    max-height: 42px;
     top: 15px;
     /* Same vertical level as logo */
 }
@@ -3309,7 +3457,7 @@ a:active {
         /* 64px equivalent greeting size */
         --font-size-name-reduced: clamp(2.4rem, 6vw, 3.6rem);
         /* 40% reduction for name */
-        --font-size-name-80px: clamp(2rem, 5vw, 3rem);
+        --font-size-name-80px: clamp(3rem, 7.5vw, 4.5rem);
         /* 80px equivalent name size - reduced for single line */
         --font-size-role-reduced: clamp(1.4rem, 3.5vw, 2.1rem);
         /* 30% reduction for role */
@@ -3466,51 +3614,39 @@ a:active {
 
 /* Landing Page - Optimized */
 .landing-page {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
-    display: flex;
-    align-items: center;
+    height: calc(var(--vh, 1vh) * 100);
+    /* Use actual viewport height from JS */
     overflow: hidden;
+    /* Prevent all scrolling */
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 0;
 }
 
-/* Cross-Browser Hero Section */
-.hero-section {
-    display: grid;
-    display: -ms-grid;
-    /* IE11 support */
-    grid-template-columns: 1fr 2fr 1fr;
-    -ms-grid-columns: 1fr 2fr 1fr;
-    /* IE11 support */
-    grid-template-areas: "flags content social";
-    align-items: center;
-    -ms-grid-row-align: center;
-    /* IE11 support */
-    gap: var(--grid-gap);
-    grid-gap: var(--grid-gap);
-    /* Older browsers */
-    width: 100%;
-    height: 100%;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: var(--section-padding) var(--content-padding);
-    box-sizing: border-box;
+/* Ensure main element has no default margins */
+main.landing-page {
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
-    /* Fallback for browsers without CSS Grid */
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -moz-box-pack: justify;
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
+/* Cross-Browser Hero Section - Desktop Only (No Grid Layout) */
+.hero-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    z-index: 1;
+    /* Removed grid layout for desktop-only centered design */
 }
 
 /* IE11 Grid positioning with standard properties */
@@ -3520,8 +3656,16 @@ a:active {
 }
 
 .hero-section>.hero-content {
-    grid-column: 2;
-    -ms-grid-column: 2;
+    /* Fixed positioning for perfect center alignment */
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 690px !important;
 }
 
 .hero-section>.social-links {
@@ -3593,8 +3737,17 @@ a:active {
 
 /* Hero Content - Optimized with Animations */
 .hero-content {
-    grid-area: content;
-    text-align: center;
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 690px !important;
 }
 
 .hero-content>* {
@@ -3607,17 +3760,17 @@ a:active {
     font-family: var(--font-greeting);
     font-family: "Space Mono", monospace;
 
-    /* Use 64px equivalent font size for greeting text */
+    /* Use 64px equivalent font size for greeting text - Reduced by 20% */
     font-size: var(--font-size-greeting-64px);
     /* Fallback for browsers without CSS custom properties */
-    font-size: clamp(3rem, 6vw, 4rem);
+    font-size: clamp(2.4rem, 4.8vw, 3.2rem);
 
     color: var(--secondary-text);
     /* Fallback for browsers without CSS custom properties */
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: var(--space-sm);
     /* Fallback for browsers without CSS custom properties */
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     animation-delay: var(--animation-delay-base);
     -webkit-animation-delay: var(--animation-delay-base);
 }
@@ -3627,10 +3780,10 @@ a:active {
     font-family: var(--font-name);
     font-family: "Asimovian", sans-serif;
 
-    /* Use 80px equivalent font size for name text */
+    /* Use 80px equivalent font size for name text - Reduced by 20% */
     font-size: var(--font-size-name-80px);
     /* Fallback for browsers without CSS custom properties */
-    font-size: clamp(3.5rem, 7vw, 4.5rem);
+    font-size: clamp(4.2rem, 8.4vw, 5.4rem);
 
     font-weight: var(--font-weight-bold);
     /* Fallback for browsers without CSS custom properties */
@@ -3640,7 +3793,7 @@ a:active {
     color: #006b3f;
     margin-bottom: var(--space-md);
     /* Fallback for browsers without CSS custom properties */
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     line-height: var(--line-height-tight);
     /* Fallback for browsers without CSS custom properties */
     line-height: 1.1;
@@ -3679,22 +3832,118 @@ a:active {
     font-family: var(--font-role);
     font-family: "Enriqueta", serif;
 
-    /* Use reduced font size (30% reduction) */
+    /* Use reduced font size (30% reduction) - Reduced by 20% */
     font-size: var(--font-size-role-reduced);
     /* Fallback for browsers without CSS custom properties */
-    font-size: clamp(2.1rem, 5.6vw, 3.5rem);
+    font-size: clamp(1.68rem, 4.48vw, 2.8rem);
 
     font-weight: var(--font-weight-semibold);
     color: var(--accent-green);
     /* Fallback for browsers without CSS custom properties */
     color: #006b3f;
-    margin-bottom: 1rem;
+    margin: 0 auto 0.8rem auto;
+    text-align: center;
+    width: 100%;
+    display: block;
     animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
     -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
     -o-transition: all var(--transition-smooth);
+}
+
+/* ============================================
+   ACTION BUTTONS
+   ============================================ */
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.6rem;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.6rem 1.2rem;
+    font-family: "Enriqueta", serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 1.6rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1.6px solid transparent;
+}
+
+.btn-primary {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #1a1a1a;
+}
+
+.btn-primary:hover {
+    background: #006b3f;
+    color: #ffffff;
+    border-color: #006b3f;
+    transform: translateY(-1.6px);
+    box-shadow: 0 3.2px 9.6px rgba(0, 107, 63, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #1a1a1a;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: #1a1a1a;
+
+}
+
+.btn-secondary:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+    transform: translateY(-1.6px);
+    box-shadow: 0 3.2px 9.6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   DECORATIVE LINES
+   ============================================ */
+
+.decorative-lines {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.5);
+}
+
+.line {
+    height: 2.4px;
+    width: 32px;
+    border-radius: 1.6px;
+}
+
+.line-black {
+    background: #1a1a1a;
+}
+
+.line-red {
+    background: #b30000;
+}
+
+.line-green {
+    background: #006b3f;
 }
 
 .role:hover {
@@ -3716,138 +3965,62 @@ a:active {
     z-index: 10;
 }
 
-/* AI Text - Starts with animation, then rests visible */
+/* AI Text - JavaScript-controlled switching animation */
 .ai-text {
     display: inline-block;
     position: relative;
     z-index: 2;
-    animation: aiTextAlternate 6s ease-in-out infinite;
     transform-origin: center center;
     will-change: transform, opacity;
-    /* Start visible */
+    /* Start visible - JS will control transitions */
     opacity: 1;
     transform: scale(1);
+    /* Smooth transitions controlled by JS - using ease curve */
+    transition: opacity 0.4s cubic-bezier(.25, .1, .25, 1),
+        transform 0.4s cubic-bezier(.25, .1, .25, 1);
 }
 
-/* AI Text - Resting state (visible after animation) */
+/* AI Text - Resting state (visible) */
 .ai-text.resting {
-    animation: none;
     opacity: 1;
     transform: scale(1);
 }
 
-/* AI Text - Hidden state (when logo is shown on hover) */
+/* AI Text - Hidden state (when logo is shown) */
 .ai-text.hidden {
-    animation: none;
     opacity: 0;
     transform: scale(0.5);
-    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Logo Icon - Starts with animation, then rests hidden */
+/* Logo Icon - JavaScript-controlled switching animation */
 .ai-logo-pulse {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0.5);
     width: 1.2em;
     height: auto;
     z-index: 1;
-    animation: logoAlternate 6s ease-in-out infinite;
     transform-origin: center center;
     pointer-events: none;
     will-change: transform, opacity;
-    /* Start hidden */
+    /* Start hidden - JS will control transitions */
     opacity: 0;
+    /* Smooth transitions controlled by JS - using ease curve */
+    transition: opacity 0.4s cubic-bezier(.25, .1, .25, 1),
+        transform 0.4s cubic-bezier(.25, .1, .25, 1);
 }
 
-/* Logo - Resting state (hidden after animation) */
+/* Logo - Resting state (hidden) */
 .ai-logo-pulse.resting {
-    animation: none;
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0.5);
 }
 
-/* Logo - Visible state (shown on hover) */
+/* Logo - Visible state (shown) */
 .ai-logo-pulse.visible {
-    animation: none;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.2);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-/* AI Text Alternating Animation: Grow → Shrink & Fade → Hidden */
-@keyframes aiTextAlternate {
-    0% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-
-    16.67% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    33.33% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    41.67% {
-        transform: scale(0.25);
-        opacity: 0;
-    }
-
-    50%,
-    83.33% {
-        transform: scale(0);
-        opacity: 0;
-    }
-
-    91.67% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Logo Alternating Animation: Hidden → Grow → Shrink & Fade */
-@keyframes logoAlternate {
-
-    0%,
-    41.67% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-    }
-
-    66.67% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-    }
-
-    83.33% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-    }
-
-    91.67% {
-        transform: translate(-50%, -50%) scale(0.3);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-    }
 }
 
 .location {
@@ -3942,12 +4115,18 @@ a:active {
 
 /* Footer - Optimized with Animation */
 .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
     background: rgba(0, 0, 0, 0.8);
     padding: 2rem var(--content-padding);
     text-align: center;
     opacity: 0;
     transform: translateY(20px);
     transition: all var(--transition-smooth);
+    z-index: 10;
+    box-sizing: border-box;
 }
 
 .footer.animate-in {
@@ -4092,11 +4271,6 @@ body:not(.loaded) .social-links {
     display: none;
 }
 
-.browser-ie .pill-sidebar {
-    transform: translateY(-50%) translateX(20px);
-    filter: none;
-}
-
 .no-custom-properties .background-pattern {
     opacity: 0.4;
     background-size: 20px 20px;
@@ -4105,10 +4279,6 @@ body:not(.loaded) .social-links {
 .no-custom-properties .code-element {
     color: #333;
     opacity: 0.15;
-}
-
-.no-custom-properties .pill-sidebar {
-    background: #d4e6d4;
 }
 
 /* Performance-based optimizations */
@@ -4148,12 +4318,7 @@ body:not(.loaded) .social-links {
     margin: 0.5rem;
 }
 
-/* Viewport height fallback */
-.landing-page {
-    width: 100vw;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-}
+/* Viewport height fallback - consolidated with main definition above */
 
 /* High DPI display optimizations */
 @media (-webkit-min-device-pixel-ratio: 2),
@@ -4244,23 +4409,21 @@ body:not(.loaded) .social-links {
     /* Typography responsive adjustments for mobile */
     .greeting {
         font-size: var(--font-size-greeting-64px);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
         text-align: center;
     }
 
     .name {
         font-size: var(--font-size-name-80px);
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
         text-align: center;
     }
 
     .role {
         font-size: var(--font-size-role-reduced);
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
         text-align: center;
     }
-
-
 
     .social-list {
         flex-direction: row;
@@ -4341,181 +4504,39 @@ body:not(.loaded) .social-links {
     }
 }
 
-/* Pill
--Shaped Sidebar Styles */
-.pill-sidebar {
-    position: fixed;
-    left: 2rem;
-    top: 50%;
-    transform: translateY(-50%) translateX(20px) scale(1.2);
-    width: 80px;
-    height: 300px;
-    background: hsl(160, 30%, 85%);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    z-index: 50;
-    transition: all 0.3s ease;
-    
-    /* Hide by default - only show on home and contact pages */
-    display: none;
-}
-
-/* Show pill-sidebar only on home page (index.html) */
-body.home-page .pill-sidebar,
-body.contact-page .pill-sidebar {
-    display: flex;
-}
-
-.pill-sidebar:hover {
-    transform: translateY(-50%) translateX(20px) scale(1.224);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Profile Photo Styles */
-.profile-section {
-    margin-bottom: 2rem;
-}
-
-.profile-photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    transition: all 0.3s ease;
-}
-
-.profile-photo:hover {
-    transform: scale(1.1);
-    border-color: rgba(255, 255, 255, 1);
-}
-
-/* Social Icons Styles */
-.social-nav {
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.social-icons-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    list-style: none;
-}
-
-.social-icon-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    color: #333;
-}
-
-.social-icon-link:hover {
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(1.1);
-    color: #006b3f;
-}
-
-.social-icon {
-    width: 20px;
-    height: 20px;
-}
-
-/* 
+/*
 Updated Hero Section for Pill Layout */
 .hero-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
-    padding: var(--section-padding) var(--content-padding);
-    margin-left: 140px;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
-    /* Account for larger pill sidebar (120px * 1.2 + 20px offset) */
+    z-index: 1;
 }
 
 .hero-content {
-    text-align: center;
-    max-width: 600px;
-}
-
-/* Responsive adjustments for pill sidebar */
-@media (max-width: 768px) {
-    .pill-sidebar {
-        left: 1rem;
-        transform: translateY(-50%) translateX(20px) scale(1.2);
-        width: 60px;
-        height: 240px;
-        padding: 1rem 0;
-    }
-
-    .profile-photo {
-        width: 35px;
-        height: 35px;
-    }
-
-    .social-icon-link {
-        width: 30px;
-        height: 30px;
-        min-height: 44px;
-        min-width: 44px;
-    }
-
-    .social-icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .hero-section {
-        margin-left: 100px;
-        /* Account for scaled sidebar on tablet */
-    }
-}
-
-@media (max-width: 480px) {
-    .pill-sidebar {
-        position: relative;
-        left: auto;
-        top: auto;
-        transform: scale(1.2);
-        width: 100%;
-        height: 80px;
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: 2rem;
-        border-radius: 40px;
-    }
-
-    .profile-section {
-        margin-bottom: 0;
-        margin-right: 1rem;
-    }
-
-    .social-icons-list {
-        flex-direction: row;
-        gap: 0.5rem;
-    }
-
-    .hero-section {
-        margin-left: 0;
-        padding-top: 0;
-    }
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    max-width: 690px !important;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
 }
 
 /* Organic Background Shapes */
 .hero-section::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 20%;
+    top: 15vh;
     left: 20vw;
     width: 18.75rem;
     height: 12.5rem;
@@ -4527,9 +4548,9 @@ Updated Hero Section for Pill Layout */
 }
 
 .hero-section::after {
-    content: '';
+    content: "";
     position: absolute;
-    top: 80vh;
+    top: 60vh;
     right: 20%;
     width: 12.5rem;
     height: 9.375rem;
@@ -4542,9 +4563,9 @@ Updated Hero Section for Pill Layout */
 
 /* Additional organic shapes */
 .landing-page::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 80vh;
+    top: 60vh;
     left: 60%;
     width: 9.375rem;
     height: 6.25rem;
@@ -4557,21 +4578,8 @@ Updated Hero Section for Pill Layout */
 
 /* Header Background Shape - Black blurred shape for navigation contrast */
 .landing-page::after {
-    content: '';
-    position: fixed;
-    top: 15px;
-    left: 60vw;
-    right: 20vw;
-    width: 20vw;
-    height: 64px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    z-index: 50;
-    /* Below navigation icons but above other background elements */
-    filter: blur(20px);
-    pointer-events: none;
-    /* Ensure it doesn't interfere with navigation interactions */
-    animation: float 12s ease-in-out infinite;
+    content: none;
+    display: none;
 }
 
 @keyframes float {
@@ -4586,46 +4594,42 @@ Updated Hero Section for Pill Layout */
     }
 }
 
-/* Enhanced hero section positioning */
-.landing-page {
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-section {
-    position: relative;
-    z-index: 1;
-}
-
 /* Location Container Styling */
 .location-container {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+    /* Pill shape */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .location-pin {
-    width: 20px;
-    height: 20px;
-    color: var(--accent-green);
-    /* Fallback */
+    width: 18px;
+    height: 18px;
     color: #006b3f;
+    flex-shrink: 0;
 }
 
 .location {
     margin: 0;
-    font-size: var(--font-size-body);
-    /* Fallback */
-    font-size: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #2d2d2d;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: "Space Mono", monospace;
 }
 
 /* Decorative Shapes on Right Side */
 .decorative-shapes {
     position: absolute;
-    right: 5%;
-    top: 80vh;
+    left: 70vw;
+    top: 90vh;
     transform: translateY(-50%);
     z-index: -1;
 }
@@ -4668,27 +4672,28 @@ Updated Hero Section for Pill Layout */
 
 /* Typography Classes with Responsive Font Sizes */
 .greeting {
-    color: var(--secondary-text);
-    /* Fallback */
-    color: rgba(51, 51, 51, 0.7);
+    color: #2d2d2d;
+    /* Small, dark grey text */
     font-family: var(--font-greeting);
-    font-size: var(--font-size-greeting-64px);
-    /* 64px equivalent greeting size */
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+    font-weight: 400;
     margin-bottom: 0.5rem;
-    line-height: var(--line-height-tight);
+    line-height: 1.5;
+    opacity: 0.8;
 }
 
 .name {
-    color: var(--accent-green);
-    /* Fallback */
     color: #006b3f;
+    /* Green color for name */
     font-family: var(--font-name);
-    font-size: var(--font-size-name-80px);
-    /* 80px equivalent name size */
+    font-family: "Asimovian", sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
     margin-bottom: 1rem;
     position: relative;
     z-index: 2;
-    line-height: var(--line-height-tight);
+    line-height: 1.2;
     transition: all var(--transition-smooth);
 }
 
@@ -4698,33 +4703,56 @@ Updated Hero Section for Pill Layout */
 }
 
 .role {
-    /* Fallback color - will be overridden by gradient class */
-    color: var(--accent-green);
-    color: #006b3f;
+    /* Red/maroon color for role - override gradient */
+    color: #ce1126 !important;
     font-family: var(--font-role);
-    font-size: var(--font-size-role-reduced);
-    /* 30% reduction for role */
-    margin-bottom: 1.5rem;
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin: 0 auto 1.5rem auto;
     position: relative;
     z-index: 2;
-    line-height: var(--line-height-tight);
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+/* Override gradient for role to use solid red/maroon color */
+.role.kenyan-gradient {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #ce1126 !important;
+    color: #ce1126 !important;
+}
+
+/* Ensure AI wrapper within role maintains color */
+.role .ai-wrapper {
+    color: #ce1126;
+}
+
+.role .ai-text {
+    color: #ce1126;
+}
+
+/* Description paragraph styling */
+.description {
+    color: #2d2d2d;
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 auto 2rem auto;
+    max-width: 690px;
+    text-align: center;
+    opacity: 0.85;
 }
 
 /* Final
  Polish and Refinements */
 
-/* Improved pill sidebar integration */
-.pill-sidebar {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 /* Smooth entrance animations */
-.pill-sidebar {
-    animation: slideInLeft 0.8s ease-out;
-}
-
 .hero-content>* {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
@@ -4740,6 +4768,10 @@ Updated Hero Section for Pill Layout */
 
 .role {
     animation-delay: 0.6s;
+}
+
+.description {
+    animation-delay: 0.7s;
 }
 
 .location-container {
@@ -4781,9 +4813,7 @@ Updated Hero Section for Pill Layout */
 
 /* Better responsive behavior */
 @media (max-width: 1024px) {
-    .decorative-shapes {
-        display: none;
-    }
+    /* Decorative shapes removed from hiding - desktop only design */
 
     .hero-section::before,
     .hero-section::after,
@@ -4862,7 +4892,7 @@ Updated Hero Section for Pill Layout */
     .nav-icons-container {
         gap: 1.5rem;
         padding: 0.5rem 1rem;
-        max-height: 45px;
+        max-height: 47px;
         top: 20px;
         /* Same vertical level as logo */
     }
@@ -4913,7 +4943,9 @@ Updated Hero Section for Pill Layout */
         /* Maintain hover effects on hybrid devices */
         transform: scale(1.15);
         filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.4);
         border-radius: 50%;
     }
 }
@@ -4961,7 +4993,9 @@ Updated Hero Section for Pill Layout */
         /* Enhanced hover effects for precise pointers */
         transform: scale(1.15);
         filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.4);
         border-radius: 50%;
         transition: all 0.3s ease-in;
     }
@@ -5213,7 +5247,6 @@ Updated Hero Section for Pill Layout */
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
 
-    .pill-sidebar,
     .hero-content>*,
     .shape,
     .social-icon-link,
@@ -5250,7 +5283,9 @@ Updated Hero Section for Pill Layout */
         background: #000000 !important;
         color: #ffffff !important;
         border: 2px solid #ffffff !important;
-        box-shadow: 0 0 0 1px #000000, 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+        box-shadow:
+            0 0 0 1px #000000,
+            0 2px 8px rgba(0, 0, 0, 0.8) !important;
         font-weight: 600 !important;
     }
 
@@ -5374,21 +5409,20 @@ erformance optimizations and reduced motion support */
         opacity: 1 !important;
         transform: none !important;
     }
-
-    .pill-sidebar {
-        animation: none !important;
-        opacity: 1 !important;
-        transform: translateY(-50%) !important;
-    }
 }
 
 /* Performance optimizations */
-.nav-halo,
-.hero-content>*,
-.pill-sidebar {
+.nav-halo {
     will-change: transform, opacity;
     backface-visibility: hidden;
     transform: translateZ(0);
+}
+
+/* Hero content children - preserve parent centering */
+.hero-content>* {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    /* Removed translateZ(0) to avoid transform conflicts with parent centering */
 }
 
 /* Optimize animations for 60fps */
@@ -5440,7 +5474,7 @@ erformance optimizations and reduced motion support */
     }
 }
 
-/* 
+/*
 Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 @media (hover: none) and (pointer: coarse) {
 
@@ -5461,7 +5495,9 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
         -webkit-user-select: none;
         user-select: none;
         /* Enhanced touch feedback */
-        transition: background-color 0.15s ease, transform 0.15s ease;
+        transition:
+            background-color 0.15s ease,
+            transform 0.15s ease;
     }
 
     /* Touch-specific active states */
@@ -5565,9 +5601,9 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     /* Adjust background blur for landscape */
@@ -5601,9 +5637,9 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
     }
 
     .nav-icon-svg {
-        width: 30px;
-        /* Maintain 30px icon size - Requirement 8.2 */
-        height: 30px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 }
 
@@ -5677,7 +5713,9 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
 
     .nav-icon {
         /* Simplified transitions for better performance */
-        transition: background-color 0.2s ease, transform 0.2s ease;
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
         will-change: auto;
     }
 
@@ -5687,6 +5725,7 @@ Enhanced Touch Device Support - Requirements 8.4, 8.5 */
         transform: translate3d(0, -20px, 0) scale(1.1);
     }
 }
+
 /* ===================================
    ABOUT SECTION
    =================================== */

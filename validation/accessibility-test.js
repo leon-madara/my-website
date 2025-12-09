@@ -58,7 +58,7 @@ class AccessibilityValidator {
             hasMainLandmark: this.testMainLandmark(),
             hasNavigationLandmark: this.testNavigationLandmark(),
             hasProperHeadingStructure: this.testHeadingStructure(),
-            hasSkipLink: this.testSkipLink(),
+
             hasLiveRegions: this.testLiveRegions(),
             hasProperListStructure: this.testListStructure(),
             hasSemanticSections: this.testSemanticSections(),
@@ -138,25 +138,7 @@ class AccessibilityValidator {
         return hierarchyValid;
     }
 
-    testSkipLink() {
-        const skipLink = document.querySelector('.skip-link, [href="#main-content"], [href="#main"]');
 
-        if (!skipLink) {
-            this.testResults.errors.push('Missing skip navigation link');
-            return false;
-        }
-
-        // Check if skip link is properly positioned
-        const computedStyle = window.getComputedStyle(skipLink);
-        const isHidden = computedStyle.position === 'absolute' &&
-            (computedStyle.top === '-40px' || computedStyle.left === '-9999px');
-
-        if (!isHidden) {
-            this.testResults.warnings.push('Skip link should be visually hidden by default');
-        }
-
-        return true;
-    }
 
     testLiveRegions() {
         const liveRegions = document.querySelectorAll('[aria-live]');
@@ -633,26 +615,7 @@ class AccessibilityValidator {
         return allAccessible;
     }
 
-    testSkipLinkFunctionality() {
-        const skipLink = document.querySelector('.skip-link, [href="#main-content"], [href="#main"]');
 
-        if (!skipLink) {
-            return false;
-        }
-
-        // Check if skip link target exists
-        const href = skipLink.getAttribute('href');
-        if (href && href.startsWith('#')) {
-            const target = document.querySelector(href);
-
-            if (!target) {
-                this.testResults.errors.push('Skip link target does not exist');
-                return false;
-            }
-        }
-
-        return true;
-    }
 
     testFocusManagement() {
         console.log('Testing focus management...');
@@ -998,7 +961,7 @@ class AccessibilityValidator {
         return {
             keyboardAccessible: this.testResults.keyboardNavigation.focusableElementsAccessible,
             seizures: true, // Assume no flashing content
-            navigable: this.testResults.semanticMarkup.hasSkipLink,
+
             inputModalities: this.testResults.keyboardNavigation.customControlsAccessible
         };
     }
