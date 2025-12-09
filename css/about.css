@@ -42,6 +42,16 @@ body.about-page .nav-pills a.active svg {
     stroke: #14ff8e;
 }
 
+/* Dark Mode - Active nav link label and icon should be black */
+body.dark-theme.about-page .nav-pills a.active .label {
+    color: #000000;
+}
+
+body.dark-theme.about-page .nav-pills a.active svg {
+    color: #000000;
+    stroke: #000000;
+}
+
 /* ========================================
    DECORATIVE SHAPES (match home page)
    ======================================== */
@@ -170,6 +180,12 @@ body.about-page .nav-pills a.active svg {
     height: 100%;
     object-fit: contain;
     pointer-events: none;
+}
+
+/* Dark Mode - Theme Toggle Icon (Color: #646366) */
+body.dark-theme .theme-icon.dark-icon {
+    filter: brightness(0) saturate(100%) invert(39%) sepia(2%) saturate(0%) hue-rotate(0deg) brightness(95%);
+    opacity: 1;
 }
 
 /* ========================================
@@ -1187,10 +1203,10 @@ body.about-page .nav-pills a.active svg {
 
 .certifications-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
     margin-top: 3rem;
-    max-width: 900px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1202,24 +1218,91 @@ body.about-page .nav-pills a.active svg {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 1.5rem;
     padding: 2.5rem 2rem;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.1),
         0 0 60px rgba(0, 107, 63, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .certification-card:hover {
-    transform: translateY(-8px) rotate(-1deg);
+    transform: translateY(-8px);
     box-shadow:
         0 12px 48px rgba(0, 0, 0, 0.15),
         0 0 80px rgba(0, 107, 63, 0.12);
+}
+
+/* Card Header with Logo and Verified Badge */
+.cert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.cert-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cert-logo::before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(0, 107, 63, 0.2), rgba(206, 17, 38, 0.2));
+    display: inline-block;
+}
+
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #006B3F;
+    background: rgba(0, 107, 63, 0.1);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 107, 63, 0.2);
+}
+
+.verified-badge::before {
+    content: '✓';
+    font-size: 1rem;
+    color: #006B3F;
+}
+
+.in-progress-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #CE1126;
+    background: rgba(206, 17, 38, 0.1);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(206, 17, 38, 0.2);
+}
+
+.in-progress-badge::before {
+    content: '⏳';
+    font-size: 1rem;
 }
 
 .cert-badge {
     font-size: 3rem;
     margin-bottom: 1rem;
     line-height: 1;
+    display: none; /* Hide old badge, using verified-badge instead */
 }
 
 .cert-title {
@@ -1228,12 +1311,14 @@ body.about-page .nav-pills a.active svg {
     font-weight: 700;
     color: var(--primary-text);
     margin-bottom: 0.75rem;
+    line-height: 1.3;
 }
 
 .cert-issuer {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--secondary-text);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
 }
 
 .cert-year {
@@ -1245,6 +1330,149 @@ body.about-page .nav-pills a.active svg {
     padding: 0.4rem 1rem;
     border-radius: 1rem;
     font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Trust Metrics */
+.cert-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 107, 63, 0.05);
+    border-radius: 1rem;
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    font-family: 'Space Mono', monospace;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+    margin-top: 0.25rem;
+}
+
+/* Skills Section */
+.cert-skills {
+    margin-bottom: 1.5rem;
+}
+
+.skills-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary-text);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    background: linear-gradient(135deg, rgba(0, 107, 63, 0.1), rgba(206, 17, 38, 0.1));
+    border: 1px solid rgba(0, 107, 63, 0.2);
+    border-radius: 999px;
+    color: var(--primary-text);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.skill-tag:hover {
+    background: linear-gradient(135deg, rgba(0, 107, 63, 0.2), rgba(206, 17, 38, 0.2));
+    border-color: rgba(0, 107, 63, 0.4);
+    transform: scale(1.05);
+}
+
+/* Key Topics */
+.cert-topics {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cert-topics li {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+}
+
+.cert-topics li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #006B3F;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Action Buttons */
+.cert-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-verify,
+.btn-view {
+    flex: 1;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-family: 'Space Mono', monospace;
+}
+
+.btn-verify {
+    background: transparent;
+    border: 2px solid #006B3F;
+    color: #006B3F;
+}
+
+.btn-verify:hover {
+    background: #006B3F;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-view {
+    background: rgba(0, 107, 63, 0.1);
+    border: 2px solid transparent;
+    color: var(--primary-text);
+}
+
+.btn-view:hover {
+    background: rgba(0, 107, 63, 0.2);
+    border-color: rgba(0, 107, 63, 0.3);
+    transform: translateY(-2px);
 }
 
 /* ========================================
@@ -1275,6 +1503,11 @@ body.about-page .nav-pills a.active svg {
     .timeline {
         padding-left: 2.5rem;
     }
+    
+    .certifications-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
 }
 
 /* Mobile */
@@ -1293,6 +1526,14 @@ body.about-page .nav-pills a.active svg {
     .certifications-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+    
+    .cert-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .cert-actions {
+        flex-direction: column;
     }
     
     /* On mobile, all items stack vertically, so reset grid-column */
@@ -1369,8 +1610,8 @@ body.dark-theme main.about-page {
 
 /* Dark Mode Parallax Hero */
 body.dark-theme .parallax-hero {
-    /* Kenyan gradient background matching sidebar-header dark mode */
-    background: linear-gradient(135deg, rgba(16, 207, 116, 0.9) 0%, rgba(255, 51, 85, 0.9) 100%);
+    /* Black background in dark mode */
+    background: #000000;
 }
 
 body.dark-theme .green-section {
@@ -1382,22 +1623,22 @@ body.dark-theme .green-section {
 
 /* Dark Mode Top Gradient Section */
 body.dark-theme .top-gradient-section {
-    /* Kenyan gradient background matching sidebar-header dark mode */
-    background: linear-gradient(135deg, rgba(16, 207, 116, 0.9) 0%, rgba(255, 51, 85, 0.9) 100%);
+    /* Dark green to dark red gradient in dark mode */
+    background: linear-gradient(135deg, rgba(0, 80, 40, 0.9) 0%, rgba(140, 0, 20, 0.9) 100%);
 }
 
 /* Dark Mode About Text */
 body.dark-theme .about-text {
-    color: #10cf74;
-    text-shadow: 0 2px 10px rgba(16, 207, 116, 0.5);
+    color: #000000;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-theme .name-text {
-    background: linear-gradient(45deg, #e8edf3 0%, #ff3355 50%, #10cf74 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 4px 12px rgba(16, 207, 116, 0.3));
+    color: #000000;
+    -webkit-text-fill-color: #000000;
+    background: none;
+    background-clip: unset;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
 }
 
 body.dark-theme .name-underline {
@@ -1703,4 +1944,28 @@ body.dark-theme .footer {
 
 body.dark-theme .footer-text {
     color: #a8b5c7;
+}
+
+/* ========================================
+   SCROLL FADE CONTROLLER
+   Reusable component for scroll-based fade behavior
+   ======================================== */
+
+/* Base styles for scroll fade targets */
+.scroll-fade-target {
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    will-change: opacity, transform;
+}
+
+/* Hidden state - fade out and move up slightly */
+.scroll-fade-target.scroll-fade-hidden {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    visibility: hidden;
+}
+
+/* Ensure smooth transitions */
+.scroll-fade-target.scroll-fade-hidden * {
+    pointer-events: none;
 }
