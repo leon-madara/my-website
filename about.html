@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+        />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="description"
+            content="Leon Madara - Full Stack Developer and UX Designer from Nairobi, Kenya. Learn about my journey, skills, and approach to building digital experiences."
+        />
+        <meta
+            name="keywords"
+            content="About, Full Stack Developer, UX Designer, Web Development, Leon Madara"
+        />
+        <meta name="author" content="Leon Madara" />
+        <meta name="theme-color" content="#006b3f" />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="images/LeonDevLogo.svg" />
+
+        <title>About - Leon Madara</title>
+
+        <!-- Google Fonts Preconnect -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Asimovian&family=Enriqueta:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- CSS Stylesheets -->
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/sidebar-profile-card.css" />
+        <link rel="stylesheet" href="css/about.css" />
+        <link rel="stylesheet" href="css/liquid-nav.css" />
+
+        <!-- GSAP for smooth animations -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        <!-- GSAP Bonus Plugins (Club GreenSock) -->
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+        <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
+        <script src="https://assets.codepen.io/16327/ScrambleTextPlugin3.min.js"></script>
+    </head>
+
+    <body class="about-page">
+        <!-- Live region for screen reader announcements -->
+        <div
+            id="sr-announcements"
+            aria-live="polite"
+            aria-atomic="true"
+            class="sr-only"
+        ></div>
+
+        <!-- Logo -->
+        <a href="index.html" class="header-logo" aria-label="Home">
+            <img src="images/LeonDevLogo.svg" alt="Leon Madara" />
+        </a>
+        
+        <!-- Dark/Light Mode Toggle - At body level to avoid layout conflicts -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
+            <img src="images/lighMode.svg" alt="Light mode" class="theme-icon light-icon" id="light-icon">
+            <img src="images/darkMode.svg" alt="Dark mode" class="theme-icon dark-icon" id="dark-icon" style="display: none;">
+        </button>
+
+        <!-- Navigation -->
+        <nav class="nav-pills">
+                <div class="indicator"></div>
+                <a href="index.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                        />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span class="label">Home</span>
+                </a>
+                <a href="about.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    <span class="label">About</span>
+                </a>
+                <a href="portfolio.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect
+                            x="2"
+                            y="7"
+                            width="20"
+                            height="14"
+                            rx="2"
+                            ry="2"
+                        />
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    </svg>
+                    <span class="label">Portfolio</span>
+                </a>
+                <a href="contact.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <span class="label">Contact</span>
+                </a>
+        </nav>
+
+        <!-- Profile Card Sidebar -->
+        <aside
+            class="pill-sidebar"
+            role="complementary"
+            aria-label="Profile and social links"
+        >
+            <!-- Card Header with Kenyan Gradient -->
+            <header class="sidebar-header">
+                <!-- Follow Button -->
+                <button
+                    class="sidebar-follow-button"
+                    aria-label="Follow Leon Madara"
+                    aria-pressed="false"
+                >
+                    <span>Follow</span>
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 4v16m8-8H4"
+                        />
+                    </svg>
+                </button>
+
+                <!-- Profile Avatar - Asymmetric at 25% -->
+                <div class="profile-section">
+                    <img
+                        src="images/Leon.jpg"
+                        alt="Leon Madara"
+                        class="profile-photo"
+                    />
+                </div>
+
+                <!-- Experience Progress Bar -->
+                <div
+                    class="experience-bar"
+                    role="group"
+                    aria-label="Experience level"
+                >
+                    <span class="exp-label" aria-hidden="true">exp.</span>
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-valuenow="65"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-label="Experience: 65%"
+                    ></div>
+                    <span class="sr-only">Experience level: 65%</span>
+                </div>
+            </header>
+
+            <!-- Identity Section -->
+            <div class="identity-section">
+                <h2 class="sidebar-name">Leon Madara</h2>
+                <p class="sidebar-title">
+                    Full Stack AI Developer from Nairobi, Kenya. Building
+                    innovative solutions with modern web technologies.
+                </p>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section" role="list">
+                <div class="stat-item" role="listitem">
+                    <span class="stat-number">72.9K</span>
+                    <span class="stat-label">Likes</span>
+                </div>
+                <div class="stat-item" role="listitem">
+                    <span class="stat-number">828</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item" role="listitem">
+                    <span class="stat-number">342.9K</span>
+                    <span class="stat-label">Views</span>
+                </div>
+            </div>
+
+            <!-- Social Icons -->
+            <nav class="social-nav" aria-label="Social media links">
+                <ul class="social-icons-list">
+                    <li class="social-icon-item">
+                        <a
+                            href="https://github.com/leon-madara"
+                            class="social-icon-link"
+                            aria-label="GitHub Profile"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="social-icon"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                                />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="social-icon-item">
+                        <a
+                            href="https://www.linkedin.com/in/leon-madara/"
+                            class="social-icon-link"
+                            aria-label="LinkedIn Profile"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="social-icon"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                                />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="social-icon-item">
+                        <a
+                            href="https://twitter.com/leon_madara"
+                            class="social-icon-link"
+                            aria-label="Twitter/X Profile"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="social-icon"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="about-page" id="main-content">
+            <!-- PARALLAX HERO SECTION -->
+            <section class="parallax-hero" id="parallax-hero">
+                <!-- Top Gradient Section -->
+                <div class="top-gradient-section" id="top-gradient-section"></div>
+
+                <!-- Lion Image - Moved outside hero-container to fix stacking context -->
+                <div class="hero-image-wrapper">
+                    <img
+                        src="images/lion1.PNG"
+                        alt="Leon Madara - Professional portrait"
+                        class="hero-image"
+                        id="hero-image"
+                    />
+                </div>
+
+                <!-- Hero Container (will scale & slide) -->
+                <div class="hero-container" id="hero-container">
+                    <!-- About Text Typography -->
+                    <div class="hero-text-wrapper">
+                        <div
+                            class="about-text-container"
+                            id="about-text-container"
+                        >
+                            <span class="about-text" id="about-text"
+                                >About</span
+                            >
+                            <span class="name-text" id="name-text">
+                                Leon Madara
+                                <span
+                                    class="name-underline"
+                                    id="name-underline"
+                                ></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reuse home-page decorative blur shapes for visual consistency -->
+                <div
+                    class="decorative-shapes about-decorative-shapes"
+                    aria-hidden="true"
+                >
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+            </section>
+
+            <!-- WHAT I DO SECTION -->
+            <section class="what-i-do-section" id="what-i-do-section">
+                <div class="section-content">
+                    <!-- Section Title (fades in from back) -->
+                    <h2
+                        class="section-title kenyan-gradient"
+                        id="section-title"
+                    >
+                        About Me
+                    </h2>
+
+                    <!-- Section Body (slides up from below) -->
+                    <div class="section-body" id="section-body">
+                        <p class="intro-text">
+                            Multidisciplinary Data Analyst & Web Developer with
+                            3+ years of industry experience and a strong
+                            foundation in computer science. I combine analytical
+                            rigor with intuitive interface design to craft
+                            data-driven applications and dashboards that are
+                            functional, performant, and user-focused.
+                        </p>
+
+                        <div class="expertise-grid">
+                            <div class="expertise-item featured-expertise">
+                                <div class="expertise-header">
+                                    <div class="expertise-icon-wrapper">
+                                        <span class="expertise-icon">💻</span>
+                                    </div>
+                                    <h3>Web Design & Development</h3>
+                                </div>
+                                <div class="expertise-content">
+                                    <p>
+                                        Combining analytical rigor with intuitive design. I build responsive websites 
+                                        and dashboards using modern code, while ensuring accessibility and user-centric 
+                                        layouts via Figma and Adobe XD.
+                                    </p>
+                                    <div class="expertise-tags">
+                                        <span class="tag">React</span>
+                                        <span class="tag">Tailwind CSS</span>
+                                        <span class="tag">JavaScript</span>
+                                        <span class="tag">Figma</span>
+                                        <span class="tag">Adobe XD</span>
+                                        <span class="tag">UI/UX</span>
+                                        <span class="tag">Accessibility</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="expertise-item">
+                                <span class="expertise-icon">🎨</span>
+                                <h3>UI/UX Design</h3>
+                                <p>
+                                    Designing user interfaces in Figma and Adobe
+                                    XD with a focus on clarity, accessibility,
+                                    and usability.
+                                </p>
+                            </div>
+
+                            <div class="expertise-item">
+                                <span class="expertise-icon">📊</span>
+                                <h3>Data Analysis</h3>
+                                <p>
+                                    Designing visual reports using PowerBI,
+                                    Tableau, and SQL to help stakeholders make
+                                    informed decisions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SKILLS SECTION -->
+            <section class="skills-section" id="skills-section">
+                <div class="section-content">
+                    <h2 class="section-title kenyan-gradient">
+                        Skills & Technologies
+                    </h2>
+
+                    <div class="skills-grid">
+                        <div class="skill-category" data-category="data">
+                            <h3 class="skill-category-title">Data Tools</h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag">SQL</span>
+                                <span class="skill-tag">Excel</span>
+                                <span class="skill-tag">SPSS</span>
+                                <span class="skill-tag">PowerBI</span>
+                                <span class="skill-tag">Tableau</span>
+                                <span class="skill-tag">Metabase</span>
+                                <span class="skill-tag">Looker</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category" data-category="web">
+                            <h3 class="skill-category-title">
+                                Web Development
+                            </h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag">HTML5</span>
+                                <span class="skill-tag">CSS3</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Tailwind CSS</span>
+                                <span class="skill-tag">Git</span>
+                                <span class="skill-tag">Vite</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category" data-category="design">
+                            <h3 class="skill-category-title">UI/UX Design</h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">Adobe XD</span>
+                                <span class="skill-tag">Prototyping</span>
+                                <span class="skill-tag">Usability Testing</span>
+                                <span class="skill-tag">Accessibility</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category" data-category="other">
+                            <h3 class="skill-category-title">Other</h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Responsive Design</span>
+                                <span class="skill-tag">Google Analytics</span>
+                                <span class="skill-tag">Problem-Solving</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EXPERIENCE SECTION -->
+            <section class="experience-section" id="experience-section">
+                <div class="section-content">
+                    <h2 class="section-title kenyan-gradient">
+                        Professional Experience
+                    </h2>
+
+                    <div class="timeline">
+                        <div class="timeline-item" data-role="analyst">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">2015 – 2018</span>
+                                <h3 class="timeline-title">
+                                    <span
+                                        class="timeline-icon"
+                                        aria-hidden="true"
+                                        >📊</span
+                                    >
+                                    Junior Analyst
+                                </h3>
+                                <p class="timeline-location">
+                                    Mumias Sugar Company — Kakamega County,
+                                    Mumias Town
+                                </p>
+                                <div class="timeline-reveal">
+                                    <span class="timeline-chip">BI</span>
+                                    <span class="timeline-chip">SQL</span>
+                                    <span class="timeline-chip">Automation</span>
+                                </div>
+                                <details class="timeline-details" open>
+                                    <summary class="timeline-summary">
+                                        Highlights
+                                    </summary>
+                                    <ul class="timeline-achievements">
+                                        <li>
+                                            Analyzed operational and financial
+                                            data to support strategic planning
+                                            and day-to-day decision-making
+                                        </li>
+                                        <li>
+                                            Built dashboards and visual reports
+                                            in PowerBI, Tableau, and Looker for
+                                            stakeholder visibility
+                                        </li>
+                                        <li>
+                                            Automated recurring analysis tasks
+                                            using SQL and Excel to reduce manual
+                                            reporting overhead
+                                        </li>
+                                        <li>
+                                            Partnered with cross-functional
+                                            teams to improve data accuracy and
+                                            dashboard usability
+                                        </li>
+                                    </ul>
+                                </details>
+                                <div class="timeline-links">
+                                    <a class="timeline-link" href="portfolio.html"
+                                        >See relevant work</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" data-role="freelance">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">2019 – 2024</span>
+                                <h3 class="timeline-title">
+                                    <span
+                                        class="timeline-icon"
+                                        aria-hidden="true"
+                                        >💻</span
+                                    >
+                                    Freelance Web Developer & UX Designer
+                                </h3>
+                                <p class="timeline-location">
+                                    Remote / Contract-Based
+                                </p>
+                                <div class="timeline-reveal">
+                                    <span class="timeline-chip">React</span>
+                                    <span class="timeline-chip">UI/UX</span>
+                                    <span class="timeline-chip">Analytics</span>
+                                </div>
+                                <details class="timeline-details" open>
+                                    <summary class="timeline-summary">
+                                        Highlights
+                                    </summary>
+                                    <ul class="timeline-achievements">
+                                        <li>
+                                            Built responsive websites and
+                                            dashboards using HTML, CSS,
+                                            JavaScript, React, and Tailwind CSS
+                                        </li>
+                                        <li>
+                                            Designed UI systems in Figma and
+                                            Adobe XD with a focus on clarity,
+                                            accessibility, and usability
+                                        </li>
+                                        <li>
+                                            Integrated analytics tools (Google
+                                            Analytics, Metabase) to inform
+                                            iteration and optimization
+                                        </li>
+                                        <li>
+                                            Delivered intuitive, data-rich user
+                                            experiences for startups and SMEs
+                                        </li>
+                                        <li>
+                                            Collaborated with stakeholders to
+                                            scope requirements, ship
+                                            milestones, and refine features
+                                            through feedback
+                                        </li>
+                                    </ul>
+                                </details>
+                                <div class="timeline-links">
+                                    <a class="timeline-link" href="portfolio.html"
+                                        >View projects</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" data-role="company">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date"
+                                    >July 2024 – Present</span
+                                >
+                                <h3 class="timeline-title">
+                                    <span
+                                        class="timeline-icon"
+                                        aria-hidden="true"
+                                        >🏢</span
+                                    >
+                                    Code by Leon
+                                </h3>
+                                <p class="timeline-subtitle">
+                                    Visual Web Experiences for Growing
+                                    Businesses
+                                </p>
+                                <p class="timeline-location">
+                                    Nairobi, Kenya / Remote
+                                </p>
+                                <div class="timeline-reveal">
+                                    <span class="timeline-chip"
+                                        >Product design</span
+                                    >
+                                    <span class="timeline-chip"
+                                        >Full-stack builds</span
+                                    >
+                                    <span class="timeline-chip"
+                                        >Business growth</span
+                                    >
+                                </div>
+                                <details class="timeline-details" open>
+                                    <summary class="timeline-summary">
+                                        Highlights
+                                    </summary>
+                                    <ul class="timeline-achievements">
+                                        <li>
+                                            Founded Code by Leon to build
+                                            visual, high-performing websites and
+                                            web apps for growth-focused
+                                            businesses
+                                        </li>
+                                        <li>
+                                            Delivered end-to-end engagements:
+                                            discovery, UX, development, and
+                                            launch with clear handoff
+                                            documentation
+                                        </li>
+                                        <li>
+                                            Built modern React + TypeScript
+                                            solutions designed for performance,
+                                            accessibility, and maintainability
+                                        </li>
+                                        <li>
+                                            Designed interfaces that balance
+                                            brand, clarity, and conversion
+                                            across mobile and desktop
+                                        </li>
+                                        <li>
+                                            Implemented analytics-ready
+                                            foundations to support iteration,
+                                            measurement, and continuous
+                                            improvement
+                                        </li>
+                                        <li>
+                                            Partnered with clients to turn
+                                            ideas into shippable roadmaps and
+                                            reliable releases
+                                        </li>
+                                    </ul>
+                                </details>
+                                <div class="timeline-links">
+                                    <a class="timeline-link" href="portfolio.html"
+                                        >Explore case studies</a
+                                    >
+                                    <a class="timeline-link" href="contact.html"
+                                        >Start a project</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EDUCATION SECTION -->
+            <section class="education-section" id="education-section">
+                <div class="section-content">
+                    <h2 class="section-title kenyan-gradient">Education</h2>
+
+                    <div class="education-grid">
+                        <div class="education-item" data-level="university">
+                            <div class="education-icon">🎓</div>
+                            <h3 class="education-degree">
+                                Bachelor of Science in Computer Science
+                            </h3>
+                            <p class="education-institution">
+                                University of Nairobi
+                            </p>
+                            <p class="education-honors">
+                                Second Upper Class Honors
+                            </p>
+                            <span class="education-years">2009 – 2013</span>
+                        </div>
+
+                        <div class="education-item" data-level="highschool">
+                            <div class="education-icon">📚</div>
+                            <h3 class="education-degree">
+                                High School Education
+                            </h3>
+                            <p class="education-institution">Booker Academy</p>
+                            <span class="education-years">2005 – 2008</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS SECTION -->
+            <section class="projects-section" id="projects-section">
+                <div class="section-content">
+                    <h2 class="section-title kenyan-gradient">
+                        Featured Projects
+                    </h2>
+
+                    <div class="projects-grid">
+                        <div class="project-card" data-type="data">
+                            <div class="project-icon">📊</div>
+                            <h3 class="project-title">Data Dashboards</h3>
+                            <p class="project-description">
+                                Built and deployed real-time dashboards for
+                                business clients to visualize KPIs using Tableau
+                                and Metabase.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">Tableau</span>
+                                <span class="tag">Metabase</span>
+                                <span class="tag">Data Viz</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-type="ux">
+                            <div class="project-icon">🎨</div>
+                            <h3 class="project-title">UX Audit & Redesign</h3>
+                            <p class="project-description">
+                                Redesigned a logistics dashboard for mobile
+                                responsiveness and improved user flows.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">Figma</span>
+                                <span class="tag">UX Research</span>
+                                <span class="tag">Responsive</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-type="web">
+                            <div class="project-icon">💻</div>
+                            <h3 class="project-title">
+                                React Portfolio Website
+                            </h3>
+                            <p class="project-description">
+                                Created a personal website showcasing projects
+                                in web dev, UI/UX, and data analysis.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">React</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CERTIFICATIONS SECTION -->
+            <section class="certifications-section" id="certifications-section">
+                <div class="section-content">
+                    <h2 class="section-title kenyan-gradient" aria-label="Certifications">
+                        Certifications
+                    </h2>
+
+                    <div class="certifications-grid">
+                        <!-- Google Data Analytics Certificate -->
+                        <div class="certification-card cert-data-analytics">
+                            <div class="cert-header">
+                                <div class="cert-logo">Google</div>
+                                <span class="verified-badge">Verified</span>
+                            </div>
+                            <h3 class="cert-title">
+                                Google Data Analytics Certificate
+                            </h3>
+                            <p class="cert-issuer">Google • Professional Certificate</p>
+                            <span class="cert-year">2022 – 2023</span>
+                            
+                            <div class="cert-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">180+</span>
+                                    <span class="metric-label">Hours</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">8</span>
+                                    <span class="metric-label">Courses</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cert-skills">
+                                <p class="skills-label">Skills Acquired:</p>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">SQL</span>
+                                    <span class="skill-tag">R Programming</span>
+                                    <span class="skill-tag">Tableau</span>
+                                    <span class="skill-tag">Data Analysis</span>
+                                </div>
+                            </div>
+                            
+                            <ul class="cert-topics">
+                                <li>Data cleaning and preparation</li>
+                                <li>Data visualization and dashboards</li>
+                                <li>Statistical analysis</li>
+                            </ul>
+                            
+                            <div class="cert-actions">
+                                <a href="https://www.coursera.org/professional-certificates/google-data-analytics" 
+                                   class="btn-verify" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Verify Google Data Analytics Certificate">
+                                    Verify Certificate
+                                </a>
+                                <a href="#" 
+                                   class="btn-view" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="View Google Data Analytics Certificate">
+                                    View Certificate
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Responsive Web Design -->
+                        <div class="certification-card cert-web-design">
+                            <div class="cert-header">
+                                <div class="cert-logo">freeCodeCamp</div>
+                                <span class="in-progress-badge">In Progress</span>
+                            </div>
+                            <h3 class="cert-title">Responsive Web Design</h3>
+                            <p class="cert-issuer">freeCodeCamp • Certification</p>
+                            <span class="cert-year">Ongoing</span>
+                            
+                            <div class="cert-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">300+</span>
+                                    <span class="metric-label">Hours</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">85%</span>
+                                    <span class="metric-label">Complete</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cert-skills">
+                                <p class="skills-label">Skills Acquired:</p>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">HTML5</span>
+                                    <span class="skill-tag">CSS3</span>
+                                    <span class="skill-tag">Accessibility</span>
+                                    <span class="skill-tag">Flexbox/Grid</span>
+                                </div>
+                            </div>
+                            
+                            <ul class="cert-topics">
+                                <li>Responsive design principles</li>
+                                <li>CSS Grid and Flexbox layouts</li>
+                                <li>Web accessibility standards</li>
+                            </ul>
+                            
+                            <div class="cert-actions">
+                                <a href="https://www.freecodecamp.org/certification/leon-madara/responsive-web-design" 
+                                   class="btn-verify" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Verify Responsive Web Design Certificate">
+                                    Verify Certificate
+                                </a>
+                                <a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" 
+                                   class="btn-view" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="View Responsive Web Design Course">
+                                    View Course
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Meta Front-End Developer -->
+                        <div class="certification-card cert-frontend-dev">
+                            <div class="cert-header">
+                                <div class="cert-logo">Meta</div>
+                                <span class="verified-badge">Verified</span>
+                            </div>
+                            <h3 class="cert-title">Meta Front-End Developer</h3>
+                            <p class="cert-issuer">Meta • Professional Certificate</p>
+                            <span class="cert-year">2023 – 2024</span>
+                            
+                            <div class="cert-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">200+</span>
+                                    <span class="metric-label">Hours</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">9</span>
+                                    <span class="metric-label">Courses</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cert-skills">
+                                <p class="skills-label">Skills Acquired:</p>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">React</span>
+                                    <span class="skill-tag">JavaScript</span>
+                                    <span class="skill-tag">UI/UX</span>
+                                    <span class="skill-tag">Version Control</span>
+                                </div>
+                            </div>
+                            
+                            <ul class="cert-topics">
+                                <li>React components and hooks</li>
+                                <li>Advanced JavaScript concepts</li>
+                                <li>UI/UX design principles</li>
+                            </ul>
+                            
+                            <div class="cert-actions">
+                                <a href="https://www.coursera.org/professional-certificates/meta-front-end-developer" 
+                                   class="btn-verify" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Verify Meta Front-End Developer Certificate">
+                                    Verify Certificate
+                                </a>
+                                <a href="#" 
+                                   class="btn-view" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="View Meta Front-End Developer Certificate">
+                                    View Certificate
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Google UX Design -->
+                        <div class="certification-card cert-ux-design">
+                            <div class="cert-header">
+                                <div class="cert-logo">Google</div>
+                                <span class="verified-badge">Verified</span>
+                            </div>
+                            <h3 class="cert-title">Google UX Design Professional Certificate</h3>
+                            <p class="cert-issuer">Google • Professional Certificate</p>
+                            <span class="cert-year">2023 – 2024</span>
+                            
+                            <div class="cert-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">200+</span>
+                                    <span class="metric-label">Hours</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">7</span>
+                                    <span class="metric-label">Courses</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cert-skills">
+                                <p class="skills-label">Skills Acquired:</p>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">Figma</span>
+                                    <span class="skill-tag">Prototyping</span>
+                                    <span class="skill-tag">UX Research</span>
+                                    <span class="skill-tag">Wireframing</span>
+                                </div>
+                            </div>
+                            
+                            <ul class="cert-topics">
+                                <li>User research and testing</li>
+                                <li>Prototyping and wireframing</li>
+                                <li>Design systems and accessibility</li>
+                            </ul>
+                            
+                            <div class="cert-actions">
+                                <a href="https://www.coursera.org/professional-certificates/google-ux-design" 
+                                   class="btn-verify" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Verify Google UX Design Certificate">
+                                    Verify Certificate
+                                </a>
+                                <a href="#" 
+                                   class="btn-view" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="View Google UX Design Certificate">
+                                    View Certificate
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <p class="footer-text">
+                    &copy; 2024 Leon Madara. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+        <!-- Dotted Background Pattern -->
+        <div
+            class="background-pattern"
+            aria-hidden="true"
+            role="presentation"
+        ></div>
+
+        <!-- Kenyan Programming Elements -->
+        <div
+            class="kenyan-code-elements"
+            aria-hidden="true"
+            role="presentation"
+        >
+            <div class="code-element code-element-1" aria-hidden="true">
+                &lt;/&gt;
+            </div>
+            <div class="code-element code-element-2" aria-hidden="true">
+                { }
+            </div>
+            <div class="code-element code-element-3" aria-hidden="true">
+                [ ]
+            </div>
+            <div class="code-element code-element-4" aria-hidden="true">
+                ( )
+            </div>
+            <div class="code-element code-element-5" aria-hidden="true">
+                =&gt;
+            </div>
+            <div class="code-element code-element-6" aria-hidden="true">
+                &amp;&amp;
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script src="js/main.js"></script>
+        <script src="js/scrollFadeController.js"></script>
+        <script src="js/about-parallax.js"></script>
+        <script src="js/liquid-nav.js"></script>
+        <script>
+            // Change nav link colors on scroll (dark-mode aware)
+            document.addEventListener('DOMContentLoaded', function() {
+                const navLinks = document.querySelectorAll('.nav-pills a');
+                
+                function updateNavColors() {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const isDark = document.body.classList.contains('dark-theme');
+                    
+                    // Get colors based on theme
+                    const scrolledColor = isDark ? '#a8b5c7' : '#000000';  // Gray in dark, black in light
+                    const topColor = isDark ? '#a8b5c7' : '#ffffff';       // Gray in dark, white in light
+                    const activeColor = '#14ff8e';  // Always bright green for active state
+                    
+                    navLinks.forEach(link => {
+                        const svg = link.querySelector('svg');
+                        
+                        if (link.classList.contains('active')) {
+                            // Keep active color (#14ff8e) regardless of scroll or theme
+                            link.style.color = activeColor;
+                            if (svg) {
+                                svg.style.color = activeColor;
+                                svg.style.stroke = activeColor;
+                            }
+                        } else {
+                            // Apply color based on scroll position and theme
+                            const color = scrollTop > 50 ? scrolledColor : topColor;
+                            link.style.color = color;
+                            if (svg) {
+                                svg.style.color = color;
+                                svg.style.stroke = color;
+                            }
+                        }
+                    });
+                }
+                
+                // Update on scroll
+                window.addEventListener('scroll', updateNavColors);
+                
+                // Update on theme change (listen for class changes on body)
+                const observer = new MutationObserver(updateNavColors);
+                observer.observe(document.body, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+                
+                // Initial update
+                updateNavColors();
+            });
+        </script>
+        <script>
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('light-icon');
+            const darkIcon = document.getElementById('dark-icon');
+
+            if (themeToggle && lightIcon && darkIcon) {
+                // Check for saved theme preference on page load
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'night') {
+                    document.body.classList.add('dark-theme');
+                    lightIcon.style.display = 'none';
+                    darkIcon.style.display = 'block';
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    lightIcon.style.display = 'block';
+                    darkIcon.style.display = 'none';
+                }
+
+                // Toggle theme on click
+                themeToggle.addEventListener('click', function() {
+                    const isDark = document.body.classList.toggle('dark-theme');
+                    lightIcon.style.display = isDark ? 'none' : 'block';
+                    darkIcon.style.display = isDark ? 'block' : 'none';
+                    localStorage.setItem('theme', isDark ? 'night' : 'day');
+                });
+            }
+            // Note: Scroll fade controller is initialized in about-parallax.js
+        </script>
+    </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background: #f0f0f0;
+            padding: 50px;
+            font-family: Arial, sans-serif;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .test-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <div class="test-info">
+            <h1>Navigation Icon Active State Test</h1>
+            <p>Click on the navigation icons below to test the active state functionality:</p>
+            <ul>
+                <li>Icons should turn red and scale to 1.5x when clicked</li>
+                <li>Only one icon should be active at a time</li>
+                <li>Smooth transitions should occur between state changes</li>
+                <li>Rapid clicking should be handled gracefully</li>
+            </ul>
+        </div>
+
+        <!-- Navigation Test -->
+        <nav class="floating-navigation" aria-label="Main navigation">
+            <!-- Blurry Black Background Effect -->
+            <div class="nav-background-blur"></div>
+
+            <!-- Navigation Icons Container -->
+            <nav class="nav-icons-container" role="navigation" aria-label="Main navigation">
+                <button class="nav-icon" data-section="home" data-label="Home" aria-label="Home" type="button">
+                    <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                </button>
+                <button class="nav-icon" data-section="about" data-label="About" aria-label="About" type="button">
+                    <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z" />
+                    </svg>
+                </button>
+                <button class="nav-icon" data-section="portfolio" data-label="Portfolio" aria-label="Portfolio"
+                    type="button">
+                    <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M10 4h4c1.1 0 2 .9 2 2v1h4c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V6c0-1.1.9-2 2-2zm4 3V6h-4v1h4z" />
+                    </svg>
+                </button>
+                <button class="nav-icon" data-section="contact" data-label="Contact Me" aria-label="Contact Me"
+                    type="button">
+                    <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                </button>
+            </nav>
+        </nav>
+
+        <div class="test-info" style="margin-top: 50px;">
+            <h2>Test Results</h2>
+            <p>Active icon: <span id="active-status">None</span></p>
+            <p>Last clicked: <span id="last-clicked">None</span></p>
+            <p>Transition status: <span id="transition-status">Ready</span></p>
+        </div>
+    </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div id="sr-announcements" aria-live="polite" aria-atomic="true"
+        style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize the portfolio system
+        document.addEventListener('DOMContentLoaded', function () {
+            LeonPortfolio.init();
+
+            // Add test status updates
+            const activeStatus = document.getElementById('active-status');
+            const lastClicked = document.getElementById('last-clicked');
+            const transitionStatus = document.getElementById('transition-status');
+
+            // Monitor active state changes
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const target = mutation.target;
+                        if (target.classList.contains('nav-icon')) {
+                            if (target.classList.contains('active')) {
+                                const section = target.getAttribute('data-section');
+                                activeStatus.textContent = section;
+                                lastClicked.textContent = new Date().toLocaleTimeString();
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Observe all nav icons
+            document.querySelectorAll('.nav-icon').forEach(icon => {
+                observer.observe(icon, { attributes: true, attributeFilter: ['class'] });
+            });
+
+            // Monitor transition status
+            setInterval(() => {
+                transitionStatus.textContent = LeonPortfolio.state.isTransitioning ? 'Transitioning...' : 'Ready';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

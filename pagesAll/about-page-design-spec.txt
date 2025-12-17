@@ -1,0 +1,401 @@
+# About Page Design Specification
+
+## Overview
+The About page (`about.html`) features a parallax hero section with scrolling animations, followed by multiple content sections showcasing skills, experience, education, and projects.
+
+---
+
+## Color Theme
+**Inherits from Homepage** - Same Kenyan flag color palette:
+- Black: `#000000`
+- Red: `#ce1126`
+- Green: `#006b3f`
+- White: `#ffffff`
+- Background: `hsl(48, 10%, 90%)`
+
+---
+
+## Typography
+**Same as Homepage**:
+- **Asimovian** - Display font
+- **Space Mono** - Monospace
+- **Enriqueta** - Serif for body text
+
+---
+
+## Layout Structure
+
+### Page Hierarchy
+```
+about-page (main)
+├── parallax-hero
+│   ├── green-section (expanding green bar)
+│   ├── hero-container
+│   │   ├── hero-image-wrapper
+│   │   │   └── hero-image (lion1.PNG)
+│   │   └── hero-text-wrapper
+│   │       └── about-text-container
+│   │           ├── about-text ("About")
+│   │           └── name-text ("Leon Madara" + underline)
+│   └── decorative-shapes (3 blur shapes)
+├── what-i-do-section
+├── skills-section
+├── experience-section
+├── education-section
+├── projects-section
+└── certifications-section
+```
+
+---
+
+## Parallax Hero Section
+
+### Green Section
+- **Class**: `.green-section`
+- **Initial State**: `width: 0vw`
+- **Animation**: Expands from 0 to 20vw during scroll
+- **Background**: Kenyan green (`#006b3f`)
+- **Position**: Fixed left side
+- **Purpose**: Visual indicator of scroll progress
+
+### Hero Container
+- **Class**: `.hero-container`
+- **Animation**: Scales and slides during scroll
+  - Initial: Full size, centered
+  - Final: Scaled down, moved to side
+- **Contains**: Profile image + "About Leon Madara" text
+
+### Hero Image
+- **Source**: `images/lion1.PNG`
+- **Alt Text**: "Leon Madara - Professional portrait"
+- **Class**: `.hero-image`
+- **Animation**: Parallax scroll effect
+- **Description**: [PLACEHOLDER - Professional portrait photo]
+
+### About Text Typography
+- **"About"**: Small text above name
+- **"Leon Madara"**: Large display text
+- **Underline**: Animated line beneath name
+  - Class: `.name-underline`
+  - Animates width and opacity
+
+### Decorative Shapes
+- **Count**: 3 blur shapes (same as homepage)
+- **Purpose**: Visual consistency across pages
+- **Animation**: Floating effect
+
+---
+
+## Content Sections
+
+### What I Do Section
+**Class**: `.what-i-do-section`
+
+#### Section Title
+- **Text**: "About Me"
+- **Class**: `.section-title kenyan-gradient`
+- **Animation**: Fades in from back during scroll
+
+#### Intro Text
+- **Content**: Professional summary
+- **Font**: Enriqueta, serif
+- **Color**: Secondary text gray
+
+#### Expertise Grid
+- **Layout**: 3-column grid
+- **Items**:
+  1. **Web Development** 💻
+     - HTML, CSS, JavaScript, React, Tailwind CSS
+  2. **UI/UX Design** 🎨
+     - Figma, Adobe XD, accessibility focus
+  3. **Data Analysis** 📊
+     - PowerBI, Tableau, SQL
+
+- **Card Style**:
+  - Icon: Emoji (large, centered)
+  - Title: Bold heading
+  - Description: Body text
+
+---
+
+### Skills Section
+**Class**: `.skills-section`
+
+#### Layout
+- **Grid**: 4 skill categories
+- **Categories**:
+  1. Data Tools
+  2. Web Development
+  3. UI/UX Design
+  4. Other
+
+#### Skill Tags
+- **Display**: Inline flex wrap
+- **Style**: Pill-shaped tags
+- **Background**: Light gray
+- **Hover**: Subtle lift + color change
+- **Examples**: SQL, Excel, React, Figma, Python
+
+---
+
+### Experience Section
+**Class**: `.experience-section`
+
+#### Timeline Layout
+- **Display**: Vertical timeline
+- **Marker**: Circular dot on left
+- **Line**: Connecting vertical line
+
+#### Timeline Items
+1. **Freelance Web Developer & UX Designer**
+   - Date: 2019 – Present
+   - Location: Remote / Contract-Based
+   - Achievements: 4 bullet points
+
+2. **Junior Analyst**
+   - Date: 2015 – 2018
+   - Location: Mumias Sugar Company — Kakamega County
+   - Achievements: 4 bullet points
+
+#### Styling
+- **Date**: Small, muted text
+- **Title**: Bold, larger font
+- **Location**: Italic, secondary color
+- **Achievements**: Bulleted list
+
+---
+
+### Education Section
+**Class**: `.education-section`
+
+#### Layout
+- **Grid**: 2-column grid
+- **Cards**: Education items with icons
+
+#### Items
+1. **Bachelor of Science in Computer Science** 🎓
+   - Institution: University of Nairobi
+   - Honors: Second Upper Class Honors
+   - Years: 2009 – 2013
+
+2. **High School Education** 📚
+   - Institution: Booker Academy
+   - Years: 2005 – 2008
+
+#### Card Style
+- **Icon**: Emoji at top
+- **Degree**: Bold heading
+- **Institution**: Secondary text
+- **Years**: Small, muted text
+
+---
+
+### Projects Section
+**Class**: `.projects-section`
+
+#### Layout
+- **Grid**: 3-column grid
+- **Cards**: Project showcase cards
+
+#### Project Cards
+1. **Data Dashboards** 📊
+   - Description: Real-time dashboards with Tableau/Metabase
+   - Tags: Tableau, Metabase, Data Viz
+
+2. **UX Audit & Redesign** 🎨
+   - Description: Logistics dashboard redesign
+   - Tags: Figma, UX Research, Responsive
+
+3. **React Portfolio Website** 💻
+   - Description: Personal portfolio showcase
+   - Tags: React, CSS, JavaScript
+
+#### Card Components
+- **Icon**: Emoji (large)
+- **Title**: Bold heading
+- **Description**: Body text
+- **Tags**: Pill-shaped, colored tags
+
+---
+
+### Certifications Section
+**Class**: `.certifications-section`
+
+#### Layout
+- **Grid**: 2-column grid
+- **Cards**: Certification items
+
+#### Items
+1. **Google Data Analytics Certificate** ✓
+   - Issuer: Google
+   - Year: 2022 – 2023
+
+2. **Responsive Web Design** ⏳
+   - Issuer: freeCodeCamp
+   - Status: Ongoing
+
+#### Badge Styling
+- **Completed**: Green checkmark ✓
+- **Ongoing**: Hourglass ⏳
+
+---
+
+## Animations
+
+### Parallax Scroll Effects
+- **Green Section**: Expands 0 to 20vw
+- **Hero Container**: Scales and translates
+- **Hero Image**: Parallax movement
+- **About Text**: Fade and slide
+
+### Section Entrance Animations
+- **Title**: Fade in from back
+- **Body**: Slide up from below
+- **Cards**: Staggered fade-in
+
+### Scroll-Triggered Animations
+- **Library**: GSAP 3.12.5 + ScrollTrigger
+- **Timing**: Triggered at specific scroll positions
+- **Easing**: Smooth cubic-bezier curves
+
+---
+
+## Scroll Behavior
+
+### Parallax Implementation
+- **JavaScript**: `js/about-parallax.js`
+- **Library**: GSAP ScrollTrigger
+- **Behavior**:
+  - Hero section animates during initial scroll
+  - Content sections fade in as they enter viewport
+  - Smooth, continuous scrolling
+
+### Scroll Indicators
+- **Green Bar**: Visual progress indicator
+- **Smooth Scroll**: Native smooth scroll behavior
+
+---
+
+## Responsive Behavior
+
+### Breakpoints
+- **Mobile** (`< 768px`):
+  - Single column layout
+  - Reduced parallax effects
+  - Simplified animations
+
+- **Tablet** (`768px - 1024px`):
+  - 2-column grids
+  - Moderate parallax
+
+- **Desktop** (`> 1024px`):
+  - Full 3-column grids
+  - Full parallax effects
+
+### Mobile Optimizations
+- Parallax disabled or simplified
+- Grid columns reduce to 1-2
+- Font sizes scale down
+- Reduced animation complexity
+
+---
+
+## Navigation
+**Same as Homepage**:
+- Liquid navbar at top
+- Active state on "About" (index 1)
+- Sidebar profile card (visible on this page)
+
+---
+
+## Background Elements
+**Same as Homepage**:
+- Dotted pattern background
+- Floating code elements
+- Decorative shapes
+
+---
+
+## Accessibility
+
+### ARIA Labels
+- Section landmarks properly labeled
+- Headings in logical hierarchy
+- Skip links available
+
+### Keyboard Navigation
+- All interactive elements focusable
+- Logical tab order
+- Focus indicators visible
+
+### Screen Reader Support
+- Semantic HTML structure
+- Alt text for images
+- ARIA live regions for dynamic content
+
+---
+
+## Performance
+
+### Scroll Performance
+- **RequestAnimationFrame**: For smooth animations
+- **Throttling**: Scroll event handlers optimized
+- **GPU Acceleration**: Transform3d for parallax
+
+### Image Optimization
+- **Hero Image**: Optimized for web
+- **Lazy Loading**: Below-fold images
+
+---
+
+## Special Features
+
+### GSAP Plugins
+- **ScrollTrigger**: Scroll-based animations
+- **TextPlugin**: Text animations
+- **SplitText**: Text splitting for character animations
+- **ScrambleTextPlugin**: Text scramble effects
+
+### Custom Animations
+- **Hero Parallax**: Multi-layer depth effect
+- **Section Reveals**: Staggered content appearance
+- **Timeline Progression**: Animated timeline markers
+
+---
+
+## File References
+
+### HTML
+- `about.html` - Main about page file
+
+### CSS
+- `css/styles.css` - Global styles
+- `css/about.css` - Page-specific styles
+- `css/sidebar-profile-card.css` - Sidebar component
+- `css/liquid-navbar.css` - Navigation component
+
+### JavaScript
+- `js/main.js` - Core functionality
+- `js/about-parallax.js` - Parallax scroll effects
+- `js/liquid-navbar.js` - Navigation
+- GSAP 3.12.5 + ScrollTrigger (CDN)
+
+### Images
+- `images/lion1.PNG` - Hero portrait [PLACEHOLDER]
+- `images/Leon.jpg` - Sidebar profile photo
+- `images/LeonDevLogo.svg` - Logo [PLACEHOLDER]
+
+---
+
+## Notes for Recreation
+
+1. **Parallax Timing**: Green section expansion should sync with hero scaling
+2. **Scroll Smoothness**: Use GSAP ScrollTrigger for buttery smooth animations
+3. **Section Spacing**: Generous whitespace between sections
+4. **Grid Responsiveness**: Grids should collapse gracefully on mobile
+5. **Timeline Design**: Vertical line should connect all timeline markers
+6. **Card Consistency**: All cards share similar padding, border-radius, shadow
+7. **Emoji Icons**: Use native emoji for cross-platform consistency
+8. **Tag Styling**: Pill-shaped with subtle hover effects
+9. **Color Accents**: Use Kenyan gradient sparingly for emphasis
+10. **Scroll Performance**: Optimize for 60fps on all devices

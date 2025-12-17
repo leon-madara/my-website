@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+        />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="description"
+            content="Leon Madara - Full Stack AI Developer from Nairobi, Kenya. Specializing in modern web development and AI solutions."
+        />
+        <meta
+            name="keywords"
+            content="Full Stack Developer, AI Developer, Web Development, Nairobi, Kenya, Leon Madara"
+        />
+        <meta name="author" content="Leon Madara" />
+        <meta name="theme-color" content="#006b3f" />
+        <meta name="msapplication-TileColor" content="#006b3f" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+
+        <!-- Open Graph Meta Tags for Social Media -->
+        <meta
+            property="og:title"
+            content="Leon Madara - Full Stack AI Developer"
+        />
+        <meta
+            property="og:description"
+            content="Full Stack AI Developer from Nairobi, Kenya. Specializing in modern web development and AI solutions."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="" />
+        <meta property="og:image" content="" />
+
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Leon Madara - Full Stack AI Developer"
+        />
+        <meta
+            name="twitter:description"
+            content="Full Stack AI Developer from Nairobi, Kenya. Specializing in modern web development and AI solutions."
+        />
+        <meta name="twitter:image" content="" />
+
+        <title>Leon Madara - Full Stack AI Developer</title>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="images/LeonDevLogo.svg" />
+
+        <!-- Google Fonts Preconnect for Performance -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- Google Fonts Stylesheet -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Asimovian&family=Enriqueta:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Optimized Resource Loading -->
+        <link rel="preload" href="/images/profile-photo.svg" as="image" />
+
+        <!-- CSS Stylesheets -->
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/sidebar-profile-card.css" />
+        <link rel="stylesheet" href="css/liquid-nav.css" />
+    </head>
+
+    <body class="home-page">
+        <!-- Live region for screen reader announcements -->
+        <div
+            id="sr-announcement-announcements"
+            aria-live="assertive"
+            aria-atomic="true"
+            class="sr-only"
+        ></div>
+
+        <!-- Logo -->
+        <a href="index.html" class="header-logo" aria-label="Home">
+            <img src="images/LeonDevLogo.svg" alt="Leon Madara" />
+        </a>
+
+        <!-- Navigation -->
+        <nav class="nav-pills">
+                <div class="indicator"></div>
+                <a href="index.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                        />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span class="label">Home</span>
+                </a>
+                <a href="about.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    <span class="label">About</span>
+                </a>
+                <a href="portfolio.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect
+                            x="2"
+                            y="7"
+                            width="20"
+                            height="14"
+                            rx="2"
+                            ry="2"
+                        />
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    </svg>
+                    <span class="label">Portfolio</span>
+                </a>
+                <a href="contact.html">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <span class="label">Contact</span>
+                </a>
+        </nav>
+
+        <!-- Theme Toggle Switch -->
+        <div class="theme-toggle-wrapper">
+            <div class="toggle-switch" id="themeToggle">
+                <div class="toggle-background">
+                    <div class="scenery day-scenery">
+                        <div class="cloud cloud-1"></div>
+                        <div class="cloud cloud-2"></div>
+                        <div class="cloud cloud-3"></div>
+                        <div class="cloud cloud-4"></div>
+                        <div class="cloud cloud-5"></div>
+                    </div>
+                    <div class="scenery night-scenery">
+                        <div class="star star-1">✦</div>
+                        <div class="star star-2">★</div>
+                        <div class="star star-3">✦</div>
+                    </div>
+                </div>
+                <div class="toggle-knob">
+                    <div class="crater crater-1"></div>
+                    <div class="crater crater-2"></div>
+                    <div class="crater crater-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Card Sidebar -->
+        <aside
+            class="pill-sidebar"
+            role="complementary"
+            aria-label="Profile and social links"
+        >
+            <!-- Card Header with Kenyan Gradient -->
+            <header class="sidebar-header">
+                <!-- Follow Button -->
+                <button
+                    class="sidebar-follow-button"
+                    aria-label="Follow Leon Madara"
+                    aria-pressed="false"
+                >
+                    <span>Follow</span>
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 4v16m8-8H4"
+                        />
+                    </svg>
+                </button>
+
+                <!-- Profile Avatar - Asymmetric at 25% -->
+                <div class="profile-section">
+                    <img
+                        src="images/Leon.jpg"
+                        alt="Leon Madara"
+                        class="profile-photo"
+                    />
+                </div>
+
+                <!-- Experience Progress Bar -->
+                <div
+                    class="experience-bar"
+                    role="group"
+                    aria-label="Experience level"
+                >
+                    <span class="exp-label" aria-hidden="true">exp.</span>
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-valuenow="65"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-label="Experience: 65%"
+                    ></div>
+                    <span class="sr-only">Experience level: 65%</span>
+                </div>
+            </header>
+
+            <!-- Identity Section -->
+            <div class="identity-section">
+                <h2 class="sidebar-name">Leon Madara</h2>
+                <p class="sidebar-title">
+                    Full Stack AI Developer from Nairobi, Kenya. Building
+                    innovative solutions with modern web technologies.
+                </p>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section" role="list">
+                <div class="stat-item" role="listitem">
+                    <span class="stat-number">72.9K</span>
+                    <span class="stat-label">Likes</span>
+                </div>
+                <div class="stat-item" role="listitem">
+                    <span class="stat-number">828</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item" role="listitem">
+                    <span class="stat-number">342.9K</span>
+                    <span class="stat-label">Views</span>
+                </div>
+            </div>
+
+            <!-- Social Icons -->
+            <nav class="social-nav" aria-label="Social media links">
+                <ul class="social-icons-list">
+                    <li class="social-icon-item">
+                        <a
+                            href="https://github.com/leon-madara"
+                            class="social-icon-link"
+                            aria-label="GitHub Profile"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="social-icon"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                                />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="social-icon-item">
+                        <a
+                            href="https://www.linkedin.com/in/leon-madara/"
+                            class="social-icon-link"
+                            aria-label="LinkedIn Profile"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="social-icon"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                                />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="social-icon-item">
+                        <a
+                            href="https://twitter.com/leon_madara"
+                            class="social-icon-link"
+                            aria-label="Twitter/X Profile"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="social-icon"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="landing-page" id="main-content">
+            <section class="hero-section" aria-label="Hero introduction">
+                <!-- Hero Content -->
+                <div class="hero-content">
+                    <p class="greeting">Hi, I'm</p>
+                    <h1 class="name">Leon Madara</h1>
+                    <h2
+                        class="role kenyan-gradient role-sequence"
+                        aria-label="Full Stack AI Developer"
+                        aria-live="polite"
+                        tabindex="0"
+                    >
+                        <!-- Role 1: Full Stack AI Developer (default/fallback) -->
+                        <span class="role-item active" data-index="0">
+                            Full Stack
+                            <span class="ai-wrapper">
+                                <span class="ai-text">AI</span>
+                                <img
+                                    src="images/logoICON.svg"
+                                    class="ai-logo-pulse"
+                                    alt=""
+                                    aria-hidden="true"
+                                />
+                            </span>
+                            Developer
+                        </span>
+                        <!-- Role 2: AI Engineer -->
+                        <span class="role-item" data-index="1">AI Engineer</span>
+                        <!-- Role 3: Web Developer & Designer -->
+                        <span class="role-item" data-index="2">Web Developer &amp; Designer</span>
+                        <!-- Role 4: Graphic Designer -->
+                        <span class="role-item" data-index="3">Graphic Designer</span>
+                    </h2>
+                    <p class="description">
+                        I design and build delightful digital products with a
+                        Kenyan twist — blending professional polish with playful
+                        interactions and performance-focused engineering.
+                    </p>
+                    <div class="location-container">
+                        <div class="location-pin-wrapper">
+                            <svg
+                                class="location-pin"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path
+                                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                                />
+                            </svg>
+                            <span class="pulse-ring"></span>
+                            <span class="pulse-ring"></span>
+                        </div>
+                        <p class="location">NAIROBI, KENYA</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="portfolio.html" class="btn-primary"
+                            >View Projects</a
+                        >
+                        <a href="contact.html" class="btn-secondary"
+                            >Contact Me</a
+                        >
+                    </div>
+
+                    <!-- Decorative Lines -->
+                    <div class="decorative-lines" aria-hidden="true">
+                        <span class="line line-black"></span>
+                        <span class="line line-red"></span>
+                        <span class="line line-green"></span>
+                    </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="decorative-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section
+                class="about-section"
+                id="about"
+                aria-label="About section"
+                style="display: none"
+            >
+                <div class="about-content">
+                    <h2 class="about-title kenyan-gradient">About Me</h2>
+                    <p class="about-text">
+                        Full Stack AI Developer based in Nairobi, Kenya.
+                        Passionate about building innovative solutions with
+                        modern web technologies and artificial intelligence.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section
+                class="contact-section"
+                id="contact"
+                aria-label="Contact section"
+                style="display: none"
+            >
+                <div class="contact-content">
+                    <h2 class="contact-title kenyan-gradient">Get In Touch</h2>
+                    <p class="contact-text">
+                        Interested in working together? Let's connect!
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <p class="footer-text">
+                    &copy; 2024 Leon Madara. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+        <!-- Dotted Background Pattern -->
+        <div
+            class="background-pattern"
+            aria-hidden="true"
+            role="presentation"
+        ></div>
+
+        <!-- Kenyan Programming Elements -->
+        <div
+            class="kenyan-code-elements"
+            aria-hidden="true"
+            role="presentation"
+        >
+            <div class="code-element code-element-1" aria-hidden="true">
+                &lt;/&gt;
+            </div>
+            <div class="code-element code-element-2" aria-hidden="true">
+                { }
+            </div>
+            <div class="code-element code-element-3" aria-hidden="true">
+                [ ]
+            </div>
+            <div class="code-element code-element-4" aria-hidden="true">
+                ( )
+            </div>
+            <div class="code-element code-element-5" aria-hidden="true">
+                =&gt;
+            </div>
+            <div class="code-element code-element-6" aria-hidden="true">
+                &amp;&amp;
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <!-- GSAP Animation Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <!-- Set actual viewport height (prevents scroll on home page only) -->
+        <script>
+            // Set CSS custom property for actual viewport height (excludes browser UI)
+            function setViewportHeight() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+                // Only prevent scrolling on home page
+                const body = document.body;
+                
+                const isHomePage = body.classList.contains("home-page");
+
+                if (isHomePage) {
+                    // Home page - no scrolling
+                    html.classList.add("no-scroll");
+                    body.classList.add("has-overflow");
+                    html.classList.add("has-overflow");
+                } else {
+                    // Other pages - allow scrolling
+                    html.classList.remove("no-scroll");
+                    html.style.overflowY = "auto";
+                    html.style.overflowX = "hidden";
+                }
+            }
+
+            // Set on load and resize
+            setViewportHeight();
+            window.addEventListener("resize", setViewportHeight);
+            window.addEventListener("orientationchange", () => {
+                setTimeout(setViewportHeight, 100);
+            });
+        </script>
+        <!-- Main Scripts -->
+        <script src="js/main.js"></script>
+        <script src="js/role-sequence.js"></script>
+        <script src="js/ai-animation.js"></script>
+        <script src="js/profile-card.js"></script>
+        <script src="js/liquid-nav.js"></script>
+        <script src="js/theme-toggle.js"></script>
+    </body>
+</html>

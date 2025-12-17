@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Advanced Floating Header Navigation -->
+    <nav class="floating-navigation" aria-label="Main navigation">
+        <!-- Floating Header Container -->
+        <div class="floating-header">
+            <div class="header-container">
+                <!-- Leon Logo Component -->
+                <a href="#" class="header-logo" aria-label="Leon Madara Logo">
+                    <img src="images/logoICON.svg" class="leon-logo" alt="Leon Madara Logo" />
+                </a>
+            </div>
+        </div>
+
+        <!-- Blurry Black Background Effect -->
+        <div class="nav-background-blur"></div>
+
+        <!-- Navigation Icons Container -->
+        <nav class="nav-icons-container" role="navigation" aria-label="Main navigation">
+            <button class="nav-icon" data-section="home" data-label="Home" aria-label="Home" type="button">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+            </button>
+            <button class="nav-icon" data-section="about" data-label="About" aria-label="About" type="button">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z" />
+                </svg>
+            </button>
+            <button class="nav-icon" data-section="portfolio" data-label="Portfolio" aria-label="Portfolio"
+                type="button">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M10 4h4c1.1 0 2 .9 2 2v1h4c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h4V6c0-1.1.9-2 2-2zm4 3V6h-4v1h4z" />
+                </svg>
+            </button>
+            <button class="nav-icon" data-section="contact" data-label="Contact Me" aria-label="Contact Me"
+                type="button">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+            </button>
+        </nav>
+    </nav>
+
+    <div style="height: 200vh; background: linear-gradient(to bottom, #f0f0f0, #e0e0e0); padding-top: 100px;">
+        <h1 style="text-align: center; padding-top: 50px;">Header Test Page</h1>
+        <p style="text-align: center;">The header should now occupy 60vw to 80vw and not be centered.</p>
+        <p style="text-align: center;">✅ Logo is positioned at 20vw from the left edge.</p>
+        <p style="text-align: center;">✅ Logo is scaled to 40.5x (doubled from previous 20.25x).</p>
+        <p style="text-align: center;">✅ Logo is completely static with no hover effects or transitions.</p>
+    </div>
+</body>
+
+</html>

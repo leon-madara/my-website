@@ -1,0 +1,25 @@
+{
+    "name": "leons-portfolio",
+    "version": "1.0.0",
+    "description": "Leon Madara's Portfolio Landing Page - Vanilla HTML/CSS/JavaScript",
+    "scripts": {
+        "dev": "npx serve . -p 3000",
+        "serve": "npx serve . -p 3000",
+        "start": "npx serve . -p 3000"
+    },
+    "keywords": [
+        "portfolio",
+        "landing-page",
+        "html",
+        "css",
+        "javascript",
+        "vanilla"
+    ],
+    "author": "Leon Madara",
+    "license": "MIT",
+    "devDependencies": {
+        "serve": "^14.2.5"
+    },
+    "main": "index.js",
+    "type": "commonjs"
+}

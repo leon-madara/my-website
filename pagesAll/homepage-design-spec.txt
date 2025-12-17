@@ -1,0 +1,384 @@
+# Homepage Design Specification
+
+## Overview
+The homepage (`index.html`) is a single-page hero layout showcasing Leon Madara's portfolio with a focus on clean, modern design featuring Kenyan flag colors and smooth animations.
+
+---
+
+## Color Theme
+
+### Primary Colors (Kenyan Flag)
+- **Black**: `#000000` (`--kenyan-black`)
+- **Red**: `#ce1126` (`--kenyan-red`)
+- **Green**: `#006b3f` (`--kenyan-green`)
+- **White**: `#ffffff` (`--kenyan-white`)
+
+### Background & Text
+- **Background**: `hsl(48, 10%, 90%)` - Warm light beige/cream
+- **Primary Text**: `#333333`
+- **Secondary Text**: `rgba(51, 51, 51, 0.7)` - 70% opacity gray
+- **Accent Green**: `#006b3f` (primary) and `#10cf74` (light variant)
+
+### Gradients
+- **Kenyan Gradient**: `linear-gradient(45deg, #000000 0%, #ce1126 50%, #006b3f 100%)`
+  - Used for headings and accent text
+  - Applied with `-webkit-background-clip: text` for gradient text effect
+
+---
+
+## Typography
+
+### Font Families
+1. **Asimovian** - Display font for name/hero text
+   - Fallback: Arial, Helvetica Neue, sans-serif
+   - Google Fonts import
+
+2. **Space Mono** - Monospace for greeting text
+   - Fallback: Courier New, Monaco, monospace
+   - Weights: 400, 700 (regular and italic)
+
+3. **Enriqueta** - Serif for role/subtitle
+   - Fallback: Georgia, Times New Roman, serif
+   - Weights: 400, 500, 600, 700
+
+### Font Sizes (Responsive with clamp)
+- **Greeting** ("Hi, I'm"): `clamp(1.25rem, 1.5vw, 1.5rem)`
+- **Name** ("Leon Madara"): `clamp(3rem, 8vw, 6rem)`
+- **Role** ("Full Stack AI Developer"): `clamp(1.5rem, 4vw, 2.5rem)`
+- **Body Text**: `clamp(1rem, 2.5vw, 1.125rem)`
+
+### Font Weights
+- Normal: 400
+- Semibold: 600
+- Bold: 700
+
+---
+
+## Layout Structure
+
+### Main Container
+- **Class**: `.landing-page`
+- **Display**: Flex column, centered content
+- **Max Height**: `100vh`
+- **Overflow**: Hidden (no scroll on homepage)
+
+### Hero Section
+- **Class**: `.hero-section`
+- **Layout**: Centered flex container
+- **Padding**: Responsive using `clamp(2.4rem, 4.8vw, 4rem)`
+
+### Content Hierarchy
+```
+hero-section
+├── hero-content
+│   ├── greeting ("Hi, I'm")
+│   ├── name ("Leon Madara")
+│   ├── role ("Full Stack AI Developer")
+│   │   └── ai-wrapper
+│   │       ├── ai-text ("AI")
+│   │       └── ai-logo-pulse (SVG icon)
+│   ├── location-container
+│   │   ├── location-pin (SVG)
+│   │   └── location ("Nairobi, Kenya")
+│   ├── action-buttons
+│   │   ├── btn-primary ("View Projects")
+│   │   └── btn-secondary ("Contact Me")
+│   └── decorative-lines (3 colored lines)
+└── decorative-shapes (3 blur shapes)
+```
+
+---
+
+## Navigation
+
+### Liquid Navbar
+- **Position**: Top center, `margin-left: 60vw`
+- **Dimensions**: `400px × 64px` (reduced 20% from original)
+- **Border Radius**: `32px` (pill shape)
+- **Background**: `linear-gradient(135deg, black 0%, #990000 50%, #006600 100%)`
+- **Box Shadow**: `0 8px 16px rgba(0, 0, 0, 0.2)`
+
+#### Indicator (White Circle)
+- **Size**: `48px × 48px`
+- **Background**: White circle
+- **Animation**: Smooth spring-like transition `0.6s cubic-bezier(0.34, 1.56, 0.64, 1)`
+- **Positions** (data-active attribute):
+  - 0 (Home): `translateX(26px)`
+  - 1 (About): `translateX(126px)`
+  - 2 (Portfolio): `translateX(226px)`
+  - 3 (Contact): `translateX(326px)`
+
+#### Nav Icons
+- **Size**: `19.2px × 19.2px`
+- **Color**: `rgba(255, 255, 255, 0.9)`
+- **Active State**: Icon fades out, indicator icon fades in (black color)
+- **Transition**: `0.3s ease` with `0.1s` delay on activation
+
+---
+
+## Sidebar Profile Card
+
+### Container
+- **Position**: Fixed left, `left: 2rem`, `top: 50%`
+- **Transform**: `translateY(-50%)` for vertical centering
+- **Dimensions**: `320px` width
+- **Background**: `rgba(255, 255, 255, 0.4)` with `backdrop-filter: blur(20px)`
+- **Border Radius**: `1rem`
+- **Box Shadow**: Multi-layer shadow for depth
+- **Visibility**: Only shown on home and contact pages
+
+### Header Section
+- **Height**: `150px`
+- **Background**: `linear-gradient(135deg, rgba(0, 107, 63, 0.85) 0%, rgba(179, 0, 0, 0.85) 100%)`
+- **Overlay**: Noise texture + gradient for depth
+
+### Profile Photo
+- **Position**: Absolute, `left: 25%` (asymmetric placement)
+- **Size**: `107px × 107px`
+- **Border**: `4px solid white`
+- **Border Radius**: `50%` (circle)
+- **Transform**: `translate(-50%, 50%)` (overlaps header)
+- **Hover Effect**: `scale(1.05) rotate(2deg)`
+
+### Experience Bar
+- **Position**: Absolute, bottom right of header
+- **Width**: `112px × 8px`
+- **Background**: Rainbow gradient
+  ```css
+  linear-gradient(to right,
+    #ff0000 0%, #ff7f00 14.28%, #ffff00 28.56%,
+    #00ff00 42.84%, #0000ff 57.12%, #4b0082 71.4%,
+    #9400d3 85.68%, #ff0000 100%)
+  ```
+- **Fill Animation**: `1.2s cubic-bezier(0.4, 0, 0.2, 1)` to 65%
+- **Shimmer Effect**: Continuous sliding white overlay
+
+### Stats Section
+- **Layout**: 3-column grid
+- **Items**: Likes (72.9K), Projects (828), Views (342.9K)
+- **Font**: Space Mono for numbers, Enriqueta for labels
+- **Separator**: 1px borders between columns
+- **Hover**: `translateY(-2px)` lift effect
+
+### Social Icons
+- **Layout**: Horizontal flex, centered
+- **Size**: `2.5rem × 2.5rem` containers
+- **Icon Size**: `1.5rem × 1.5rem`
+- **Colors**:
+  - GitHub: `#e74c3c` (red)
+  - LinkedIn: `#1a1a1a` (black)
+  - Twitter/X: `#006b3f` (Kenyan green)
+- **Hover**: Gray background fade-in + `translateY(-2px)`
+
+---
+
+## Animations
+
+### AI Text/Logo Pulse
+- **Elements**: `.ai-text` and `.ai-logo-pulse`
+- **Behavior**: Alternating fade in/out between "AI" text and logo icon
+- **Duration**: Smooth, continuous (no pauses)
+- **Timing**: Fast, fluid transitions
+
+### Decorative Shapes
+- **Count**: 3 blur shapes
+- **Classes**: `.shape-1`, `.shape-2`, `.shape-3`
+- **Animation**: Floating/pulsing effect
+- **Blur**: Applied via CSS filter
+- **Opacity**: Low opacity for subtle background effect
+
+### Decorative Lines
+- **Count**: 3 colored lines (black, red, green)
+- **Purpose**: Visual accent below action buttons
+- **Animation**: Subtle entrance animation
+
+### Code Elements
+- **Count**: 6 floating code symbols (`</>`, `{}`, `[]`, `()`, `=>`, `&&`)
+- **Colors**: Kenyan flag colors (black, red, green)
+- **Animation**: `float-code` - 8s ease-in-out infinite
+  - Vertical movement: 0 to -15px
+  - Rotation: 0 to 2deg
+  - Opacity: 0.15 to 0.25
+- **Position**: Fixed, scattered across viewport
+- **Font**: Courier New, monospace, `2rem`, bold
+- **Blur**: `1px` filter
+
+### Background Pattern
+- **Type**: Dotted SVG pattern
+- **Size**: `20px × 20px` repeat
+- **Opacity**: `0.4`
+- **Position**: Fixed, full viewport
+- **Z-index**: `-10` (behind all content)
+- **Fallback**: Radial gradient dots for non-SVG browsers
+
+---
+
+## Interactive Elements
+
+### Action Buttons
+- **Primary Button** (`.btn-primary`):
+  - Background: Kenyan green
+  - Text: White
+  - Hover: Darker green + lift effect
+  - Link: `portfolio.html`
+
+- **Secondary Button** (`.btn-secondary`):
+  - Background: Transparent with border
+  - Text: Kenyan green
+  - Hover: Filled background + lift effect
+  - Link: `contact.html`
+
+### Hover States
+- **Links**: `translateY(-2px)` lift + color change
+- **Buttons**: Background color change + shadow enhancement
+- **Profile Photo**: `scale(1.05) rotate(2deg)`
+- **Navbar**: White indicator slides to active item
+- **Social Icons**: Background fade-in + lift
+
+---
+
+## Responsive Behavior
+
+### Breakpoints
+- **Mobile**: `< 768px` - Sidebar hidden
+- **Tablet**: `768px - 1024px` - Reduced sidebar size
+- **Desktop**: `1024px - 1920px` - Full size
+- **Large Desktop**: `> 1920px` - Enhanced spacing
+
+### Mobile Optimizations
+- Font sizes scale down via `clamp()`
+- Sidebar completely hidden
+- Navbar scales to `320px × 56px`
+- Simplified animations for performance
+- Reduced blur effects
+
+---
+
+## Accessibility Features
+
+### Screen Reader Support
+- **Skip Link**: Jump to main content
+- **ARIA Labels**: All interactive elements labeled
+- **ARIA Live Regions**: For dynamic announcements
+- **Semantic HTML**: Proper heading hierarchy
+
+### Keyboard Navigation
+- **Focus Visible**: `2px solid` outline on focus
+- **Tab Order**: Logical flow through content
+- **Focus Indicators**: High contrast outlines
+
+### Reduced Motion
+- **Media Query**: `@media (prefers-reduced-motion: reduce)`
+- **Behavior**: All animations set to `0.01ms` duration
+- **Alternative**: Instant state changes instead of transitions
+
+---
+
+## Performance Optimizations
+
+### GPU Acceleration
+- **Transform**: `translate3d(0, 0, 0)` for hardware acceleration
+- **Will-change**: Applied to animated elements
+- **Backface-visibility**: `hidden` to prevent flickering
+
+### Loading Strategy
+- **Preconnect**: Google Fonts
+- **Preload**: Critical images (profile photo, logo)
+- **Lazy Loading**: Non-critical assets
+
+### Low-end Device Support
+- **Reduced Complexity**: Simpler animations on low-DPI displays
+- **Optimized Patterns**: Larger background pattern size
+- **Font Rendering**: `optimizeSpeed` on mobile
+
+---
+
+## SVG Placeholders
+
+### Logo Icon
+- **Location**: `images/LeonDevLogo.svg`
+- **Usage**: Favicon, AI pulse animation
+- **Description**: [PLACEHOLDER - Custom logo design]
+
+### AI Logo Pulse
+- **Location**: `images/logoICON.svg`
+- **Usage**: Alternates with "AI" text in hero
+- **Description**: [PLACEHOLDER - Animated icon representing AI]
+
+### Location Pin
+- **Inline SVG**: Map pin icon
+- **Viewbox**: `0 0 24 24`
+- **Path**: Standard location marker shape
+
+---
+
+## Special Effects
+
+### Kenyan Gradient Text
+- **Implementation**: Background gradient with `-webkit-background-clip: text`
+- **Fallback**: Solid red color for unsupported browsers
+- **High Contrast Mode**: Black text with white shadow
+- **Print**: Black text only
+
+### Glassmorphism
+- **Sidebar**: `backdrop-filter: blur(20px)` with semi-transparent white
+- **Support**: Webkit prefix for Safari compatibility
+
+### Noise Texture
+- **Implementation**: SVG filter with fractal noise
+- **Opacity**: `0.12`
+- **Purpose**: Adds depth to gradient backgrounds
+
+---
+
+## Browser Compatibility
+
+### Modern Browsers
+- Chrome/Edge: Full support
+- Firefox: Full support with vendor prefixes
+- Safari: Full support with `-webkit-` prefixes
+
+### Fallbacks
+- **No SVG**: CSS radial gradient pattern
+- **No Gradient Text**: Solid red color
+- **No Backdrop Filter**: Solid white background
+- **IE11**: Simplified design, animations disabled
+
+---
+
+## File References
+
+### HTML
+- `index.html` - Main homepage file
+
+### CSS
+- `css/styles.css` - Global styles and utilities
+- `css/sidebar-profile-card.css` - Sidebar component
+- `css/liquid-navbar.css` - Navigation component
+
+### JavaScript
+- `js/main.js` - Core functionality
+- `js/liquid-navbar.js` - Navigation interactions
+- `js/profile-card.js` - Sidebar interactions
+- GSAP 3.12.5 - Animation library (CDN)
+
+### Images
+- `images/Leon.jpg` - Profile photo
+- `images/LeonDevLogo.svg` - Logo [PLACEHOLDER]
+- `images/logoICON.svg` - AI icon [PLACEHOLDER]
+- `images/dot-pattern.svg` - Background pattern
+
+---
+
+## Notes for Recreation
+
+1. **Font Loading**: Ensure Google Fonts are loaded before rendering to prevent FOUT
+2. **Viewport Height**: Uses JavaScript to set `--vh` custom property for accurate mobile viewport
+3. **Scroll Behavior**: Homepage is scroll-locked; only portfolio page scrolls
+4. **Animation Timing**: AI pulse animation should be continuous with no pauses
+5. **Color Consistency**: All Kenyan flag colors must match exactly across components
+6. **Gradient Direction**: 45deg diagonal for text, 135deg for backgrounds
+7. **Shadow Layering**: Multiple box-shadows create depth (use all layers)
+8. **Transform Origin**: Critical for proper scaling and positioning
+9. **Z-index Hierarchy**: Navbar (100) > Sidebar (50) > Content (1) > Background (-10)
+10. **Transition Curves**: Use `cubic-bezier(0.4, 0, 0.2, 1)` for smooth, natural motion

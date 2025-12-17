@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(frontend-design)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(powershell -Command:*)",
+      "WebSearch",
+      "mcp__ide__getDiagnostics",
+      "Bash(dir \"C:\\Users\\Leon Madara\\Downloads\\Compressed\\ImageNavBar_3\\ImageNavBar\" /s /b)",
+      "Bash(tree:*)",
+      "Bash(del nul)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

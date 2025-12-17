@@ -1,0 +1,3265 @@
+/* Updated CSS Custom Properties for Light Theme */
+:root {
+    /* Core Colors */
+    --kenyan-black: #000;
+    --kenyan-red: #ce1126;
+    --kenyan-green: #006b3f;
+    --kenyan-white: #fff;
+    --primary-text: #333;
+    --secondary-text: rgba(51, 51, 51, 0.7);
+    --accent-green: var(--kenyan-green);
+    --accent-green-light: #10CF74;
+    --background-light: hsl(48, 10%, 90%);
+
+    /* Typography - Critical Path Only */
+    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-hero: clamp(3rem, 8vw, 6rem);
+    --font-size-subtitle: clamp(1.5rem, 4vw, 2.5rem);
+    --font-size-body: clamp(1rem, 2.5vw, 1.125rem);
+    --font-size-greeting: clamp(1.25rem, 3vw, 1.5rem);
+    --line-height-tight: 1.1;
+    --line-height-normal: 1.5;
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Layout - Essential Only */
+    --container-max-width: 2560px;
+    --section-padding: clamp(3rem, 6vw, 5rem);
+    --content-padding: clamp(1.5rem, 4vw, 3rem);
+    --grid-gap: clamp(2rem, 4vw, 3rem);
+    --space-sm: clamp(0.5rem, 1.5vw, 1rem);
+    --space-md: clamp(1rem, 2.5vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 3.5vw, 2.5rem);
+    --transition-fast: 0.15s ease-in-out;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --z-header: 100;
+    --dot-pattern-size: 3%;
+
+    /* Animation Variables */
+    --animation-delay-base: 0.1s;
+    --animation-delay-increment: 0.15s;
+    --animation-duration-fast: 0.3s;
+    --animation-duration-normal: 0.6s;
+    --animation-duration-slow: 0.8s;
+
+    /* Dynamic Background Color Detection */
+    --page-background-color: hsl(48, 10%, 90%);
+    /* Default to light background */
+}
+
+/* Cross-Browser Optimized CSS Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* Dynamic viewport height for mobile browsers */
+    line-height: var(--line-height-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+/* Enhanced Performance Optimization and Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        animation-delay: 0s !important;
+    }
+
+    /* Completely disable background animations for motion sensitivity */
+    .background-pattern,
+    .kenyan-code-elements,
+    .code-element {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    /* Reduce opacity of moving elements */
+    .code-element {
+        opacity: 0.05 !important;
+    }
+
+    /* Disable floating shapes animations */
+    .shape,
+    .hero-section::before,
+    .hero-section::after,
+    .landing-page::before {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    /* Enhanced Navigation-specific reduced motion support */
+    .nav-icon {
+        transition: none !important;
+        will-change: auto !important;
+    }
+
+    .nav-icon.floating {
+        /* Instant state change without animation for floating icons */
+        transform: translate3d(0, -40px, 0) scale(1.15) !important;
+        -webkit-transform: translate3d(0, -40px, 0) scale(1.15) !important;
+        color: #ffa500 !important;
+        filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6)) !important;
+        transition: none !important;
+    }
+
+    .nav-icon:hover {
+        transform: scale(1.15) !important;
+        transition: none !important;
+    }
+
+    .nav-label {
+        transition: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .header-logo {
+        transition: none !important;
+        will-change: auto !important;
+    }
+
+    .header-logo:hover {
+        transform: scale(3.3) !important;
+    }
+
+    .leon-logo {
+        transition: none !important;
+    }
+
+    .nav-container {
+        transition: none !important;
+    }
+
+    /* Instant circular halo state changes */
+    .circular-halo {
+        animation: none !important;
+        transition: none !important;
+        will-change: auto !important;
+    }
+
+    .circular-halo.materializing,
+    .circular-halo.active {
+        opacity: 1 !important;
+        transform: translate3d(-50%, 0, 0) !important;
+        -webkit-transform: translate3d(-50%, 0, 0) !important;
+    }
+
+    .circular-halo.dematerializing {
+        opacity: 0 !important;
+        transform: translate3d(-50%, 0, 0) !important;
+        -webkit-transform: translate3d(-50%, 0, 0) !important;
+    }
+
+    /* Disable elevation animations */
+    .nav-icon.elevating,
+    .nav-icon.descending,
+    .nav-icon.handoff-elevating,
+    .nav-icon.handoff-descending {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Performance Optimization Classes */
+.gpu-accelerated {
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+/* Animation Frame Monitoring Support */
+.performance-monitor {
+    /* Enable performance monitoring for animation-heavy elements */
+    will-change: transform, opacity, box-shadow;
+}
+
+/* Low-performance device optimizations */
+.reduce-complexity .circular-halo {
+    box-shadow: 0 0 10px var(--page-background-color) !important;
+    will-change: auto !important;
+}
+
+.reduce-complexity .nav-icon {
+    will-change: auto !important;
+    filter: none !important;
+}
+
+.reduce-complexity .nav-icon.floating {
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+/* DOM Query Optimization - Reusable Element Classes */
+.elevation-container {
+    /* Container for elements that will be frequently queried during animations */
+    contain: layout style paint;
+}
+
+.floating-state-container {
+    /* Optimize container for floating state elements */
+    contain: layout style;
+    isolation: isolate;
+}
+
+/* Memory-efficient animation states */
+.animation-optimized {
+    /* Reduce memory usage during complex state transitions */
+    contain: strict;
+    content-visibility: auto;
+}
+
+/* Performance-based animation quality scaling */
+@media (max-resolution: 1dppx) {
+
+    /* Reduce animation complexity on low-DPI displays */
+    .circular-halo {
+        box-shadow: 0 0 15px var(--page-background-color), 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .nav-icon.floating {
+        filter: drop-shadow(0 0 6px rgba(255, 165, 0, 0.4)) !important;
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.3) !important;
+    }
+}
+
+/* High refresh rate display optimizations */
+@media (min-resolution: 120dpi) and (min-refresh: 90hz) {
+
+    /* Enhanced animations for high refresh rate displays */
+    .circular-halo.materializing {
+        animation-duration: 0.3s;
+    }
+
+    .circular-halo.dematerializing {
+        animation-duration: 0.3s;
+    }
+
+    .nav-icon.elevating,
+    .nav-icon.descending {
+        animation-duration: 0.3s;
+    }
+}
+
+/* No-animations class for JavaScript-controlled reduced motion */
+.no-animations,
+.no-animations * {
+    animation: none !important;
+    transition: none !important;
+}
+
+.no-animations .nav-icon.active {
+    /* Instant position change without animation */
+    transform: translateY(-30px) !important;
+}
+
+.no-animations .nav-icon:hover {
+    transform: none !important;
+}
+
+/* Cross-Browser Keyframe Animations */
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(30px);
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(30px);
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(-30px);
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(-30px);
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes fadeInRight {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(30px);
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(30px);
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes scaleIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@-webkit-keyframes pulse {
+
+    0%,
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+}
+
+/* Enhanced Elevation Animation Keyframes with GPU Acceleration */
+@keyframes floatUp {
+    0% {
+        transform: translate3d(-50%, 20px, 0) scale(0.8);
+        -webkit-transform: translate3d(-50%, 20px, 0) scale(0.8);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate3d(-50%, -5px, 0) scale(0.95);
+        -webkit-transform: translate3d(-50%, -5px, 0) scale(0.95);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0) scale(1);
+        -webkit-transform: translate3d(-50%, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes floatDown {
+    0% {
+        transform: translate3d(-50%, 0, 0) scale(1);
+        -webkit-transform: translate3d(-50%, 0, 0) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate3d(-50%, 5px, 0) scale(0.95);
+        -webkit-transform: translate3d(-50%, 5px, 0) scale(0.95);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate3d(-50%, 20px, 0) scale(0.8);
+        -webkit-transform: translate3d(-50%, 20px, 0) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Enhanced Icon Elevation Animation Keyframes with Cubic-Bezier Timing */
+@keyframes elevateIcon {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translate3d(0, -15px, 0) scale(1.05);
+        -webkit-transform: translate3d(0, -15px, 0) scale(1.05);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translate3d(0, -40px, 0) scale(1.15);
+        -webkit-transform: translate3d(0, -40px, 0) scale(1.15);
+        opacity: 0;
+    }
+}
+
+@keyframes descendIcon {
+    0% {
+        transform: translate3d(0, -40px, 0) scale(1.15);
+        -webkit-transform: translate3d(0, -40px, 0) scale(1.15);
+        opacity: 0;
+    }
+
+    70% {
+        transform: translate3d(0, -15px, 0) scale(1.05);
+        -webkit-transform: translate3d(0, -15px, 0) scale(1.05);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Smooth Handoff Animation Keyframes for Seamless State Transitions */
+@keyframes handoffElevate {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+
+    20% {
+        transform: translate3d(0, -10px, 0) scale(1.03);
+        -webkit-transform: translate3d(0, -10px, 0) scale(1.03);
+        opacity: 0.95;
+    }
+
+    100% {
+        transform: translate3d(0, -40px, 0) scale(1.15);
+        -webkit-transform: translate3d(0, -40px, 0) scale(1.15);
+        opacity: 0;
+    }
+}
+
+@keyframes handoffDescend {
+    0% {
+        transform: translate3d(0, -40px, 0) scale(1.15);
+        -webkit-transform: translate3d(0, -40px, 0) scale(1.15);
+        opacity: 0;
+    }
+
+    80% {
+        transform: translate3d(0, -10px, 0) scale(1.03);
+        -webkit-transform: translate3d(0, -10px, 0) scale(1.03);
+        opacity: 0.95;
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Circular Halo Materialization Animations */
+@keyframes haloMaterialize {
+    0% {
+        transform: translate3d(-50%, 10px, 0) scale(0.3);
+        -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
+        opacity: 0;
+        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    50% {
+        transform: translate3d(-50%, -5px, 0) scale(0.8);
+        -webkit-transform: translate3d(-50%, -5px, 0) scale(0.8);
+        opacity: 0.7;
+        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0) scale(1);
+        -webkit-transform: translate3d(-50%, 0, 0) scale(1);
+        opacity: 1;
+        box-shadow:
+            0 0 20px var(--page-background-color),
+            0 15px 35px rgba(0, 0, 0, 0.4),
+            0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@keyframes haloDematerialize {
+    0% {
+        transform: translate3d(-50%, 0, 0) scale(1);
+        -webkit-transform: translate3d(-50%, 0, 0) scale(1);
+        opacity: 1;
+        box-shadow:
+            0 0 20px var(--page-background-color),
+            0 15px 35px rgba(0, 0, 0, 0.4),
+            0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    50% {
+        transform: translate3d(-50%, 5px, 0) scale(0.8);
+        -webkit-transform: translate3d(-50%, 5px, 0) scale(0.8);
+        opacity: 0.7;
+        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        transform: translate3d(-50%, 10px, 0) scale(0.3);
+        -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
+        opacity: 0;
+        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+/* Dotted Background Pattern - Performance Optimized */
+.background-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/dot-pattern.svg');
+    background-repeat: repeat;
+    background-size: 20px 20px;
+    opacity: 0.4;
+    z-index: -10;
+    pointer-events: none;
+    /* GPU acceleration for better performance */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+    /* Optimize rendering */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* Fallback for browsers without SVG support */
+    background-color: transparent;
+}
+
+/* Fallback dotted pattern using CSS for older browsers */
+.no-svg .background-pattern {
+    background-image: radial-gradient(circle, rgba(51, 51, 51, 0.4) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Internet Explorer 11 specific fixes */
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+    .background-pattern {
+        background-image: none;
+        background-color: rgba(51, 51, 51, 0.1);
+    }
+
+    .kenyan-code-elements {
+        display: none;
+        /* Hide complex animations in IE11 */
+    }
+
+    .pill-sidebar {
+        transform: translateY(-50%) translateX(20px);
+        /* Remove scale for IE11 compatibility */
+    }
+}
+
+/* Firefox specific optimizations */
+@-moz-document url-prefix() {
+    .background-pattern {
+        background-attachment: scroll;
+        /* Better performance in Firefox */
+    }
+
+    .code-element {
+        will-change: auto;
+        /* Firefox handles will-change differently */
+    }
+}
+
+/* Safari specific fixes */
+@supports (-webkit-appearance: none) {
+    .background-pattern {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .pill-sidebar {
+        -webkit-transform: translateY(-50%) translateX(20px) scale(1.2);
+        transform: translateY(-50%) translateX(20px) scale(1.2);
+    }
+}
+
+/* Performance optimization: reduce complexity on lower-end devices */
+@media (max-width: 768px) and (max-resolution: 1.5dppx) {
+    .background-pattern {
+        background-size: 30px 30px;
+        opacity: 0.3;
+    }
+}
+
+/* Performance optimization class for low-end devices */
+.reduce-complexity .background-pattern {
+    opacity: 0.2 !important;
+    background-size: 40px 40px !important;
+}
+
+.reduce-complexity .code-element {
+    opacity: 0.1 !important;
+    animation-duration: 12s !important;
+}
+
+.reduce-complexity .shape {
+    opacity: 0.3 !important;
+    filter: blur(10px) !important;
+}
+
+/* Low FPS mode optimizations */
+.low-fps-mode .circular-halo {
+    animation: none !important;
+    transition: opacity 0.1s ease !important;
+    box-shadow: 0 0 8px var(--page-background-color) !important;
+    will-change: auto !important;
+}
+
+.low-fps-mode .nav-icon {
+    transition: transform 0.1s ease !important;
+    will-change: auto !important;
+    filter: none !important;
+}
+
+.low-fps-mode .nav-icon.floating {
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+/* Low performance elevation mode */
+.low-performance-elevation .circular-halo {
+    animation-duration: 0.2s !important;
+    box-shadow: 0 0 8px var(--page-background-color) !important;
+    will-change: auto !important;
+}
+
+.low-performance-elevation .nav-icon.elevating,
+.low-performance-elevation .nav-icon.descending {
+    animation-duration: 0.2s !important;
+    will-change: auto !important;
+}
+
+.low-performance-elevation .nav-icon.floating {
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+/* Memory optimization classes */
+.circular-halo.performance-optimized {
+    contain: layout style paint !important;
+    box-shadow: 0 0 12px var(--page-background-color) !important;
+    border-width: 2px !important;
+}
+
+.halo-pool-element {
+    display: none !important;
+    contain: strict !important;
+}
+
+/* Mobile performance optimizations */
+@media (max-width: 768px) {
+    .mobile-optimized .circular-halo {
+        animation-duration: 0.3s !important;
+        box-shadow: 0 0 10px var(--page-background-color) !important;
+    }
+
+    .mobile-optimized .nav-icon.floating {
+        filter: drop-shadow(0 0 4px rgba(255, 165, 0, 0.4)) !important;
+    }
+}
+
+/* Kenyan Programming Elements - Performance Optimized */
+.kenyan-code-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+    font-family: 'Courier New', monospace;
+    pointer-events: none;
+    /* GPU acceleration */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.code-element {
+    position: absolute;
+    font-size: 2rem;
+    font-weight: bold;
+    opacity: 0.15;
+    filter: blur(1px);
+    animation: float-code 8s ease-in-out infinite;
+    user-select: none;
+    /* GPU acceleration for animations */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform, opacity;
+    /* Optimize rendering */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.code-element-1 {
+    top: 15%;
+    left: 10%;
+    color: var(--kenyan-black);
+    animation-delay: 0s;
+}
+
+.code-element-2 {
+    top: 25%;
+    right: 15%;
+    color: var(--kenyan-red);
+    animation-delay: 2s;
+}
+
+.code-element-3 {
+    bottom: 30%;
+    left: 20%;
+    color: var(--kenyan-green);
+    animation-delay: 4s;
+}
+
+.code-element-4 {
+    top: 60%;
+    right: 25%;
+    color: var(--kenyan-red);
+    animation-delay: 6s;
+}
+
+.code-element-5 {
+    bottom: 20%;
+    right: 10%;
+    color: var(--kenyan-green);
+    animation-delay: 1s;
+}
+
+.code-element-6 {
+    top: 40%;
+    left: 5%;
+    color: var(--kenyan-black);
+    animation-delay: 3s;
+}
+
+@keyframes float-code {
+
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        -webkit-transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 0.15;
+    }
+
+    50% {
+        transform: translate3d(0, -15px, 0) rotate(2deg);
+        -webkit-transform: translate3d(0, -15px, 0) rotate(2deg);
+        opacity: 0.25;
+    }
+}
+
+/* Updated Base Styles with Light Background */
+body {
+    /* Fallback styles for browsers without CSS custom properties */
+    font: 400 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #333;
+    background: hsl(48, 10%, 90%);
+
+    /* Modern styles with CSS custom properties */
+    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem)/var(--line-height-normal, 1.5) var(--font-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    color: var(--primary-text, #333);
+    background: var(--background-light, hsl(48, 10%, 90%));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--primary-text);
+}
+
+h1 {
+    font-size: var(--font-size-hero);
+}
+
+h2 {
+    font-size: var(--font-size-subtitle);
+    font-weight: var(--font-weight-semibold);
+}
+
+p {
+    margin-bottom: var(--space-md);
+    color: var(--secondary-text);
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+a {
+    /* Fallback for browsers without CSS custom properties */
+    color: #006b3f;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+
+    /* Modern styles with CSS custom properties */
+    color: var(--accent-green, #006b3f);
+    transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -webkit-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -moz-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    -o-transition: all var(--transition-smooth, 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+a:hover,
+a:focus {
+    color: var(--primary-text);
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
+}
+
+a:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+}
+
+/* Fallback for browsers without focus-visible support */
+a:focus:not(:focus-visible) {
+    outline: none;
+}
+
+a:active {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
+
+/* Optimized Utilities */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-padding);
+}
+
+.grid {
+    display: grid;
+    gap: var(--grid-gap);
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    --content-padding: clamp(1.5rem, 4vw, 3rem);
+}
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --section-padding: clamp(4rem, 7vw, 6rem);
+        --content-padding: clamp(2rem, 5vw, 4rem);
+    }
+}
+
+@media (min-width: 1920px) {
+    :root {
+        --section-padding: clamp(5rem, 8vw, 8rem);
+        --content-padding: clamp(3rem, 6vw, 5rem);
+    }
+}
+
+@media (min-width: 2560px) {
+    :root {
+        --section-padding: 8rem;
+        --content-padding: 5rem;
+    }
+}
+
+/* Advanced Floating Header Navigation with Viewport-Based Positioning */
+.floating-header {
+    position: fixed;
+    top: 0;
+    left: 50vw;
+    width: 30vw;
+    transform: translateX(-50%);
+    z-index: var(--z-header);
+    background: transparent;
+    padding: 1rem 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+/* Leon Logo Component (3x Size, 20vw Position) */
+.header-logo {
+    position: absolute;
+    left: calc(20vw - 50vw);
+    /* Adjust for header's 50vw offset to achieve 20vw positioning from viewport edge */
+    transform: scale(3);
+    /* 3x scaling as specified in requirements */
+    transform-origin: left center;
+    /* Proper scaling behavior from left center */
+    transition: transform var(--transition-smooth);
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0.5rem;
+    /* Ensure proportional scaling across different viewport sizes */
+    will-change: transform;
+}
+
+.header-logo:hover {
+    transform: scale(3.3);
+    /* 3.3x total: 3x base + 10% hover increase as specified */
+    background: rgba(0, 107, 63, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 107, 63, 0.2);
+    transition: transform 0.3s ease;
+    /* Smooth transition timing (0.3s ease) for hover interactions */
+}
+
+.header-logo:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 3px;
+    background: rgba(0, 107, 63, 0.15);
+    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2);
+    border-radius: 8px;
+}
+
+.header-logo:active {
+    transform: scale(0.98);
+    -webkit-transform: scale(0.98);
+    -moz-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    -o-transform: scale(0.98);
+}
+
+.leon-logo {
+    width: 70px;
+    /* Fixed size since we're using transform: scale(3) */
+    height: auto;
+    transition: all var(--transition-smooth);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    aspect-ratio: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.header-logo:hover .leon-logo {
+    filter: drop-shadow(0 4px 8px rgba(0, 107, 63, 0.3));
+    /* Scale hover effect proportionally to logo size */
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+}
+
+/* Navigation Container (Base State) */
+.nav-container {
+    background: #000;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    position: relative;
+    z-index: 101;
+    overflow: visible;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all var(--transition-smooth);
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+}
+
+.nav-container:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Circular Halo Container with GPU Acceleration */
+.circular-halo {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    -webkit-transform: translate3d(-50%, 0, 0);
+    width: 60px;
+    height: 60px;
+    background: var(--page-background-color);
+    border-radius: 50%;
+    border: 3px solid var(--page-background-color);
+    box-shadow:
+        0 0 20px var(--page-background-color),
+        /* Enhanced shadow effects beneath floating containers for depth perception */
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 103;
+    opacity: 0;
+    /* Enhanced GPU acceleration for 60fps performance */
+    will-change: transform, opacity, box-shadow, scale;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Force hardware acceleration */
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+.circular-halo.materializing {
+    animation: haloMaterialize 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.circular-halo.active {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+    -webkit-transform: translate3d(-50%, 0, 0);
+}
+
+.circular-halo.dematerializing {
+    animation: haloDematerialize 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Enhanced animation states for navigation icons */
+.nav-icon.elevating {
+    animation: elevateIcon 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.nav-icon.descending {
+    animation: descendIcon 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Keyboard Focus Indicators for Elevation System */
+.nav-icon.keyboard-focused {
+    outline: 3px solid var(--accent-green) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2) !important;
+    border-radius: 8px;
+}
+
+.nav-icon.keyboard-focused.floating {
+    /* Enhanced focus indicator for floating icons */
+    outline: 3px solid #ffa500 !important;
+    outline-offset: 4px !important;
+    box-shadow:
+        0 0 0 6px rgba(255, 165, 0, 0.3) !important,
+        0 0 20px var(--page-background-color),
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.header-logo.keyboard-focused {
+    outline: 3px solid var(--accent-green) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2) !important;
+    border-radius: 8px;
+    background: rgba(0, 107, 63, 0.15) !important;
+}
+
+/* Ensure floating icons maintain keyboard accessibility */
+.circular-halo .nav-icon.floating {
+    cursor: pointer;
+    outline: none;
+    /* Remove default outline, use custom focus indicator */
+}
+
+.circular-halo .nav-icon.floating:focus-visible {
+    outline: 3px solid #ffa500;
+    outline-offset: 4px;
+    box-shadow:
+        0 0 0 6px rgba(255, 165, 0, 0.3),
+        0 0 20px var(--page-background-color),
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced focus indicators for reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+
+    .nav-icon.keyboard-focused,
+    .nav-icon.keyboard-focused.floating,
+    .header-logo.keyboard-focused {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .nav-icon.keyboard-focused.floating {
+        /* Instant focus state for floating icons in reduced motion */
+        outline: 3px solid #ffa500 !important;
+        outline-offset: 4px !important;
+        box-shadow: 0 0 0 6px rgba(255, 165, 0, 0.3) !important;
+    }
+}
+
+/* Handoff animation states for seamless transitions */
+.nav-icon.handoff-elevating {
+    animation: handoffElevate 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.nav-icon.handoff-descending {
+    animation: handoffDescend 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Navigation Icon Styles */
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    /* White default color in base state */
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    position: relative;
+    min-width: 44px;
+    min-height: 44px;
+    z-index: 102;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    /* GPU acceleration for smooth animations */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Elevation animation states */
+.nav-icon.elevating {
+    animation: elevateIcon 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+}
+
+.nav-icon.descending {
+    animation: descendIcon 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+}
+
+.nav-icon.detached {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-40px) scale(1.1);
+}
+
+/* Color transformation states */
+.nav-icon.transforming-to-active {
+    animation: colorTransform 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-icon.transforming-to-inactive {
+    animation: colorTransformReverse 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Smooth color interpolation during handoff transitions */
+.nav-icon.handoff-descending {
+    animation:
+        descendIcon 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+        colorTransformReverse 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+}
+
+.nav-icon.handoff-ascending {
+    animation:
+        elevateIcon 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+        colorTransform 0.3s 0.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+}
+
+/* Hover state for navigation icons */
+.nav-icon:hover {
+    transform: scale(1.15);
+    /* 10-15% scale increase */
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Floating State for Navigation Icons */
+.nav-icon.floating {
+    color: #ffa500;
+    /* Yellow/orange transformation */
+    transform: scale(1.15);
+    /* 10-15% scale increase for floating state emphasis */
+    filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+    opacity: 1;
+    pointer-events: auto;
+    /* Enhanced glow effect around active yellow/orange icons */
+    box-shadow:
+        0 0 15px rgba(255, 165, 0, 0.4),
+        0 0 30px rgba(255, 165, 0, 0.2);
+    /* Smooth color transition */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Color transformation animation */
+@keyframes colorTransform {
+    0% {
+        color: #fff;
+        filter: none;
+        box-shadow: none;
+    }
+
+    100% {
+        color: #ffa500;
+        filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+        box-shadow:
+            0 0 15px rgba(255, 165, 0, 0.4),
+            0 0 30px rgba(255, 165, 0, 0.2);
+    }
+}
+
+/* Reverse color transformation */
+@keyframes colorTransformReverse {
+    0% {
+        color: #ffa500;
+        filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+        box-shadow:
+            0 0 15px rgba(255, 165, 0, 0.4),
+            0 0 30px rgba(255, 165, 0, 0.2);
+    }
+
+    100% {
+        color: #fff;
+        filter: none;
+        box-shadow: none;
+    }
+}
+
+/* Prevent pointer events during animation to avoid rapid clicking issues */
+.nav-container.animating .nav-icon {
+    pointer-events: none;
+}
+
+/* Smooth transition timing for state changes */
+.nav-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+
+.nav-icon:hover {
+    transform: scale(1.15);
+    /* 10-15% scale increase */
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-icon:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 3px;
+    background: rgba(0, 107, 63, 0.15);
+    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2);
+    border-radius: 50%;
+}
+
+/* Enhanced focus state for active navigation icons */
+.nav-icon.active:focus-visible {
+    outline: 3px solid var(--kenyan-red);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(206, 17, 38, 0.3);
+}
+
+.nav-icon-svg {
+    width: 20px;
+    height: 20px;
+    transition: all var(--transition-smooth);
+    -webkit-transition: all var(--transition-smooth);
+    -moz-transition: all var(--transition-smooth);
+    -o-transition: all var(--transition-smooth);
+}
+
+.nav-icon:hover .nav-icon-svg {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+
+
+/* Navigation Label Styles */
+.nav-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    background: var(--kenyan-white);
+    color: var(--kenyan-black);
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-smooth);
+    -webkit-transition: all var(--transition-smooth);
+    -moz-transition: all var(--transition-smooth);
+    -o-transition: all var(--transition-smooth);
+    z-index: 103;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+}
+
+.nav-label::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid var(--kenyan-white);
+}
+
+.nav-icon:hover .nav-label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    -webkit-transform: translateX(-50%) translateY(0);
+    -moz-transform: translateX(-50%) translateY(0);
+    -ms-transform: translateX(-50%) translateY(0);
+    -o-transform: translateX(-50%) translateY(0);
+}
+
+/* Enhanced Responsive Header Adjustments with Viewport Adaptation */
+
+/* Ultra-Wide Desktop (2560px+) */
+@media (min-width: 2560px) {
+    .floating-header {
+        width: 25vw;
+        /* Narrower on ultra-wide screens */
+        padding: 2rem 0;
+    }
+
+    .header-logo {
+        left: calc(15vw - 50vw);
+        /* Adjust positioning for ultra-wide */
+        transform: scale(3.5);
+        /* Larger logo for ultra-wide displays */
+    }
+
+    .header-logo:hover {
+        transform: scale(3.85);
+        /* 3.5x base + 10% hover increase */
+    }
+
+    .nav-container {
+        padding: 1.25rem 2.5rem;
+        gap: 2rem;
+    }
+
+    .nav-icon {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        min-height: 52px;
+    }
+
+    .nav-icon-svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Enhanced circular halo for ultra-wide displays */
+    .circular-halo {
+        width: 80px;
+        height: 80px;
+        top: -50px;
+    }
+
+    /* Larger elevation distance for ultra-wide screens */
+    .nav-icon.floating {
+        transform: translate3d(0, -50px, 0) scale(1.2);
+    }
+}
+
+/* Large Desktop (1920px - 2559px) */
+@media (min-width: 1920px) and (max-width: 2559px) {
+    .floating-header {
+        width: 28vw;
+        padding: 1.75rem 0;
+    }
+
+    .header-logo {
+        left: calc(18vw - 50vw);
+        transform: scale(3.2);
+    }
+
+    .header-logo:hover {
+        transform: scale(3.52);
+        /* 3.2x base + 10% hover increase */
+    }
+
+    .leon-logo {
+        width: min(75px, 5vw);
+        max-width: 85px;
+    }
+
+    .nav-container {
+        padding: 1rem 2rem;
+        gap: 1.5rem;
+    }
+
+    .nav-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .nav-icon-svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .nav-label {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+        margin-top: 0.75rem;
+    }
+
+    /* Enhanced circular halo for large desktop */
+    .circular-halo {
+        width: 70px;
+        height: 70px;
+        top: -45px;
+    }
+
+    /* Elevation distance for large desktop */
+    .nav-icon.floating {
+        transform: translate3d(0, -45px, 0) scale(1.18);
+    }
+}
+
+/* Desktop (1024px - 1919px) */
+@media (min-width: 1024px) and (max-width: 1919px) {
+    .floating-header {
+        width: 32vw;
+        padding: 1.5rem 0;
+    }
+
+    .header-logo {
+        left: calc(19vw - 50vw);
+        transform: scale(2.8);
+    }
+
+    .header-logo:hover {
+        transform: scale(3.08);
+        /* 2.8x base + 10% hover increase */
+    }
+
+    .leon-logo {
+        width: clamp(60px, 4.5vw, 70px);
+    }
+
+    .nav-container {
+        padding: 0.875rem 1.75rem;
+        gap: 1.25rem;
+    }
+
+    .nav-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .nav-label {
+        font-size: 0.8125rem;
+        padding: 0.4375rem 0.875rem;
+        margin-top: 0.625rem;
+    }
+
+    /* Circular halo sizing for desktop */
+    .circular-halo {
+        width: 65px;
+        height: 65px;
+        top: -42px;
+    }
+
+    /* Elevation distance for desktop */
+    .nav-icon.floating {
+        transform: translate3d(0, -42px, 0) scale(1.16);
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .floating-header {
+        width: 38vw;
+        padding: 1.25rem 0;
+    }
+
+    .header-logo {
+        left: calc(22vw - 50vw);
+        transform: scale(2.4);
+    }
+
+    .header-logo:hover {
+        transform: scale(2.64);
+        /* 2.4x base + 10% hover increase */
+    }
+
+    .leon-logo {
+        width: clamp(50px, 4vw, 60px);
+    }
+
+    .nav-container {
+        padding: 0.75rem 1.5rem;
+        gap: 1rem;
+    }
+
+    .nav-icon {
+        width: 42px;
+        height: 42px;
+        min-width: 44px;
+        /* Maintain touch-friendly size */
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .nav-label {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.75rem;
+        margin-top: 0.5rem;
+    }
+
+    /* Circular halo sizing for tablet */
+    .circular-halo {
+        width: 58px;
+        height: 58px;
+        top: -35px;
+    }
+
+    /* Reduced elevation distance for tablet */
+    .nav-icon.floating {
+        transform: translate3d(0, -35px, 0) scale(1.14);
+    }
+
+    /* Ensure touch-friendly interaction areas */
+    .nav-icon {
+        padding: 2px;
+        /* Add padding for better touch targets */
+    }
+}
+
+/* Mobile Large (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .floating-header {
+        width: 45vw;
+        padding: 1rem 0;
+    }
+
+    .header-logo {
+        left: calc(25vw - 50vw);
+        transform: scale(2.0);
+    }
+
+    .header-logo:hover {
+        transform: scale(2.2);
+        /* 2.0x base + 10% hover increase */
+    }
+
+    .leon-logo {
+        width: clamp(42px, 6vw, 50px);
+        min-width: 42px;
+    }
+
+    .nav-container {
+        padding: 0.625rem 1.25rem;
+        gap: 0.875rem;
+    }
+
+    .nav-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 44px;
+        /* Maintain touch-friendly size */
+        min-height: 44px;
+        padding: 4px;
+        /* Enhanced touch padding */
+    }
+
+    .nav-icon-svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .nav-label {
+        font-size: 0.6875rem;
+        padding: 0.3125rem 0.625rem;
+        margin-top: 0.4375rem;
+    }
+
+    .nav-label::before {
+        border-left-width: 3px;
+        border-right-width: 3px;
+        border-bottom-width: 3px;
+        top: -3px;
+    }
+
+    /* Circular halo sizing for large mobile */
+    .circular-halo {
+        width: 52px;
+        height: 52px;
+        top: -30px;
+    }
+
+    /* Reduced elevation distance for large mobile */
+    .nav-icon.floating {
+        transform: translate3d(0, -30px, 0) scale(1.12);
+    }
+
+    /* Enhanced touch interaction feedback */
+    .nav-icon:active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(0.95);
+    }
+}
+
+/* Mobile Small (320px - 480px) */
+@media (max-width: 480px) {
+    .floating-header {
+        width: 50vw;
+        padding: 0.875rem 0;
+    }
+
+    .header-logo {
+        left: calc(28vw - 50vw);
+        transform: scale(1.8);
+    }
+
+    .header-logo:hover {
+        transform: scale(1.98);
+        /* 1.8x base + 10% hover increase */
+    }
+
+    .leon-logo {
+        width: clamp(36px, 7vw, 44px);
+        min-width: 36px;
+        max-width: 44px;
+    }
+
+    .nav-container {
+        padding: 0.5rem 1rem;
+        gap: 0.75rem;
+    }
+
+    .nav-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 44px;
+        /* Maintain touch-friendly size */
+        min-height: 44px;
+        padding: 6px;
+        /* Enhanced touch padding */
+        border-radius: 50%;
+        background: transparent;
+        transition: background-color var(--transition-smooth);
+    }
+
+    .nav-icon:hover,
+    .nav-icon:focus {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-icon:active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(0.9);
+    }
+
+    .nav-icon-svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .nav-label {
+        font-size: 0.625rem;
+        padding: 0.25rem 0.5rem;
+        margin-top: 0.375rem;
+        min-width: max-content;
+        white-space: nowrap;
+    }
+
+    .nav-label::before {
+        border-left-width: 2px;
+        border-right-width: 2px;
+        border-bottom-width: 2px;
+        top: -2px;
+    }
+
+    /* Circular halo sizing for small mobile */
+    .circular-halo {
+        width: 48px;
+        height: 48px;
+        top: -26px;
+    }
+
+    /* Reduced elevation distance for small mobile */
+    .nav-icon.floating {
+        transform: translate3d(0, -26px, 0) scale(1.1);
+    }
+
+    /* Optimize for touch interaction */
+    .nav-icon {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+        tap-highlight-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Extra Small Mobile (below 320px) */
+@media (max-width: 319px) {
+    .floating-header {
+        width: 55vw;
+        padding: 0.75rem 0;
+    }
+
+    .header-logo {
+        left: calc(30vw - 50vw);
+        transform: scale(1.6);
+    }
+
+    .header-logo:hover {
+        transform: scale(1.76);
+        /* 1.6x base + 10% hover increase */
+    }
+
+    .leon-logo {
+        width: clamp(30px, 8vw, 38px);
+        min-width: 30px;
+        max-width: 38px;
+    }
+
+    .nav-container {
+        padding: 0.375rem 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .nav-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 44px;
+        /* Still maintain touch-friendly size */
+        min-height: 44px;
+        padding: 8px;
+        /* Maximum touch padding for tiny screens */
+    }
+
+    .nav-icon-svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .nav-label {
+        font-size: 0.5625rem;
+        padding: 0.1875rem 0.375rem;
+        margin-top: 0.25rem;
+    }
+
+    /* Circular halo sizing for extra small mobile */
+    .circular-halo {
+        width: 44px;
+        height: 44px;
+        top: -22px;
+    }
+
+    /* Minimal elevation distance for extra small mobile */
+    .nav-icon.floating {
+        transform: translate3d(0, -22px, 0) scale(1.08);
+    }
+
+    /* Ensure maximum touch accessibility */
+    .nav-icon {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+        tap-highlight-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .nav-icon:active {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(0.85);
+    }
+}
+
+/* Landing Page - Optimized */
+.landing-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+}
+
+/* Cross-Browser Hero Section */
+.hero-section {
+    display: grid;
+    display: -ms-grid;
+    /* IE11 support */
+    grid-template-columns: 1fr 2fr 1fr;
+    -ms-grid-columns: 1fr 2fr 1fr;
+    /* IE11 support */
+    grid-template-areas: "flags content social";
+    align-items: center;
+    -ms-grid-row-align: center;
+    /* IE11 support */
+    gap: var(--grid-gap);
+    grid-gap: var(--grid-gap);
+    /* Older browsers */
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+    min-height: calc(100vh - 80px);
+    min-height: calc(100dvh - 80px);
+    /* Dynamic viewport height */
+
+    /* Fallback for browsers without CSS Grid */
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+/* IE11 Grid positioning with standard properties */
+.hero-section>.flag-container {
+    grid-column: 1;
+    -ms-grid-column: 1;
+}
+
+.hero-section>.hero-content {
+    grid-column: 2;
+    -ms-grid-column: 2;
+}
+
+.hero-section>.social-links {
+    grid-column: 3;
+    -ms-grid-column: 3;
+}
+
+/* Flag Container with Animations */
+.flag-container {
+    grid-area: flags;
+    position: relative;
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    opacity: 0;
+    animation: fadeInLeft var(--animation-duration-slow) var(--transition-smooth) forwards;
+    -webkit-animation: fadeInLeft var(--animation-duration-slow) var(--transition-smooth) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 4);
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 4);
+}
+
+.background-flag,
+.hanging-flag {
+    max-width: 100%;
+    height: auto;
+    transition: all var(--transition-smooth);
+    -webkit-transition: all var(--transition-smooth);
+    -moz-transition: all var(--transition-smooth);
+    -o-transition: all var(--transition-smooth);
+}
+
+.background-flag:hover,
+.hanging-flag:hover {
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
+}
+
+.hanging-flag {
+    position: absolute;
+    z-index: 2;
+    /* Ensure proper rendering across browsers */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.background-flag {
+    z-index: 1;
+    /* Ensure proper rendering across browsers */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Hero Content - Optimized with Animations */
+.hero-content {
+    grid-area: content;
+    text-align: center;
+}
+
+.hero-content>* {
+    opacity: 0;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+}
+
+.greeting {
+    font-size: var(--font-size-greeting);
+    /* Fallback for browsers without CSS custom properties */
+    font-size: 1.25rem;
+    color: var(--secondary-text);
+    /* Fallback for browsers without CSS custom properties */
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-sm);
+    /* Fallback for browsers without CSS custom properties */
+    margin-bottom: 0.5rem;
+    animation-delay: var(--animation-delay-base);
+    -webkit-animation-delay: var(--animation-delay-base);
+}
+
+.name {
+    font-size: var(--font-size-name-80px, clamp(4.2rem, 8.4vw, 5.4rem));
+    /* Fallback for browsers without CSS custom properties */
+    font-size: clamp(4.2rem, 8.4vw, 5.4rem);
+    font-weight: var(--font-weight-bold);
+    /* Fallback for browsers without CSS custom properties */
+    font-weight: 700;
+    color: var(--primary-text);
+    /* Fallback for browsers without CSS custom properties */
+    color: #fff;
+    margin-bottom: var(--space-md);
+    /* Fallback for browsers without CSS custom properties */
+    margin-bottom: 1rem;
+    line-height: var(--line-height-tight);
+    /* Fallback for browsers without CSS custom properties */
+    line-height: 1.1;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
+    transition: all var(--transition-smooth);
+    -webkit-transition: all var(--transition-smooth);
+    -moz-transition: all var(--transition-smooth);
+    -o-transition: all var(--transition-smooth);
+}
+
+.name:hover {
+    color: var(--accent-green);
+    /* Fallback for browsers without CSS custom properties */
+    color: #006b3f;
+    text-shadow: 0 0 20px rgba(0, 107, 63, 0.3);
+}
+
+.role {
+    font-size: var(--font-size-subtitle);
+    font-weight: var(--font-weight-semibold);
+    color: var(--accent-green);
+    /* Fallback for browsers without CSS custom properties */
+    color: #006b3f;
+    margin-bottom: 1rem;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+    transition: all var(--transition-smooth);
+    -webkit-transition: all var(--transition-smooth);
+    -moz-transition: all var(--transition-smooth);
+    -o-transition: all var(--transition-smooth);
+}
+
+.role:hover {
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(0, 107, 63, 0.4);
+}
+
+.location {
+    font-size: var(--font-size-body);
+    /* Fallback for browsers without CSS custom properties */
+    font-size: 1rem;
+    color: var(--secondary-text);
+    /* Fallback for browsers without CSS custom properties */
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: var(--space-sm);
+    /* Fallback for browsers without CSS custom properties */
+    margin-top: 0.5rem;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+    -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+}
+
+/* Social Links - Optimized with Animations */
+.social-links {
+    grid-area: social;
+    opacity: 0;
+    animation: fadeInRight var(--animation-duration-slow) var(--transition-smooth) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 5);
+}
+
+.social-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.social-item {
+    opacity: 0;
+    animation: scaleIn var(--animation-duration-fast) var(--transition-bounce) forwards;
+}
+
+.social-item:nth-child(1) {
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 6);
+}
+
+.social-item:nth-child(2) {
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 6.5);
+}
+
+.social-item:nth-child(3) {
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 7);
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--secondary-text);
+    transition: all var(--transition-smooth);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link:hover,
+.social-link:focus {
+    color: var(--accent-green);
+    /* Fallback for browsers without CSS custom properties */
+    color: #006b3f;
+    background: rgba(0, 107, 63, 0.1);
+    border-color: var(--accent-green);
+    /* Fallback for browsers without CSS custom properties */
+    border-color: #006b3f;
+    transform: translateY(-3px) scale(1.05);
+    -webkit-transform: translateY(-3px) scale(1.05);
+    -moz-transform: translateY(-3px) scale(1.05);
+    -ms-transform: translateY(-3px) scale(1.05);
+    -o-transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 107, 63, 0.2);
+}
+
+.social-link:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.social-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: all var(--transition-smooth);
+}
+
+.social-link:hover .social-icon {
+    transform: rotate(5deg) scale(1.1);
+}
+
+/* Footer - Optimized with Animation */
+.footer {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(232, 231, 227, 0.8);
+    padding: 0 var(--content-padding);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-smooth);
+}
+
+.footer.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer-text {
+    color: rgba(114, 8, 8, 1);
+    font-size: 0.875rem;
+}
+
+/* Ripple Effect for Interactive Elements */
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 107, 63, 0.3);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Responsive Transition States */
+.resizing * {
+    transition-duration: 0s !important;
+}
+
+/* Loading State Improvements */
+body:not(.loaded) .hero-content>*,
+body:not(.loaded) .flag-container,
+body:not(.loaded) .social-links {
+    opacity: 0;
+}
+
+/* Enhanced Focus States for Accessibility with Kenyan Theme */
+.social-link:focus-visible,
+.social-icon-link:focus-visible {
+    outline: 3px solid var(--accent-green);
+    /* Fallback for browsers without CSS custom properties */
+    outline: 3px solid #006b3f;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.3);
+    /* Ensure high contrast */
+    background: rgba(0, 107, 63, 0.1);
+}
+
+.nav-link:focus-visible,
+.nav-logo:focus-visible {
+    outline: 3px solid var(--accent-green);
+    /* Fallback for browsers without CSS custom properties */
+    outline: 3px solid #006b3f;
+    outline-offset: 4px;
+    border-radius: 4px;
+    background: rgba(0, 107, 63, 0.1);
+}
+
+.name:focus-visible {
+    outline: 3px solid var(--accent-green);
+    /* Fallback for browsers without CSS custom properties */
+    outline: 3px solid #006b3f;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* Improved contrast for text elements */
+.greeting {
+    color: #2d2d2d;
+    /* Improved contrast ratio */
+}
+
+.location {
+    color: #2d2d2d;
+    /* Improved contrast ratio */
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .background-pattern {
+        opacity: 0.1 !important;
+    }
+
+    .code-element {
+        opacity: 0.05 !important;
+    }
+
+    .shape {
+        opacity: 0.2 !important;
+    }
+
+    .greeting,
+    .location {
+        color: #000 !important;
+    }
+
+    .name {
+        color: #000 !important;
+        text-shadow: none !important;
+    }
+
+    .role {
+        color: #004d2e !important;
+        text-shadow: none !important;
+    }
+}
+
+/* High contrast text class for accessibility */
+.high-contrast-text {
+    color: #000 !important;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+    font-weight: 600 !important;
+}
+
+/* Reduce motion class for accessibility */
+.reduce-motion * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+}
+
+/* Browser-specific optimizations */
+.browser-ie .background-pattern,
+.browser-ie .kenyan-code-elements {
+    display: none;
+}
+
+.browser-ie .pill-sidebar {
+    transform: translateY(-50%) translateX(20px);
+    filter: none;
+}
+
+.no-custom-properties .background-pattern {
+    opacity: 0.4;
+    background-size: 20px 20px;
+}
+
+.no-custom-properties .code-element {
+    color: #333;
+    opacity: 0.15;
+}
+
+.no-custom-properties .pill-sidebar {
+    background: #d4e6d4;
+}
+
+/* Performance-based optimizations */
+.slow-device .background-pattern,
+.low-fps .background-pattern {
+    opacity: 0.2;
+    background-size: 40px 40px;
+}
+
+.slow-device .code-element,
+.low-fps .code-element {
+    animation-duration: 16s;
+    opacity: 0.1;
+}
+
+.slow-device .shape,
+.low-fps .shape {
+    animation: none;
+    opacity: 0.2;
+}
+
+/* Fallback for browsers without grid support */
+.no-grid .hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Fallback for browsers without flexbox support */
+.no-flexbox .social-icons-list {
+    display: block;
+}
+
+.no-flexbox .social-icon-item {
+    display: inline-block;
+    margin: 0.5rem;
+}
+
+/* Viewport height fallback */
+.landing-page {
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .background-pattern {
+        background-size: 10px 10px;
+    }
+
+    .code-element {
+        font-size: 1.8rem;
+    }
+
+    /* Optimize logo rendering for high-DPI displays */
+    .leon-logo {
+        /* Ensure crisp rendering on retina displays */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: crisp-edges;
+        /* Slightly increase logo size on high-DPI for better visibility */
+        width: clamp(36px, 5.5vw, 75px);
+    }
+
+    /* Enhance logo hover effects on high-DPI */
+    .header-logo:hover .leon-logo {
+        filter: drop-shadow(0 6px 12px rgba(0, 107, 63, 0.4));
+    }
+}
+
+/* Ultra-high DPI display optimizations (3x and above) */
+@media (-webkit-min-device-pixel-ratio: 3),
+(min-resolution: 288dpi) {
+    .leon-logo {
+        /* Further optimize for ultra-high DPI displays */
+        width: clamp(38px, 6vw, 78px);
+        /* Enhanced shadow for better depth perception */
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+    }
+}
+
+/* Responsive Animations and Transitions */
+@media (max-width: 1023px) {
+    .hero-section {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "content content" "flags social";
+        transition: all var(--transition-smooth);
+    }
+
+    .flag-container {
+        animation: fadeInUp var(--animation-duration-normal) var(--transition-smooth) forwards;
+    }
+
+    .social-links {
+        animation: fadeInUp var(--animation-duration-normal) var(--transition-smooth) forwards;
+    }
+}
+
+/* Enhanced Mobile Optimizations with Cross-Browser Support */
+@media (max-width: 767px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        -ms-grid-columns: 1fr;
+        grid-template-areas: "content" "flags" "social";
+        text-align: center;
+        gap: 2rem;
+        grid-gap: 2rem;
+        transition: all var(--transition-smooth);
+        -webkit-transition: all var(--transition-smooth);
+        -moz-transition: all var(--transition-smooth);
+        -o-transition: all var(--transition-smooth);
+
+        /* Fallback flexbox layout for mobile */
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -moz-box-orient: vertical;
+        -moz-box-direction: normal;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+
+
+    .social-list {
+        flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -moz-box-orient: horizontal;
+        -moz-box-direction: normal;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        justify-content: center;
+        -webkit-box-pack: center;
+        -moz-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        gap: 1rem;
+    }
+
+    .social-link {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+        /* Enhanced touch targets for mobile */
+        min-height: 44px;
+        min-width: 44px;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -moz-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+
+    .social-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    /* Adjust animation delays for mobile */
+    .flag-container,
+    .social-links {
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
+    }
+
+    .social-item:nth-child(1) {
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+    }
+
+    .social-item:nth-child(2) {
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.3);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.3);
+    }
+
+    .social-item:nth-child(3) {
+        animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.6);
+        -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.6);
+    }
+
+    /* Improved typography scaling for small screens */
+    :root {
+        --font-size-hero: clamp(2.5rem, 10vw, 4rem);
+        --font-size-subtitle: clamp(1.25rem, 5vw, 2rem);
+        --font-size-body: clamp(0.875rem, 3vw, 1rem);
+    }
+}
+
+/* Pill
+-Shaped Sidebar Styles */
+.pill-sidebar {
+    position: fixed;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%) translateX(20px) scale(1.2);
+    width: 80px;
+    height: 300px;
+    background: hsl(160, 30%, 85%);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    transition: all 0.3s ease;
+}
+
+.pill-sidebar:hover {
+    transform: translateY(-50%) translateX(20px) scale(1.224);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Profile Photo Styles */
+.profile-section {
+    margin-bottom: 2rem;
+}
+
+.profile-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 1);
+}
+
+/* Social Icons Styles */
+.social-nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.social-icons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+}
+
+.social-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.social-icon-link:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+    color: #006b3f;
+}
+
+.social-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* 
+Updated Hero Section for Pill Layout */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: var(--section-padding) var(--content-padding);
+    margin-left: 140px;
+    /* Account for larger pill sidebar (120px * 1.2 + 20px offset) */
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 690px;
+}
+
+/* Responsive adjustments for pill sidebar */
+@media (max-width: 768px) {
+    .pill-sidebar {
+        left: 1rem;
+        transform: translateY(-50%) translateX(20px) scale(1.2);
+        width: 60px;
+        height: 240px;
+        padding: 1rem 0;
+    }
+
+    .profile-photo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .social-icon-link {
+        width: 30px;
+        height: 30px;
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .social-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .hero-section {
+        margin-left: 100px;
+        /* Account for scaled sidebar on tablet */
+    }
+}
+
+@media (max-width: 480px) {
+    .pill-sidebar {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: scale(1.2);
+        width: 100%;
+        height: 80px;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 2rem;
+        border-radius: 40px;
+    }
+
+    .profile-section {
+        margin-bottom: 0;
+        margin-right: 1rem;
+    }
+
+    .social-icons-list {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .hero-section {
+        margin-left: 0;
+        padding-top: 0;
+    }
+}
+
+/* Organic Background Shapes */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 300px;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50% 30% 70% 40%;
+    z-index: -1;
+    filter: blur(40px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 30%;
+    right: 20%;
+    width: 200px;
+    height: 150px;
+    background: rgba(206, 17, 38, 0.6);
+    border-radius: 40% 60% 30% 70%;
+    z-index: -1;
+    filter: blur(30px);
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+/* Additional organic shapes */
+.landing-page::before {
+    content: '';
+    position: absolute;
+    top: 60%;
+    left: 60%;
+    width: 150px;
+    height: 100px;
+    background: rgba(0, 107, 63, 0.4);
+    border-radius: 60% 40% 80% 20%;
+    z-index: -1;
+    filter: blur(25px);
+    animation: float 10s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* Enhanced hero section positioning */
+.landing-page {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Location Container Styling */
+.location-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.location-pin {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-green);
+    /* Fallback */
+    color: #006b3f;
+}
+
+.location {
+    margin: 0;
+    font-size: var(--font-size-body);
+    /* Fallback */
+    font-size: 1rem;
+}
+
+/* Decorative Shapes on Right Side */
+.decorative-shapes {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50% 30% 70% 40%;
+    filter: blur(20px);
+    opacity: 0.6;
+}
+
+.shape-1 {
+    width: 120px;
+    height: 80px;
+    background: rgba(0, 107, 63, 0.4);
+    top: -60px;
+    right: 0;
+    animation: float 7s ease-in-out infinite;
+}
+
+.shape-2 {
+    width: 80px;
+    height: 60px;
+    background: rgba(139, 69, 19, 0.5);
+    top: 20px;
+    right: 40px;
+    border-radius: 40% 60% 30% 70%;
+    animation: float 9s ease-in-out infinite reverse;
+}
+
+.shape-3 {
+    width: 100px;
+    height: 70px;
+    background: rgba(255, 140, 0, 0.4);
+    top: 80px;
+    right: -20px;
+    border-radius: 30% 70% 60% 40%;
+    animation: float 11s ease-in-out infinite;
+}
+
+/* Enhanced text styling for better contrast */
+.greeting {
+    color: var(--secondary-text);
+    /* Fallback */
+    color: rgba(51, 51, 51, 0.7);
+    font-size: var(--font-size-greeting);
+    /* Fallback */
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.name {
+    color: var(--primary-text);
+    /* Fallback */
+    color: #333;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.role {
+    color: var(--accent-green);
+    /* Fallback */
+    color: #006b3f;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Final
+ Polish and Refinements */
+
+/* Improved pill sidebar integration */
+.pill-sidebar {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Smooth entrance animations */
+.pill-sidebar {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.hero-content>* {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.greeting {
+    animation-delay: 0.2s;
+}
+
+.name {
+    animation-delay: 0.4s;
+}
+
+.role {
+    animation-delay: 0.6s;
+}
+
+.location-container {
+    animation-delay: 0.8s;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100px) translateY(-50%) scale(1.2);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(20px) translateY(-50%) scale(1.2);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Enhanced hover effects */
+.social-icon-link:hover .social-icon {
+    transform: rotate(5deg);
+}
+
+.profile-photo:hover {
+    box-shadow: 0 0 20px rgba(0, 107, 63, 0.3);
+}
+
+/* Better responsive behavior */
+@media (max-width: 1024px) {
+    .decorative-shapes {
+        display: none;
+    }
+
+    .hero-section::before,
+    .hero-section::after,
+    .landing-page::before {
+        opacity: 0.3;
+    }
+
+    /* Adjust header width for tablet */
+    .floating-header {
+        width: 35vw;
+    }
+
+    /* Adjust logo scaling for tablet */
+    .header-logo {
+        transform: scale(2.5);
+    }
+
+    .header-logo:hover {
+        transform: scale(2.75);
+        /* 2.5x base + 10% hover increase */
+    }
+}
+
+/* Responsive adjustments for programming elements */
+@media (max-width: 768px) {
+    .code-element {
+        font-size: 1.5rem;
+        opacity: 0.1;
+    }
+
+    /* Adjust header width for mobile */
+    .floating-header {
+        width: 40vw;
+    }
+
+    /* Adjust logo scaling for mobile */
+    .header-logo {
+        transform: scale(2);
+    }
+
+    .header-logo:hover {
+        transform: scale(2.2);
+        /* 2x base + 10% hover increase */
+    }
+
+    /* Adjust navigation container for mobile */
+    .nav-container {
+        padding: 0.5rem 1rem;
+        gap: 0.75rem;
+    }
+
+    .nav-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .code-element {
+        font-size: 1.2rem;
+        opacity: 0.08;
+    }
+
+    /* Reduce number of visible elements on small screens */
+    .code-element-4,
+    .code-element-6 {
+        display: none;
+    }
+
+    /* Further adjust header for small mobile */
+    .floating-header {
+        width: 45vw;
+        padding: 0.75rem 0;
+    }
+
+    /* Smaller logo scaling for small mobile */
+    .header-logo {
+        transform: scale(1.8);
+    }
+
+    .header-logo:hover {
+        transform: scale(1.98);
+        /* 1.8x base + 10% hover increase */
+    }
+
+    /* Compact navigation for small mobile */
+    .nav-container {
+        padding: 0.375rem 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .nav-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .pill-sidebar,
+    .hero-content>*,
+    .shape,
+    .social-icon-link,
+    .profile-photo,
+    .code-element {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Orientation-specific logo optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+
+    /* Optimize logo for landscape mobile devices with limited height */
+    .leon-logo {
+        width: clamp(28px, 4vw, 45px);
+        max-width: 45px;
+        /* Prevent logo from taking too much vertical space */
+    }
+
+    .floating-header {
+        padding-top: 0.5rem;
+        padding-bottom: 1.25rem;
+    }
+
+    .nav-pill {
+        margin-top: 25px;
+        /* Reduce space for separated icons in landscape */
+    }
+
+    .nav-icon.active {
+        transform: translateY(-18px);
+        /* Reduce separation in landscape mode */
+        -webkit-transform: translateY(-18px);
+        -moz-transform: translateY(-18px);
+        -ms-transform: translateY(-18px);
+        -o-transform: translateY(-18px);
+    }
+}
+
+@media (orientation: portrait) and (max-width: 480px) {
+
+    /* Optimize logo for portrait mobile devices */
+    .leon-logo {
+        width: clamp(32px, 7vw, 42px);
+    }
+}
+
+/* Logo accessibility and performance enhancements */
+@media (prefers-reduced-motion: reduce) {
+    .leon-logo {
+        /* Disable logo animations for users who prefer reduced motion */
+        transition: none !important;
+    }
+
+    .header-logo:hover .leon-logo {
+        transform: none !important;
+        -webkit-transform: none !important;
+        -moz-transform: none !important;
+        -ms-transform: none !important;
+        -o-transform: none !important;
+    }
+}
+
+/* Logo contrast adjustments for different color schemes */
+@media (prefers-color-scheme: dark) {
+    .leon-logo {
+        /* Enhance logo visibility in dark mode environments */
+        filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
+    }
+
+    .header-logo:hover .leon-logo {
+        filter: drop-shadow(0 4px 8px rgba(0, 107, 63, 0.4)) drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
+    }
+}
+
+/* Logo performance optimizations for low-end devices */
+@media (max-width: 480px) and (max-resolution: 1.5dppx) {
+    .leon-logo {
+        /* Simplify rendering on low-end mobile devices */
+        image-rendering: auto;
+        /* Reduce logo size slightly to improve performance */
+        width: clamp(30px, 6vw, 38px);
+    }
+
+    .header-logo:hover .leon-logo {
+        /* Simplify hover effects on low-end devices */
+        filter: drop-shadow(0 2px 4px rgba(0, 107, 63, 0.2));
+    }
+}

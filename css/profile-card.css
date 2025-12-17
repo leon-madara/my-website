@@ -1,0 +1,501 @@
+/* ============================================
+   PROFILE CARD - Kenyan-Themed Design
+   Adapted from CardRebuild with cultural identity
+   ============================================ */
+
+.profile-card-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
+
+.profile-card {
+    width: 320px;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12),
+                0 8px 16px rgba(0, 0, 0, 0.08);
+    overflow: visible;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.profile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.16),
+                0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   CARD HEADER - Kenyan Gradient
+   ============================================ */
+
+.card-header {
+    height: 150px;
+    background: linear-gradient(135deg, #006b3f 0%, #b30000 100%);
+    position: relative;
+    overflow: visible;
+    border-radius: 1rem 1rem 0 0;
+}
+
+/* Noise texture overlay for depth */
+.card-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    border-radius: 1rem 1rem 0 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4' fill='white'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+/* Subtle gradient overlay for richness */
+.card-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 100%);
+    border-radius: 1rem 1rem 0 0;
+    pointer-events: none;
+}
+
+/* ============================================
+   FOLLOW BUTTON
+   ============================================ */
+
+.follow-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: #ffffff;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    font-family: 'Enriqueta', serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    animation: buttonEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+}
+
+@keyframes buttonEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.follow-button:hover {
+    background: #006b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 107, 63, 0.3);
+}
+
+.follow-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 107, 63, 0.25);
+}
+
+.follow-button svg {
+    width: 1rem;
+    height: 1rem;
+    stroke-width: 2.5;
+}
+
+/* ============================================
+   AVATAR - Asymmetric Placement (25% from left)
+   ============================================ */
+
+.profile-avatar-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    transform: translate(-50%, 50%);
+    z-index: 10;
+    animation: avatarEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
+}
+
+@keyframes avatarEntrance {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 30px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 50%) scale(1);
+    }
+}
+
+.profile-avatar {
+    width: 107px;
+    height: 107px;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    object-fit: cover;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+/* Avatar fallback with gradient */
+.avatar-fallback {
+    width: 107px;
+    height: 107px;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(135deg, #ff6b35 0%, #7b2cbf 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Enriqueta', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   EXPERIENCE PROGRESS BAR - Rainbow
+   ============================================ */
+
+.experience-bar-wrapper {
+    position: absolute;
+    bottom: -21px;
+    right: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+    animation: expBarEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+}
+
+@keyframes expBarEntrance {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.experience-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #4a5568;
+    text-transform: lowercase;
+}
+
+.experience-bar-track {
+    position: relative;
+    width: 112px;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.experience-bar-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    background: linear-gradient(
+        to right,
+        #ff0000 0%,
+        #ff7f00 14.28%,
+        #ffff00 28.56%,
+        #00ff00 42.84%,
+        #0000ff 57.12%,
+        #4b0082 71.4%,
+        #9400d3 85.68%,
+        #ff0000 100%
+    );
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+    width: 0;
+    animation: fillBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+}
+
+@keyframes fillBar {
+    to {
+        width: var(--experience-width, 65%);
+    }
+}
+
+/* Shimmer effect on progress bar */
+.experience-bar-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 100%
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ============================================
+   CARD CONTENT
+   ============================================ */
+
+.card-content {
+    position: relative;
+    padding: 0 1.25rem 1.25rem;
+    padding-top: 3rem; /* Space for hanging avatar */
+}
+
+/* Profile Name */
+.profile-name {
+    font-family: 'Enriqueta', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;
+}
+
+/* Profile Bio */
+.profile-bio {
+    font-family: 'Enriqueta', serif;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s backwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   STATS GRID
+   ============================================ */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 1.25rem;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s backwards;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 0.5rem 0;
+    border-right: 1px solid #e5e7eb;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-item:last-child {
+    border-right: none;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+}
+
+.stat-value {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    display: block;
+    font-family: 'Enriqueta', serif;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: capitalize;
+}
+
+/* ============================================
+   SOCIAL ICONS
+   ============================================ */
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.7s backwards;
+}
+
+.social-icon-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 0.5rem;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.social-icon-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #f3f4f6;
+    border-radius: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-icon-button:hover::before {
+    opacity: 1;
+}
+
+.social-icon-button:hover {
+    transform: translateY(-2px);
+}
+
+.social-icon-button:active {
+    transform: translateY(0);
+}
+
+.social-icon-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom colors for each social icon */
+/* GitHub - Red */
+.social-icons .social-icon-button:nth-child(1) {
+    color: #e74c3c;
+}
+
+.social-icons .social-icon-button:nth-child(1):hover {
+    color: #c0392b;
+}
+
+/* LinkedIn - Black */
+.social-icons .social-icon-button:nth-child(2) {
+    color: #1a1a1a;
+}
+
+.social-icons .social-icon-button:nth-child(2):hover {
+    color: #000000;
+}
+
+/* Twitter/X - Kenyan Green */
+.social-icons .social-icon-button:nth-child(3) {
+    color: #006b3f;
+}
+
+.social-icons .social-icon-button:nth-child(3):hover {
+    color: #004d2d;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .profile-card-container {
+        padding: 1rem;
+    }
+
+    .profile-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus visible styles */
+.follow-button:focus-visible,
+.social-icon-button:focus-visible {
+    outline: 2px solid #006b3f;
+    outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

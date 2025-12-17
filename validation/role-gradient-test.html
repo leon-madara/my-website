@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Text Gradient Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            background: var(--background-light);
+            padding: 2rem;
+            font-family: Arial, sans-serif;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .test-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>Role Text Gradient Test</h1>
+
+        <div class="test-section">
+            <h3>Role Text with Reduced Font Size (30% reduction)</h3>
+            <h2 class="role kenyan-gradient">Full Stack AI Developer</h2>
+            <p>Expected: Kenyan flag gradient (black → red → green) with reduced font size</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Gradient Class Only (for comparison)</h3>
+            <div class="kenyan-gradient" style="font-size: 2rem; font-weight: 600;">Full Stack AI Developer</div>
+            <p>Expected: Same gradient effect, different font size</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Role Class Only (no gradient)</h3>
+            <h2 class="role">Full Stack AI Developer</h2>
+            <p>Expected: Green color, reduced font size, no gradient</p>
+        </div>
+    </div>
+</body>
+
+</html>

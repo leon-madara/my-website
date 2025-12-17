@@ -1,0 +1,2261 @@
+/* ===================================
+   PORTFOLIO PAGE - PHASE 1 STRUCTURE
+   =================================== */
+
+/* Override body styles for portfolio page */
+body.portfolio-page {
+    background: transparent !important;
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+/* Floating logo */
+.portfolio-page .page-logo-wrapper {
+    position: fixed;
+    top: 20px;
+    left: 2rem;
+    z-index: 160;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-page .page-logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-page .page-logo-link:hover {
+    transform: scale(1.05);
+}
+
+.portfolio-page .page-logo-wrapper .leon-logo {
+    width: 58px;
+    height: auto;
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.25));
+}
+
+@media (max-width: 768px) {
+    .portfolio-page .page-logo-wrapper {
+        top: 16px;
+        left: 1rem;
+    }
+
+    .portfolio-page .page-logo-wrapper .leon-logo {
+        width: 48px;
+    }
+}
+
+/* CSS Variables (Refined Subtle Kenyan Theme) */
+/* Using .portfolio-page scope to override global styles.css variables */
+.portfolio-page {
+    /* Core Kenyan Identity Colors */
+    --kenyan-black: #000000;
+    --kenyan-red: #ce1126;
+    --kenyan-green: #006b3f;
+    --accent-green-light: #10cf74;
+
+    /* Professional Backgrounds with Kenyan Whispers */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --bg-light: #fafbfc;
+
+    /* Subtle Kenyan Accents (Low Opacity) */
+    --accent-green-subtle: rgba(0, 107, 63, 0.08);
+    --accent-red-subtle: rgba(206, 17, 38, 0.06);
+    --accent-black-subtle: rgba(0, 0, 0, 0.04);
+    --accent-green-hover: rgba(0, 107, 63, 0.12);
+
+    /* Text Hierarchy - Professional - Override styles.css */
+    --primary-text: #1e293b !important;
+    --secondary-text: #64748b !important;
+    --tertiary-text: #94a3b8;
+
+    /* Borders - Very Subtle */
+    --border-light: rgba(0, 0, 0, 0.06);
+    --border-medium: rgba(0, 0, 0, 0.1);
+    --border-kenyan: rgba(0, 107, 63, 0.12);
+
+    /* Shadows - Professional Depth */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-kenyan: 0 4px 16px rgba(0, 107, 63, 0.08);
+
+    /* Typography */
+    --font-name: "Asimovian", sans-serif;
+    --font-role: "Enriqueta", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-greeting: "Space Mono", monospace;
+
+    /* ===================================
+       FLAT DESIGN SYSTEM
+       =================================== */
+
+    /* Flat Background Colors */
+    --flat-bg-base: #f8fafc;
+    --flat-bg-light: #fafbfc;
+    --flat-bg-content: #ffffff;
+    --flat-bg-sidebar: #f8fafc;
+
+    /* Flat Shadows - Simple and minimal */
+    --flat-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --flat-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --flat-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Flat Hover - Subtle lift effect */
+    --flat-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* Flat Borders */
+    --flat-border: 1px solid rgba(0, 0, 0, 0.08);
+    --flat-border-kenyan: 1px solid rgba(0, 107, 63, 0.12);
+
+    /* Smooth Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-height: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===================================
+   PORTFOLIO CONTAINER (100VH)
+   =================================== */
+
+.portfolio-container {
+    width: 100%;
+    height: calc(100vh - 5vh);
+    margin-top: calc(5vh - 40px);
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    position: relative;
+    /* Transparent background to show dotted background */
+    background: transparent;
+    color: var(--primary-text);
+}
+
+/* ===================================
+   PORTFOLIO HEADER SECTION
+   =================================== */
+
+.portfolio-header-section {
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 0;
+    max-width: 800px;
+    padding: 0 1rem;
+}
+
+body.portfolio-page.portfolio-header-collapsed .portfolio-header-section {
+    display: none;
+}
+
+.portfolio-header-label {
+    font-family: var(--font-greeting);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: var(--kenyan-green);
+    margin: 0 0 0.5rem 0;
+}
+
+.portfolio-header-title {
+    font-family: var(--font-name);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 0 0 1rem 0;
+    line-height: 1.1;
+}
+
+.portfolio-header-description {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    color: var(--secondary-text);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===================================
+   PORTFOLIO HEADER (15vh) - OLD/UNUSED
+   =================================== */
+
+.portfolio-header {
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* Professional clean gradient with glassmorphism */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(248, 250, 252, 0.95) 100%
+    );
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+}
+
+/* "My Portfolio" Title */
+.portfolio-title {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600; /* Lighter weight for professionalism */
+    letter-spacing: 0.02em; /* Tighter spacing */
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    text-transform: uppercase;
+    display: flex;
+    gap: 0.2em;
+}
+
+/* "My" part - regular styling */
+.title-my {
+    color: var(--primary-text);
+}
+
+/* "Portfolio" part - Subtle tri-color Kenyan gradient */
+.title-portfolio {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 107, 63, 0.75) 45%,
+        rgba(206, 17, 38, 0.65) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+/* ===================================
+   PROJECT TOGGLE CONTAINER
+   =================================== */
+
+.project-toggle-container {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    margin-top: calc(0.6rem + 70px);
+    margin-bottom: calc(2rem - 20px);
+    padding: 1.5rem 0;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 50;
+    width: 100%;
+}
+
+/* Project Toggle Button Styles */
+.project-toggle-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    min-width: 200px;
+    height: 60px;
+    padding: 0 1.25rem;
+    background: rgba(250, 251, 252, 0.5);
+    border: 1px solid rgba(0, 107, 63, 0.3);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: none;
+    flex-shrink: 0;
+}
+
+
+
+/* Active State - More subtle green background with bright red border */
+.project-toggle-btn.active {
+    background: rgba(0, 107, 63, 0.06);
+    border: 1px solid #ff0000;
+    box-shadow: none;
+}
+
+/* Toggle Badge - Circular dark green badge */
+.toggle-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--kenyan-green);
+    color: #ffffff;
+    font-family: var(--font-greeting);
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: var(--flat-shadow-sm);
+}
+
+/* Active state - Dark red to black gradient for badge */
+.project-toggle-btn.active .toggle-badge {
+    background: linear-gradient(135deg, #8B0000, #000000);
+}
+
+.toggle-label {
+    font-family: var(--font-greeting);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    white-space: nowrap;
+}
+
+/* Active state - Black text */
+.project-toggle-btn.active .toggle-label {
+    color: #000000;
+    font-weight: 600;
+}
+
+/* ===================================
+   CONTENT WRAPPER (77vh)
+   =================================== */
+
+.content-wrapper {
+    height: 77vh;
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    padding: 0 1rem;
+}
+
+/* ===================================
+   ACCORDION NAVIGATION (22% Width)
+   =================================== */
+
+.accordion-nav {
+    position: sticky;
+    top: 1.5rem;
+    width: 22%;
+    min-width: 320px;
+    max-width: 306px;
+    max-height: calc(100vh - 3rem);
+    background: var(--flat-bg-sidebar);
+    border-radius: 20px;
+    box-shadow: var(--flat-shadow-md);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1rem 1.25rem;
+    margin: 0 1.5rem;
+    z-index: 10;
+    transition: var(--transition-smooth);
+    border: var(--flat-border);
+}
+
+/* Custom Scrollbar for Accordion */
+.accordion-nav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.accordion-nav::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.accordion-nav::-webkit-scrollbar-thumb {
+    background: var(--kenyan-green);
+    border-radius: 3px;
+}
+
+.accordion-nav::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-green-light);
+}
+
+/* Accordion Nav Header */
+.accordion-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.accordion-nav-title {
+    font-family: var(--font-greeting);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary-text);
+    margin: 0;
+}
+
+.accordion-completion-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--kenyan-green);
+    border-radius: 10px;
+    padding: 0.4rem 0.6rem;
+    box-shadow: var(--flat-shadow-md);
+    min-width: 70px;
+}
+
+.completion-percentage {
+    font-family: var(--font-greeting);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.completion-label {
+    font-family: var(--font-greeting);
+    font-size: 0.55rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-top: 0.1rem;
+}
+
+.accordion-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/* Accordion Item */
+.accordion-item {
+    position: relative;
+    margin-bottom: 0.4rem;
+    border-bottom: none; /* Remove old border */
+}
+
+/* Accordion Header - Flat Design */
+.accordion-header {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.875rem 0.75rem 0.875rem 2.75rem; /* Extra left padding for progress circle */
+    background: var(--flat-bg-light);
+    border: var(--flat-border);
+    border-radius: 12px;
+    box-shadow: var(--flat-shadow-sm);
+    color: var(--secondary-text);
+    font-family: var(--font-greeting);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.accordion-header:hover {
+    box-shadow: var(--flat-hover-shadow);
+    transform: translateY(-2px);
+    color: var(--primary-text);
+    background: var(--flat-bg-content);
+}
+
+.accordion-header:active {
+    box-shadow: var(--flat-shadow-sm);
+    transform: translateY(0);
+}
+
+/* Accordion Title - Move 8px to the right */
+.accordion-title {
+    margin-left: 8px;
+}
+
+/* Active/Expanded State */
+.accordion-item.active .accordion-header {
+    color: var(--kenyan-green);
+    font-weight: 700;
+    background: rgba(0, 107, 63, 0.08);
+    box-shadow: var(--flat-shadow-sm);
+    border-color: rgba(0, 107, 63, 0.12);
+    border-radius: 12px 12px 0 0; /* Rounded top corners only for seamless dropdown connection */
+    border-bottom: none; /* Remove bottom border to connect with dropdown */
+}
+
+/* Progress Circle Container */
+.progress-circle {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--flat-bg-content);
+    box-shadow: var(--flat-shadow-sm);
+    border: var(--flat-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* SVG Circle Progress */
+.progress-circle svg {
+    width: 28px;
+    height: 28px;
+    transform: rotate(-90deg);
+}
+
+.progress-circle-bg {
+    fill: none;
+    stroke: rgba(0, 0, 0, 0.05);
+    stroke-width: 3;
+}
+
+.progress-circle-fill {
+    fill: none;
+    stroke: var(--kenyan-green);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 88; /* Circumference: 2πr = 2 × π × 14 ≈ 88 */
+    stroke-dashoffset: 88; /* Start at 0% */
+    transition: stroke-dashoffset 0.3s ease;
+}
+
+.accordion-item.active .progress-circle-fill {
+    stroke: var(--kenyan-green);
+    filter: drop-shadow(0 0 4px rgba(0, 107, 63, 0.4));
+}
+
+/* Progress percentage text */
+.progress-text {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--kenyan-green);
+    font-family: var(--font-greeting);
+}
+
+/* Accordion Icon (Chevron) - Animated Up/Down */
+.accordion-icon {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: auto; /* Push to right */
+    transform: rotate(0deg); /* Default: pointing down */
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(180deg); /* Rotate to point up when expanded */
+}
+
+.accordion-header:hover .accordion-icon {
+    transform: translateY(2px);
+}
+
+.accordion-item.active .accordion-header:hover .accordion-icon {
+    transform: rotate(180deg) translateY(-2px);
+}
+
+/* Accordion Content with Smooth Height Transition - Clean Dropdown Design */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transition-height);
+    opacity: 0;
+    margin: 0;
+    margin-left: 0;
+    width: 100%;
+    border-radius: 0 0 12px 12px;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px; /* Adjust based on content */
+    opacity: 1;
+    margin-top: 0; /* No gap - directly attached to header */
+    margin-left: auto;
+    margin-right: auto;
+    width: 242px;
+    max-width: 242px;
+    padding: 0.5rem;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: none; /* Seamless connection to header */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Accordion Description - Moved to bottom */
+.accordion-description {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--secondary-text);
+    line-height: 1.5;
+    margin: 0;
+    margin-top: 0.75rem;
+    padding: 0.75rem 0.5rem 0 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    order: 2; /* Moves to bottom of flex container */
+    opacity: 0.8;
+}
+
+/* Accordion Links (Subsections) - Clean Minimal Design */
+.accordion-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    box-shadow: none;
+    color: var(--secondary-text);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    position: relative;
+    order: 1; /* Links appear at top */
+}
+
+/* Remove left accent bar */
+.accordion-link::before {
+    display: none;
+}
+
+.accordion-link:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--primary-text);
+    transform: none; /* No translateX movement */
+}
+
+.accordion-link.active {
+    color: var(--kenyan-green);
+    font-weight: 600;
+    background: rgba(0, 107, 63, 0.06);
+}
+
+.accordion-link.active::before {
+    display: none;
+}
+
+/* ===================================
+   CONTENT AREA (80% Width)
+   =================================== */
+
+.content-area {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    min-width: 0; /* Allow flex item to shrink */
+}
+
+/* Horizontal Pages Container */
+.horizontal-pages {
+    height: calc(100% - 60px); /* Reserve space for page indicators */
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep functionality */
+.horizontal-pages::-webkit-scrollbar {
+    display: none;
+}
+
+.horizontal-pages {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Content Page */
+.content-page {
+    min-width: 100%;
+    height: 834px;
+    scroll-snap-align: start;
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    background: var(--flat-bg-base);
+    border-radius: 20px;
+    /* Performance hints for page-flip animation */
+    will-change: transform, opacity;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Custom Scrollbar for Content Pages */
+.content-page::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content-page::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.content-page::-webkit-scrollbar-thumb {
+    background: var(--kenyan-green);
+    border-radius: 4px;
+}
+
+.content-page::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-green-light);
+}
+
+/* Page Title */
+.page-title {
+    font-family: var(--font-name);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--primary-text);
+}
+
+.page-title.kenyan-gradient {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 107, 63, 0.9) 0%,
+        rgba(16, 207, 116, 0.8) 50%,
+        rgba(206, 17, 38, 0.75) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: -30px;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px rgba(0, 107, 63, 0.1); /* Subtle depth */
+}
+
+/* Page Subtitle - Enhanced */
+.page-subtitle {
+    font-family: var(--font-greeting);
+    font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin: -30px 0 1.5rem 0;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+/* Page Content - Enhanced */
+.page-content {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.8;
+    color: var(--secondary-text);
+    flex-grow: 1;
+}
+
+.page-content p {
+    margin-bottom: 1.5rem;
+}
+
+/* Info Grid (for Overview page) - Flat Design */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.info-item {
+    background: var(--flat-bg-light);
+    border: var(--flat-border);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: var(--flat-shadow-sm);
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle green accent on left edge */
+.info-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 4px;
+    background: linear-gradient(
+        180deg,
+        var(--kenyan-green) 0%,
+        rgba(0, 107, 63, 0.5) 100%
+    );
+    border-radius: 0 2px 2px 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.info-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.info-item:hover::before {
+    opacity: 1;
+}
+
+.info-item:active {
+    box-shadow: var(--flat-shadow-sm);
+    transform: translateY(0);
+}
+
+.info-label {
+    font-family: var(--font-greeting);
+    font-size: 0.6rem;
+    color: var(--kenyan-green);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+.info-value {
+    font-family: var(--font-name);
+    font-size: 1.4rem;
+    color: var(--primary-text);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* ===================================
+   CHALLENGE SECTION
+   =================================== */
+
+.challenge-content .lead-text {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--primary-text);
+    max-width: 780px;
+    margin-bottom: 1.75rem;
+}
+
+.challenge-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 107, 63, 0.12),
+        rgba(16, 207, 116, 0.08)
+    );
+    border: 1px solid rgba(0, 107, 63, 0.15);
+    border-radius: 18px;
+    padding: 1.25rem 1.35rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.summary-label {
+    font-family: var(--font-greeting);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--kenyan-green);
+    margin: 0 0 0.35rem 0;
+}
+
+.summary-value {
+    font-family: var(--font-name);
+    font-size: 1.75rem;
+    margin: 0;
+    color: var(--primary-text);
+}
+
+.summary-text {
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+    margin: 0.25rem 0 0 0;
+}
+
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+}
+
+.challenge-card {
+    background: var(--flat-bg-light);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--flat-shadow-sm);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+}
+
+.challenge-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 107, 63, 0.08),
+        rgba(16, 207, 116, 0.08)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.challenge-card:hover::after {
+    opacity: 1;
+}
+
+.challenge-card > div {
+    position: relative;
+    z-index: 1;
+}
+
+.card-index {
+    font-family: var(--font-greeting);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--kenyan-green);
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(0, 107, 63, 0.12);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.challenge-card h3 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.1rem;
+    color: var(--primary-text);
+}
+
+.challenge-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+    line-height: 1.6;
+}
+
+/* ===================================
+   PAGE INDICATORS (60px height)
+   =================================== */
+
+.page-indicators {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(24px);
+    border-top: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+}
+
+.page-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--tertiary-text);
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    padding: 0;
+}
+
+.page-dot:hover {
+    background: var(--kenyan-green);
+    transform: scale(1.2);
+}
+
+.page-dot.active {
+    background: var(--kenyan-green);
+    width: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 12px rgba(0, 107, 63, 0.4);
+}
+
+/* ===================================
+   DECORATIVE BLUR SHAPES
+   =================================== */
+
+.portfolio-decorative-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.portfolio-shape {
+    position: absolute;
+    border-radius: 50% 30% 70% 40%;
+    filter: blur(3rem);
+    opacity: 0.15;
+}
+
+.portfolio-shape-1 {
+    width: 8rem;
+    height: 6rem;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 107, 63, 0.15),
+        rgba(0, 107, 63, 0.05)
+    );
+    top: 20vh;
+    right: 5%;
+    animation: floatShapes 8s ease-in-out infinite;
+}
+
+.portfolio-shape-2 {
+    width: 6rem;
+    height: 4.5rem;
+    background: linear-gradient(
+        135deg,
+        rgba(206, 17, 38, 0.12),
+        rgba(206, 17, 38, 0.04)
+    );
+    top: 20vh;
+    left: 5%;
+    border-radius: 40% 60% 30% 70%;
+    animation: floatShapes 10s ease-in-out infinite reverse;
+}
+
+.portfolio-shape-3 {
+    width: 7rem;
+    height: 5rem;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.08),
+        rgba(0, 0, 0, 0.02)
+    );
+    top: 25vh;
+    right: 8%;
+    border-radius: 30% 70% 60% 40%;
+    animation: floatShapes 12s ease-in-out infinite;
+}
+
+@keyframes floatShapes {
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* ===================================
+   KENYAN CODE ELEMENTS (Blurred Symbols)
+   =================================== */
+
+.kenyan-code-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.code-element {
+    position: absolute;
+    font-family: var(--font-greeting);
+    font-size: 2rem;
+    font-weight: 600;
+    opacity: 0.04;
+    filter: blur(1px);
+    user-select: none;
+    animation: floatCode 10s ease-in-out infinite;
+}
+
+/* Left Side Symbols */
+.code-element-left-1 {
+    top: 20%;
+    left: 5%;
+    color: var(--kenyan-green);
+    animation-delay: 0s;
+}
+
+.code-element-left-2 {
+    top: 50%;
+    left: 3%;
+    color: var(--kenyan-red);
+    animation-delay: 2s;
+    font-size: 2.5rem;
+}
+
+.code-element-left-3 {
+    bottom: 25%;
+    left: 7%;
+    color: var(--kenyan-black);
+    animation-delay: 4s;
+}
+
+/* Right Side Symbols */
+.code-element-right-1 {
+    top: 30%;
+    right: 5%;
+    color: var(--kenyan-red);
+    animation-delay: 1s;
+}
+
+.code-element-right-2 {
+    top: 60%;
+    right: 3%;
+    color: var(--kenyan-green);
+    animation-delay: 3s;
+    font-size: 2.5rem;
+}
+
+.code-element-right-3 {
+    bottom: 20%;
+    right: 6%;
+    color: var(--kenyan-black);
+    animation-delay: 5s;
+}
+
+/* Float Animation */
+@keyframes floatCode {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 0.04;
+    }
+    50% {
+        transform: translate3d(0, -15px, 0) rotate(2deg);
+        opacity: 0.06;
+    }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 1024px) {
+    .portfolio-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .accordion-nav {
+        min-width: 200px;
+    }
+
+    .content-page {
+        padding: 2rem;
+    }
+
+    .code-element {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-header {
+        height: 12vh;
+    }
+
+    .content-wrapper {
+        height: 78vh;
+        flex-direction: column;
+    }
+
+    /* Stack accordion on top in mobile */
+    .accordion-nav {
+        width: calc(100% - 2rem);
+        min-width: unset;
+        height: auto;
+        max-height: 30vh;
+        margin: 0 1rem;
+        top: 0.5rem;
+        border-radius: 16px;
+    }
+
+    .content-area {
+        width: 100%;
+        height: auto;
+        flex-grow: 1;
+    }
+
+    .project-toggle-container {
+        gap: 1rem;
+    }
+
+    .project-toggle-btn {
+        width: 90px;
+        height: 50px;
+    }
+
+    .toggle-number {
+        font-size: 1rem;
+    }
+
+    .toggle-label {
+        font-size: 0.65rem;
+    }
+
+    .code-element {
+        opacity: 0.02;
+    }
+
+    /* Sound button responsive */
+    .sound-toggle-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-title {
+        font-size: 1.8rem;
+        gap: 0.05em;
+    }
+
+    .project-toggle-btn {
+        width: 80px;
+        height: 45px;
+    }
+
+    .content-page {
+        padding: 1.5rem;
+    }
+
+    .page-indicators {
+        gap: 0.5rem;
+    }
+
+    .page-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .page-dot.active {
+        width: 24px;
+    }
+
+    /* Sound button even smaller on mobile */
+    .sound-toggle-btn {
+        width: 45px;
+        height: 45px;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* ===================================
+   SOUND TOGGLE BUTTON (Phase 5)
+   =================================== */
+
+.sound-toggle-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1.5px solid var(--border-kenyan);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--kenyan-green);
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+}
+
+.sound-toggle-btn:hover {
+    background: var(--accent-green-subtle);
+    border-color: rgba(0, 107, 63, 0.3);
+    transform: scale(1.08);
+    box-shadow: var(--shadow-kenyan);
+}
+
+.sound-toggle-btn:active {
+    transform: scale(0.96);
+}
+
+.sound-toggle-btn:focus {
+    outline: 2px solid rgba(0, 107, 63, 0.4);
+    outline-offset: 3px;
+}
+
+/* ===================================
+   ACCESSIBILITY & REDUCED MOTION
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .code-element {
+        animation: none !important;
+        opacity: 0.1 !important;
+    }
+
+    .sound-toggle-btn {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Loading State */
+.portfolio-container.loading {
+    opacity: 0;
+}
+
+.portfolio-container.loaded {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
+
+/* Smooth Transitions */
+.content-wrapper {
+    will-change: opacity, transform;
+}
+
+.horizontal-pages {
+    will-change: scroll-position;
+}
+
+/* Performance Optimization */
+.code-element,
+.background-pattern {
+    contain: layout style paint;
+}
+
+/* Focus Styles for Accessibility */
+.project-toggle-btn:focus {
+    outline: none;
+}
+
+.accordion-header:focus,
+.accordion-link:focus,
+.page-dot:focus {
+    outline: 3px solid var(--kenyan-red);
+    outline-offset: 3px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .project-toggle-btn,
+    .accordion-header,
+    .accordion-link {
+        border-width: 3px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .portfolio-container {
+        height: auto;
+    }
+
+    .floating-navigation,
+    .pill-sidebar,
+    .project-toggle-container,
+    .page-indicators,
+    .kenyan-code-elements {
+        display: none;
+    }
+
+    .content-wrapper {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .accordion-nav {
+        width: 100%;
+        page-break-after: always;
+    }
+
+    .content-page {
+        page-break-inside: avoid;
+    }
+}
+
+/* ===================================
+   ROLE & TIMELINE SECTION STYLING
+   =================================== */
+
+/* Role Section Container */
+.role-section {
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.role-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 107, 63, 0.15) 0%,
+        rgba(0, 107, 63, 0) 100%
+    );
+}
+
+/* Role Section Title */
+.role-section h3 {
+    font-family: var(--font-name);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+}
+
+.role-section h3::before {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 107, 63, 0.2) 0%,
+        rgba(0, 107, 63, 0) 100%
+    );
+}
+
+/* Role Description */
+.role-description {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--secondary-text);
+    margin: 0 0 2.5rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-left: 3px solid rgba(0, 107, 63, 0.12);
+    border-radius: 0 8px 8px 0;
+    backdrop-filter: blur(10px);
+}
+
+/* Responsibilities Grid */
+.responsibilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Responsibility Card */
+.responsibility-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 1.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Subtle left border accent - very subtle Kenyan green */
+.responsibility-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 107, 63, 0.15) 0%,
+        rgba(0, 107, 63, 0.08) 50%,
+        rgba(0, 107, 63, 0.15) 100%
+    );
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.responsibility-card:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 107, 63, 0.12);
+    transform: translateY(-2px);
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(0, 107, 63, 0.06);
+}
+
+.responsibility-card:hover::before {
+    opacity: 1;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 107, 63, 0.25) 0%,
+        rgba(0, 107, 63, 0.15) 50%,
+        rgba(0, 107, 63, 0.25) 100%
+    );
+}
+
+/* Card Header */
+.responsibility-card h4 {
+    font-family: var(--font-name);
+    font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Card List */
+.responsibility-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.responsibility-card li {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    line-height: 1.6;
+    color: var(--secondary-text);
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.responsibility-card li:last-child {
+    border-bottom: none;
+}
+
+/* Custom bullet with very subtle Kenyan color */
+.responsibility-card li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: rgba(0, 107, 63, 0.3);
+    font-size: 0.75rem;
+    top: 0.65rem;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.responsibility-card:hover li::before {
+    color: rgba(0, 107, 63, 0.45);
+    transform: translateX(2px);
+}
+
+/* Timeline Section */
+.timeline-section {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.timeline-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(206, 17, 38, 0.12) 0%,
+        rgba(206, 17, 38, 0) 100%
+    );
+}
+
+.timeline-section h3 {
+    font-family: var(--font-name);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: 0 0 2.5rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+}
+
+.timeline-section h3::before {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(206, 17, 38, 0.15) 0%,
+        rgba(206, 17, 38, 0) 100%
+    );
+}
+
+/* Timeline Container */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-left: 1rem;
+}
+
+/* Vertical connecting line */
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 107, 63, 0.15) 0%,
+        rgba(206, 17, 38, 0.1) 50%,
+        rgba(0, 0, 0, 0.08) 100%
+    );
+    border-radius: 2px;
+}
+
+/* Timeline Item */
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 2.5rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Timeline Marker (Week indicator) */
+.timeline-marker {
+    position: absolute;
+    left: -1.5rem;
+    top: 0.25rem;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(0, 107, 63, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-greeting);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    text-align: center;
+    line-height: 1.2;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.timeline-item:hover .timeline-marker {
+    border-color: rgba(0, 107, 63, 0.25);
+    background: rgba(255, 255, 255, 1);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        0 0 0 3px rgba(0, 107, 63, 0.08),
+        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+/* Timeline Content */
+.timeline-content {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.timeline-content::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(
+        180deg,
+        rgba(206, 17, 38, 0.12) 0%,
+        rgba(0, 107, 63, 0.12) 100%
+    );
+    border-radius: 3px 0 0 3px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 107, 63, 0.12);
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(0, 107, 63, 0.06);
+    transform: translateX(4px);
+}
+
+.timeline-item:hover .timeline-content::before {
+    opacity: 1;
+}
+
+/* Timeline Content Header */
+.timeline-content h4 {
+    font-family: var(--font-name);
+    font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Timeline Content List */
+.timeline-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.timeline-content li {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    line-height: 1.6;
+    color: var(--secondary-text);
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.timeline-content li:last-child {
+    border-bottom: none;
+}
+
+/* Custom bullet for timeline items */
+.timeline-content li::before {
+    content: "▪";
+    position: absolute;
+    left: 0;
+    color: rgba(206, 17, 38, 0.25);
+    font-size: 0.6rem;
+    top: 0.7rem;
+    transition: color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content li::before {
+    color: rgba(206, 17, 38, 0.4);
+}
+
+/* Responsive Design for Role & Timeline */
+@media (max-width: 1024px) {
+    .responsibilities-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .timeline {
+        padding-left: 1.5rem;
+        margin-left: 0.75rem;
+    }
+
+    .timeline-item {
+        padding-left: 2rem;
+    }
+
+    .timeline-marker {
+        left: -1.25rem;
+        width: 42px;
+        height: 42px;
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .role-section {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+    }
+
+    .role-description {
+        padding: 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    .responsibilities-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .timeline-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+    }
+
+    .timeline {
+        padding-left: 1.25rem;
+        margin-left: 0.5rem;
+    }
+
+    .timeline-item {
+        padding-left: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .timeline-marker {
+        left: -1rem;
+        width: 38px;
+        height: 38px;
+        font-size: 0.6rem;
+    }
+
+    .timeline-content {
+        padding: 1.25rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .role-section h3,
+    .timeline-section h3 {
+        font-size: 1.25rem;
+    }
+
+    .role-description {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .responsibility-card,
+    .timeline-content {
+        padding: 1.25rem;
+    }
+
+    .timeline-marker {
+        width: 36px;
+        height: 36px;
+        font-size: 0.55rem;
+    }
+}
+
+
+/* ============================================
+   DARK MODE - PORTFOLIO PAGE
+   ============================================ */
+
+/* Dark Mode Portfolio Container */
+body.dark-theme.portfolio-page {
+    background: #0a0e12;
+}
+
+body.dark-theme .portfolio-container {
+    background: transparent;
+    color: #e8edf3;
+}
+
+/* Dark Mode Header Section */
+body.dark-theme .portfolio-header-label {
+    color: #10cf74;
+}
+
+body.dark-theme .portfolio-header-title {
+    color: #e8edf3;
+}
+
+body.dark-theme .portfolio-header-description {
+    color: #a8b5c7;
+}
+
+/* Dark Mode Project Toggle Buttons */
+body.dark-theme .project-toggle-btn {
+    background: rgba(30, 39, 48, 0.6);
+    border: 1px solid rgba(16, 207, 116, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .project-toggle-btn.active {
+    background: rgba(16, 207, 116, 0.15);
+    border: 1px solid #ff3355;
+    box-shadow: 0 0 20px rgba(255, 51, 85, 0.3);
+}
+
+body.dark-theme .toggle-badge {
+    background: #10cf74;
+    color: #0a0e12;
+    box-shadow: 0 2px 8px rgba(16, 207, 116, 0.4);
+}
+
+body.dark-theme .project-toggle-btn.active .toggle-badge {
+    background: linear-gradient(135deg, #ff3355, #0a0e12);
+    color: #e8edf3;
+}
+
+body.dark-theme .toggle-label {
+    color: #a8b5c7;
+}
+
+body.dark-theme .project-toggle-btn.active .toggle-label {
+    color: #e8edf3;
+}
+
+/* Dark Mode Accordion Navigation */
+body.dark-theme .accordion-nav {
+    background: #1e2730;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .accordion-nav::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .accordion-nav::-webkit-scrollbar-thumb {
+    background: #10cf74;
+}
+
+body.dark-theme .accordion-nav::-webkit-scrollbar-thumb:hover {
+    background: #0ea862;
+}
+
+body.dark-theme .accordion-nav-title {
+    color: #e8edf3;
+}
+
+body.dark-theme .accordion-nav-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.dark-theme .accordion-completion-badge {
+    background: #10cf74;
+    box-shadow: 0 4px 12px rgba(16, 207, 116, 0.4);
+}
+
+/* Dark Mode Accordion Items */
+body.dark-theme .accordion-header {
+    background: #131920;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #a8b5c7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .accordion-header:hover {
+    background: #1e2730;
+    color: #e8edf3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .accordion-item.active .accordion-header {
+    color: #10cf74;
+    background: rgba(16, 207, 116, 0.15);
+    border-color: rgba(16, 207, 116, 0.25);
+    box-shadow: 0 0 20px rgba(16, 207, 116, 0.2);
+}
+
+body.dark-theme .progress-circle {
+    background: #1e2730;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .progress-circle-bg {
+    stroke: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .progress-circle-fill {
+    stroke: #10cf74;
+}
+
+body.dark-theme .accordion-item.active .progress-circle-fill {
+    filter: drop-shadow(0 0 4px rgba(16, 207, 116, 0.6));
+}
+
+body.dark-theme .progress-text {
+    color: #10cf74;
+}
+
+body.dark-theme .accordion-description {
+    color: #a8b5c7;
+}
+
+/* Dark Mode Accordion Links */
+body.dark-theme .accordion-link {
+    background: #1e2730;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #a8b5c7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .accordion-link::before {
+    background: #10cf74;
+}
+
+body.dark-theme .accordion-link:hover {
+    background: #131920;
+    color: #e8edf3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .accordion-link.active {
+    color: #10cf74;
+    background: rgba(16, 207, 116, 0.15);
+    border-color: rgba(16, 207, 116, 0.25);
+    box-shadow: 0 0 20px rgba(16, 207, 116, 0.2);
+}
+
+body.dark-theme .accordion-link.active::before {
+    box-shadow: 0 0 8px rgba(16, 207, 116, 0.6);
+}
+
+/* Dark Mode Content Area */
+body.dark-theme .content-page {
+    background: #0a0e12;
+}
+
+body.dark-theme .content-page::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .content-page::-webkit-scrollbar-thumb {
+    background: #10cf74;
+}
+
+body.dark-theme .content-page::-webkit-scrollbar-thumb:hover {
+    background: #0ea862;
+}
+
+body.dark-theme .page-title {
+    color: #e8edf3;
+}
+
+body.dark-theme .page-title.kenyan-gradient {
+    background: linear-gradient(
+        135deg,
+        rgba(16, 207, 116, 0.9) 0%,
+        rgba(16, 207, 116, 0.8) 50%,
+        rgba(255, 51, 85, 0.75) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(16, 207, 116, 0.4));
+}
+
+body.dark-theme .page-subtitle {
+    color: #a8b5c7;
+}
+
+body.dark-theme .page-content {
+    color: #a8b5c7;
+}
+
+/* Dark Mode Info Grid */
+body.dark-theme .info-item {
+    background: #1e2730;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .info-item::before {
+    background: linear-gradient(
+        180deg,
+        #10cf74 0%,
+        rgba(16, 207, 116, 0.5) 100%
+    );
+}
+
+body.dark-theme .info-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(16, 207, 116, 0.2);
+}
+
+body.dark-theme .info-label {
+    color: #10cf74;
+}
+
+body.dark-theme .info-value {
+    color: #e8edf3;
+}
+
+/* Dark Mode Challenge Section */
+body.dark-theme .lead-text {
+    color: #e8edf3;
+}
+
+body.dark-theme .summary-card {
+    background: linear-gradient(
+        135deg,
+        rgba(16, 207, 116, 0.15),
+        rgba(16, 207, 116, 0.08)
+    );
+    border: 1px solid rgba(16, 207, 116, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .summary-label {
+    color: #10cf74;
+}
+
+body.dark-theme .summary-value {
+    color: #e8edf3;
+}
+
+body.dark-theme .summary-text {
+    color: #a8b5c7;
+}
+
+body.dark-theme .challenge-card {
+    background: #1e2730;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .challenge-card::after {
+    background: linear-gradient(
+        135deg,
+        rgba(16, 207, 116, 0.1),
+        rgba(16, 207, 116, 0.1)
+    );
+}
+
+body.dark-theme .card-index {
+    color: #10cf74;
+    background: rgba(16, 207, 116, 0.15);
+}
+
+body.dark-theme .challenge-card h3 {
+    color: #e8edf3;
+}
+
+body.dark-theme .challenge-card p {
+    color: #a8b5c7;
+}
+
+/* Dark Mode Page Indicators */
+body.dark-theme .page-indicators {
+    background: rgba(30, 39, 48, 0.8);
+    backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .page-dot {
+    background: #6b7a8f;
+}
+
+body.dark-theme .page-dot:hover {
+    background: #10cf74;
+}
+
+body.dark-theme .page-dot.active {
+    background: #10cf74;
+    box-shadow: 0 0 12px rgba(16, 207, 116, 0.6);
+}
+
+/* Dark Mode Decorative Shapes */
+body.dark-theme .portfolio-shape-1 {
+    background: linear-gradient(
+        135deg,
+        rgba(16, 207, 116, 0.2),
+        rgba(16, 207, 116, 0.05)
+    );
+}
+
+body.dark-theme .portfolio-shape-2 {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 51, 85, 0.15),
+        rgba(255, 51, 85, 0.04)
+    );
+}
+
+body.dark-theme .portfolio-shape-3 {
+    background: linear-gradient(
+        135deg,
+        rgba(232, 237, 243, 0.1),
+        rgba(232, 237, 243, 0.02)
+    );
+}
+
+/* Dark Mode Sound Toggle Button */
+body.dark-theme .sound-toggle-btn {
+    background: rgba(30, 39, 48, 0.9);
+    border: 1.5px solid rgba(16, 207, 116, 0.3);
+    color: #10cf74;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .sound-toggle-btn:hover {
+    background: rgba(16, 207, 116, 0.15);
+    border-color: rgba(16, 207, 116, 0.5);
+    box-shadow: 0 0 20px rgba(16, 207, 116, 0.3);
+}
