@@ -9,15 +9,27 @@
 
 class SoundManager {
     constructor() {
-        this.enabled = this.loadPreference();
         this.volume = 0.4; // Lower volume for subtlety
         this.sounds = {};
-        this.loadSounds();
-
-        // Check for reduced motion preference
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        
+        // Load user preference
+        const savedPreference = this.loadPreference();
+        
+        // Check for reduced motion preference (accessibility)
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        // If user has explicitly saved a preference, respect it unless reduced motion is required
+        // Otherwise, default to enabled (true) unless reduced motion is detected
+        if (prefersReducedMotion) {
             this.enabled = false;
+            // Save the reduced motion preference so UI reflects it
+            this.savePreference();
+        } else {
+            // Use saved preference, or default to true if no preference exists
+            this.enabled = savedPreference !== null ? savedPreference : true;
         }
+        
+        this.loadSounds();
     }
 
     loadSounds() {
@@ -26,6 +38,7 @@ class SoundManager {
 
         // Page flip sound (simple click)
         this.sounds.pageFlip = new Audio();
+        this.sounds.pageFlip.src = 'sounds/soundFlipping.mp3';
         this.sounds.pageFlip.volume = this.volume;
 
         // Project switch sound (deeper whoosh)
@@ -36,10 +49,9 @@ class SoundManager {
         this.sounds.accordionToggle = new Audio();
         this.sounds.accordionToggle.volume = this.volume * 0.6;
 
-        // Note: Sound files can be added to sounds/ directory when available
-        // Leave src empty to avoid 404 errors - sounds will be silent until files are added
-        // Uncomment the lines below once you add the sound files to the sounds/ directory:
-        // this.sounds.pageFlip.src = 'sounds/page-flip.mp3';
+        // Note: Page flip sound is loaded from sounds/soundFlipping.mp3
+        // Other sound files can be added to sounds/ directory when available
+        // Uncomment the lines below once you add the other sound files:
         // this.sounds.projectSwitch.src = 'sounds/project-switch.mp3';
         // this.sounds.accordionToggle.src = 'sounds/accordion-toggle.mp3';
 
@@ -152,6 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize Sound Manager (Phase 5)
     soundManager = new SoundManager();
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:166',message:'SoundManager initialized',data:{soundManagerExists:!!soundManager,enabled:soundManager?.enabled},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
 
     // Cache DOM elements
     cacheDOMElements();
@@ -179,6 +194,21 @@ document.addEventListener('DOMContentLoaded', function() {
     collapsePortfolioHeaderSection();
 
     console.log('Portfolio initialization complete');
+    
+    // #region agent log
+    // Check button state after a delay to see if something changes it
+    setTimeout(() => {
+        const delayedCheck = document.querySelector('.sound-toggle-btn');
+        if (delayedCheck) {
+            const delayedStyle = window.getComputedStyle(delayedCheck);
+            const rect = delayedCheck.getBoundingClientRect();
+            const bodyStyle = window.getComputedStyle(document.body);
+            fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:194',message:'Delayed button state check (2s after init)',data:{exists:!!delayedCheck,opacity:delayedStyle.opacity,visibility:delayedStyle.visibility,display:delayedStyle.display,position:delayedStyle.position,zIndex:delayedStyle.zIndex,offsetParent:!!delayedCheck.offsetParent,getBoundingClientRect:{top:rect.top,right:rect.right,bottom:rect.bottom,left:rect.left,width:rect.width,height:rect.height},bodyOverflow:bodyStyle.overflow,bodyHeight:bodyStyle.height,bodyPosition:bodyStyle.position,bodyTransform:bodyStyle.transform},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        } else {
+            fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:194',message:'Delayed check: button not found',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        }
+    }, 2000);
+    // #endregion
 });
 
 // ====================================
@@ -1304,10 +1334,31 @@ function syncAccordionWithPage(pageIndex) {
 // ====================================
 
 function setupSoundControls() {
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1318',message:'setupSoundControls called',data:{soundManagerExists:!!soundManager},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
+    // Ensure soundManager is initialized
+    if (!soundManager) {
+        console.warn('SoundManager not initialized, cannot create sound controls');
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1322',message:'Early return: soundManager is null',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
+        return;
+    }
+
+    // Check if button already exists (prevent duplicates)
+    const existingButton = document.querySelector('.sound-toggle-btn');
+    if (existingButton) {
+        console.log('Sound toggle button already exists, skipping creation');
+        updateSoundControlUI(soundManager.enabled);
+        return;
+    }
+
     // Create sound toggle button
     const soundToggle = document.createElement('button');
     soundToggle.className = 'sound-toggle-btn';
     soundToggle.setAttribute('aria-label', 'Toggle sound effects');
+    soundToggle.setAttribute('data-sound-enabled', soundManager.enabled.toString());
     soundToggle.innerHTML = soundManager.enabled ? '🔊' : '🔇';
     soundToggle.title = `Sound: ${soundManager.enabled ? 'ON' : 'OFF'} (Press M to toggle)`;
 
@@ -1317,10 +1368,78 @@ function setupSoundControls() {
         updateSoundControlUI(enabled);
     });
 
+    // Ensure button is immediately visible (before any animations)
+    soundToggle.style.opacity = '1';
+    soundToggle.style.visibility = 'visible';
+    soundToggle.style.display = 'flex';
+    soundToggle.style.position = 'fixed';
+    soundToggle.style.bottom = '2rem';
+    soundToggle.style.right = '2rem';
+    soundToggle.style.zIndex = '10001'; // Higher than entrance container (10000)
+    soundToggle.style.pointerEvents = 'auto';
+
     // Add to page (bottom right corner)
     document.body.appendChild(soundToggle);
+    // #region agent log
+    const computedStyle = window.getComputedStyle(soundToggle);
+    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1357',message:'Button appended to DOM',data:{opacity:computedStyle.opacity,visibility:computedStyle.visibility,display:computedStyle.display,zIndex:computedStyle.zIndex,offsetParent:!!soundToggle.offsetParent},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    // #endregion
 
-    console.log('Sound controls initialized');
+    // Set initial visual state
+    updateSoundControlUI(soundManager.enabled);
+    
+    // Force a reflow to ensure the button is rendered
+    void soundToggle.offsetHeight;
+    
+    // Ensure button is visible even if entrance animation is still running
+    const ensureButtonVisible = () => {
+        const btn = document.querySelector('.sound-toggle-btn');
+        if (btn) {
+            btn.style.opacity = '1';
+            btn.style.visibility = 'visible';
+            btn.style.display = 'flex';
+            btn.style.zIndex = '10001';
+            btn.style.pointerEvents = 'auto';
+        }
+    };
+    
+    // Check immediately and after entrance completes
+    ensureButtonVisible();
+    setTimeout(ensureButtonVisible, 100);
+    setTimeout(ensureButtonVisible, 500);
+    setTimeout(ensureButtonVisible, 2000);
+    
+    // Also ensure visibility when entrance completes
+    const checkEntranceComplete = setInterval(() => {
+        if (document.body.classList.contains('entrance-complete')) {
+            ensureButtonVisible();
+            clearInterval(checkEntranceComplete);
+        }
+    }, 100);
+    
+    // Clear interval after 10 seconds to prevent infinite loop
+    setTimeout(() => clearInterval(checkEntranceComplete), 10000);
+
+    // Verify button is in DOM and visible
+    const verifyButton = document.querySelector('.sound-toggle-btn');
+    if (verifyButton) {
+        const finalStyle = window.getComputedStyle(verifyButton);
+        console.log(`Sound controls initialized - Sound is ${soundManager.enabled ? 'ON' : 'OFF'}`);
+        console.log('Sound toggle button created and visible:', {
+            exists: !!verifyButton,
+            visible: verifyButton.offsetParent !== null,
+            opacity: finalStyle.opacity,
+            zIndex: finalStyle.zIndex
+        });
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1364',message:'Button verification after creation',data:{exists:!!verifyButton,visible:verifyButton.offsetParent!==null,opacity:finalStyle.opacity,visibility:finalStyle.visibility,display:finalStyle.display,zIndex:finalStyle.zIndex},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        // #endregion
+    } else {
+        console.error('Sound toggle button was not created successfully');
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1373',message:'Button verification failed',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
+    }
 }
 
 function updateSoundControlUI(enabled) {
@@ -1329,6 +1448,16 @@ function updateSoundControlUI(enabled) {
         soundToggle.innerHTML = enabled ? '🔊' : '🔇';
         soundToggle.title = `Sound: ${enabled ? 'ON' : 'OFF'} (Press M to toggle)`;
         soundToggle.setAttribute('aria-label', `Sound effects ${enabled ? 'enabled' : 'disabled'}`);
+        soundToggle.setAttribute('data-sound-enabled', enabled.toString());
+        
+        // Add visual feedback class for styling
+        if (enabled) {
+            soundToggle.classList.remove('sound-muted');
+            soundToggle.classList.add('sound-enabled');
+        } else {
+            soundToggle.classList.remove('sound-enabled');
+            soundToggle.classList.add('sound-muted');
+        }
     }
 }
 
@@ -1413,12 +1542,18 @@ function ensureElementsVisible() {
  * Enhanced polish with scroll-triggered animations
  */
 function initGSAPAnimations() {
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1476',message:'initGSAPAnimations called',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
     // Check if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
         console.log('⚠️ Reduced motion preference detected - GSAP animations disabled');
         ensureElementsVisible(); // Ensure all elements are visible
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1483',message:'Reduced motion detected, returning early',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
         return;
     }
 
@@ -1426,6 +1561,9 @@ function initGSAPAnimations() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
         console.warn('⚠️ GSAP or ScrollTrigger not loaded - ensuring elements remain visible');
         ensureElementsVisible(); // Ensure all elements are visible even without GSAP
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1490',message:'GSAP not available, returning early',data:{gsapExists:typeof gsap!=='undefined',scrollTriggerExists:typeof ScrollTrigger!=='undefined'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
         return;
     }
 
@@ -1730,29 +1868,65 @@ function initGSAPAnimations() {
     // 7. SOUND TOGGLE BUTTON - Entrance
     // ====================================
     const soundToggle = document.querySelector('.sound-toggle-btn');
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1793',message:'Looking for sound toggle button in initGSAPAnimations',data:{buttonExists:!!soundToggle},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
 
     if (soundToggle) {
-        // Ensure button is visible first
-        gsap.set(soundToggle, { opacity: 1 });
+        const beforeStyle = window.getComputedStyle(soundToggle);
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1795',message:'Button found, before animation setup',data:{opacity:beforeStyle.opacity,visibility:beforeStyle.visibility,display:beforeStyle.display},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
+        // Ensure button is visible first (critical for fallback)
+        soundToggle.style.opacity = '1';
+        soundToggle.style.visibility = 'visible';
+        soundToggle.style.display = 'flex';
+        
+        // Only animate if GSAP is available and motion is not reduced
+        if (!prefersReducedMotion) {
+            gsap.set(soundToggle, { opacity: 1, visibility: 'visible' });
 
-        gsap.from(soundToggle, {
-            opacity: 0,
-            scale: 0,
-            rotation: -90,
-            duration: 0.4,
-            ease: "back.out(1.7)",
-            delay: 0.6
-        });
+            gsap.from(soundToggle, {
+                opacity: 0,
+                scale: 0,
+                rotation: -90,
+                duration: 0.4,
+                ease: "back.out(1.7)",
+                delay: 0.6,
+                onStart: () => {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1805',message:'GSAP animation started',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                    // #endregion
+                },
+                onComplete: () => {
+                    // Ensure visibility after animation
+                    soundToggle.style.opacity = '1';
+                    soundToggle.style.visibility = 'visible';
+                    const afterStyle = window.getComputedStyle(soundToggle);
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1812',message:'GSAP animation completed',data:{opacity:afterStyle.opacity,visibility:afterStyle.visibility},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+                    // #endregion
+                }
+            });
 
-        // Add pulsing attention effect
-        gsap.to(soundToggle, {
-            boxShadow: "0 0 20px rgba(0, 107, 63, 0.6)",
-            duration: 1.5,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            delay: 1
-        });
+            // Add pulsing attention effect
+            gsap.to(soundToggle, {
+                boxShadow: "0 0 20px rgba(0, 107, 63, 0.6)",
+                duration: 1.5,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: 1
+            });
+        } else {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1828',message:'Reduced motion, skipping animation',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+            // #endregion
+        }
+    } else {
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1829',message:'Button not found in initGSAPAnimations',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
     }
 
     // ====================================
@@ -1828,8 +2002,14 @@ function initGSAPAnimations() {
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         // Wait for main portfolio init to complete
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1904',message:'Scheduling initGSAPAnimations (DOMContentLoaded)',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
         setTimeout(initGSAPAnimations, 100);
     });
 } else {
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/cc19ce43-43fb-4433-9807-0ffc3752730d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'portfolio.js:1907',message:'Scheduling initGSAPAnimations (immediate)',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
     setTimeout(initGSAPAnimations, 100);
 }

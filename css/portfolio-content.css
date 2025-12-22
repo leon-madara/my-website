@@ -1,0 +1,844 @@
+/* ===================================
+   PORTFOLIO CONTENT.CSS
+   Unified Design System for Content Pages
+   =================================== 
+   
+   This file defines the complete design system for portfolio content pages,
+   including spacing, typography, colors, grids, and layout patterns.
+   
+   DESIGN PHILOSOPHY:
+   - Consistent spacing scale using 8px base unit
+   - Reduced clamp() complexity with fixed breakpoint values
+   - Unique visual identity for content pages vs main page
+   - Professional, clean aesthetic with subtle Kenyan accents
+   
+   DO NOT APPLY YET - THIS IS A DEFINITION DOCUMENT
+*/
+
+/* ===================================
+   DESIGN TOKENS - SPACING SCALE
+   =================================== */
+
+:root {
+    /* Base spacing unit: 8px */
+    --space-1: 0.5rem;    /* 8px */
+    --space-2: 1rem;      /* 16px */
+    --space-3: 1.5rem;    /* 24px */
+    --space-4: 2rem;      /* 32px */
+    --space-5: 2.5rem;    /* 40px */
+    --space-6: 3rem;      /* 48px */
+    --space-7: 4rem;      /* 64px */
+    --space-8: 5rem;      /* 80px */
+    
+    /* Content-specific spacing */
+    --content-space-xs: 0.75rem;   /* 12px - tight spacing */
+    --content-space-sm: 1.25rem;   /* 20px - compact spacing */
+    --content-space-md: 2rem;      /* 32px - standard spacing */
+    --content-space-lg: 3rem;      /* 48px - generous spacing */
+    --content-space-xl: 4rem;      /* 64px - section breaks */
+    
+    /* Grid gaps */
+    --grid-gap-tight: 1rem;        /* 16px */
+    --grid-gap-normal: 1.5rem;     /* 24px */
+    --grid-gap-loose: 2rem;        /* 32px */
+}
+
+/* ===================================
+   CURRENT VS PROPOSED SPACING ANALYSIS
+   =================================== */
+
+/* CURRENT IMPLEMENTATION ISSUES:
+   ================================
+   
+   1. CONTENT PAGE (.content-page):
+      - Current padding: clamp(1.5rem, 4vw, 3.5rem)
+        • Min: 24px, Max: 56px - too wide range
+        • Creates unpredictable spacing across breakpoints
+      - Current gap: clamp(1.5rem, 3.5vw, 2.5rem)
+        • Min: 24px, Max: 40px - inconsistent with padding
+   
+   2. PAGE TITLE (.page-title):
+      - Current margin: 0
+      - Missing bottom margin creates inconsistent title-to-content spacing
+      
+   3. PAGE TITLE WITH GRADIENT (.page-title.kenyan-gradient):
+      - Current margin-bottom: clamp(0.5rem, 1.5vw, 1rem)
+        • Min: 8px, Max: 16px - too small for h2 element
+        • Different from regular .page-title (adds confusion)
+   
+   4. PAGE SUBTITLE (.page-subtitle):
+      - Current margin: 0 0 clamp(1rem, 2.5vw, 1.5rem) 0
+        • Bottom: Min 16px, Max 24px
+      - Current letter-spacing: 0.25em - TOO EXCESSIVE
+      - Current opacity: 0.8 - reduces readability
+   
+   5. PAGE CONTENT (.page-content):
+      - Current line-height: 1.7
+      - Current color: var(--secondary-text) - too light for body text
+      - Missing max-width - lines too long for comfortable reading
+   
+   6. PAGE CONTENT PARAGRAPHS (.page-content p):
+      - Current margin-bottom: clamp(1rem, 2.5vw, 1.5rem)
+      - Current padding-bottom: clamp(1rem, 2.5vw, 1.5rem)
+        • Creates DOUBLE spacing (margin + padding)
+        • Total gap: 32px to 48px between paragraphs - excessive
+      - Current border-bottom: 1px solid - unnecessary visual clutter
+   
+   7. INFO GRID (.info-grid):
+      - Current gap: clamp(0.75rem, 1.5vw, 1.25rem)
+        • Min: 12px, Max: 20px - too tight for cards
+      - Current margin-top: clamp(1.5rem, 3.5vw, 2.5rem)
+        • Min: 24px, Max: 40px
+   
+   8. SECTION HEADINGS (h3 in .role-section, .timeline-section):
+      - Current margin: varies across sections
+        • .role-section h3: 0 0 1rem 0
+        • .stack-category h3: 0 0 clamp(1rem, 2vw, 1.5rem) 0
+      - Inconsistent padding-bottom values
+      - Inconsistent border treatments
+   
+   9. CARD COMPONENTS (multiple variations):
+      - .info-item padding: clamp(1.5rem, 3vw, 2rem)
+      - .responsibility-card padding: clamp(1.5rem, 3vw, 2rem)
+      - .tech-item padding: clamp(1.25rem, 2.5vw, 1.5rem)
+      - .challenge-card padding: clamp(1.25rem, 2.5vw, 1.5rem)
+      - PROBLEM: Similar components have different spacing scales
+   
+   10. ROLE DESCRIPTION (.role-description):
+       - Current margin: 0 0 clamp(1.5rem, 3vw, 2.5rem) 0
+       - Current padding: 1.5rem - fixed (inconsistent with other clamps)
+       - Current background: rgba(255, 255, 255, 0.6) - too transparent
+*/
+
+/* ===================================
+   PROPOSED DESIGN SYSTEM
+   =================================== */
+
+/* -----------------------------------
+   CONTAINER & PAGE STRUCTURE
+   ----------------------------------- */
+
+.content-page {
+    /* CURRENT: padding: clamp(1.5rem, 4vw, 3.5rem) */
+    /* PROPOSED: Fixed padding with breakpoint-based changes */
+    padding: var(--content-space-md);  /* 32px on all screens */
+    
+    /* CURRENT: gap: clamp(1.5rem, 3.5vw, 2.5rem) */
+    /* PROPOSED: Unified gap matching padding */
+    gap: var(--content-space-md);      /* 32px consistent vertical rhythm */
+    
+    /* CURRENT: height: 834px - fixed, arbitrary */
+    /* PROPOSED: Use min-height for flexibility */
+    min-height: 100%;
+    height: auto;
+    
+    /* CURRENT: background: var(--bg-secondary) */
+    /* PROPOSED: Unique content page background */
+    background: #ffffff;  /* Pure white for content clarity */
+    
+    /* Additional properties */
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+    overflow-y: auto;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Tablet adjustment */
+@media (min-width: 768px) {
+    .content-page {
+        padding: var(--content-space-lg);  /* 48px on tablets+ */
+        gap: var(--content-space-lg);
+    }
+}
+
+/* Desktop adjustment */
+@media (min-width: 1200px) {
+    .content-page {
+        padding: var(--space-6);  /* 48px on desktop */
+        max-width: 1100px;         /* Prevent excessive line length */
+    }
+}
+
+/* -----------------------------------
+   TYPOGRAPHY - TITLE HIERARCHY
+   ----------------------------------- */
+
+/* Main Page Title (h2) */
+.page-title {
+    /* CURRENT: 
+       font-size: clamp(2rem, 4vw, 3.2rem)
+       margin: 0
+       line-height: 1.2
+    */
+    /* PROPOSED: */
+    font-family: var(--font-name);
+    font-size: 2.5rem;           /* 40px - readable display size */
+    font-weight: 600;            /* Lighter than current 700 for elegance */
+    line-height: 1.15;           /* Tighter for impact */
+    color: var(--primary-text);
+    margin: 0 0 var(--space-3) 0;  /* 24px bottom margin */
+    letter-spacing: -0.01em;     /* Slight negative for large text */
+}
+
+/* Title with Kenyan gradient */
+.page-title.kenyan-gradient {
+    /* CURRENT: margin-bottom: clamp(0.5rem, 1.5vw, 1rem) - TOO SMALL */
+    /* PROPOSED: */
+    background: linear-gradient(
+        135deg,
+        #006b3f 0%,           /* Full opacity Kenyan green */
+        #10cf74 50%,          /* Bright accent green */
+        #ce1126 100%          /* Full opacity Kenyan red */
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-3);  /* 24px - same as regular title */
+    /* REMOVED: text-shadow (doesn't work with gradient text) */
+}
+
+/* Desktop title sizing */
+@media (min-width: 1200px) {
+    .page-title {
+        font-size: 3rem;  /* 48px on large screens */
+    }
+}
+
+/* -----------------------------------
+   TYPOGRAPHY - SUBTITLE
+   ----------------------------------- */
+
+.page-subtitle {
+    /* CURRENT:
+       letter-spacing: 0.25em - TOO EXCESSIVE
+       opacity: 0.8 - reduces readability
+       margin: 0 0 clamp(1rem, 2.5vw, 1.5rem) 0
+    */
+    /* PROPOSED: */
+    font-family: var(--font-greeting);
+    font-size: 0.875rem;          /* 14px - compact */
+    font-weight: 600;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;       /* Reduced from 0.25em */
+    margin: 0 0 var(--space-4) 0; /* 32px - larger gap before content */
+    opacity: 1;                   /* Full opacity for readability */
+}
+
+/* -----------------------------------
+   TYPOGRAPHY - BODY CONTENT
+   ----------------------------------- */
+
+.page-content {
+    /* CURRENT:
+       font-size: clamp(1rem, 1.5vw, 1.125rem)
+       line-height: 1.7
+       color: var(--secondary-text) - TOO LIGHT
+    */
+    /* PROPOSED: */
+    font-family: var(--font-body);
+    font-size: 1rem;              /* 16px - standard body text */
+    line-height: 1.65;            /* Optimal reading line-height */
+    color: var(--primary-text);   /* Darker for better readability */
+    max-width: 75ch;              /* Optimal line length for reading */
+    flex-grow: 1;
+}
+
+/* Content paragraphs */
+.page-content p {
+    /* CURRENT:
+       margin-bottom: clamp(1rem, 2.5vw, 1.5rem)
+       padding-bottom: clamp(1rem, 2.5vw, 1.5rem)
+       border-bottom: 1px solid... - UNNECESSARY
+    */
+    /* PROPOSED: */
+    margin: 0 0 var(--space-3) 0;  /* 24px between paragraphs */
+    padding: 0;                    /* No padding needed */
+    /* REMOVED: border-bottom */
+}
+
+.page-content p:last-child {
+    margin-bottom: 0;  /* Remove margin from last paragraph */
+}
+
+/* Desktop body text sizing */
+@media (min-width: 1200px) {
+    .page-content {
+        font-size: 1.0625rem;  /* 17px on large screens for comfort */
+        line-height: 1.7;
+    }
+}
+
+/* -----------------------------------
+   SECTION HEADINGS (h3)
+   ----------------------------------- */
+
+/* Standard h3 in content areas */
+.page-content h3,
+.role-section h3,
+.timeline-section h3,
+.stack-category h3 {
+    /* CURRENT: Varies across sections - INCONSISTENT */
+    /* PROPOSED: Unified h3 styling */
+    font-family: var(--font-name);
+    font-size: 1.5rem;            /* 24px */
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: var(--space-5) 0 var(--space-3) 0;  /* 40px top, 24px bottom */
+    padding-bottom: var(--space-2);             /* 16px */
+    border-bottom: 1px solid rgba(0, 107, 63, 0.1);
+    line-height: 1.3;
+}
+
+/* First h3 in section (no top margin) */
+.page-content h3:first-child,
+.role-section > h3:first-of-type {
+    margin-top: 0;
+}
+
+/* Desktop h3 sizing */
+@media (min-width: 1200px) {
+    .page-content h3,
+    .role-section h3,
+    .timeline-section h3,
+    .stack-category h3 {
+        font-size: 1.75rem;  /* 28px on large screens */
+    }
+}
+
+/* -----------------------------------
+   SECTION HEADINGS (h4)
+   ----------------------------------- */
+
+.page-content h4,
+.responsibility-card h4,
+.timeline-content h4 {
+    font-family: var(--font-body);
+    font-size: 1.125rem;          /* 18px */
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: var(--space-3) 0 var(--space-2) 0;  /* 24px top, 16px bottom */
+    line-height: 1.4;
+}
+
+/* -----------------------------------
+   GRID SYSTEMS
+   ----------------------------------- */
+
+/* Info Grid - Overview cards */
+.info-grid {
+    /* CURRENT:
+       gap: clamp(0.75rem, 1.5vw, 1.25rem) - TOO TIGHT
+       margin-top: clamp(1.5rem, 3.5vw, 2.5rem)
+    */
+    /* PROPOSED: */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--grid-gap-normal);           /* 24px */
+    margin-top: var(--content-space-lg);   /* 48px from previous content */
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 768px) {
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--grid-gap-tight);  /* 16px on smaller screens */
+    }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 480px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Responsibilities Grid */
+.responsibilities-grid {
+    /* CURRENT: gap: clamp(0.75rem, 1.5vw, 1.25rem) */
+    /* PROPOSED: */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-gap-normal);           /* 24px */
+    margin-top: var(--content-space-md);   /* 32px */
+}
+
+/* Mobile: 1 column */
+@media (max-width: 768px) {
+    .responsibilities-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tech Stack Grid */
+.tech-list {
+    /* CURRENT: gap: clamp(0.75rem, 1.5vw, 1rem) */
+    /* PROPOSED: */
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap-tight);  /* 16px - tighter for stacked list */
+}
+
+/* Challenge Grid */
+.challenge-grid {
+    /* CURRENT: gap: clamp(0.75rem, 1.5vw, 1.25rem) */
+    /* PROPOSED: */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--grid-gap-normal);  /* 24px */
+}
+
+/* -----------------------------------
+   CARD COMPONENTS - UNIFIED SPACING
+   ----------------------------------- */
+
+/* All card types receive consistent treatment */
+.info-item,
+.responsibility-card,
+.tech-item,
+.challenge-card,
+.summary-card {
+    /* CURRENT: Varies between clamp(1.25rem, 2.5vw, 1.5rem) and clamp(1.5rem, 3vw, 2rem) */
+    /* PROPOSED: Unified card padding */
+    background: #ffffff;
+    border: 1px solid rgba(0, 107, 63, 0.12);
+    border-radius: 16px;          /* Slightly reduced from 20px for tightness */
+    padding: var(--space-4);      /* 32px consistent padding */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Card internal spacing */
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);  /* 16px between label and value */
+}
+
+.responsibility-card,
+.tech-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-space-xs);  /* 12px - tighter for content cards */
+}
+
+/* Challenge cards with icon/index */
+.challenge-card {
+    display: flex;
+    gap: var(--space-3);           /* 24px between icon and content */
+    align-items: flex-start;
+}
+
+/* Mobile card padding reduction */
+@media (max-width: 768px) {
+    .info-item,
+    .responsibility-card,
+    .tech-item,
+    .challenge-card,
+    .summary-card {
+        padding: var(--space-3);  /* 24px on mobile */
+    }
+}
+
+/* -----------------------------------
+   CARD ACCENT BORDERS
+   ----------------------------------- */
+
+/* Left accent bar on all cards */
+.info-item::before,
+.responsibility-card::before,
+.tech-item::before,
+.challenge-card::before,
+.summary-card::before {
+    /* CURRENT: Various implementations */
+    /* PROPOSED: Unified accent */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 3px;  /* Thinner from 4px */
+    background: linear-gradient(
+        180deg,
+        rgba(0, 107, 63, 0.4) 0%,
+        rgba(16, 207, 116, 0.3) 50%,
+        rgba(0, 107, 63, 0.2) 100%
+    );
+    border-radius: 0 2px 2px 0;
+}
+
+/* -----------------------------------
+   CARD TEXT ELEMENTS
+   ----------------------------------- */
+
+/* Info card labels */
+.info-label {
+    /* CURRENT: font-size: clamp(0.6rem, 1.2vw, 0.7rem) - TOO SMALL */
+    /* PROPOSED: */
+    font-family: var(--font-greeting);
+    font-size: 0.75rem;           /* 12px */
+    font-weight: 600;
+    color: var(--kenyan-green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;        /* Reduced from 0.12em */
+    margin: 0;
+}
+
+/* Info card values */
+.info-value {
+    /* CURRENT: font-size: clamp(1.2rem, 2.5vw, 1.4rem) */
+    /* PROPOSED: */
+    font-family: var(--font-name);
+    font-size: 1.5rem;            /* 24px */
+    font-weight: 600;             /* Lighter from 700 */
+    color: var(--primary-text);
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* Tech item name */
+.tech-name {
+    /* CURRENT: font-size: clamp(1.1rem, 1.8vw, 1.25rem) */
+    /* PROPOSED: */
+    font-family: var(--font-name);
+    font-size: 1.25rem;           /* 20px */
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: 0;
+}
+
+/* Tech description */
+.tech-description {
+    /* CURRENT: font-size: clamp(0.9rem, 1.2vw, 1rem) */
+    /* PROPOSED: */
+    font-family: var(--font-body);
+    font-size: 0.9375rem;         /* 15px */
+    line-height: 1.6;
+    color: var(--secondary-text);
+    margin: 0;
+}
+
+/* Tech version badge */
+.tech-version {
+    /* CURRENT: font-size: clamp(0.7rem, 1vw, 0.85rem) */
+    /* PROPOSED: */
+    font-family: var(--font-greeting);
+    font-size: 0.75rem;           /* 12px */
+    font-weight: 600;
+    color: var(--kenyan-green);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;       /* Reduced from 0.1em */
+    opacity: 0.9;                 /* Increased from 0.8 */
+    margin-top: var(--space-1);   /* 8px */
+}
+
+/* -----------------------------------
+   SPECIAL SECTIONS
+   ----------------------------------- */
+
+/* Role Description callout */
+.role-description {
+    /* CURRENT:
+       margin: 0 0 clamp(1.5rem, 3vw, 2.5rem) 0
+       padding: 1.5rem
+       background: rgba(255, 255, 255, 0.6) - TOO TRANSPARENT
+    */
+    /* PROPOSED: */
+    font-family: var(--font-body);
+    font-size: 1.0625rem;         /* 17px - slightly larger */
+    line-height: 1.65;
+    color: var(--primary-text);   /* Darker from secondary-text */
+    margin: 0 0 var(--content-space-lg) 0;  /* 48px bottom */
+    padding: var(--space-4);      /* 32px */
+    background: rgba(248, 250, 252, 0.8);  /* Less transparent */
+    border-left: 3px solid rgba(0, 107, 63, 0.15);
+    border-radius: 0 12px 12px 0;
+    backdrop-filter: blur(10px);
+}
+
+/* Lead text (intro paragraphs) */
+.lead-text {
+    /* CURRENT: font-size: clamp(1rem, 1.5vw, 1.05rem) */
+    /* PROPOSED: */
+    font-family: var(--font-body);
+    font-size: 1.125rem;          /* 18px - larger than body */
+    line-height: 1.65;
+    color: var(--primary-text);
+    max-width: 70ch;
+    margin-bottom: var(--content-space-lg);  /* 48px */
+    padding-bottom: var(--space-3);          /* 24px */
+    border-bottom: 1px solid rgba(0, 107, 63, 0.08);
+}
+
+/* Summary cards */
+.summary-card {
+    /* Already defined above in unified cards */
+    /* Additional specific styling: */
+}
+
+.summary-label {
+    font-family: var(--font-greeting);
+    font-size: 0.625rem;          /* 10px */
+    text-transform: uppercase;
+    letter-spacing: 0.15em;       /* Reduced from 0.2em */
+    color: var(--kenyan-green);
+    margin: 0 0 var(--space-1) 0; /* 8px */
+}
+
+.summary-value {
+    font-family: var(--font-name);
+    font-size: 1.75rem;           /* 28px */
+    font-weight: 600;
+    margin: 0;
+    color: var(--primary-text);
+}
+
+.summary-text {
+    font-size: 0.9375rem;         /* 15px */
+    color: var(--secondary-text);
+    margin: var(--space-1) 0 0 0; /* 8px top */
+}
+
+/* -----------------------------------
+   TIMELINE COMPONENTS
+   ----------------------------------- */
+
+.timeline-section {
+    margin-bottom: var(--content-space-xl);  /* 64px */
+    padding-bottom: var(--content-space-lg); /* 48px */
+    border-bottom: 1px solid rgba(0, 107, 63, 0.08);
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);  /* 32px between timeline items */
+}
+
+.timeline-item {
+    display: flex;
+    gap: var(--space-3);  /* 24px between marker and content */
+    position: relative;
+}
+
+.timeline-marker {
+    font-family: var(--font-greeting);
+    font-size: 0.875rem;          /* 14px */
+    font-weight: 600;
+    color: var(--kenyan-green);
+    background: rgba(0, 107, 63, 0.1);
+    padding: var(--space-1) var(--space-2);  /* 8px 16px */
+    border-radius: 8px;
+    flex-shrink: 0;
+    min-width: 80px;
+    text-align: center;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+/* -----------------------------------
+   ROLE SECTION SPECIFIC
+   ----------------------------------- */
+
+.role-section {
+    /* CURRENT: margin-bottom: clamp(2.5rem, 4vw, 4rem) */
+    /* PROPOSED: */
+    margin-bottom: var(--content-space-xl);  /* 64px */
+    padding-bottom: var(--content-space-lg); /* 48px */
+    border-bottom: 1px solid rgba(0, 107, 63, 0.08);
+    position: relative;
+}
+
+/* Subtle accent line at bottom of section */
+.role-section::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 107, 63, 0.2) 0%,
+        rgba(0, 107, 63, 0) 100%
+    );
+}
+
+/* -----------------------------------
+   TECH STACK SECTION SPECIFIC
+   ----------------------------------- */
+
+.tech-stack-overview {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-space-xl);  /* 64px between categories */
+}
+
+.stack-category {
+    margin-bottom: var(--content-space-md);  /* 32px */
+}
+
+/* -----------------------------------
+   CHALLENGE SECTION SPECIFIC
+   ----------------------------------- */
+
+.challenge-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--grid-gap-normal);              /* 24px */
+    margin-bottom: var(--content-space-lg);   /* 48px */
+}
+
+.card-index {
+    font-family: var(--font-greeting);
+    font-weight: 600;
+    font-size: 0.875rem;          /* 14px */
+    letter-spacing: 0.08em;
+    color: var(--kenyan-green);
+    padding: var(--space-1) var(--space-2);  /* 8px 16px */
+    border-radius: 999px;
+    background: rgba(0, 107, 63, 0.1);
+    flex-shrink: 0;
+}
+
+/* ===================================
+   COLOR SYSTEM - CONTENT PAGES
+   =================================== */
+
+/* Content pages use a distinct, professional palette */
+.content-page {
+    /* Primary text: Darker for better readability */
+    --content-primary-text: #1a202c;    /* Near black */
+    --content-secondary-text: #4a5568;  /* Charcoal gray */
+    --content-tertiary-text: #718096;   /* Medium gray */
+    
+    /* Backgrounds: Pure and clean */
+    --content-bg-primary: #ffffff;      /* Pure white */
+    --content-bg-secondary: #f7fafc;    /* Off-white */
+    --content-bg-tertiary: #edf2f7;     /* Light gray */
+    
+    /* Kenyan accents: More vibrant than main page */
+    --content-accent-green: #006b3f;    /* Full green */
+    --content-accent-red: #ce1126;      /* Full red */
+    --content-accent-black: #000000;    /* Pure black */
+    
+    /* Borders: Subtle and refined */
+    --content-border-light: rgba(0, 0, 0, 0.08);
+    --content-border-medium: rgba(0, 0, 0, 0.12);
+    --content-border-accent: rgba(0, 107, 63, 0.15);
+    
+    /* Shadows: Clean and modern */
+    --content-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+    --content-shadow-md: 0 2px 12px rgba(0, 0, 0, 0.06);
+    --content-shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ===================================
+   RESPONSIVE BREAKPOINTS SUMMARY
+   =================================== */
+
+/*
+MOBILE (< 480px):
+- .content-page: padding 32px, gap 32px
+- .info-grid: 1 column
+- All cards: padding 24px
+- Font sizes: base sizes
+
+TABLET (480px - 768px):
+- .content-page: padding 48px, gap 48px
+- .info-grid: 2 columns
+- .responsibilities-grid: 1 column
+- All cards: padding 24px
+
+DESKTOP (768px - 1200px):
+- .content-page: padding 48px, gap 48px, max-width 1100px
+- All grids: full columns
+- All cards: padding 32px
+- Fonts: +1 size increment
+
+LARGE DESKTOP (> 1200px):
+- .page-title: 48px
+- .page-content: 17px, line-height 1.7
+- Section h3: 28px
+- Full layout preserved
+*/
+
+/* ===================================
+   SPACING DECISION RATIONALE
+   =================================== */
+
+/*
+WHY THESE SPACING VALUES:
+=========================
+
+1. 8px BASE UNIT:
+   - Industry standard (Material Design, iOS HIG)
+   - Ensures pixel-perfect alignment across all screen densities
+   - Easy mental math for developers
+
+2. TITLE → SUBTITLE GAP (24px):
+   - Establishes clear hierarchy
+   - Previous 8-16px was too tight for h2 element
+   - Allows subtitle to breathe without disconnecting
+
+3. SUBTITLE → CONTENT GAP (32px):
+   - Larger gap signals start of body content
+   - Clear visual separation between metadata and information
+   - Prevents crowding
+
+4. PARAGRAPH SPACING (24px):
+   - Optimal for readability (1.5x base unit)
+   - Previous double-spacing (32-48px) was excessive
+   - Maintains rhythm without fragmentation
+
+5. CARD PADDING (32px):
+   - Generous internal breathing room
+   - Previous clamp ranges created unpredictable layouts
+   - Consistent across all card types for unity
+
+6. GRID GAPS (16px - 24px):
+   - 16px for tight lists (tech stack)
+   - 24px for card grids (info, responsibilities)
+   - Previous 12-20px was too cramped for cards
+
+7. SECTION BREAKS (48px - 64px):
+   - Large gaps between major sections
+   - Clear content chunking
+   - Prevents overwhelming wall of text
+
+8. REMOVED CLAMP():
+   - Fixed values provide predictability
+   - Breakpoint-based changes via media queries
+   - Easier to debug and maintain
+*/
+
+/* ===================================
+   IMPLEMENTATION NOTES
+   =================================== */
+
+/*
+NEXT STEPS (DO NOT IMPLEMENT YET):
+===================================
+
+1. Review this file with stakeholder
+2. Validate spacing values against design mockups
+3. Test color contrast ratios (WCAG AA compliance)
+4. Create side-by-side comparison screenshots
+5. Once approved, systematically replace portfolio.css values
+6. Test across all breakpoints
+7. Verify no visual regressions
+
+FILES TO UPDATE:
+- portfolio.css (replace content-related styles)
+- portfolio.html (ensure class names match)
+
+CLASSES TO DEPRECATE:
+- Remove all clamp() functions in content sections
+- Consolidate card component variations
+- Standardize h3/h4 margin/padding across sections
+*/

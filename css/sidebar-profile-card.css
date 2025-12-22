@@ -3,12 +3,12 @@
    Full ProfileCard design adapted for sidebar positioning
    ============================================ */
 
-/* Container - Fixed Sidebar Positioning (Same dimensions as standalone card) */
+/* Container - Fixed Sidebar Positioning */
 .pill-sidebar {
     position: fixed;
     left: 2rem;
     top: 50%;
-    transform: translateY(-50%) scale(1.176); /* Counter body scale to keep normal size */
+    transform: translateY(-50%) scale(1.176);
     transform-origin: left center;
     width: 320px;
     background: rgba(255, 255, 255, 0.4);
@@ -20,7 +20,7 @@
         0 8px 16px rgba(0, 0, 0, 0.08);
     overflow: visible;
     z-index: 50;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Hide by default - show only on specific pages */
     display: none;
@@ -33,7 +33,7 @@ body.contact-page .pill-sidebar {
 }
 
 .pill-sidebar:hover {
-    transform: translateY(-50%) translateY(-8px) scale(1.176); /* Maintain scale on hover */
+    transform: translateY(-50%) translateY(-8px) scale(1.176);
     box-shadow:
         0 28px 80px rgba(0, 0, 0, 0.16),
         0 12px 24px rgba(0, 0, 0, 0.12);
@@ -638,4 +638,219 @@ body.dark-theme .progress-bar {
 /* Dark Mode Profile Photo - Black border */
 body.dark-theme .profile-photo {
     border-color: #000000;
+}
+
+/* ============================================
+   CARD STATE TRANSITIONS
+   ============================================ */
+
+.pill-sidebar {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Content Wrapper */
+.card-content {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.card-content[style*="display: none"] {
+    opacity: 0;
+}
+
+.card-content-inner {
+    padding: 1.25rem;
+}
+
+/* State Title */
+.card-state-title {
+    font-family: "Enriqueta", serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+body.dark-theme .card-state-title {
+    color: #e8edf3;
+}
+
+/* Project Navigation List */
+.project-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+.project-nav-item {
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    color: #6b7280;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+}
+
+.project-nav-item.active {
+    color: #006b3f;
+    font-weight: 600;
+}
+
+body.dark-theme .project-nav-item {
+    color: #a8b5c7;
+}
+
+body.dark-theme .project-nav-item.active {
+    color: #10cf74;
+}
+
+/* Card Stats */
+.card-stats {
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+body.dark-theme .card-stats {
+    color: #6b7a8f;
+}
+
+/* Card Link */
+.card-link {
+    display: block;
+    text-align: center;
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    color: #006b3f;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.card-link:hover {
+    color: #004d2d;
+}
+
+body.dark-theme .card-link {
+    color: #10cf74;
+}
+
+body.dark-theme .card-link:hover {
+    color: #0ea55e;
+}
+
+/* Tech Preview */
+.tech-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tech-category-preview {
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    color: #1a1a1a;
+}
+
+.tech-category-preview strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #006b3f;
+}
+
+body.dark-theme .tech-category-preview {
+    color: #e8edf3;
+}
+
+body.dark-theme .tech-category-preview strong {
+    color: #10cf74;
+}
+
+/* Testimonial Preview */
+.testimonial-preview {
+    margin-bottom: 1rem;
+}
+
+.testimonial-quote {
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+body.dark-theme .testimonial-quote {
+    color: #e8edf3;
+}
+
+body.dark-theme .testimonial-author {
+    color: #a8b5c7;
+}
+
+/* Carousel Indicators Mini */
+.carousel-indicators-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 1rem;
+}
+
+body.dark-theme .carousel-indicators-mini {
+    color: #a8b5c7;
+}
+
+/* CTA Preview */
+.cta-preview-text {
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+    margin: 0 0 1rem 0;
+}
+
+body.dark-theme .cta-preview-text {
+    color: #a8b5c7;
+}
+
+.card-cta-button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #006b3f;
+    color: #ffffff;
+    text-align: center;
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+    margin-bottom: 1rem;
+}
+
+.card-cta-button:hover {
+    background: #004d2d;
+    transform: translateY(-2px);
+}
+
+body.dark-theme .card-cta-button {
+    background: #10cf74;
+    color: #0a0e12;
+}
+
+body.dark-theme .card-cta-button:hover {
+    background: #0ea55e;
 }

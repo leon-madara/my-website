@@ -550,3 +550,221 @@ body.dark-theme .theme-toggle-wrapper .toggle-switch {
 html body .header-logo {
     transform: none;
 }
+
+/* ============================================
+   MOBILE BOTTOM NAVIGATION (Homepage Only)
+   ============================================ */
+
+/* Hidden by default (desktop) */
+.mobile-bottom-nav {
+    display: none;
+}
+
+/* Simple Theme Toggle - Hidden by default (desktop) */
+.theme-toggle-simple {
+    display: none;
+}
+
+/* ============================================
+   MOBILE STYLES (<=768px) - Homepage Only
+   ============================================ */
+@media (max-width: 768px) {
+    /* Hide desktop nav-pills on mobile (all pages) */
+    .nav-pills {
+        display: none;
+    }
+    
+    /* Hide elaborate theme toggle on mobile (all pages) */
+    .theme-toggle-wrapper {
+        display: none;
+    }
+    
+    /* Hide existing theme-toggle button on about.html on mobile */
+    .theme-toggle {
+        display: none;
+    }
+    
+    /* Show simple theme toggle on mobile (all pages) */
+    .theme-toggle-simple {
+        display: flex;
+        position: fixed;
+        top: 12px;
+        right: 20px;
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .theme-toggle-simple:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .theme-toggle-simple:active {
+        transform: scale(0.95);
+    }
+    
+    .theme-toggle-simple svg {
+        width: 20px;
+        height: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Sun icon - visible in light mode */
+    .theme-toggle-simple .sun-icon {
+        display: block;
+        color: #f59e0b;
+    }
+    
+    /* Moon icon - hidden in light mode */
+    .theme-toggle-simple .moon-icon {
+        display: none;
+        color: #6366f1;
+    }
+    
+    /* Dark mode: swap icons */
+    body.dark-theme .theme-toggle-simple {
+        background: rgba(30, 39, 48, 0.9);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    body.dark-theme .theme-toggle-simple .sun-icon {
+        display: none;
+    }
+    
+    body.dark-theme .theme-toggle-simple .moon-icon {
+        display: block;
+    }
+    
+    /* Show mobile bottom nav on mobile (all pages) */
+    .mobile-bottom-nav {
+        display: flex;
+        padding-bottom: env(safe-area-inset-bottom);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        justify-content: space-around;
+        align-items: center;
+        height: 60px;
+        padding-bottom: env(safe-area-inset-bottom, 0);
+        background: linear-gradient(90deg, rgba(23, 125, 81, 0.95) 0%, rgba(124, 4, 4, 1) 100%);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 0;
+        border-top-color: rgba(0, 0, 0, 0);
+        border-top-style: none;
+        border-image: none;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: rgba(255, 235, 235, 1);
+        font-size: 10px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .mobile-nav-item svg {
+        width: 24px;
+        height: 24px;
+        stroke-width: 1.5;
+        stroke: rgba(255, 235, 235, 1);
+        transition: all 0.2s ease;
+    }
+    
+    .mobile-nav-item span {
+        transition: all 0.2s ease;
+    }
+    
+    /* Active state */
+    .mobile-nav-item.active {
+        color: #0adf86;
+    }
+    
+    .mobile-nav-item.active svg {
+        transform: scale(1.1);
+        stroke-width: 2;
+        stroke: #0adf86;
+    }
+    
+    /* Tap/press feedback */
+    .mobile-nav-item:active {
+        transform: scale(0.92);
+    }
+    
+    /* Dark mode bottom nav */
+    body.dark-theme .mobile-bottom-nav {
+        background: rgba(20, 25, 32, 0.95);
+        border-top-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    body.dark-theme .mobile-nav-item {
+        color: #8899a6;
+    }
+    
+    body.dark-theme .mobile-nav-item svg {
+        stroke: #8899a6;
+    }
+    
+    body.dark-theme .mobile-nav-item.active {
+        color: #0adf86;
+    }
+    
+    body.dark-theme .mobile-nav-item.active svg {
+        stroke: #0adf86;
+    }
+}
+
+/* Extra small mobile adjustments */
+@media (max-width: 400px) {
+    .theme-toggle-simple {
+        top: 10px;
+        right: 15px;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .theme-toggle-simple svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .mobile-bottom-nav {
+        height: 56px;
+    }
+    
+    .mobile-nav-item {
+        padding: 6px 10px;
+        font-size: 9px;
+    }
+    
+    .mobile-nav-item svg {
+        width: 22px;
+        height: 22px;
+    }
+}
