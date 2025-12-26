@@ -260,6 +260,11 @@ function collapsePortfolioHeaderSection() {
 function initializeProjectToggle() {
     console.log('Initializing project toggle...');
 
+    // Load initial project content
+    if (typeof PortfolioContentLoader !== 'undefined') {
+        PortfolioContentLoader.loadProjectContent(PortfolioState.currentProject);
+    }
+
     // Set initial active state (project 2 is default)
     updateProjectToggleUI(PortfolioState.currentProject);
 }
@@ -761,7 +766,10 @@ async function switchProject(newProjectNumber) {
     PortfolioState.currentProject = newProjectNumber;
     updateProjectToggleUI(newProjectNumber);
 
-    // TODO: Load new project content here
+    // Load new project content
+    if (typeof PortfolioContentLoader !== 'undefined') {
+        PortfolioContentLoader.loadProjectContent(newProjectNumber);
+    }
     // For now, we'll just reset to first page
     PortfolioState.currentPage = 0;
 

@@ -7,6 +7,7 @@ const projectsData = {
         tagline: 'Modern E-Commerce Platform | React 18 + TypeScript + Supabase',
         status: 'Production-Ready',
         timeline: '3 weeks',
+        caseStudy: true,
 
         quickStats: {
             duration: '3 weeks',
@@ -262,6 +263,7 @@ const projectsData = {
         tagline: 'Enterprise Freight Logistics Platform | React + TypeScript + Supabase',
         status: 'Production-Ready',
         timeline: '8 weeks',
+        caseStudy: true,
 
         quickStats: {
             duration: '8 weeks',
@@ -411,6 +413,7 @@ const projectsData = {
         tagline: 'AI-Powered Automated Timetable Generator | React + FastAPI + PostgreSQL',
         status: 'Production-Ready',
         timeline: '3 months',
+        caseStudy: true,
 
         quickStats: {
             duration: '3 months',
@@ -424,6 +427,13 @@ const projectsData = {
             live: null,
             github: 'https://github.com/leon-madara/school-management-system/',
             demo: null
+        },
+
+        hero: {
+            role: 'Full Stack Developer',
+            client: 'Kenyan Secondary Schools (CBC)',
+            duration: '3 months',
+            status: 'Production-Ready'
         },
 
         overview: {

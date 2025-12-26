@@ -45,6 +45,17 @@
             pointer-events: none;
         }
     </style>
+    
+    <!-- Emergency Portfolio Enabler -->
+    <script>
+        // Emergency fallback to ensure portfolio is always clickable
+        setTimeout(function() {
+            if (!document.body.classList.contains('entrance-complete')) {
+                console.log('🚨 Emergency fallback: Enabling portfolio after 3 seconds');
+                document.body.classList.add('entrance-complete');
+            }
+        }, 3000); // 3 second emergency fallback
+    </script>
 </head>
 
 <body class="portfolio-page">
@@ -2053,6 +2064,8 @@ const { data: carriers } = useQuery({
 
     <!-- Main Scripts -->
     <script src="js/main.js"></script>
+    <script src="js/projectData.js"></script>
+    <script src="js/portfolioContentLoader.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/portfolio-entrance.js"></script>
     <script src="js/profile-card.js"></script>
