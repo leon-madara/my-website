@@ -1,0 +1,1361 @@
+/* EduManage Case Study - Dedicated Styles */
+
+/* ================================
+   CSS Variables
+   ================================ */
+:root {
+    /* Dark theme (default) */
+    --edu-bg: #0a0a0b;
+    --edu-surface: #141416;
+    --edu-border: #2a2a2e;
+    --edu-text: #e4e4e7;
+    --edu-text-muted: #a1a1aa;
+    --edu-accent: #22c55e;
+    --edu-accent-muted: rgba(34, 197, 94, 0.15);
+    --edu-warning: #f59e0b;
+    --edu-warning-muted: rgba(245, 158, 11, 0.15);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* Kenyan flag colors (refined) */
+    --kenya-black: #0a0a0b;
+    --kenya-red: #BB0000;
+    --kenya-green: #006B3F;
+    --kenya-white: #ffffff;
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --edu-bg: #ffffff;
+    --edu-surface: #f4f4f5;
+    --edu-border: #e4e4e7;
+    --edu-text: #18181b;
+    --edu-text-muted: #71717a;
+    --edu-accent: #16a34a;
+    --edu-accent-muted: rgba(22, 163, 74, 0.12);
+    --edu-warning: #d97706;
+    --edu-warning-muted: rgba(217, 119, 6, 0.12);
+}
+
+/* Respect system preference */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        --edu-bg: #ffffff;
+        --edu-surface: #f4f4f5;
+        --edu-border: #e4e4e7;
+        --edu-text: #18181b;
+        --edu-text-muted: #71717a;
+        --edu-accent: #16a34a;
+        --edu-accent-muted: rgba(22, 163, 74, 0.12);
+        --edu-warning: #d97706;
+        --edu-warning-muted: rgba(217, 119, 6, 0.12);
+    }
+}
+
+/* ================================
+   Kenyan Tricolor Stripe
+   ================================ */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        to bottom,
+        var(--kenya-black) 0%,
+        var(--kenya-black) 33.33%,
+        var(--kenya-red) 33.33%,
+        var(--kenya-red) 66.66%,
+        var(--kenya-green) 66.66%,
+        var(--kenya-green) 100%
+    );
+    z-index: 1000;
+}
+
+[data-theme="light"] body::before {
+    background: linear-gradient(
+        to bottom,
+        #18181b 0%,
+        #18181b 33.33%,
+        var(--kenya-red) 33.33%,
+        var(--kenya-red) 66.66%,
+        var(--kenya-green) 66.66%,
+        var(--kenya-green) 100%
+    );
+}
+
+/* ================================
+   Reset & Base
+   ================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--edu-text);
+    background: var(--edu-bg);
+    min-height: 100vh;
+}
+
+/* ================================
+   Back Navigation
+   ================================ */
+.back-nav {
+    position: fixed;
+    top: 3px; /* Account for tricolor stripe */
+    left: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    background: rgba(10, 10, 11, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--edu-border);
+    z-index: 100;
+}
+
+[data-theme="light"] .back-nav {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--edu-text-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--edu-text);
+}
+
+/* ================================
+   Section Navigation (Sticky Sidebar)
+   ================================ */
+.section-nav {
+    position: fixed;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    z-index: 50;
+}
+
+.nav-item {
+    font-size: 0.75rem;
+    color: var(--edu-text-muted);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-left: 2px solid transparent;
+    padding-left: 0.75rem;
+    transition: all 0.2s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    color: var(--edu-accent);
+    border-left-color: var(--edu-accent);
+}
+
+/* ================================
+   Main Content Area
+   ================================ */
+.case-study {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+}
+
+/* ================================
+   Hero Section
+   ================================ */
+.hero {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--edu-border);
+    margin-bottom: 4rem;
+}
+
+.hero-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--edu-accent);
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.hero-tagline {
+    font-size: 1.25rem;
+    color: var(--edu-text-muted);
+    margin-bottom: 2rem;
+}
+
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.meta-item {
+    font-size: 0.875rem;
+    color: var(--edu-text-muted);
+}
+
+.meta-item strong {
+    color: var(--edu-text);
+}
+
+/* ================================
+   Sections
+   ================================ */
+.section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--edu-border);
+}
+
+.section:last-of-type {
+    border-bottom: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.section-content p {
+    margin-bottom: 1.5rem;
+}
+
+.lead {
+    font-size: 1.25rem;
+    color: var(--edu-text);
+    font-weight: 500;
+}
+
+/* ================================
+   Stat Cards
+   ================================ */
+.stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--edu-accent);
+    font-family: var(--font-mono);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--edu-text-muted);
+    margin-top: 0.5rem;
+}
+
+/* ================================
+   Diagrams
+   ================================ */
+.diagram {
+    margin: 2rem 0;
+}
+
+.diagram-placeholder {
+    background: var(--edu-surface);
+    border: 2px dashed var(--edu-border);
+    border-radius: 8px;
+    padding: 3rem;
+    text-align: center;
+    color: var(--edu-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+.diagram figcaption {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--edu-text-muted);
+    margin-top: 1rem;
+}
+
+/* ================================
+   Constraint List
+   ================================ */
+.constraint-list {
+    margin-top: 2rem;
+}
+
+.constraint-list h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.constraint-list h3:first-child {
+    margin-top: 0;
+}
+
+.constraint-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.constraint-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--edu-text-muted);
+}
+
+.constraint-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--edu-accent);
+}
+
+/* ================================
+   Decision Grid
+   ================================ */
+.decision-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.decision-card {
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.decision-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--edu-text);
+}
+
+.decision-card p {
+    font-size: 0.9375rem;
+    color: var(--edu-text-muted);
+    margin-bottom: 0;
+}
+
+/* ================================
+   Tech Breakdown
+   ================================ */
+.tech-breakdown {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tech-item h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--edu-accent);
+    margin-bottom: 0.5rem;
+}
+
+.tech-item p {
+    font-size: 0.875rem;
+    color: var(--edu-text-muted);
+    margin-bottom: 0;
+}
+
+/* ================================
+   Results Grid
+   ================================ */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.result-card {
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.result-card.success {
+    border-color: var(--edu-accent);
+    background: var(--edu-accent-muted);
+}
+
+.result-card.partial {
+    border-color: var(--edu-warning);
+    background: var(--edu-warning-muted);
+}
+
+.result-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+.result-card.success .result-value {
+    color: var(--edu-accent);
+}
+
+.result-card.partial .result-value {
+    color: var(--edu-warning);
+}
+
+.result-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--edu-text);
+    margin-top: 0.25rem;
+}
+
+.result-context {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--edu-text-muted);
+    margin-top: 0.5rem;
+}
+
+/* ================================
+   Limitations
+   ================================ */
+.limitations {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+}
+
+.limitations h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.limitations ul {
+    list-style: none;
+    padding: 0;
+}
+
+.limitations li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--edu-text-muted);
+}
+
+.limitations li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--edu-warning);
+}
+
+/* ================================
+   Learnings
+   ================================ */
+.learning-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.learning-item h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.learning-item p {
+    color: var(--edu-text-muted);
+    margin-bottom: 0;
+}
+
+/* ================================
+   Footer
+   ================================ */
+.case-study-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--edu-border);
+}
+
+.back-link-footer {
+    color: var(--edu-text-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+}
+
+.back-link-footer:hover {
+    color: var(--edu-text);
+}
+
+.project-links a {
+    color: var(--edu-accent);
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.project-links a:hover {
+    text-decoration: underline;
+}
+
+/* ================================
+   Responsive
+   ================================ */
+@media (max-width: 1024px) {
+    .section-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .case-study {
+        padding: 5rem 1.5rem 3rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .stat-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-breakdown {
+        grid-template-columns: 1fr;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .case-study-footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+/* ================================
+   Architecture Visual Diagram
+   ================================ */
+.arch-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+}
+
+.arch-layer {
+    width: 100%;
+    max-width: 400px;
+    padding: 1.25rem;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid var(--edu-border);
+}
+
+.arch-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.arch-tech {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--edu-accent);
+    margin-bottom: 0.5rem;
+}
+
+.arch-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--edu-text-muted);
+}
+
+.arch-arrow {
+    font-size: 1.25rem;
+    color: var(--edu-text-muted);
+}
+
+.arch-frontend { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); }
+.arch-backend { background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); }
+.arch-database { background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3); }
+.arch-algorithm { background: rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.3); }
+
+.arch-frontend .arch-label { color: #3b82f6; }
+.arch-backend .arch-label { color: #22c55e; }
+.arch-database .arch-label { color: #a855f7; }
+.arch-algorithm .arch-label { color: #f97316; }
+
+/* ================================
+   Constraint Web Visual
+   ================================ */
+.constraint-web {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.constraint-web .node {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 4px;
+    font-size: 0.8125rem;
+}
+
+.constraint-web .node-center {
+    background: var(--edu-accent-muted);
+    border-color: var(--edu-accent);
+    color: var(--edu-accent);
+    font-weight: 600;
+}
+
+/* ================================
+   Results Detail
+   ================================ */
+.results-detail {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+}
+
+.results-detail h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.results-detail p {
+    margin-bottom: 1rem;
+    color: var(--edu-text-muted);
+}
+
+.results-detail p:last-child {
+    margin-bottom: 0;
+}
+
+.results-detail strong {
+    color: var(--edu-text);
+}
+
+/* ================================
+   Limitations Enhanced
+   ================================ */
+.limitations p {
+    color: var(--edu-text-muted);
+    margin-bottom: 1rem;
+}
+
+.limitations li strong {
+    color: var(--edu-text);
+}
+
+/* ================================
+   Constraint Web Visual (Improved)
+   ================================ */
+.constraint-web-visual {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+}
+
+.web-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.web-node {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    background: var(--edu-bg);
+    border: 1px solid var(--edu-border);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--edu-text-muted);
+}
+
+.web-node-center {
+    background: var(--edu-accent-muted);
+    border-color: var(--edu-accent);
+    color: var(--edu-accent);
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+}
+
+.web-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.web-ring .web-node:nth-child(1) { position: absolute; top: 8%; left: 50%; transform: translateX(-50%); }
+.web-ring .web-node:nth-child(2) { position: absolute; top: 20%; right: 5%; }
+.web-ring .web-node:nth-child(3) { position: absolute; top: 55%; right: 3%; }
+.web-ring .web-node:nth-child(4) { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); }
+.web-ring .web-node:nth-child(5) { position: absolute; top: 60%; left: 3%; }
+.web-ring .web-node:nth-child(6) { position: absolute; top: 20%; left: 5%; }
+
+.web-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.web-lines line {
+    stroke: var(--edu-border);
+    stroke-width: 1;
+    stroke-dasharray: 4 2;
+}
+
+/* ================================
+   Flow Diagram
+   ================================ */
+.subsection-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--edu-text);
+}
+
+.flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background: var(--edu-surface);
+    border: 1px solid var(--edu-border);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 90px;
+    padding: 1rem 0.75rem;
+    background: var(--edu-bg);
+    border: 1px solid var(--edu-border);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.flow-step-final {
+    border-color: var(--edu-accent);
+    background: var(--edu-accent-muted);
+}
+
+.flow-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--edu-border);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.flow-step-final .flow-number {
+    background: var(--edu-accent);
+    color: var(--edu-bg);
+}
+
+.flow-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--edu-text);
+    margin-bottom: 0.25rem;
+}
+
+.flow-desc {
+    font-size: 0.6875rem;
+    color: var(--edu-text-muted);
+}
+
+.flow-arrow {
+    color: var(--edu-text-muted);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+/* ================================
+   Screenshot Placeholders
+   ================================ */
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.screenshot-placeholder {
+    margin: 0;
+}
+
+.screenshot-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    padding: 1.5rem;
+    background: var(--edu-surface);
+    border: 2px dashed var(--edu-border);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.screenshot-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--edu-accent);
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--edu-accent-muted);
+    border-radius: 4px;
+}
+
+.screenshot-hint {
+    font-size: 0.75rem;
+    color: var(--edu-text-muted);
+}
+
+.screenshot-placeholder figcaption {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--edu-text-muted);
+    margin-top: 0.75rem;
+}
+
+/* When you add actual screenshots, use this class */
+.screenshot-box.has-image {
+    border-style: solid;
+    padding: 0;
+    overflow: hidden;
+}
+
+.screenshot-box.has-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .screenshot-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .flow-diagram {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .flow-arrow {
+        display: none;
+    }
+}
+
+/* ================================
+   Polish: Smooth Scrolling & Transitions
+   ================================ */
+html {
+    scroll-padding-top: 5.25rem; /* Account for nav + stripe */
+}
+
+a {
+    transition: color 0.2s ease;
+}
+
+.section {
+    scroll-margin-top: 5.25rem;
+}
+
+/* ================================
+   Polish: Selection & Focus States
+   ================================ */
+::selection {
+    background: var(--edu-accent);
+    color: var(--edu-bg);
+}
+
+:focus-visible {
+    outline: 2px solid var(--edu-accent);
+    outline-offset: 2px;
+}
+
+.back-link:focus-visible,
+.nav-item:focus-visible,
+.project-links a:focus-visible {
+    outline-offset: 4px;
+}
+
+/* ================================
+   Polish: Better Typography
+   ================================ */
+.section-content p + p {
+    margin-top: 1rem;
+}
+
+.decision-card p + p {
+    margin-top: 0.75rem;
+}
+
+.learning-item p + p {
+    margin-top: 0.75rem;
+}
+
+/* ================================
+   Polish: Hover States
+   ================================ */
+.stat-card {
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--edu-accent);
+    transform: translateY(-2px);
+}
+
+.decision-card {
+    transition: border-color 0.2s ease;
+}
+
+.decision-card:hover {
+    border-color: var(--edu-text-muted);
+}
+
+.result-card {
+    transition: transform 0.2s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-2px);
+}
+
+.flow-step {
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.flow-step:hover {
+    border-color: var(--edu-text-muted);
+    transform: translateY(-2px);
+}
+
+.arch-layer {
+    transition: transform 0.2s ease;
+}
+
+.arch-layer:hover {
+    transform: scale(1.02);
+}
+
+/* ================================
+   Polish: Print Styles
+   ================================ */
+@media print {
+    .back-nav,
+    .section-nav {
+        display: none;
+    }
+    
+    .case-study {
+        padding: 0;
+        max-width: 100%;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+    
+    .diagram-placeholder,
+    .screenshot-box {
+        border-style: solid;
+    }
+}
+
+/* ================================
+   Responsive: Tablet (1024px)
+   ================================ */
+@media (max-width: 1024px) {
+    .section-nav {
+        display: none;
+    }
+    
+    .case-study {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+/* ================================
+   Responsive: Mobile (768px)
+   ================================ */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+    
+    .back-nav {
+        padding: 0.75rem 1rem;
+    }
+    
+    .case-study {
+        padding: 4.5rem 1rem 2rem;
+    }
+
+    .hero {
+        padding: 2.5rem 0 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .hero-title {
+        font-size: 2.25rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.1rem;
+    }
+
+    .hero-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .section {
+        padding: 2.5rem 0;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+    }
+
+    .stat-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        padding: 1.25rem;
+    }
+    
+    .stat-value {
+        font-size: 1.75rem;
+    }
+
+    .decision-grid {
+        gap: 1rem;
+    }
+    
+    .decision-card {
+        padding: 1.25rem;
+    }
+    
+    .decision-card h3 {
+        font-size: 0.9375rem;
+    }
+
+    .tech-breakdown {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .result-card {
+        padding: 1.25rem;
+    }
+    
+    .result-value {
+        font-size: 1.75rem;
+    }
+
+    .limitations {
+        padding: 1.25rem;
+    }
+
+    .learning-item h3 {
+        font-size: 1rem;
+    }
+
+    .case-study-footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 2rem 0;
+    }
+    
+    /* Constraint web mobile */
+    .constraint-web-visual {
+        height: 320px;
+        max-width: 320px;
+    }
+    
+    .web-node {
+        font-size: 0.6875rem;
+        padding: 0.375rem 0.5rem;
+    }
+    
+    /* Architecture diagram mobile */
+    .arch-visual {
+        padding: 1.25rem;
+    }
+    
+    .arch-layer {
+        padding: 1rem;
+    }
+    
+    .arch-label {
+        font-size: 0.75rem;
+    }
+    
+    .arch-tech {
+        font-size: 0.75rem;
+    }
+    
+    .arch-desc {
+        font-size: 0.6875rem;
+    }
+    
+    /* Flow diagram mobile */
+    .flow-diagram {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        padding: 1.25rem;
+    }
+    
+    .flow-step {
+        flex-direction: row;
+        min-width: auto;
+        padding: 0.75rem 1rem;
+        gap: 0.75rem;
+    }
+    
+    .flow-number {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .flow-label {
+        margin-bottom: 0;
+    }
+    
+    .flow-desc {
+        margin-left: auto;
+    }
+    
+    .flow-arrow {
+        display: none;
+    }
+    
+    /* Screenshots mobile */
+    .screenshot-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .screenshot-box {
+        min-height: 140px;
+        padding: 1rem;
+    }
+    
+    .subsection-title {
+        margin-top: 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* ================================
+   Responsive: Small Mobile (480px)
+   ================================ */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.875rem;
+    }
+    
+    .section-title {
+        font-size: 1.375rem;
+    }
+    
+    .constraint-web-visual {
+        height: 280px;
+        max-width: 280px;
+    }
+    
+    .web-node {
+        font-size: 0.625rem;
+        padding: 0.25rem 0.375rem;
+    }
+    
+    .web-node-center {
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* ================================
+   Theme Toggle Button
+   ================================ */
+.theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--edu-border);
+    border-radius: 50%;
+    background: var(--edu-surface);
+    color: var(--edu-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    z-index: 100;
+}
+
+.theme-toggle:hover {
+    background: var(--edu-bg);
+    border-color: var(--edu-text-muted);
+    transform: scale(1.05);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--edu-accent);
+    outline-offset: 2px;
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Dark mode: show moon icon */
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+.theme-toggle .icon-moon {
+    display: block;
+}
+
+/* Light mode: show sun icon */
+[data-theme="light"] .theme-toggle .icon-sun {
+    display: block;
+}
+
+[data-theme="light"] .theme-toggle .icon-moon {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .theme-toggle {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+}

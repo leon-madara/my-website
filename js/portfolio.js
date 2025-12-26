@@ -385,6 +385,12 @@ function setupProjectToggleListeners() {
             const projectNumber = parseInt(this.dataset.project);
             console.log(`Project toggle clicked: ${projectNumber}`);
 
+            // EduManage (project 3) navigates to dedicated page
+            if (projectNumber === 3) {
+                window.location.href = 'edumanage.html';
+                return;
+            }
+
             // Prevent action if already active or animating
             if (projectNumber === PortfolioState.currentProject || PortfolioState.isAnimating) {
                 return;
