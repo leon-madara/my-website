@@ -18,6 +18,25 @@
     <link rel="stylesheet" href="css/edumanage.css">
 </head>
 <body>
+    <!-- Background Layers -->
+    <div class="background-pattern"></div>
+    <div class="background-gradient"></div>
+    <div class="floating-shapes">
+        <div class="floating-shape floating-shape-1"></div>
+        <div class="floating-shape floating-shape-2"></div>
+        <div class="floating-shape floating-shape-3"></div>
+        <div class="floating-shape floating-shape-4"></div>
+        <div class="floating-shape floating-shape-5"></div>
+    </div>
+    <div class="kenyan-code-elements">
+        <span class="code-element code-element-1">&lt;/&gt;</span>
+        <span class="code-element code-element-2">{ }</span>
+        <span class="code-element code-element-3">[ ]</span>
+        <span class="code-element code-element-4">( )</span>
+        <span class="code-element code-element-5">=&gt;</span>
+        <span class="code-element code-element-6">#</span>
+    </div>
+    
     <!-- Back Navigation -->
     <nav class="back-nav">
         <a href="portfolio.html" class="back-link">
@@ -26,6 +45,22 @@
             </svg>
             Back to Portfolio
         </a>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="4.22" x2="19.78" y2="5.64"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
     </nav>
 
     <!-- Sticky Section Navigation -->
@@ -56,6 +91,61 @@
                 </span>
             </div>
         </header>
+
+        <!-- Mobile Chapters Selector -->
+        <div class="chapters-selector-mobile">
+            <button class="chapters-button" aria-label="Choose chapter" aria-expanded="false">
+                <span class="chapters-button-text">Choose Chapter</span>
+                <svg class="chapters-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+            <div class="chapters-modal" role="dialog" aria-modal="true" aria-labelledby="chapters-title">
+                <div class="chapters-modal-content">
+                    <h3 id="chapters-title" class="chapters-modal-title">Choose Chapter</h3>
+                    <nav class="chapters-list">
+                        <a href="#crisis" class="chapters-item" data-chapter="The Crisis">The Crisis</a>
+                        <a href="#complexity" class="chapters-item" data-chapter="Why It's Hard">Why It's Hard</a>
+                        <a href="#approach" class="chapters-item" data-chapter="The Approach">The Approach</a>
+                        <a href="#architecture" class="chapters-item" data-chapter="Architecture">Architecture</a>
+                        <a href="#results" class="chapters-item" data-chapter="Results">Results</a>
+                        <a href="#learnings" class="chapters-item" data-chapter="Learnings">Learnings</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter Progress Indicator -->
+        <div class="chapter-progress-indicator" role="navigation" aria-label="Chapter navigation">
+            <div class="progress-line"></div>
+            <div class="progress-fill"></div>
+            <div class="chapter-markers">
+                <button class="chapter-marker" data-chapter="crisis" aria-label="The Crisis" title="The Crisis">
+                    <span class="marker-dot"></span>
+                    <span class="marker-tooltip" role="tooltip">The Crisis</span>
+                </button>
+                <button class="chapter-marker" data-chapter="complexity" aria-label="Why It's Hard" title="Why It's Hard">
+                    <span class="marker-dot"></span>
+                    <span class="marker-tooltip" role="tooltip">Why It's Hard</span>
+                </button>
+                <button class="chapter-marker" data-chapter="approach" aria-label="The Approach" title="The Approach">
+                    <span class="marker-dot"></span>
+                    <span class="marker-tooltip" role="tooltip">The Approach</span>
+                </button>
+                <button class="chapter-marker" data-chapter="architecture" aria-label="Architecture" title="Architecture">
+                    <span class="marker-dot"></span>
+                    <span class="marker-tooltip" role="tooltip">Architecture</span>
+                </button>
+                <button class="chapter-marker" data-chapter="results" aria-label="Results" title="Results">
+                    <span class="marker-dot"></span>
+                    <span class="marker-tooltip" role="tooltip">Results</span>
+                </button>
+                <button class="chapter-marker" data-chapter="learnings" aria-label="Learnings" title="Learnings">
+                    <span class="marker-dot"></span>
+                    <span class="marker-tooltip" role="tooltip">Learnings</span>
+                </button>
+            </div>
+        </div>
 
         <!-- Section 1: The Crisis -->
         <section id="crisis" class="section">
@@ -532,24 +622,10 @@
         </footer>
     </main>
 
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" aria-label="Toggle theme">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-    </button>
 
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
     <script src="js/edumanage.js"></script>
 </body>
 </html>
