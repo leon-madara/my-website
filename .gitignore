@@ -33,3 +33,10 @@ desktop.ini
 # Audio files (if too large, uncomment)
 # sounds/*.mp3
 
+# Disabled git repositories
+.git_disabled/
+**/.git_disabled/
+
+# Replit/development files
+.replit
+.local/

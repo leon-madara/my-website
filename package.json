@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "description": "Leon Madara's Portfolio Landing Page - Vanilla HTML/CSS/JavaScript",
     "scripts": {
-        "dev": "npx serve . -p 3000",
-        "serve": "npx serve . -p 3000",
-        "start": "npx serve . -p 3000"
+        "dev": "npx serve public -p 3000",
+        "serve": "npx serve public -p 3000",
+        "start": "npx serve public -p 3000"
     },
     "keywords": [
         "portfolio",

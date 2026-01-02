@@ -8,29 +8,58 @@
     --primary-text: #333;
     --secondary-text: rgba(51, 51, 51, 0.7);
     --accent-green: var(--kenyan-green);
-    --accent-green-light: #10CF74;
+    --accent-green-light: #10cf74;
     --background-light: hsl(48, 10%, 90%);
 
     /* Typography - Critical Path Only */
-    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-primary:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-size-hero: clamp(3rem, 8vw, 6rem);
     --font-size-subtitle: clamp(1.5rem, 4vw, 2.5rem);
     --font-size-body: clamp(1rem, 2.5vw, 1.125rem);
-    --font-size-greeting: clamp(1.25rem, 3vw, 1.5rem);
+    --font-size-greeting: clamp(1.25rem, 1.5vw, 1.5rem);
     --line-height-tight: 1.1;
     --line-height-normal: 1.5;
     --font-weight-normal: 400;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
 
-    /* Layout - Essential Only */
+    /* Scaled Font Sizes (2x scaling) */
+    --font-size-greeting-scaled: clamp(2.5rem, 6vw, 3rem);
+    --font-size-hero-scaled: clamp(6rem, 16vw, 12rem);
+    --font-size-subtitle-scaled: clamp(3rem, 8vw, 5rem);
+
+    /* Typography Improvements - Adjusted Font Sizes - Reduced by 20% */
+    --font-size-greeting-2x: clamp(4rem, 9.6vw, 4.8rem);
+    /* 2x increase for greeting - 20% reduction */
+    --font-size-greeting-64px: clamp(2.4rem, 4.8vw, 3.2rem);
+    /* 64px equivalent greeting size - 20% reduction */
+    --font-size-name-reduced: clamp(2.88rem, 7.68vw, 5.76rem);
+    /* 40% reduction for name - 20% further reduction */
+    --font-size-name-80px: clamp(4.2rem, 8.4vw, 5.4rem);
+    /* 80px equivalent name size - 20% reduction */
+    --font-size-role-reduced: clamp(1.68rem, 4.48vw, 2.8rem);
+    /* 30% reduction for role - 20% further reduction */
+
+    /* Typography Improvements - Hover Effects */
+    --name-glow-color: var(--accent-green);
+    --name-glow-intensity: 0 0 20px rgba(0, 107, 63, 0.4);
+    --font-size-role-reduced: clamp(1.68rem, 4.48vw, 2.8rem);
+    /* 30% reduction for role - 20% further reduction */
+
+    /* Custom Font Families */
+    --font-greeting: "Space Mono", monospace;
+    --font-name: "Asimovian", sans-serif;
+    --font-role: "Enriqueta", serif;
+
+    /* Layout - Essential Only - Reduced by 20% */
     --container-max-width: 2560px;
-    --section-padding: clamp(3rem, 6vw, 5rem);
-    --content-padding: clamp(1.5rem, 4vw, 3rem);
-    --grid-gap: clamp(2rem, 4vw, 3rem);
-    --space-sm: clamp(0.5rem, 1.5vw, 1rem);
-    --space-md: clamp(1rem, 2.5vw, 1.5rem);
-    --space-lg: clamp(1.5rem, 3.5vw, 2.5rem);
+    --section-padding: clamp(2.4rem, 4.8vw, 4rem);
+    --content-padding: clamp(1.2rem, 3.2vw, 2.4rem);
+    --grid-gap: clamp(1.6rem, 3.2vw, 2.4rem);
+    --space-sm: clamp(0.4rem, 1.2vw, 0.8rem);
+    --space-md: clamp(0.8rem, 2vw, 1.2rem);
+    --space-lg: clamp(1.2rem, 2.8vw, 2rem);
     --transition-fast: 0.15s ease-in-out;
     --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -49,6 +78,260 @@
     /* Default to light background */
 }
 
+/* Custom Font Family Classes with Enhanced Fallbacks */
+.asimovian-regular {
+    font-family: "Asimovian", "Arial", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    /* Ensure readability when custom font fails to load */
+    font-display: swap;
+}
+
+.space-mono-regular {
+    font-family: "Space Mono", "Courier New", "Monaco", monospace;
+    font-weight: 400;
+    font-style: normal;
+    /* Ensure readability when custom font fails to load */
+    font-display: swap;
+}
+
+.enriqueta-regular {
+    font-family: "Enriqueta", "Georgia", "Times New Roman", serif;
+    font-weight: 400;
+    font-style: normal;
+    /* Ensure readability when custom font fails to load */
+    font-display: swap;
+}
+
+/* Font loading disabled scenarios - enhanced fallbacks */
+@supports not (font-display: swap) {
+    .asimovian-regular {
+        font-family: "Arial", "Helvetica Neue", sans-serif;
+    }
+
+    .space-mono-regular {
+        font-family: "Courier New", "Monaco", monospace;
+    }
+
+    .enriqueta-regular {
+        font-family: "Georgia", "Times New Roman", serif;
+    }
+}
+
+/* When fonts fail to load, ensure proper styling */
+.font-loading-error .greeting {
+    font-family: "Courier New", "Monaco", monospace !important;
+    font-weight: 500 !important;
+}
+
+.font-loading-error .name {
+    font-family: "Arial", "Helvetica Neue", sans-serif !important;
+    font-weight: 700 !important;
+}
+
+.font-loading-error .role {
+    font-family: "Georgia", "Times New Roman", serif !important;
+    font-weight: 600 !important;
+}
+
+/* Kenyan Flag Gradient Class */
+.kenyan-gradient {
+    /* Gradient text defaults */
+    color: transparent;
+
+    /* Cross-browser gradient support */
+    background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -webkit-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -moz-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+    background: -o-linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+
+    /* Gradient text effect with webkit prefixes */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* Ensure text remains selectable */
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Fallback for browsers without gradient text support */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .kenyan-gradient {
+        color: #004d2e !important;
+        background: none !important;
+        -webkit-text-fill-color: currentColor !important;
+    }
+}
+
+/* Enhanced high contrast mode support */
+@media (prefers-contrast: high) {
+    .kenyan-gradient {
+        color: #000000 !important;
+        background: none !important;
+        -webkit-text-fill-color: #000000 !important;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+    }
+
+    /* Ensure all custom fonts have high contrast */
+    .greeting,
+    .name,
+    .role {
+        color: #000000 !important;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9) !important;
+        font-weight: 600 !important;
+    }
+
+    /* Enhanced contrast for custom font families */
+    .asimovian-regular,
+    .space-mono-regular,
+    .enriqueta-regular {
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9) !important;
+    }
+}
+
+/* Enhanced reduced motion support for gradient and custom fonts */
+@media (prefers-reduced-motion: reduce) {
+    .kenyan-gradient {
+        /* Ensure gradient doesn't cause motion sensitivity issues */
+        background-attachment: fixed;
+        /* Disable any potential gradient animations */
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Ensure custom fonts don't trigger motion sensitivity */
+    .greeting,
+    .name,
+    .role {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    /* Disable AI pulsing animation for reduced motion */
+    .ai-text,
+    .ai-logo-pulse {
+        animation: none !important;
+    }
+
+    .ai-logo-pulse {
+        display: none;
+    }
+
+    /* Disable hover effects that might cause motion */
+    .greeting:hover,
+    .name:hover,
+    .role:hover {
+        transform: none !important;
+        animation: none !important;
+    }
+}
+
+/* Print styles - ensure text is readable when printed */
+@media print {
+    .kenyan-gradient {
+        color: #000000 !important;
+        background: none !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
+}
+
+/* Enhanced screen reader compatibility - ensure text remains accessible */
+.kenyan-gradient {
+    /* Maintain text selection and screen reader compatibility */
+    -webkit-touch-callout: text;
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+
+    /* Ensure screen readers can access the text content */
+    speak: normal;
+    -webkit-speak: normal;
+
+    /* Maintain semantic meaning for assistive technology */
+    position: relative;
+}
+
+/* Add invisible text for screen readers when gradient might not be readable */
+.kenyan-gradient::after {
+    content: attr(aria-label);
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* Ensure gradient text has proper ARIA attributes */
+.kenyan-gradient[aria-label] {
+    /* Screen reader will use aria-label instead of visual text */
+    speak: spell-out;
+    -webkit-speak: spell-out;
+}
+
+/* Enhanced accessibility for gradient text */
+.kenyan-gradient:focus {
+    /* Ensure focus state is visible even with gradient */
+    outline: 3px solid #ce1126 !important;
+    outline-offset: 2px !important;
+    /* Preserve gradient - don't override background */
+    background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+}
+
+/* Ensure SplitText characters maintain gradient on focus */
+.kenyan-gradient:focus .char-masked,
+.kenyan-gradient:focus .char {
+    background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+}
+
+/* Ensure gradient works across different browsers */
+@supports (-webkit-background-clip: text) {
+    .kenyan-gradient {
+        /* Only apply gradient if browser supports it */
+        background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* Ensure gradient works with SplitText character elements */
+    .kenyan-gradient .char-masked,
+    .kenyan-gradient .char {
+        background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* Specific rules for certifications section title characters */
+    .certifications-section .kenyan-gradient .char-masked,
+    .certifications-section .kenyan-gradient .char {
+        background: linear-gradient(45deg, #004d2e 0%, #7a0c16 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+    }
+}
+
 /* Cross-Browser Optimized CSS Reset */
 *,
 *::before,
@@ -61,6 +344,7 @@
 }
 
 body,
+main,
 h1,
 h2,
 h3,
@@ -80,19 +364,156 @@ ol {
 }
 
 html {
+    width: 100vw;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    overflow-y: auto;
+    /* Default: allow scrolling */
+    overflow-x: hidden;
+}
+
+/* Home page - no scrolling on html and body */
+body.home-page {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+body.home-page,
+html body.home-page {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* JavaScript will handle html overflow for home page via class */
+html.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    height: 100vh;
 }
 
 body {
-    min-height: 100vh;
-    min-height: 100dvh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
     /* Dynamic viewport height for mobile browsers */
     line-height: var(--line-height-normal);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* Home page - no scrolling */
+body.home-page {
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* All other pages - scrollable */
+body:not(.home-page) {
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Desktop/Laptop: Scrollable behavior */
+@media (min-width: 769px) {
+
+    /* Home page - no scrolling */
+    html body.home-page,
+    body.home-page {
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    /* All other pages - scrollable */
+    body:not(.home-page) {
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* HTML element - scrollable for non-home pages */
+    html:not(:has(body.home-page)) {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Zoom out all direct children of body except sidebar (main, nav, footer, decorative elements) */
+    /* Removed scale transformation for proper responsive design */
+    body:not(.portfolio-page)>nav,
+    body:not(.portfolio-page)>main,
+    body:not(.portfolio-page)>footer,
+    body:not(.portfolio-page)>.background-pattern,
+    body:not(.portfolio-page)>.kenyan-code-elements,
+    body:not(.portfolio-page)>a:not(.pill-sidebar),
+    body:not(.portfolio-page)>div:not(.pill-sidebar):not(.sr-only) {
+        /* transform: scale(0.85); - REMOVED */
+        /* transform-origin: top left; - REMOVED */
+    }
+
+    /* No scrolling - fixed at 100vh (home page only) */
+    body.home-page .landing-page {
+        max-height: 100vh;
+        overflow: hidden;
+        /* Prevent all scrolling */
+    }
+
+    /* Other pages - allow scrolling */
+    body:not(.home-page) .landing-page,
+    body:not(.home-page) main {
+        overflow-y: visible;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* HTML element - allow scrolling on non-home pages */
+    html body:not(.home-page) {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+/* Portfolio, About, Contact pages can scroll */
+body.portfolio-page,
+body.about-page,
+body.contact-page {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Sidebar positioning - counter-scale removed for proper responsive design */
+.pill-sidebar {
+    transform: translateY(-50%);
+    /* Keep vertical centering only */
+    transform-origin: left center;
+}
+
+.pill-sidebar:hover {
+    transform: translateY(-50%) translateY(-8px);
+    /* Removed scale, keep hover lift */
+}
+
+/* Ensure content doesn't overflow horizontally */
+body,
+html {
+    max-width: 100%;
+    /* Changed from 100vw to avoid scrollbar width issues */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 img,
@@ -169,17 +590,8 @@ button {
         visibility: visible !important;
     }
 
-    .header-logo {
-        transition: none !important;
-        will-change: auto !important;
-    }
-
-    .header-logo:hover {
-        transform: scale(3.3) !important;
-    }
-
     .leon-logo {
-        transition: none !important;
+        /* Static logo - no transitions */
     }
 
     .nav-container {
@@ -273,7 +685,9 @@ button {
 
     /* Reduce animation complexity on low-DPI displays */
     .circular-halo {
-        box-shadow: 0 0 15px var(--page-background-color), 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+        box-shadow:
+            0 0 15px var(--page-background-color),
+            0 10px 25px rgba(0, 0, 0, 0.3) !important;
     }
 
     .nav-icon.floating {
@@ -283,7 +697,7 @@ button {
 }
 
 /* High refresh rate display optimizations */
-@media (min-resolution: 120dpi) and (min-refresh: 90hz) {
+@media (min-resolution: 120dpi) and (min-refresh: 90Hz) {
 
     /* Enhanced animations for high refresh rate displays */
     .circular-halo.materializing {
@@ -308,8 +722,10 @@ button {
 }
 
 .no-animations .nav-icon.active {
-    /* Instant position change without animation */
-    transform: translateY(-30px) !important;
+    /* Instant state change without animation for reduced motion */
+    color: #ff0000 !important;
+    transform: scale(1.5) !important;
+    transition: none !important;
 }
 
 .no-animations .nav-icon:hover {
@@ -586,14 +1002,18 @@ button {
         transform: translate3d(-50%, 10px, 0) scale(0.3);
         -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
         opacity: 0;
-        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow:
+            0 0 0 var(--page-background-color),
+            0 0 0 rgba(0, 0, 0, 0);
     }
 
     50% {
         transform: translate3d(-50%, -5px, 0) scale(0.8);
         -webkit-transform: translate3d(-50%, -5px, 0) scale(0.8);
         opacity: 0.7;
-        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow:
+            0 0 10px var(--page-background-color),
+            0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     100% {
@@ -622,14 +1042,18 @@ button {
         transform: translate3d(-50%, 5px, 0) scale(0.8);
         -webkit-transform: translate3d(-50%, 5px, 0) scale(0.8);
         opacity: 0.7;
-        box-shadow: 0 0 10px var(--page-background-color), 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow:
+            0 0 10px var(--page-background-color),
+            0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     100% {
         transform: translate3d(-50%, 10px, 0) scale(0.3);
         -webkit-transform: translate3d(-50%, 10px, 0) scale(0.3);
         opacity: 0;
-        box-shadow: 0 0 0 var(--page-background-color), 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow:
+            0 0 0 var(--page-background-color),
+            0 0 0 rgba(0, 0, 0, 0);
     }
 }
 
@@ -640,7 +1064,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../images/dot-pattern.svg');
+    background-image: url("../images/dot-pattern.svg");
     background-repeat: repeat;
     background-size: 20px 20px;
     opacity: 0.4;
@@ -659,7 +1083,9 @@ button {
 
 /* Fallback dotted pattern using CSS for older browsers */
 .no-svg .background-pattern {
-    background-image: radial-gradient(circle, rgba(51, 51, 51, 0.4) 1px, transparent 1px);
+    background-image: radial-gradient(circle,
+            rgba(51, 51, 51, 0.4) 1px,
+            transparent 1px);
     background-size: 20px 20px;
 }
 
@@ -674,11 +1100,6 @@ button {
     .kenyan-code-elements {
         display: none;
         /* Hide complex animations in IE11 */
-    }
-
-    .pill-sidebar {
-        transform: translateY(-50%) translateX(20px);
-        /* Remove scale for IE11 compatibility */
     }
 }
 
@@ -703,18 +1124,35 @@ button {
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
-
-    .pill-sidebar {
-        -webkit-transform: translateY(-50%) translateX(20px) scale(1.2);
-        transform: translateY(-50%) translateX(20px) scale(1.2);
-    }
 }
 
 /* Performance optimization: reduce complexity on lower-end devices */
 @media (max-width: 768px) and (max-resolution: 1.5dppx) {
+    :root {
+        /* Optimized font sizes for low-end devices */
+        --font-size-greeting-scaled: clamp(1.75rem, 4vw, 2.25rem);
+        --font-size-hero-scaled: clamp(4.5rem, 10vw, 7rem);
+        --font-size-subtitle-scaled: clamp(2.25rem, 5vw, 3.5rem);
+    }
+
     .background-pattern {
         background-size: 30px 30px;
         opacity: 0.3;
+    }
+
+    /* Optimize font rendering for low-end devices */
+    .greeting,
+    .name,
+    .role {
+        text-rendering: optimizeSpeed;
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
+
+    /* Optimize AI animation for low-end devices */
+    .ai-text,
+    .ai-logo-pulse {
+        animation-duration: 4s;
+        animation-timing-function: linear;
     }
 }
 
@@ -793,6 +1231,12 @@ button {
     .mobile-optimized .nav-icon.floating {
         filter: drop-shadow(0 0 4px rgba(255, 165, 0, 0.4)) !important;
     }
+
+    /* Slower AI animation on mobile for better performance */
+    .ai-logo-pulse {
+        animation-duration: 4s;
+        /* Slower on mobile */
+    }
 }
 
 /* Kenyan Programming Elements - Performance Optimized */
@@ -803,7 +1247,7 @@ button {
     width: 100%;
     height: 100%;
     z-index: -5;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     pointer-events: none;
     /* GPU acceleration */
     -webkit-transform: translateZ(0);
@@ -889,12 +1333,22 @@ button {
 /* Updated Base Styles with Light Background */
 body {
     /* Fallback styles for browsers without CSS custom properties */
-    font: 400 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font:
+        400 1rem/1.5 -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
     color: #333;
     background: hsl(48, 10%, 90%);
 
     /* Modern styles with CSS custom properties */
-    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem)/var(--line-height-normal, 1.5) var(--font-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font: var(--font-weight-normal, 400) var(--font-size-body, 1rem) / var(--line-height-normal, 1.5) var(--font-primary,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            sans-serif);
     color: var(--primary-text, #333);
     background: var(--background-light, hsl(48, 10%, 90%));
 }
@@ -912,6 +1366,13 @@ h6 {
 
 h1 {
     font-size: var(--font-size-hero);
+}
+
+/* Override h1 font-size for name class - Reduced by 20% */
+h1.name {
+    font-size: var(--font-size-name-80px);
+    /* Fallback for browsers without CSS custom properties */
+    font-size: clamp(4.2rem, 8.4vw, 5.4rem);
 }
 
 h2 {
@@ -1010,14 +1471,60 @@ a:active {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    --content-padding: clamp(1.5rem, 4vw, 3rem);
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
+
+/* Skip Link for Screen Readers */
+
+
+/* Optimized Responsive Breakpoints with 2x Font Scaling */
+@media (min-width: 768px) {
+    :root {
+        --section-padding: clamp(3rem, 6vw, 5rem);
+        --content-padding: clamp(1.5rem, 4vw, 3rem);
+
+        /* Enhanced 2x scaled font sizes for tablet */
+        --font-size-greeting-scaled: clamp(3rem, 7vw, 3.5rem);
+        --font-size-hero-scaled: clamp(7rem, 18vw, 13rem);
+        --font-size-subtitle-scaled: clamp(3.5rem, 9vw, 5.5rem);
+
+        /* Typography Improvements - Tablet Adjustments */
+        --font-size-greeting-2x: clamp(6rem, 14vw, 7rem);
+        /* 2x increase for greeting */
+        --font-size-greeting-64px: clamp(3.5rem, 7vw, 4.5rem);
+        /* 64px equivalent greeting size */
+        --font-size-name-reduced: clamp(4.2rem, 10.8vw, 7.8rem);
+        /* 40% reduction for name */
+        --font-size-name-80px: clamp(6rem, 12vw, 7.5rem);
+        /* 80px equivalent name size - reduced for single line */
+        --font-size-role-reduced: clamp(2.45rem, 6.3vw, 3.85rem);
+        /* 30% reduction for role */
+    }
 }
 
 @media (min-width: 1024px) {
     :root {
         --section-padding: clamp(4rem, 7vw, 6rem);
         --content-padding: clamp(2rem, 5vw, 4rem);
+
+        /* Enhanced 2x scaled font sizes for desktop */
+        --font-size-greeting-scaled: clamp(3.5rem, 8vw, 4rem);
+        --font-size-hero-scaled: clamp(8rem, 20vw, 14rem);
+        --font-size-subtitle-scaled: clamp(4rem, 10vw, 6rem);
+
+        /* Typography Improvements - Desktop Adjustments */
+        --font-size-greeting-2x: clamp(7rem, 16vw, 8rem);
+        /* 2x increase for greeting */
+        --font-size-greeting-64px: clamp(4rem, 8vw, 4.5rem);
+        /* 64px equivalent greeting size */
+        --font-size-name-reduced: clamp(4.8rem, 12vw, 8.4rem);
+        /* 40% reduction for name */
+        --font-size-name-80px: clamp(6.75rem, 12.75vw, 8.25rem);
+        /* 80px equivalent name size - reduced for single line */
+        --font-size-role-reduced: clamp(2.8rem, 7vw, 4.2rem);
+        /* 30% reduction for role */
     }
 }
 
@@ -1025,6 +1532,23 @@ a:active {
     :root {
         --section-padding: clamp(5rem, 8vw, 8rem);
         --content-padding: clamp(3rem, 6vw, 5rem);
+
+        /* Enhanced 2x scaled font sizes for large desktop */
+        --font-size-greeting-scaled: clamp(4rem, 9vw, 4.5rem);
+        --font-size-hero-scaled: clamp(9rem, 22vw, 15rem);
+        --font-size-subtitle-scaled: clamp(4.5rem, 11vw, 6.5rem);
+
+        /* Typography Improvements - Large Desktop Adjustments */
+        --font-size-greeting-2x: clamp(8rem, 18vw, 9rem);
+        /* 2x increase for greeting */
+        --font-size-greeting-64px: clamp(4rem, 8.5vw, 5rem);
+        /* 64px equivalent greeting size */
+        --font-size-name-reduced: clamp(5.4rem, 13.2vw, 9rem);
+        /* 40% reduction for name */
+        --font-size-name-80px: clamp(6.75rem, 13.5vw, 9rem);
+        /* 80px equivalent name size - reduced for single line */
+        --font-size-role-reduced: clamp(3.15rem, 7.7vw, 4.55rem);
+        /* 30% reduction for role */
     }
 }
 
@@ -1032,16 +1556,48 @@ a:active {
     :root {
         --section-padding: 8rem;
         --content-padding: 5rem;
+
+        /* Enhanced 2x scaled font sizes for ultra-wide */
+        --font-size-greeting-scaled: clamp(4.5rem, 10vw, 5rem);
+        --font-size-hero-scaled: clamp(10rem, 24vw, 16rem);
+        --font-size-subtitle-scaled: clamp(5rem, 12vw, 7rem);
+
+        /* Typography Improvements - Ultra-wide Adjustments */
+        --font-size-greeting-2x: clamp(9rem, 20vw, 10rem);
+        /* 2x increase for greeting */
+        --font-size-greeting-64px: clamp(4rem, 9vw, 5.5rem);
+        /* 64px equivalent greeting size */
+        --font-size-name-reduced: clamp(6rem, 14.4vw, 9.6rem);
+        /* 40% reduction for name */
+        --font-size-name-80px: clamp(6.75rem, 14.25vw, 9.75rem);
+        /* 80px equivalent name size - reduced for single line */
+        --font-size-role-reduced: clamp(3.5rem, 8.4vw, 4.9rem);
+        /* 30% reduction for role */
     }
 }
 
 /* Advanced Floating Header Navigation with Viewport-Based Positioning */
+.floating-navigation {
+    position: fixed;
+    top: 0;
+    left: 60vw;
+    right: 20vw;
+    width: 20vw;
+    height: 60px;
+    z-index: var(--z-header);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+
 .floating-header {
     position: fixed;
     top: 0;
-    left: 50vw;
-    width: 30vw;
-    transform: translateX(-50%);
+    left: 0;
+    width: 70vw;
     z-index: var(--z-header);
     background: transparent;
     padding: 1rem 0;
@@ -1055,89 +1611,157 @@ a:active {
     position: relative;
 }
 
-/* Leon Logo Component (3x Size, 20vw Position) */
-.header-logo {
-    position: absolute;
-    left: calc(20vw - 50vw);
-    /* Adjust for header's 50vw offset to achieve 20vw positioning from viewport edge */
-    transform: scale(3);
-    /* 3x scaling as specified in requirements */
-    transform-origin: left center;
-    /* Proper scaling behavior from left center */
-    transition: transform var(--transition-smooth);
-    z-index: 101;
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    padding: 0.5rem;
-    /* Ensure proportional scaling across different viewport sizes */
-    will-change: transform;
-}
-
-.header-logo:hover {
-    transform: scale(3.3);
-    /* 3.3x total: 3x base + 10% hover increase as specified */
-    background: rgba(0, 107, 63, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 107, 63, 0.2);
-    transition: transform 0.3s ease;
-    /* Smooth transition timing (0.3s ease) for hover interactions */
-}
-
-.header-logo:focus-visible {
-    outline: 3px solid var(--accent-green);
-    outline-offset: 3px;
-    background: rgba(0, 107, 63, 0.15);
-    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2);
-    border-radius: 8px;
-}
-
-.header-logo:active {
-    transform: scale(0.98);
-    -webkit-transform: scale(0.98);
-    -moz-transform: scale(0.98);
-    -ms-transform: scale(0.98);
-    -o-transform: scale(0.98);
-}
-
 .leon-logo {
-    width: 70px;
-    /* Fixed size since we're using transform: scale(3) */
+    width: 35px;
+    /* Reduced to half size for better proportion */
     height: auto;
-    transition: all var(--transition-smooth);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     aspect-ratio: auto;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
-}
-
-.header-logo:hover .leon-logo {
-    filter: drop-shadow(0 4px 8px rgba(0, 107, 63, 0.3));
-    /* Scale hover effect proportionally to logo size */
-    transform: scale(1.05);
-    -webkit-transform: scale(1.05);
-    -moz-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    -o-transform: scale(1.05);
+    transform: none;
+    /* No scaling on the image itself - parent handles all scaling */
+    /* No visual effects - completely static */
 }
 
 /* Navigation Container (Base State) */
 .nav-container {
-    background: #000;
+    background: transparent;
     border-radius: 25px;
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     display: flex;
     gap: 1rem;
     position: relative;
-    z-index: 101;
+    z-index: 102;
     overflow: visible;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all var(--transition-smooth);
     -webkit-tap-highlight-color: transparent;
     tap-highlight-color: transparent;
+    height: fit-content;
+    max-height: 50px;
+}
+
+/* Navigation Icons Container */
+.nav-icons-container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    z-index: 102;
+    position: absolute;
+    top: 15px;
+    /* Same vertical level as logo */
+    right: 2rem;
+    /* Add spacing from right edge */
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    height: fit-content;
+    max-height: 52px;
+    position: relative;
+
+    /* Transparent background with blur */
+    background: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Gradient border using pseudo-element for pill-shaped corners */
+.nav-icons-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    padding: 4px;
+    background: linear-gradient(135deg, #000000 0%, #ce1126 50%, #006b3f 100%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Responsive adjustments for navigation icons container */
+@media (max-width: 768px) {
+    .nav-icons-container {
+        gap: 1.5rem;
+        padding: 0.375rem 0.75rem;
+        max-height: 47px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-icons-container {
+        gap: 1rem;
+        padding: 0.25rem 0.5rem;
+        max-height: 42px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
 }
 
 .nav-container:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    /* Hover effects handled by individual nav icons and background blur */
+}
+
+/* Navigation Item Styles */
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    position: relative;
+    min-width: 44px;
+    min-height: 44px;
+    z-index: 102;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+.nav-item:hover {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.nav-item:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 3px;
+    background: rgba(0, 107, 63, 0.15);
+    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2);
+    border-radius: 50%;
+}
+
+.nav-item.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item .nav-icon {
+    width: 20px;
+    height: 20px;
+    transition: all var(--transition-smooth);
+}
+
+.nav-item:hover .nav-icon {
+    transform: scale(1.1);
 }
 
 /* Enhanced Circular Halo Container with GPU Acceleration */
@@ -1221,13 +1845,7 @@ a:active {
         0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.header-logo.keyboard-focused {
-    outline: 3px solid var(--accent-green) !important;
-    outline-offset: 3px !important;
-    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2) !important;
-    border-radius: 8px;
-    background: rgba(0, 107, 63, 0.15) !important;
-}
+/* No keyboard focus effects - logo is completely static */
 
 /* Ensure floating icons maintain keyboard accessibility */
 .circular-halo .nav-icon.floating {
@@ -1248,13 +1866,9 @@ a:active {
 
 /* Enhanced focus indicators for reduced motion users */
 @media (prefers-reduced-motion: reduce) {
-
     .nav-icon.keyboard-focused,
     .nav-icon.keyboard-focused.floating,
-    .header-logo.keyboard-focused {
-        transition: none !important;
-        animation: none !important;
-    }
+    /* No keyboard focus effects - logo is completely static */
 
     .nav-icon.keyboard-focused.floating {
         /* Instant focus state for floating icons in reduced motion */
@@ -1286,16 +1900,17 @@ a:active {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: auto;
+    height: 31px;
     color: #fff;
-    /* White default color in base state */
+    /* White color for icons */
     background: none;
     border: none;
-    border-radius: 50%;
+    border-radius: 0;
     cursor: pointer;
     transition: all var(--transition-smooth);
     position: relative;
+    /* Touch-friendly interaction areas - Requirement 8.5 */
     min-width: 44px;
     min-height: 44px;
     z-index: 102;
@@ -1312,6 +1927,301 @@ a:active {
     -webkit-transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    padding: 7px;
+    /* Padding to maintain 44px touch target while keeping icon at 31px */
+}
+
+/* Navigation Icon Link - Same styles as nav-icon but for anchor tags */
+.nav-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 31px;
+    color: #fff;
+    /* White default color as specified in requirements */
+    background: none;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    position: relative;
+    /* Touch-friendly interaction areas - Requirement 8.5 */
+    min-width: 44px;
+    min-height: 44px;
+    z-index: 102;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    /* GPU acceleration for smooth animations */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    padding: 7px;
+    /* Padding to maintain 44px touch target while keeping icon at 31px */
+    text-decoration: none;
+}
+
+/* Tooltip System for Navigation Icons - Requirements 6.1, 6.2, 6.3, 6.4, 6.5 */
+.nav-icon::after {
+    content: attr(data-label);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 104;
+    margin-top: 8px;
+    /* Smooth transitions for tooltip appearance/disappearance - Requirements 6.3, 6.4 */
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -webkit-transform 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -moz-transform 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -o-transform 0.3s ease;
+    /* Enhanced readability against page background - Requirement 6.5 */
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-primary);
+    line-height: 1.2;
+}
+
+/* Tooltip arrow pointing upward */
+.nav-icon::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 103;
+    margin-top: 2px;
+    /* Smooth transitions matching tooltip */
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+/* Show tooltip on hover - Requirements 6.1, 6.2 */
+.nav-icon:hover::after,
+.nav-icon:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    -webkit-transform: translateX(-50%) translateY(0);
+    -moz-transform: translateX(-50%) translateY(0);
+    -ms-transform: translateX(-50%) translateY(0);
+    -o-transform: translateX(-50%) translateY(0);
+}
+
+/* Show tooltip arrow on hover */
+.nav-icon:hover::before,
+.nav-icon:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Ensure tooltips don't interfere with navigation interactions */
+.nav-icon:hover::after,
+.nav-icon:hover::before {
+    /* Delay tooltip appearance slightly to prevent flickering */
+    transition-delay: 0.1s;
+}
+
+/* Hide tooltips during animations to prevent visual conflicts */
+.nav-icon.elevating::after,
+.nav-icon.elevating::before,
+.nav-icon.descending::after,
+.nav-icon.descending::before,
+.nav-icon.handoff-elevating::after,
+.nav-icon.handoff-elevating::before,
+.nav-icon.handoff-descending::after,
+.nav-icon.handoff-descending::before {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Force tooltip visibility for accessibility */
+.nav-icon.tooltip-visible::after {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(-50%) translateY(0) !important;
+    -webkit-transform: translateX(-50%) translateY(0) !important;
+    -moz-transform: translateX(-50%) translateY(0) !important;
+    -ms-transform: translateX(-50%) translateY(0) !important;
+    -o-transform: translateX(-50%) translateY(0) !important;
+}
+
+/* Tooltip styles for nav-icon-link (same as nav-icon) */
+.nav-icon-link::after {
+    content: attr(data-label);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 104;
+    margin-top: 8px;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -webkit-transform 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -moz-transform 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        -o-transform 0.3s ease;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-primary);
+    line-height: 1.2;
+}
+
+.nav-icon-link::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 103;
+    margin-top: 2px;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -webkit-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -moz-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    -o-transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.nav-icon-link:hover::after,
+.nav-icon-link:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    -webkit-transform: translateX(-50%) translateY(0);
+    -moz-transform: translateX(-50%) translateY(0);
+    -ms-transform: translateX(-50%) translateY(0);
+    -o-transform: translateX(-50%) translateY(0);
+}
+
+.nav-icon-link:hover::before,
+.nav-icon-link:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-icon-link:hover::after,
+.nav-icon-link:hover::before {
+    transition-delay: 0.1s;
+}
+
+.nav-icon.tooltip-visible::before {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Navigation Icon SVG Styles */
+.nav-icon-svg {
+    width: 31px;
+    height: 31px;
+    /* 31px icon size */
+    transition: all var(--transition-smooth);
+    -webkit-transition: all var(--transition-smooth);
+    -moz-transition: all var(--transition-smooth);
+    -o-transition: all var(--transition-smooth);
+    color: inherit;
+    /* Inherit white color from parent */
 }
 
 /* Elevation animation states */
@@ -1360,6 +2270,28 @@ a:active {
     transform: scale(1.15);
     /* 10-15% scale increase */
     background: rgba(255, 255, 255, 0.1);
+    /* White glow effect on hover - Requirements 5.1, 5.3 */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    -webkit-filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    -moz-filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    /* Glowing round border effect on hover - Requirements 5.2, 5.5 */
+    box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    /* Ease-out transition for hover effect removal - Requirements 5.3, 5.4 */
+    transition:
+        transform 0.3s ease-out,
+        filter 0.3s ease-out,
+        box-shadow 0.3s ease-out,
+        background-color 0.3s ease-out,
+        border-radius 0.3s ease-out;
+    -webkit-transition:
+        -webkit-transform 0.3s ease-out,
+        -webkit-filter 0.3s ease-out,
+        box-shadow 0.3s ease-out,
+        background-color 0.3s ease-out,
+        border-radius 0.3s ease-out;
 }
 
 /* Floating State for Navigation Icons */
@@ -1413,6 +2345,46 @@ a:active {
     }
 }
 
+/* Active State for Navigation Icons - Requirements 7.1, 7.2, 7.6 */
+.nav-icon.active {
+    color: #ff0000 !important;
+    /* Red color transformation - Requirement 7.2 */
+    transform: scale(1.5) !important;
+    /* 1.5x scaling - Requirement 7.1 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth transitions for color change and scaling effects - Requirement 7.6 */
+    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 105;
+    /* Ensure active icon appears above others */
+}
+
+/* Active state SVG styling */
+.nav-icon.active .nav-icon-svg {
+    color: #006b3f;
+    /* Kenyan green for active state */
+}
+
+.nav-icon.active {
+    color: #006b3f;
+    /* Kenyan green for active state */
+}
+
+/* Active state hover effects - maintain red color but add glow */
+.nav-icon.active:hover {
+    color: #ff0000 !important;
+    /* Keep red color on hover */
+    transform: scale(1.5) !important;
+    /* Maintain 1.5x scale */
+    filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.8));
+    /* Red glow effect */
+    box-shadow:
+        0 0 0 2px rgba(255, 0, 0, 0.6),
+        0 0 20px rgba(255, 0, 0, 0.4);
+    /* Red glowing border */
+}
+
 /* Prevent pointer events during animation to avoid rapid clicking issues */
 .nav-container.animating .nav-icon {
     pointer-events: none;
@@ -1420,13 +2392,32 @@ a:active {
 
 /* Smooth transition timing for state changes */
 .nav-icon {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth ease-in/ease-out transitions for hover effects - Requirements 5.3, 5.4 */
+    transition:
+        transform 0.3s ease-in,
+        filter 0.3s ease-in,
+        box-shadow 0.3s ease-in,
+        background-color 0.3s ease-in,
+        border-radius 0.3s ease-in;
+    -webkit-transition:
+        -webkit-transform 0.3s ease-in,
+        -webkit-filter 0.3s ease-in,
+        box-shadow 0.3s ease-in,
+        background-color 0.3s ease-in,
+        border-radius 0.3s ease-in;
+    -moz-transition:
+        -moz-transform 0.3s ease-in,
+        -moz-filter 0.3s ease-in,
+        box-shadow 0.3s ease-in,
+        background-color 0.3s ease-in,
+        border-radius 0.3s ease-in;
+    -o-transition:
+        -o-transform 0.3s ease-in,
+        filter 0.3s ease-in,
+        box-shadow 0.3s ease-in,
+        background-color 0.3s ease-in,
+        border-radius 0.3s ease-in;
 }
-
-
 
 .nav-icon:hover {
     transform: scale(1.15);
@@ -1444,14 +2435,17 @@ a:active {
 
 /* Enhanced focus state for active navigation icons */
 .nav-icon.active:focus-visible {
-    outline: 3px solid var(--kenyan-red);
+    outline: 3px solid #ff0000;
     outline-offset: 3px;
-    box-shadow: 0 0 0 6px rgba(206, 17, 38, 0.3);
+    box-shadow: 0 0 0 6px rgba(255, 0, 0, 0.3);
+    color: #ff0000 !important;
+    transform: scale(1.5) !important;
 }
 
 .nav-icon-svg {
-    width: 20px;
-    height: 20px;
+    width: 31px;
+    height: 31px;
+    /* Maintain 31px icon size across all devices */
     transition: all var(--transition-smooth);
     -webkit-transition: all var(--transition-smooth);
     -moz-transition: all var(--transition-smooth);
@@ -1466,7 +2460,16 @@ a:active {
     -o-transform: scale(1.1);
 }
 
+/* White circle hover effect for nav icons */
+.nav-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
+.nav-icon-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
 /* Navigation Label Styles */
 .nav-label {
@@ -1498,7 +2501,7 @@ a:active {
 }
 
 .nav-label::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -4px;
     left: 50%;
@@ -1524,26 +2527,132 @@ a:active {
     -o-transform: translateX(-50%) translateY(0);
 }
 
+/* Responsive Tooltip Adjustments */
+@media (max-width: 768px) {
+    .nav-icon::after {
+        font-size: 11px;
+        padding: 6px 10px;
+        margin-top: 6px;
+        /* Adjust for smaller screens */
+        max-width: 120px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .nav-icon::before {
+        border-left-width: 5px;
+        border-right-width: 5px;
+        border-bottom-width: 5px;
+        margin-top: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-icon::after {
+        font-size: 10px;
+        padding: 5px 8px;
+        margin-top: 5px;
+        max-width: 100px;
+    }
+
+    .nav-icon::before {
+        border-left-width: 4px;
+        border-right-width: 4px;
+        border-bottom-width: 4px;
+        margin-top: 0px;
+    }
+}
+
+/* Accessibility Enhancements for Tooltips */
+@media (prefers-reduced-motion: reduce) {
+
+    .nav-icon::after,
+    .nav-icon::before {
+        transition: none !important;
+        transition-delay: 0s !important;
+    }
+
+    .nav-icon:hover::after,
+    .nav-icon:focus-visible::after {
+        /* Instant appearance for reduced motion */
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-icon:hover::before,
+    .nav-icon:focus-visible::before {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* High Contrast Mode Support for Tooltips */
+@media (prefers-contrast: high) {
+    .nav-icon::after {
+        background: #000000 !important;
+        color: #ffffff !important;
+        border: 2px solid #ffffff !important;
+        box-shadow:
+            0 0 0 1px #000000,
+            0 2px 8px rgba(0, 0, 0, 0.8) !important;
+        font-weight: 600 !important;
+    }
+
+    .nav-icon::before {
+        border-bottom-color: #000000 !important;
+    }
+}
+
+/* Forced Colors Mode (Windows High Contrast) */
+@media (forced-colors: active) {
+    .nav-icon::after {
+        background: Canvas !important;
+        color: CanvasText !important;
+        border: 1px solid CanvasText !important;
+        box-shadow: none !important;
+    }
+
+    .nav-icon::before {
+        border-bottom-color: CanvasText !important;
+    }
+}
+
+/* Touch Device Adjustments - Hide tooltips on touch to prevent conflicts */
+@media (hover: none) and (pointer: coarse) {
+
+    .nav-icon::after,
+    .nav-icon::before {
+        display: none;
+    }
+
+    /* Show tooltips only on focus for touch devices */
+    .nav-icon:focus-visible::after {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-icon:focus-visible::before {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
 /* Enhanced Responsive Header Adjustments with Viewport Adaptation */
+/* Requirements 8.1, 8.2, 8.3, 8.4, 8.5 - Comprehensive responsive design */
 
 /* Ultra-Wide Desktop (2560px+) */
 @media (min-width: 2560px) {
+    .floating-navigation {
+        height: 60px;
+        /* Maintain 60px header height - Requirement 8.1 */
+    }
+
     .floating-header {
-        width: 25vw;
-        /* Narrower on ultra-wide screens */
+        width: 60vw;
+        /* 60vw width for ultra-wide screens */
         padding: 2rem 0;
-    }
-
-    .header-logo {
-        left: calc(15vw - 50vw);
-        /* Adjust positioning for ultra-wide */
-        transform: scale(3.5);
-        /* Larger logo for ultra-wide displays */
-    }
-
-    .header-logo:hover {
-        transform: scale(3.85);
-        /* 3.5x base + 10% hover increase */
     }
 
     .nav-container {
@@ -1551,16 +2660,44 @@ a:active {
         gap: 2rem;
     }
 
+    .nav-icons-container {
+        gap: 2.5rem;
+        /* Increased spacing for ultra-wide - Requirement 8.3 */
+        padding: 0.75rem 1.5rem;
+        max-height: 52px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+
     .nav-icon {
-        width: 52px;
-        height: 52px;
+        width: auto;
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 52px;
+        /* Enhanced touch targets - Requirement 8.5 */
         min-height: 52px;
+        padding: 11px;
+        /* Calculated to maintain 31px icon with 52px touch target */
     }
 
     .nav-icon-svg {
-        width: 26px;
-        height: 26px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
+    }
+
+    /* Enhanced tooltip sizing for ultra-wide displays */
+    .nav-icon::after {
+        font-size: 13px;
+        padding: 10px 14px;
+        margin-top: 10px;
+    }
+
+    .nav-icon::before {
+        border-left-width: 7px;
+        border-right-width: 7px;
+        border-bottom-width: 7px;
+        margin-top: 3px;
     }
 
     /* Enhanced circular halo for ultra-wide displays */
@@ -1574,24 +2711,26 @@ a:active {
     .nav-icon.floating {
         transform: translate3d(0, -50px, 0) scale(1.2);
     }
+
+    /* Background blur adjustments for ultra-wide */
+    .nav-background-blur {
+        height: 45px;
+        border-radius: 22px;
+    }
 }
 
 /* Large Desktop (1920px - 2559px) */
 @media (min-width: 1920px) and (max-width: 2559px) {
+    .floating-navigation {
+        height: 60px;
+        /* Maintain 60px header height - Requirement 8.1 */
+    }
+
     .floating-header {
-        width: 28vw;
+        width: 65vw;
         padding: 1.75rem 0;
     }
 
-    .header-logo {
-        left: calc(18vw - 50vw);
-        transform: scale(3.2);
-    }
-
-    .header-logo:hover {
-        transform: scale(3.52);
-        /* 3.2x base + 10% hover increase */
-    }
 
     .leon-logo {
         width: min(75px, 5vw);
@@ -1603,16 +2742,30 @@ a:active {
         gap: 1.5rem;
     }
 
+    .nav-icons-container {
+        gap: 2rem;
+        /* Optimized spacing for large desktop - Requirement 8.3 */
+        padding: 0.625rem 1.25rem;
+        max-height: 50px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+
     .nav-icon {
-        width: 48px;
-        height: 48px;
+        width: auto;
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 48px;
+        /* Touch-friendly targets - Requirement 8.5 */
         min-height: 48px;
+        padding: 9px;
+        /* Calculated to maintain 31px icon with 48px touch target */
     }
 
     .nav-icon-svg {
-        width: 24px;
-        height: 24px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     .nav-label {
@@ -1632,44 +2785,61 @@ a:active {
     .nav-icon.floating {
         transform: translate3d(0, -45px, 0) scale(1.18);
     }
+
+    /* Background blur adjustments for large desktop */
+    .nav-background-blur {
+        height: 42px;
+        border-radius: 21px;
+    }
 }
 
 /* Desktop (1024px - 1919px) */
 @media (min-width: 1024px) and (max-width: 1919px) {
+    .floating-navigation {
+        height: 60px;
+        /* Maintain 60px header height - Requirement 8.1 */
+    }
+
     .floating-header {
-        width: 32vw;
+        width: 70vw;
         padding: 1.5rem 0;
     }
 
-    .header-logo {
-        left: calc(19vw - 50vw);
-        transform: scale(2.8);
-    }
-
-    .header-logo:hover {
-        transform: scale(3.08);
-        /* 2.8x base + 10% hover increase */
-    }
 
     .leon-logo {
         width: clamp(60px, 4.5vw, 70px);
     }
 
     .nav-container {
-        padding: 0.875rem 1.75rem;
-        gap: 1.25rem;
+        padding: 0.625rem 1.25rem;
+        gap: 1rem;
+        max-height: 48px;
+    }
+
+    .nav-icons-container {
+        gap: 1.75rem;
+        /* Optimized spacing for desktop - Requirement 8.3 */
+        padding: 0.5rem 1rem;
+        max-height: 46px;
+        top: 20px;
+        /* Same vertical level as logo */
     }
 
     .nav-icon {
-        width: 44px;
-        height: 44px;
+        width: auto;
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
+        /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
+        padding: 7px;
+        /* Calculated to maintain 31px icon with 44px touch target */
     }
 
     .nav-icon-svg {
-        width: 22px;
-        height: 22px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
     }
 
     .nav-label {
@@ -1689,45 +2859,71 @@ a:active {
     .nav-icon.floating {
         transform: translate3d(0, -42px, 0) scale(1.16);
     }
+
+    /* Background blur adjustments for desktop */
+    .nav-background-blur {
+        height: 40px;
+        border-radius: 20px;
+    }
 }
 
 /* Tablet (768px - 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
+    .floating-navigation {
+        height: 60px;
+        /* Maintain 60px header height - Requirement 8.1 */
+    }
+
     .floating-header {
-        width: 38vw;
+        width: 75vw;
         padding: 1.25rem 0;
     }
 
-    .header-logo {
-        left: calc(22vw - 50vw);
-        transform: scale(2.4);
-    }
-
-    .header-logo:hover {
-        transform: scale(2.64);
-        /* 2.4x base + 10% hover increase */
-    }
 
     .leon-logo {
         width: clamp(50px, 4vw, 60px);
     }
 
     .nav-container {
-        padding: 0.75rem 1.5rem;
-        gap: 1rem;
+        padding: 0.5rem 1rem;
+        gap: 0.75rem;
+        max-height: 46px;
+    }
+
+    .nav-icons-container {
+        gap: 1.5rem;
+        /* Optimized spacing for tablet - Requirement 8.3 */
+        padding: 0.375rem 0.75rem;
+        max-height: 47px;
+        top: 20px;
+        /* Same vertical level as logo */
     }
 
     .nav-icon {
-        width: 42px;
-        height: 42px;
+        width: auto;
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
-        /* Maintain touch-friendly size */
+        /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
+        padding: 7px;
+        /* Calculated to maintain 31px icon with 44px touch target */
+        /* Enhanced touch interaction for tablet */
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+        tap-highlight-color: rgba(255, 255, 255, 0.2);
     }
 
     .nav-icon-svg {
-        width: 20px;
-        height: 20px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
+    }
+
+    /* Enhanced touch feedback for tablet */
+    .nav-icon:active {
+        background: rgba(255, 255, 255, 0.15);
+        transform: scale(0.95);
+        transition: all 0.1s ease;
     }
 
     .nav-label {
@@ -1748,29 +2944,76 @@ a:active {
         transform: translate3d(0, -35px, 0) scale(1.14);
     }
 
-    /* Ensure touch-friendly interaction areas */
-    .nav-icon {
-        padding: 2px;
-        /* Add padding for better touch targets */
+    /* Background blur adjustments for tablet */
+    .nav-background-blur {
+        height: 38px;
+        border-radius: 19px;
+    }
+
+    /* Typography responsive adjustments for tablet - Reduced by 20% */
+    .greeting {
+        font-size: var(--font-size-greeting-64px);
+        margin-bottom: 0.6rem;
+    }
+
+    .name {
+        font-size: var(--font-size-name-80px);
+        margin-bottom: 1rem;
+    }
+
+    .role {
+        font-size: var(--font-size-role-reduced);
+        margin-bottom: 1.4rem;
     }
 }
 
 /* Mobile Large (481px - 767px) */
 @media (min-width: 481px) and (max-width: 767px) {
+    :root {
+        /* Mobile large 2x scaled font sizes */
+        --font-size-greeting-scaled: clamp(2.25rem, 5.5vw, 2.75rem);
+        --font-size-hero-scaled: clamp(5.5rem, 13vw, 9rem);
+        --font-size-subtitle-scaled: clamp(2.75rem, 6.5vw, 4.5rem);
+
+        /* Typography Improvements - Mobile Large Adjustments */
+        --font-size-greeting-2x: clamp(4.5rem, 11vw, 5.5rem);
+        /* 2x increase for greeting */
+        --font-size-greeting-64px: clamp(2.5rem, 6vw, 3.5rem);
+        /* 64px equivalent greeting size */
+        --font-size-name-reduced: clamp(3.3rem, 7.8vw, 5.4rem);
+        /* 40% reduction for name */
+        --font-size-name-80px: clamp(4.5rem, 9.75vw, 6rem);
+        /* 80px equivalent name size - reduced for single line */
+        --font-size-role-reduced: clamp(1.925rem, 4.55vw, 3.15rem);
+        /* 30% reduction for role */
+    }
+
+    /* Typography responsive adjustments for mobile large */
+    .greeting {
+        font-size: var(--font-size-greeting-64px);
+        margin-bottom: 0.75rem;
+    }
+
+    .name {
+        font-size: var(--font-size-name-80px);
+        margin-bottom: 1.25rem;
+    }
+
+    .role {
+        font-size: var(--font-size-role-reduced);
+        margin-bottom: 1.75rem;
+    }
+
+    .floating-navigation {
+        height: 60px;
+        /* Maintain 60px header height - Requirement 8.1 */
+    }
+
     .floating-header {
-        width: 45vw;
+        width: 80vw;
         padding: 1rem 0;
     }
 
-    .header-logo {
-        left: calc(25vw - 50vw);
-        transform: scale(2.0);
-    }
-
-    .header-logo:hover {
-        transform: scale(2.2);
-        /* 2.0x base + 10% hover increase */
-    }
 
     .leon-logo {
         width: clamp(42px, 6vw, 50px);
@@ -1778,23 +3021,64 @@ a:active {
     }
 
     .nav-container {
-        padding: 0.625rem 1.25rem;
-        gap: 0.875rem;
+        padding: 0.5rem 1rem;
+        gap: 0.75rem;
+        max-height: 45px;
+    }
+
+    .nav-icons-container {
+        gap: 1.25rem;
+        /* Optimized spacing for mobile large - Requirement 8.3 */
+        padding: 0.25rem 0.5rem;
+        max-height: 42px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+
+    .nav-item {
+        width: 36px;
+        height: 36px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .nav-item .nav-icon {
+        width: 18px;
+        height: 18px;
     }
 
     .nav-icon {
-        width: 40px;
-        height: 40px;
+        width: auto;
+        height: 31px;
+        /* Maintain 31px icon height */
         min-width: 44px;
-        /* Maintain touch-friendly size */
+        /* Touch-friendly targets - Requirement 8.5 */
         min-height: 44px;
-        padding: 4px;
-        /* Enhanced touch padding */
+        padding: 7px;
+        /* Calculated to maintain 31px icon with 44px touch target */
+        /* Enhanced touch interaction for mobile */
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.25);
+        tap-highlight-color: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        transition: all 0.2s ease;
     }
 
     .nav-icon-svg {
-        width: 18px;
-        height: 18px;
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
+    }
+
+    /* Enhanced touch feedback for mobile large */
+    .nav-icon:active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(0.9);
+        transition: all 0.1s ease;
+    }
+
+    /* Touch-specific hover states */
+    .nav-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
 
     .nav-label {
@@ -1822,223 +3106,404 @@ a:active {
         transform: translate3d(0, -30px, 0) scale(1.12);
     }
 
-    /* Enhanced touch interaction feedback */
-    .nav-icon:active {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(0.95);
+    /* Background blur adjustments for mobile large */
+    .nav-background-blur {
+        height: 36px;
+        border-radius: 18px;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
     }
 }
 
 /* Mobile Small (320px - 480px) */
 @media (max-width: 480px) {
-    .floating-header {
-        width: 50vw;
-        padding: 0.875rem 0;
+    :root {
+        /* Mobile small 2x scaled font sizes */
+        --font-size-greeting-scaled: clamp(1.75rem, 4.5vw, 2.25rem);
+        --font-size-hero-scaled: clamp(4.5rem, 11vw, 7rem);
+        --font-size-subtitle-scaled: clamp(2.25rem, 5.5vw, 3.5rem);
+
+        /* Typography Improvements - Mobile Small Adjustments */
+        --font-size-greeting-2x: clamp(3.5rem, 9vw, 4.5rem);
+        /* 2x increase for greeting */
+        --font-size-greeting-64px: clamp(2rem, 5vw, 3rem);
+        /* 64px equivalent greeting size */
+        --font-size-name-reduced: clamp(2.7rem, 6.6vw, 4.2rem);
+        /* 40% reduction for name */
+        --font-size-name-80px: clamp(3.75rem, 8.25vw, 5.25rem);
+        /* 80px equivalent name size - reduced for single line */
+        --font-size-role-reduced: clamp(1.575rem, 3.85vw, 2.45rem);
+        /* 30% reduction for role */
     }
 
-    .header-logo {
-        left: calc(28vw - 50vw);
-        transform: scale(1.8);
-    }
-
-    .header-logo:hover {
-        transform: scale(1.98);
-        /* 1.8x base + 10% hover increase */
-    }
-
-    .leon-logo {
-        width: clamp(36px, 7vw, 44px);
-        min-width: 36px;
-        max-width: 44px;
-    }
-
-    .nav-container {
-        padding: 0.5rem 1rem;
-        gap: 0.75rem;
-    }
-
+    /* Enhanced Mobile Touch Interactions - Requirements 8.4, 8.5 */
     .nav-icon {
-        width: 36px;
-        height: 36px;
-        min-width: 44px;
-        /* Maintain touch-friendly size */
-        min-height: 44px;
-        padding: 6px;
-        /* Enhanced touch padding */
-        border-radius: 50%;
-        background: transparent;
-        transition: background-color var(--transition-smooth);
+        /* Ensure touch-friendly interaction areas meet accessibility guidelines */
+        min-width: 44px !important;
+        min-height: 44px !important;
+        /* Enhanced touch feedback for mobile devices */
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+        tap-highlight-color: rgba(255, 255, 255, 0.3);
+        /* Prevent text selection and callouts on touch */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        /* Optimize touch interactions */
+        touch-action: manipulation;
     }
 
-    .nav-icon:hover,
-    .nav-icon:focus {
-        background: rgba(255, 255, 255, 0.1);
+    /* Enhanced active touch feedback */
+    .nav-icon:active,
+    .nav-icon.touch-active {
+        background: rgba(255, 255, 255, 0.25) !important;
+        transform: scale(0.85) !important;
+        transition: all 0.1s ease !important;
     }
 
-    .nav-icon:active {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(0.9);
+    /* Ensure tooltips work on touch devices */
+    .nav-icon:focus-visible::after {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
+}
 
-    .nav-icon-svg {
-        width: 16px;
-        height: 16px;
-    }
+/* Typography responsive adjustments for mobile small - Reduced by 20% */
+.greeting {
+    font-size: var(--font-size-greeting-64px);
+    margin-bottom: 0.4rem;
+}
 
-    .nav-label {
-        font-size: 0.625rem;
-        padding: 0.25rem 0.5rem;
-        margin-top: 0.375rem;
-        min-width: max-content;
-        white-space: nowrap;
-    }
+.name {
+    font-size: var(--font-size-name-80px);
+    margin-bottom: 0.8rem;
+}
 
-    .nav-label::before {
-        border-left-width: 2px;
-        border-right-width: 2px;
-        border-bottom-width: 2px;
-        top: -2px;
-    }
+.role {
+    font-size: var(--font-size-role-reduced);
+    margin: 0 auto 1.2rem auto;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
 
-    /* Circular halo sizing for small mobile */
-    .circular-halo {
-        width: 48px;
-        height: 48px;
-        top: -26px;
-    }
+.floating-navigation {
+    height: 60px;
+    /* Maintain 60px header height - Requirement 8.1 */
+}
 
-    /* Reduced elevation distance for small mobile */
-    .nav-icon.floating {
-        transform: translate3d(0, -26px, 0) scale(1.1);
-    }
+.floating-header {
+    width: 50vw;
+    padding: 0.875rem 0;
+}
 
-    /* Optimize for touch interaction */
-    .nav-icon {
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
-        tap-highlight-color: rgba(255, 255, 255, 0.2);
-    }
+
+.leon-logo {
+    width: clamp(36px, 7vw, 44px);
+    min-width: 36px;
+    max-width: 44px;
+}
+
+.nav-container {
+    padding: 0.375rem 0.75rem;
+    gap: 0.5rem;
+    max-height: 40px;
+}
+
+.nav-icons-container {
+    gap: 1rem;
+    /* Optimized spacing for mobile small - Requirement 8.3 */
+    padding: 0.25rem 0.5rem;
+    max-height: 42px;
+    top: 15px;
+    /* Same vertical level as logo */
+}
+
+.nav-item {
+    width: 32px;
+    height: 32px;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.nav-item .nav-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.nav-icon {
+    width: auto;
+    height: 30px;
+    /* Maintain 30px icon height - Requirement 8.2 */
+    min-width: 44px;
+    /* Touch-friendly targets - Requirement 8.5 */
+    min-height: 44px;
+    padding: 7px;
+    /* Calculated to maintain 30px icon with 44px touch target */
+    border-radius: 50%;
+    background: transparent;
+    /* Enhanced touch interaction for mobile */
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+    tap-highlight-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
+    /* Improved touch feedback */
+    touch-action: manipulation;
+}
+
+.nav-icon:hover,
+.nav-icon:focus {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-icon:active {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(0.85);
+    transition: all 0.1s ease;
+}
+
+.nav-icon-svg {
+    width: 30px;
+    /* Maintain 30px icon size - Requirement 8.2 */
+    height: 30px;
+}
+
+.nav-label {
+    font-size: 0.625rem;
+    padding: 0.25rem 0.5rem;
+    margin-top: 0.375rem;
+    min-width: max-content;
+    white-space: nowrap;
+}
+
+.nav-label::before {
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    top: -2px;
+}
+
+/* Circular halo sizing for small mobile */
+.circular-halo {
+    width: 48px;
+    height: 48px;
+    top: -26px;
+}
+
+/* Reduced elevation distance for small mobile */
+.nav-icon.floating {
+    transform: translate3d(0, -26px, 0) scale(1.1);
+}
+
+/* Background blur adjustments for mobile small */
+.nav-background-blur {
+    height: 34px;
+    border-radius: 17px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Enhanced mobile touch interactions - Requirement 8.4 */
+.nav-icon {
+    /* Prevent text selection on touch */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Prevent callout on iOS */
+    -webkit-touch-callout: none;
+    /* Prevent zoom on double tap */
+    touch-action: manipulation;
 }
 
 /* Extra Small Mobile (below 320px) */
 @media (max-width: 319px) {
-    .floating-header {
-        width: 55vw;
-        padding: 0.75rem 0;
+    :root {
+        /* Extra small mobile 2x scaled font sizes */
+        --font-size-greeting-scaled: clamp(1.5rem, 4vw, 2rem);
+        --font-size-hero-scaled: clamp(4rem, 10vw, 6rem);
+        --font-size-subtitle-scaled: clamp(2rem, 5vw, 3rem);
+
+        /* Typography Improvements - Extra Small Mobile Adjustments */
+        --font-size-greeting-2x: clamp(3rem, 8vw, 4rem);
+        /* 2x increase for greeting */
+        --font-size-greeting-64px: clamp(1.75rem, 4.5vw, 2.5rem);
+        /* 64px equivalent greeting size */
+        --font-size-name-reduced: clamp(2.4rem, 6vw, 3.6rem);
+        /* 40% reduction for name */
+        --font-size-name-80px: clamp(3rem, 7.5vw, 4.5rem);
+        /* 80px equivalent name size - reduced for single line */
+        --font-size-role-reduced: clamp(1.4rem, 3.5vw, 2.1rem);
+        /* 30% reduction for role */
     }
 
-    .header-logo {
-        left: calc(30vw - 50vw);
-        transform: scale(1.6);
-    }
-
-    .header-logo:hover {
-        transform: scale(1.76);
-        /* 1.6x base + 10% hover increase */
-    }
-
-    .leon-logo {
-        width: clamp(30px, 8vw, 38px);
-        min-width: 30px;
-        max-width: 38px;
-    }
-
-    .nav-container {
-        padding: 0.375rem 0.75rem;
-        gap: 0.5rem;
-    }
-
+    /* Maximum accessibility for tiny screens - Requirements 8.4, 8.5 */
     .nav-icon {
-        width: 32px;
-        height: 32px;
-        min-width: 44px;
-        /* Still maintain touch-friendly size */
-        min-height: 44px;
-        padding: 8px;
-        /* Maximum touch padding for tiny screens */
+        /* Ensure minimum touch targets even on very small screens */
+        min-width: 44px !important;
+        min-height: 44px !important;
+        /* Maximum touch feedback for accessibility */
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.4);
+        tap-highlight-color: rgba(255, 255, 255, 0.4);
+        /* Prevent any text selection or zoom on double tap */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        touch-action: manipulation;
     }
 
-    .nav-icon-svg {
-        width: 14px;
-        height: 14px;
+    /* Enhanced touch feedback for very small screens */
+    .nav-icon:active,
+    .nav-icon.touch-active {
+        background: rgba(255, 255, 255, 0.3) !important;
+        transform: scale(0.8) !important;
+        transition: all 0.1s ease !important;
     }
+}
 
-    .nav-label {
-        font-size: 0.5625rem;
-        padding: 0.1875rem 0.375rem;
-        margin-top: 0.25rem;
-    }
+.floating-navigation {
+    height: 60px;
+    /* Maintain 60px header height - Requirement 8.1 */
+}
 
-    /* Circular halo sizing for extra small mobile */
-    .circular-halo {
-        width: 44px;
-        height: 44px;
-        top: -22px;
-    }
+.floating-header {
+    width: 80vw;
+    padding: 0.75rem 0;
+}
 
-    /* Minimal elevation distance for extra small mobile */
-    .nav-icon.floating {
-        transform: translate3d(0, -22px, 0) scale(1.08);
-    }
 
-    /* Ensure maximum touch accessibility */
-    .nav-icon {
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
-        tap-highlight-color: rgba(255, 255, 255, 0.3);
-    }
+.leon-logo {
+    width: clamp(30px, 8vw, 38px);
+    min-width: 30px;
+    max-width: 38px;
+}
 
-    .nav-icon:active {
-        background: rgba(255, 255, 255, 0.25);
-        transform: scale(0.85);
-    }
+.nav-container {
+    padding: 0.25rem 0.5rem;
+    gap: 0.375rem;
+    max-height: 36px;
+}
+
+.nav-icons-container {
+    gap: 0.75rem;
+    /* Minimal spacing for extra small mobile - Requirement 8.3 */
+    padding: 0.125rem 0.25rem;
+    max-height: 38px;
+    top: 15px;
+    /* Same vertical level as logo */
+}
+
+.nav-item {
+    width: 28px;
+    height: 28px;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.nav-item .nav-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.nav-icon {
+    width: auto;
+    height: 30px;
+    /* Maintain 30px icon height - Requirement 8.2 */
+    min-width: 44px;
+    /* Touch-friendly targets - Requirement 8.5 */
+    min-height: 44px;
+    padding: 7px;
+    /* Calculated to maintain 30px icon with 44px touch target */
+    /* Maximum touch accessibility for tiny screens */
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.4);
+    tap-highlight-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transition: all 0.15s ease;
+    /* Enhanced touch feedback */
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.nav-icon-svg {
+    width: 30px;
+    /* Maintain 30px icon size - Requirement 8.2 */
+    height: 30px;
+}
+
+.nav-icon:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.8);
+    transition: all 0.1s ease;
+}
+
+.nav-label {
+    font-size: 0.5625rem;
+    padding: 0.1875rem 0.375rem;
+    margin-top: 0.25rem;
+}
+
+/* Circular halo sizing for extra small mobile */
+.circular-halo {
+    width: 44px;
+    height: 44px;
+    top: -22px;
+}
+
+/* Minimal elevation distance for extra small mobile */
+.nav-icon.floating {
+    transform: translate3d(0, -22px, 0) scale(1.08);
+}
+
+/* Background blur adjustments for extra small mobile */
+.nav-background-blur {
+    height: 32px;
+    border-radius: 16px;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
 /* Landing Page - Optimized */
 .landing-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    /* Use actual viewport height from JS */
+    overflow: hidden;
+    /* Prevent all scrolling */
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 0;
 }
 
-/* Cross-Browser Hero Section */
-.hero-section {
-    display: grid;
-    display: -ms-grid;
-    /* IE11 support */
-    grid-template-columns: 1fr 2fr 1fr;
-    -ms-grid-columns: 1fr 2fr 1fr;
-    /* IE11 support */
-    grid-template-areas: "flags content social";
-    align-items: center;
-    -ms-grid-row-align: center;
-    /* IE11 support */
-    gap: var(--grid-gap);
-    grid-gap: var(--grid-gap);
-    /* Older browsers */
-    width: 100%;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: var(--section-padding) var(--content-padding);
-    min-height: calc(100vh - 80px);
-    min-height: calc(100dvh - 80px);
-    /* Dynamic viewport height */
+/* Ensure main element has no default margins */
+main.landing-page {
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
-    /* Fallback for browsers without CSS Grid */
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -moz-box-pack: justify;
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
+/* Cross-Browser Hero Section - Desktop Only (No Grid Layout) */
+.hero-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    z-index: 1;
+    /* Removed grid layout for desktop-only centered design */
 }
 
 /* IE11 Grid positioning with standard properties */
@@ -2048,8 +3513,16 @@ a:active {
 }
 
 .hero-section>.hero-content {
-    grid-column: 2;
-    -ms-grid-column: 2;
+    /* Fixed positioning for perfect center alignment */
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 690px !important;
 }
 
 .hero-section>.social-links {
@@ -2121,8 +3594,17 @@ a:active {
 
 /* Hero Content - Optimized with Animations */
 .hero-content {
-    grid-area: content;
-    text-align: center;
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 690px !important;
 }
 
 .hero-content>* {
@@ -2131,35 +3613,52 @@ a:active {
 }
 
 .greeting {
-    font-size: var(--font-size-greeting);
+    /* Apply Space Mono font family with fallback to monospace */
+    font-family: var(--font-greeting);
+    font-family: "Space Mono", monospace;
+
+    /* Use 64px equivalent font size for greeting text - Reduced by 20% */
+    font-size: var(--font-size-greeting-64px);
     /* Fallback for browsers without CSS custom properties */
-    font-size: 1.25rem;
+    font-size: clamp(2.4rem, 4.8vw, 3.2rem);
+
     color: var(--secondary-text);
     /* Fallback for browsers without CSS custom properties */
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: var(--space-sm);
     /* Fallback for browsers without CSS custom properties */
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     animation-delay: var(--animation-delay-base);
     -webkit-animation-delay: var(--animation-delay-base);
 }
 
 .name {
-    font-size: var(--font-size-name-80px, clamp(4.2rem, 8.4vw, 5.4rem));
+    /* Apply Asimovian font family with fallback to sans-serif */
+    font-family: var(--font-name);
+    font-family: "Asimovian", sans-serif;
+
+    /* Use 80px equivalent font size for name text - Reduced by 20% */
+    font-size: var(--font-size-name-80px);
     /* Fallback for browsers without CSS custom properties */
     font-size: clamp(4.2rem, 8.4vw, 5.4rem);
+
     font-weight: var(--font-weight-bold);
     /* Fallback for browsers without CSS custom properties */
     font-weight: 700;
-    color: var(--primary-text);
+    color: var(--accent-green);
     /* Fallback for browsers without CSS custom properties */
-    color: #fff;
+    color: #006b3f;
     margin-bottom: var(--space-md);
     /* Fallback for browsers without CSS custom properties */
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     line-height: var(--line-height-tight);
     /* Fallback for browsers without CSS custom properties */
     line-height: 1.1;
+
+    /* Ensure text stays on one line */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
     -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment));
     transition: all var(--transition-smooth);
@@ -2172,16 +3671,37 @@ a:active {
     color: var(--accent-green);
     /* Fallback for browsers without CSS custom properties */
     color: #006b3f;
-    text-shadow: 0 0 20px rgba(0, 107, 63, 0.3);
+    text-shadow: var(--name-glow-intensity);
+    /* Fallback for browsers without CSS custom properties */
+    text-shadow: 0 0 20px rgba(0, 107, 63, 0.4);
+}
+
+/* Respect reduced motion preferences for hover effects */
+@media (prefers-reduced-motion: reduce) {
+    .name:hover {
+        text-shadow: none;
+        transition: none;
+    }
 }
 
 .role {
-    font-size: var(--font-size-subtitle);
+    /* Apply Enriqueta font family with fallback to serif */
+    font-family: var(--font-role);
+    font-family: "Enriqueta", serif;
+
+    /* Use reduced font size (30% reduction) - Reduced by 20% */
+    font-size: var(--font-size-role-reduced);
+    /* Fallback for browsers without CSS custom properties */
+    font-size: clamp(1.68rem, 4.48vw, 2.8rem);
+
     font-weight: var(--font-weight-semibold);
     color: var(--accent-green);
     /* Fallback for browsers without CSS custom properties */
     color: #006b3f;
-    margin-bottom: 1rem;
+    margin: 0 auto 0.8rem auto;
+    text-align: center;
+    width: 100%;
+    display: block;
     animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
     -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 2);
     transition: all var(--transition-smooth);
@@ -2190,13 +3710,218 @@ a:active {
     -o-transition: all var(--transition-smooth);
 }
 
+/* ============================================
+   ACTION BUTTONS
+   ============================================ */
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.6rem;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3);
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.6rem 1.2rem;
+    font-family: "Enriqueta", serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 1.6rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1.6px solid transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ffffff 0%, #10cf74 100%);
+    color: #000000;
+    border-color: transparent;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ffffff 0%, #10cf74 100%);
+    color: #000000;
+    border-color: transparent;
+    transform: translateY(-1.6px);
+    box-shadow: 0 3.2px 9.6px rgba(0, 107, 63, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #000000;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.6px solid #cec0b9;
+}
+
+.btn-secondary:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+    transform: translateY(-1.6px);
+    box-shadow: 0 3.2px 9.6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   DECORATIVE LINES
+   ============================================ */
+
+.decorative-lines {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    animation: fadeInUp var(--animation-duration-normal) var(--transition-bounce) forwards;
+    animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.5);
+}
+
+.line {
+    height: 2.4px;
+    width: 32px;
+    border-radius: 1.6px;
+}
+
+.line-black {
+    background: #1a1a1a;
+}
+
+.line-red {
+    background: #b30000;
+}
+
+.line-green {
+    background: #006b3f;
+}
+
 .role:hover {
     transform: scale(1.05);
     -webkit-transform: scale(1.05);
     -moz-transform: scale(1.05);
     -ms-transform: scale(1.05);
     -o-transform: scale(1.05);
-    text-shadow: 0 0 15px rgba(0, 107, 63, 0.4);
+    /* Remove text-shadow for gradient text to avoid conflicts */
+}
+
+/* AI Pulsing Animation Container */
+.ai-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.2em;
+    vertical-align: baseline;
+    z-index: 10;
+}
+
+/* AI Text - JavaScript-controlled switching animation */
+.ai-text {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    transform-origin: center center;
+    will-change: transform, opacity;
+    /* Start visible - JS will control transitions */
+    opacity: 1;
+    transform: scale(1);
+    /* Smooth transitions controlled by JS - using ease curve */
+    transition: opacity 0.4s cubic-bezier(.25, .1, .25, 1),
+        transform 0.4s cubic-bezier(.25, .1, .25, 1);
+}
+
+/* AI Text - Resting state (visible) */
+.ai-text.resting {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* AI Text - Hidden state (when logo is shown) */
+.ai-text.hidden {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Logo Icon - JavaScript-controlled switching animation */
+.ai-logo-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    width: 1.2em;
+    height: auto;
+    z-index: 1;
+    transform-origin: center center;
+    pointer-events: none;
+    will-change: transform, opacity;
+    /* Start hidden - JS will control transitions */
+    opacity: 0;
+    /* Smooth transitions controlled by JS - using ease curve */
+    transition: opacity 0.4s cubic-bezier(.25, .1, .25, 1),
+        transform 0.4s cubic-bezier(.25, .1, .25, 1);
+}
+
+/* Light Mode - logo uses logoICON.svg from HTML src */
+/* .ai-logo-pulse img src="images/logoICON.svg" is set in HTML - works as is */
+
+/* Dark Mode - Hide original img and use wrapper pseudo-element */
+body.dark-theme .ai-logo-pulse {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+}
+
+/* Dark Mode - Use wrapper pseudo-element for logoIconDark.svg */
+/* This replaces the img in dark mode and mirrors its animation states */
+body.dark-theme .ai-wrapper::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    width: 1.2em;
+    height: 1.2em;
+    background-image: url('../images/logoIconDark.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 1;
+    transform-origin: center center;
+    will-change: transform, opacity;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(.25, .1, .25, 1),
+        transform 0.4s cubic-bezier(.25, .1, .25, 1);
+}
+
+/* Dark Mode - Sync pseudo-element with img classes added by JavaScript */
+body.dark-theme .ai-wrapper:has(.ai-logo-pulse.visible)::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+body.dark-theme .ai-wrapper:has(.ai-logo-pulse.resting)::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Logo - Resting state (hidden) */
+.ai-logo-pulse.resting {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Logo - Visible state (shown) */
+.ai-logo-pulse.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
 }
 
 .location {
@@ -2291,6 +4016,10 @@ a:active {
 
 /* Footer - Optimized with Animation */
 .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
     height: 45px;
     display: flex;
     align-items: center;
@@ -2301,6 +4030,8 @@ a:active {
     opacity: 0;
     transform: translateY(20px);
     transition: all var(--transition-smooth);
+    z-index: 10;
+    box-sizing: border-box;
 }
 
 .footer.animate-in {
@@ -2321,6 +4052,16 @@ a:active {
     transform: scale(0);
     animation: ripple 0.6s linear;
     pointer-events: none;
+}
+
+.touch-ripple {
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple 0.6s ease-out;
+    pointer-events: none;
+    z-index: 9999;
 }
 
 @keyframes ripple {
@@ -2410,6 +4151,9 @@ body:not(.loaded) .social-links {
     .role {
         color: #004d2e !important;
         text-shadow: none !important;
+        /* Override gradient in high contrast mode */
+        background: none !important;
+        -webkit-text-fill-color: #004d2e !important;
     }
 }
 
@@ -2432,11 +4176,6 @@ body:not(.loaded) .social-links {
     display: none;
 }
 
-.browser-ie .pill-sidebar {
-    transform: translateY(-50%) translateX(20px);
-    filter: none;
-}
-
 .no-custom-properties .background-pattern {
     opacity: 0.4;
     background-size: 20px 20px;
@@ -2445,10 +4184,6 @@ body:not(.loaded) .social-links {
 .no-custom-properties .code-element {
     color: #333;
     opacity: 0.15;
-}
-
-.no-custom-properties .pill-sidebar {
-    background: #d4e6d4;
 }
 
 /* Performance-based optimizations */
@@ -2488,11 +4223,7 @@ body:not(.loaded) .social-links {
     margin: 0.5rem;
 }
 
-/* Viewport height fallback */
-.landing-page {
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
-}
+/* Viewport height fallback - consolidated with main definition above */
 
 /* High DPI display optimizations */
 @media (-webkit-min-device-pixel-ratio: 2),
@@ -2515,10 +4246,7 @@ body:not(.loaded) .social-links {
         width: clamp(36px, 5.5vw, 75px);
     }
 
-    /* Enhance logo hover effects on high-DPI */
-    .header-logo:hover .leon-logo {
-        filter: drop-shadow(0 6px 12px rgba(0, 107, 63, 0.4));
-    }
+    /* No hover effects - logo is static */
 }
 
 /* Ultra-high DPI display optimizations (3x and above) */
@@ -2583,7 +4311,24 @@ body:not(.loaded) .social-links {
         align-items: center;
     }
 
+    /* Typography responsive adjustments for mobile */
+    .greeting {
+        font-size: var(--font-size-greeting-64px);
+        margin-bottom: 0.4rem;
+        text-align: center;
+    }
 
+    .name {
+        font-size: var(--font-size-name-80px);
+        margin-bottom: 0.8rem;
+        text-align: center;
+    }
+
+    .role {
+        font-size: var(--font-size-role-reduced);
+        margin-bottom: 1.2rem;
+        text-align: center;
+    }
 
     .social-list {
         flex-direction: row;
@@ -2651,216 +4396,95 @@ body:not(.loaded) .social-links {
         -webkit-animation-delay: calc(var(--animation-delay-base) + var(--animation-delay-increment) * 3.6);
     }
 
-    /* Improved typography scaling for small screens */
+    /* Improved typography scaling for small screens with 2x scaling */
     :root {
         --font-size-hero: clamp(2.5rem, 10vw, 4rem);
         --font-size-subtitle: clamp(1.25rem, 5vw, 2rem);
         --font-size-body: clamp(0.875rem, 3vw, 1rem);
+
+        /* Mobile-optimized 2x scaled font sizes */
+        --font-size-greeting-scaled: clamp(2rem, 5vw, 2.5rem);
+        --font-size-hero-scaled: clamp(5rem, 12vw, 8rem);
+        --font-size-subtitle-scaled: clamp(2.5rem, 6vw, 4rem);
     }
 }
 
-/* Pill
--Shaped Sidebar Styles */
-.pill-sidebar {
-    position: fixed;
-    left: 2rem;
-    top: 50%;
-    transform: translateY(-50%) translateX(20px) scale(1.2);
-    width: 80px;
-    height: 300px;
-    background: hsl(160, 30%, 85%);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    z-index: 50;
-    transition: all 0.3s ease;
-}
-
-.pill-sidebar:hover {
-    transform: translateY(-50%) translateX(20px) scale(1.224);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Profile Photo Styles */
-.profile-section {
-    margin-bottom: 2rem;
-}
-
-.profile-photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    transition: all 0.3s ease;
-}
-
-.profile-photo:hover {
-    transform: scale(1.1);
-    border-color: rgba(255, 255, 255, 1);
-}
-
-/* Social Icons Styles */
-.social-nav {
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.social-icons-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    list-style: none;
-}
-
-.social-icon-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    color: #333;
-}
-
-.social-icon-link:hover {
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(1.1);
-    color: #006b3f;
-}
-
-.social-icon {
-    width: 20px;
-    height: 20px;
-}
-
-/* 
+/*
 Updated Hero Section for Pill Layout */
 .hero-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: var(--section-padding) var(--content-padding);
-    margin-left: 140px;
-    /* Account for larger pill sidebar (120px * 1.2 + 20px offset) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    z-index: 1;
 }
 
 .hero-content {
-    text-align: center;
-    max-width: 690px;
-}
-
-/* Responsive adjustments for pill sidebar */
-@media (max-width: 768px) {
-    .pill-sidebar {
-        left: 1rem;
-        transform: translateY(-50%) translateX(20px) scale(1.2);
-        width: 60px;
-        height: 240px;
-        padding: 1rem 0;
-    }
-
-    .profile-photo {
-        width: 35px;
-        height: 35px;
-    }
-
-    .social-icon-link {
-        width: 30px;
-        height: 30px;
-        min-height: 44px;
-        min-width: 44px;
-    }
-
-    .social-icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .hero-section {
-        margin-left: 100px;
-        /* Account for scaled sidebar on tablet */
-    }
-}
-
-@media (max-width: 480px) {
-    .pill-sidebar {
-        position: relative;
-        left: auto;
-        top: auto;
-        transform: scale(1.2);
-        width: 100%;
-        height: 80px;
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: 2rem;
-        border-radius: 40px;
-    }
-
-    .profile-section {
-        margin-bottom: 0;
-        margin-right: 1rem;
-    }
-
-    .social-icons-list {
-        flex-direction: row;
-        gap: 0.5rem;
-    }
-
-    .hero-section {
-        margin-left: 0;
-        padding-top: 0;
-    }
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    max-width: 690px !important;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
 }
 
 /* Organic Background Shapes */
 .hero-section::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 20%;
-    left: 30%;
-    width: 300px;
-    height: 200px;
+    top: 15vh;
+    left: 20vw;
+    width: 18.75rem;
+    height: 12.5rem;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 50% 30% 70% 40%;
     z-index: -1;
-    filter: blur(40px);
+    filter: blur(2.5rem);
     animation: float 6s ease-in-out infinite;
 }
 
 .hero-section::after {
-    content: '';
+    content: "";
     position: absolute;
-    bottom: 30%;
+    top: 60vh;
     right: 20%;
-    width: 200px;
-    height: 150px;
+    width: 12.5rem;
+    height: 9.375rem;
     background: rgba(206, 17, 38, 0.6);
     border-radius: 40% 60% 30% 70%;
     z-index: -1;
-    filter: blur(30px);
+    filter: blur(1.875rem);
     animation: float 8s ease-in-out infinite reverse;
 }
 
 /* Additional organic shapes */
 .landing-page::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 60%;
+    top: 60vh;
     left: 60%;
-    width: 150px;
-    height: 100px;
+    width: 9.375rem;
+    height: 6.25rem;
     background: rgba(0, 107, 63, 0.4);
     border-radius: 60% 40% 80% 20%;
     z-index: -1;
-    filter: blur(25px);
+    filter: blur(1.5625rem);
     animation: float 10s ease-in-out infinite;
+}
+
+/* Header Background Shape - Black blurred shape for navigation contrast */
+.landing-page::after {
+    content: none;
+    display: none;
 }
 
 @keyframes float {
@@ -2875,46 +4499,102 @@ Updated Hero Section for Pill Layout */
     }
 }
 
-/* Enhanced hero section positioning */
-.landing-page {
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-section {
-    position: relative;
-    z-index: 1;
-}
-
 /* Location Container Styling */
 .location-container {
-    display: flex;
+    position: relative;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    /* Pill shape */
+}
+
+.location-pin-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
 }
 
 .location-pin {
-    width: 20px;
-    height: 20px;
-    color: var(--accent-green);
-    /* Fallback */
-    color: #006b3f;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    color: #47e18d;
+    flex-shrink: 0;
+    z-index: 2;
+    animation: pulse 4s ease-out infinite;
+}
+
+/* Pulsing ripple effect */
+.pulse-ring {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    border: 0;
+    animation: sploosh 4s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+    pointer-events: none;
+}
+
+.pulse-ring:nth-child(3) {
+    animation-delay: 0.66s;
+    animation-duration: 4.4s;
+}
+
+@keyframes sploosh {
+    0% {
+        box-shadow: 0 0 0 0px rgba(71, 225, 141, 0.7);
+        background: rgba(71, 225, 141, 0.7);
+    }
+    80% {
+        background: rgba(71, 225, 141, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 30px rgba(71, 225, 141, 0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    3.3% {
+        transform: scale(1.1);
+    }
+    16.5% {
+        transform: scale(1);
+    }
+    33% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .location {
     margin: 0;
-    font-size: var(--font-size-body);
-    /* Fallback */
-    font-size: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #2d2d2d;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: "Space Mono", monospace;
 }
 
 /* Decorative Shapes on Right Side */
 .decorative-shapes {
     position: absolute;
-    right: 5%;
-    top: 50%;
+    left: 70vw;
+    top: 90vh;
     transform: translateY(-50%);
     z-index: -1;
 }
@@ -2922,83 +4602,199 @@ Updated Hero Section for Pill Layout */
 .shape {
     position: absolute;
     border-radius: 50% 30% 70% 40%;
-    filter: blur(20px);
+    filter: blur(1.25rem);
     opacity: 0.6;
 }
 
 .shape-1 {
-    width: 120px;
-    height: 80px;
+    width: 7.5rem;
+    height: 5rem;
     background: rgba(0, 107, 63, 0.4);
-    top: -60px;
+    top: -3.75rem;
     right: 0;
     animation: float 7s ease-in-out infinite;
 }
 
 .shape-2 {
-    width: 80px;
-    height: 60px;
+    width: 5rem;
+    height: 3.75rem;
     background: rgba(139, 69, 19, 0.5);
-    top: 20px;
-    right: 40px;
+    top: 1.25rem;
+    right: 2.5rem;
     border-radius: 40% 60% 30% 70%;
     animation: float 9s ease-in-out infinite reverse;
 }
 
 .shape-3 {
-    width: 100px;
-    height: 70px;
+    width: 6.25rem;
+    height: 4.375rem;
     background: rgba(255, 140, 0, 0.4);
-    top: 80px;
-    right: -20px;
+    top: 5rem;
+    right: -1.25rem;
     border-radius: 30% 70% 60% 40%;
     animation: float 11s ease-in-out infinite;
 }
 
-/* Enhanced text styling for better contrast */
+/* Typography Classes with Responsive Font Sizes */
 .greeting {
     color: var(--secondary-text);
-    /* Fallback */
-    color: rgba(51, 51, 51, 0.7);
-    font-size: var(--font-size-greeting);
-    /* Fallback */
+    /* Small, dark grey text */
+    font-family: var(--font-greeting);
+    font-family: "Space Mono", monospace;
     font-size: 1.25rem;
+    font-weight: 400;
     margin-bottom: 0.5rem;
+    line-height: 1.5;
+    opacity: 0.8;
 }
 
 .name {
-    color: var(--primary-text);
-    /* Fallback */
-    color: #333;
+    color: #006b3f;
+    /* Green color for name */
+    font-family: var(--font-name);
+    font-family: "Asimovian", sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
     margin-bottom: 1rem;
     position: relative;
     z-index: 2;
+    line-height: 1.2;
+    transition: all var(--transition-smooth);
+}
+
+.name:hover {
+    text-shadow: var(--name-glow-intensity);
+    transition: all var(--transition-smooth);
 }
 
 .role {
-    color: var(--accent-green);
-    /* Fallback */
-    color: #006b3f;
-    margin-bottom: 1.5rem;
+    /* Red/maroon color for role - override gradient */
+    color: #ce1126 !important;
+    font-family: var(--font-role);
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin: 0 auto 1.5rem auto;
     position: relative;
     z-index: 2;
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+/* Override gradient for role to use solid red/maroon color */
+.role.kenyan-gradient {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #ce1126 !important;
+    color: #ce1126 !important;
+}
+
+/* Ensure AI wrapper within role maintains color */
+.role .ai-wrapper {
+    color: #ce1126;
+}
+
+.role .ai-text {
+    color: #ce1126;
+}
+
+/* ============================================
+   ROLE SEQUENCE ANIMATION
+   Stacked role items that fade in/out
+   ============================================ */
+
+/* Container for role sequence */
+.role-sequence {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    min-height: 1.5em; /* Prevent layout shift */
+    /* Ensure container can hold absolutely positioned items */
+    overflow: visible;
+}
+
+/* Role items - stacked on top of each other */
+.role-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    /* GSAP handles transitions - no CSS transition to prevent conflicts */
+    text-align: center;
+    box-sizing: border-box;
+    /* Ensure smooth text rendering during fade */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    will-change: opacity, visibility;
+}
+
+/* Active role item is visible */
+.role-item.active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Fading out state */
+.role-item.fading-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Fading in state */
+.role-item.fading-in {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Reduced motion: instant swap */
+@media (prefers-reduced-motion: reduce) {
+    .role-item {
+        transition: none !important;
+    }
+}
+
+/* Fallback: if JS fails, show only first role */
+.role-sequence.no-animation .role-item {
+    display: none !important;
+}
+
+.role-sequence.no-animation .role-item[data-index="0"] {
+    display: block !important;
+    position: relative !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Description paragraph styling */
+.description {
+    color: #2d2d2d;
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 auto 2rem auto;
+    max-width: 690px;
+    text-align: center;
+    opacity: 0.85;
+}
+
+/* Dark mode description color */
+body.dark-theme .description {
+    color: #f3eae3;
 }
 
 /* Final
  Polish and Refinements */
 
-/* Improved pill sidebar integration */
-.pill-sidebar {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 /* Smooth entrance animations */
-.pill-sidebar {
-    animation: slideInLeft 0.8s ease-out;
-}
-
 .hero-content>* {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
@@ -3014,6 +4810,10 @@ Updated Hero Section for Pill Layout */
 
 .role {
     animation-delay: 0.6s;
+}
+
+.description {
+    animation-delay: 0.7s;
 }
 
 .location-container {
@@ -3055,9 +4855,7 @@ Updated Hero Section for Pill Layout */
 
 /* Better responsive behavior */
 @media (max-width: 1024px) {
-    .decorative-shapes {
-        display: none;
-    }
+    /* Decorative shapes removed from hiding - desktop only design */
 
     .hero-section::before,
     .hero-section::after,
@@ -3067,18 +4865,9 @@ Updated Hero Section for Pill Layout */
 
     /* Adjust header width for tablet */
     .floating-header {
-        width: 35vw;
+        width: 75vw;
     }
 
-    /* Adjust logo scaling for tablet */
-    .header-logo {
-        transform: scale(2.5);
-    }
-
-    .header-logo:hover {
-        transform: scale(2.75);
-        /* 2.5x base + 10% hover increase */
-    }
 }
 
 /* Responsive adjustments for programming elements */
@@ -3090,23 +4879,22 @@ Updated Hero Section for Pill Layout */
 
     /* Adjust header width for mobile */
     .floating-header {
-        width: 40vw;
+        width: 80vw;
     }
 
-    /* Adjust logo scaling for mobile */
-    .header-logo {
-        transform: scale(2);
-    }
-
-    .header-logo:hover {
-        transform: scale(2.2);
-        /* 2x base + 10% hover increase */
-    }
 
     /* Adjust navigation container for mobile */
     .nav-container {
         padding: 0.5rem 1rem;
         gap: 0.75rem;
+    }
+
+    .nav-icons-container {
+        gap: 1.5rem;
+        padding: 0.5rem 1rem;
+        max-height: 47px;
+        top: 20px;
+        /* Same vertical level as logo */
     }
 
     .nav-icon {
@@ -3119,6 +4907,266 @@ Updated Hero Section for Pill Layout */
     .nav-icon-svg {
         width: 18px;
         height: 18px;
+    }
+
+    /* Responsive Tooltip Adjustments for Mobile */
+    .nav-icon::after {
+        font-size: 11px;
+        padding: 6px 10px;
+        margin-top: 6px;
+        /* Adjust for smaller screens */
+        max-width: 120px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .nav-icon::before {
+        border-left-width: 5px;
+        border-right-width: 5px;
+        border-bottom-width: 5px;
+        margin-top: 1px;
+    }
+}
+
+/* Cross-Device Compatibility Enhancements - Requirements 8.1, 8.2, 8.3, 8.4, 8.5 */
+
+/* Hybrid Input Device Support (devices with both touch and mouse) */
+@media (hover: hover) and (pointer: coarse) {
+    .nav-icon {
+        /* Hybrid devices - support both hover and touch */
+        min-width: 44px;
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+
+    .nav-icon:hover {
+        /* Maintain hover effects on hybrid devices */
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+    }
+}
+
+/* Touch-Only Device Support */
+@media (hover: none) and (pointer: coarse) {
+    .nav-icon {
+        /* Touch-only devices - optimize for touch interactions */
+        min-width: 44px;
+        min-height: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+        tap-highlight-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Hide hover-specific tooltips on touch-only devices */
+    .nav-icon::after,
+    .nav-icon::before {
+        display: none;
+    }
+
+    /* Show tooltips only on focus for touch devices */
+    .nav-icon:focus-visible::after,
+    .nav-icon:focus-visible::before {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Enhanced touch feedback */
+    .nav-icon:active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(0.9);
+    }
+}
+
+/* Fine Pointer Device Support (mouse, trackpad) */
+@media (hover: hover) and (pointer: fine) {
+    .nav-icon {
+        /* Fine pointer devices - optimize for precise interactions */
+        cursor: pointer;
+    }
+
+    .nav-icon:hover {
+        /* Enhanced hover effects for precise pointers */
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transition: all 0.3s ease-in;
+    }
+}
+
+/* Landscape Orientation Optimizations - Requirement 8.3 */
+@media (orientation: landscape) and (max-height: 500px) {
+    .floating-navigation {
+        /* Maintain 60px height even in landscape mode - Requirement 8.1 */
+        height: 60px;
+    }
+
+    .nav-icons-container {
+        /* Compact spacing for landscape mode */
+        gap: 1rem;
+        padding: 0.25rem 0.75rem;
+        max-height: 45px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+
+    .nav-icon {
+        /* Maintain 30px icon height in landscape - Requirement 8.2 */
+        height: 30px;
+        /* Ensure touch targets remain accessible - Requirement 8.5 */
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        /* Maintain 30px icon size in landscape - Requirement 8.2 */
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Adjust background blur for landscape */
+    .nav-background-blur {
+        height: 36px;
+        border-radius: 18px;
+    }
+}
+
+/* Portrait Orientation Optimizations - Requirement 8.3 */
+@media (orientation: portrait) {
+    .floating-navigation {
+        /* Ensure 60px height in portrait mode - Requirement 8.1 */
+        height: 60px;
+    }
+
+    .nav-icon {
+        /* Maintain icon specifications in portrait - Requirement 8.2 */
+        height: 30px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        /* Maintain 30px icon size in portrait - Requirement 8.2 */
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* High DPI Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .nav-icon-svg {
+        /* Ensure crisp icons on high-DPI displays */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+
+    .nav-background-blur {
+        /* Enhanced blur effect on high-DPI displays */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+/* Very Large Screens (4K and above) */
+@media (min-width: 3840px) {
+    .floating-navigation {
+        /* Maintain 60px height on 4K displays - Requirement 8.1 */
+        height: 60px;
+    }
+
+    .nav-icons-container {
+        /* Increased spacing for very large screens - Requirement 8.3 */
+        gap: 3rem;
+        padding: 1rem 2rem;
+        max-height: 50px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+
+    .nav-icon {
+        /* Maintain specifications on 4K displays - Requirement 8.2 */
+        height: 30px;
+        min-width: 48px;
+        min-height: 48px;
+        padding: 9px;
+    }
+
+    .nav-icon-svg {
+        /* Maintain 30px icon size on 4K displays - Requirement 8.2 */
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Accessibility Enhancements for All Devices - Requirements 8.4, 8.5 */
+@media (prefers-reduced-motion: reduce) {
+    .nav-icon {
+        /* Instant state changes for reduced motion */
+        transition: none !important;
+    }
+
+    .nav-icon:hover,
+    .nav-icon:focus-visible {
+        /* Instant hover/focus states */
+        transform: scale(1.15) !important;
+        transition: none !important;
+    }
+
+    .nav-icon.active {
+        /* Instant active state */
+        color: #ff0000 !important;
+        transform: scale(1.5) !important;
+        transition: none !important;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .nav-icon {
+        /* Enhanced contrast for accessibility */
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .nav-icon:hover,
+    .nav-icon:focus-visible {
+        /* High contrast hover states */
+        border: 2px solid #ffffff;
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-background-blur {
+        /* Enhanced background contrast */
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Forced Colors Mode (Windows High Contrast) */
+@media (forced-colors: active) {
+    .nav-icon {
+        /* System colors for forced colors mode */
+        color: ButtonText;
+        border: 1px solid ButtonBorder;
+    }
+
+    .nav-icon:hover,
+    .nav-icon:focus-visible {
+        background: Highlight;
+        color: HighlightText;
+    }
+
+    .nav-background-blur {
+        background: Canvas;
+        border: 1px solid CanvasText;
     }
 }
 
@@ -3136,19 +5184,10 @@ Updated Hero Section for Pill Layout */
 
     /* Further adjust header for small mobile */
     .floating-header {
-        width: 45vw;
+        width: 80vw;
         padding: 0.75rem 0;
     }
 
-    /* Smaller logo scaling for small mobile */
-    .header-logo {
-        transform: scale(1.8);
-    }
-
-    .header-logo:hover {
-        transform: scale(1.98);
-        /* 1.8x base + 10% hover increase */
-    }
 
     /* Compact navigation for small mobile */
     .nav-container {
@@ -3167,12 +5206,26 @@ Updated Hero Section for Pill Layout */
         width: 16px;
         height: 16px;
     }
+
+    /* Responsive Tooltip Adjustments for Small Mobile */
+    .nav-icon::after {
+        font-size: 10px;
+        padding: 5px 8px;
+        margin-top: 5px;
+        max-width: 100px;
+    }
+
+    .nav-icon::before {
+        border-left-width: 4px;
+        border-right-width: 4px;
+        border-bottom-width: 4px;
+        margin-top: 0px;
+    }
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
 
-    .pill-sidebar,
     .hero-content>*,
     .shape,
     .social-icon-link,
@@ -3180,6 +5233,65 @@ Updated Hero Section for Pill Layout */
     .code-element {
         animation: none !important;
         transition: none !important;
+    }
+
+    /* Tooltip accessibility for reduced motion */
+    .nav-icon::after,
+    .nav-icon::before {
+        transition: none !important;
+        transition-delay: 0s !important;
+    }
+
+    .nav-icon:hover::after,
+    .nav-icon:focus-visible::after {
+        /* Instant appearance for reduced motion */
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-icon:hover::before,
+    .nav-icon:focus-visible::before {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* High Contrast Mode Support for Tooltips */
+@media (prefers-contrast: high) {
+    .nav-icon::after {
+        background: #000000 !important;
+        color: #ffffff !important;
+        border: 2px solid #ffffff !important;
+        box-shadow:
+            0 0 0 1px #000000,
+            0 2px 8px rgba(0, 0, 0, 0.8) !important;
+        font-weight: 600 !important;
+    }
+
+    .nav-icon::before {
+        border-bottom-color: #000000 !important;
+    }
+}
+
+/* Touch Device Adjustments - Hide tooltips on touch to prevent conflicts */
+@media (hover: none) and (pointer: coarse) {
+
+    .nav-icon::after,
+    .nav-icon::before {
+        display: none;
+    }
+
+    /* Show tooltips only on focus for touch devices */
+    .nav-icon:focus-visible::after {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-icon:focus-visible::before {
+        display: block;
+        opacity: 1;
+        visibility: visible;
     }
 }
 
@@ -3228,13 +5340,7 @@ Updated Hero Section for Pill Layout */
         transition: none !important;
     }
 
-    .header-logo:hover .leon-logo {
-        transform: none !important;
-        -webkit-transform: none !important;
-        -moz-transform: none !important;
-        -ms-transform: none !important;
-        -o-transform: none !important;
-    }
+    /* No hover effects for reduced motion - logo is static */
 }
 
 /* Logo contrast adjustments for different color schemes */
@@ -3244,9 +5350,7 @@ Updated Hero Section for Pill Layout */
         filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
     }
 
-    .header-logo:hover .leon-logo {
-        filter: drop-shadow(0 4px 8px rgba(0, 107, 63, 0.4)) drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
-    }
+    /* No hover effects - logo is static */
 }
 
 /* Logo performance optimizations for low-end devices */
@@ -3258,8 +5362,1268 @@ Updated Hero Section for Pill Layout */
         width: clamp(30px, 6vw, 38px);
     }
 
-    .header-logo:hover .leon-logo {
-        /* Simplify hover effects on low-end devices */
-        filter: drop-shadow(0 2px 4px rgba(0, 107, 63, 0.2));
+    /* No hover effects - logo is static */
+}
+
+/* P
+erformance optimizations and reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
+
+    .nav-halo {
+        animation: none !important;
+        transition: opacity 0.2s ease !important;
+    }
+
+    .hero-content>* {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Performance optimizations */
+.nav-halo {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Hero content children - preserve parent centering */
+.hero-content>* {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    /* Removed translateZ(0) to avoid transform conflicts with parent centering */
+}
+
+/* Optimize animations for 60fps */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translate3d(-50px, -50%, 0) scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, -50%, 0) scale(1);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes float-code {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+/*
+Enhanced Touch Device Support - Requirements 8.4, 8.5 */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Enhanced touch interactions - Requirement 8.4 */
+    .floating-navigation {
+        /* Ensure header works on touch devices */
+        touch-action: manipulation;
+        -webkit-touch-callout: none;
+    }
+
+    .nav-icon {
+        /* Optimize for touch interaction */
+        min-width: 44px;
+        /* Minimum touch target size - Requirement 8.5 */
+        min-height: 44px;
+        touch-action: manipulation;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        /* Enhanced touch feedback */
+        transition:
+            background-color 0.15s ease,
+            transform 0.15s ease;
+    }
+
+    /* Touch-specific active states */
+    .nav-icon:active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(0.9);
+    }
+
+    /* Remove hover effects on touch devices */
+    .nav-icon:hover {
+        filter: none;
+        box-shadow: none;
+        background: transparent;
+        transform: none;
+    }
+
+    /* Touch-specific active icon styling */
+    .nav-icon.active:active {
+        background: rgba(255, 0, 0, 0.1);
+        transform: scale(1.4);
+        /* Slightly reduced from 1.5x for touch feedback */
+    }
+
+    /* Background blur adjustments for touch devices */
+    .nav-background-blur {
+        /* Slightly more opaque on touch devices for better visibility */
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    /* Hide hover tooltips on touch devices */
+    .nav-icon::after,
+    .nav-icon::before {
+        display: none;
+    }
+
+    /* Show tooltips only on focus for touch devices */
+    .nav-icon:focus-visible::after {
+        display: block !important;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-icon:focus-visible::before {
+        display: block !important;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Mouse Device Optimizations - Requirement 8.4 */
+@media (hover: hover) and (pointer: fine) {
+
+    /* Enhanced hover effects for mouse devices */
+    .nav-icon:hover {
+        /* Full hover effects for mouse devices */
+        transform: scale(1.15);
+        background: rgba(255, 255, 255, 0.1);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+    }
+
+    /* Precise cursor interactions */
+    .nav-icon {
+        cursor: pointer;
+        transition: all 0.3s ease-in;
+    }
+
+    /* Mouse-specific active states */
+    .nav-icon:active {
+        transform: scale(1.05);
+    }
+}
+
+/* Cross-Device Compatibility Enhancements - Requirements 8.1, 8.2, 8.3 */
+
+/* Landscape Orientation Adjustments */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .floating-navigation {
+        height: 60px;
+        /* Maintain 60px header height in landscape - Requirement 8.1 */
+    }
+
+    .nav-icons-container {
+        /* Adjust spacing for landscape mode - Requirement 8.3 */
+        gap: 1rem;
+        padding: 0.25rem 0.75rem;
+        max-height: 45px;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+
+    .nav-icon {
+        height: 30px;
+        /* Maintain 30px icon height - Requirement 8.2 */
+        min-width: 44px;
+        /* Maintain touch targets - Requirement 8.5 */
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
+    }
+
+    /* Adjust background blur for landscape */
+    .nav-background-blur {
+        height: 35px;
+        border-radius: 17px;
+    }
+}
+
+/* Portrait Orientation Adjustments */
+@media screen and (orientation: portrait) and (max-width: 768px) {
+    .floating-navigation {
+        height: 60px;
+        /* Maintain 60px header height in portrait - Requirement 8.1 */
+    }
+
+    .nav-icons-container {
+        /* Optimize spacing for portrait mode - Requirement 8.3 */
+        gap: 1.25rem;
+        padding: 0.375rem 0.75rem;
+        top: 20px;
+        /* Same vertical level as logo */
+    }
+
+    .nav-icon {
+        height: 30px;
+        /* Maintain 30px icon height - Requirement 8.2 */
+        min-width: 44px;
+        /* Maintain touch targets - Requirement 8.5 */
+        min-height: 44px;
+    }
+
+    .nav-icon-svg {
+        width: 31px;
+        /* Maintain 31px icon size */
+        height: 31px;
+    }
+}
+
+/* High DPI Display Support */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .nav-icon-svg {
+        /* Ensure crisp icons on high DPI displays */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+
+    .nav-background-blur {
+        /* Enhanced blur for high DPI displays */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+/* Accessibility Enhancements for Cross-Device Compatibility */
+
+/* Large Text Support */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+    .nav-icon {
+        /* Enhanced animations for devices that support them */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+/* Focus Indicators for All Devices */
+.nav-icon:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 3px;
+    background: rgba(0, 107, 63, 0.15);
+    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.2);
+    border-radius: 50%;
+}
+
+/* Enhanced focus for active icons */
+.nav-icon.active:focus-visible {
+    outline: 3px solid #ff0000;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(255, 0, 0, 0.3);
+}
+
+/* Keyboard Navigation Support */
+@media (any-hover: none) {
+
+    /* For devices without hover capability */
+    .nav-icon:focus {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.05);
+    }
+}
+
+/* Print Styles - Ensure navigation is hidden in print */
+@media print {
+    .floating-navigation {
+        display: none;
+    }
+}
+
+/* Performance Optimizations for Lower-End Devices */
+@media (max-width: 480px) and (max-resolution: 1.5dppx) {
+    .nav-background-blur {
+        /* Simplified blur for lower-end mobile devices */
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-icon {
+        /* Simplified transitions for better performance */
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+        will-change: auto;
+    }
+
+    /* Disable complex animations on low-end devices */
+    .nav-icon.floating {
+        animation: none;
+        transform: translate3d(0, -20px, 0) scale(1.1);
+    }
+}
+
+/* ===================================
+   ABOUT SECTION
+   =================================== */
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+    box-sizing: border-box;
+}
+
+.about-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.about-title {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.about-text {
+    font-family: var(--font-role);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+    color: var(--secondary-text);
+}
+
+/* ===================================
+   CONTACT SECTION
+   =================================== */
+
+.contact-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+    box-sizing: border-box;
+}
+
+.contact-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.contact-title {
+    font-family: var(--font-name);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.contact-text {
+    font-family: var(--font-role);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+    color: var(--secondary-text);
+}
+
+
+/* ============================================
+   DARK MODE - CSS VARIABLES & BASE STYLES
+   ============================================ */
+
+/* Dark Mode Color Variables */
+body.dark-theme {
+    /* Core Dark Mode Colors */
+    --kenyan-black: #e8edf3;
+    --kenyan-red: #ff3355;
+    --kenyan-green: #10cf74;
+    --kenyan-white: #0a0e12;
+    --primary-text: #e8edf3;
+    --secondary-text: #a8b5c7;
+    --accent-green: #10cf74;
+    --accent-green-light: #10cf74;
+    --background-light: #0a0e12;
+    
+    /* Dark Mode Backgrounds */
+    --bg-primary: #0a0e12;
+    --bg-secondary: #131920;
+    --bg-tertiary: #1e2730;
+    --bg-content: #1e2730;
+    
+    /* Dark Mode Borders */
+    --border-light: rgba(255, 255, 255, 0.08);
+    --border-medium: rgba(255, 255, 255, 0.15);
+    --border-kenyan: rgba(16, 207, 116, 0.25);
+    
+    /* Dark Mode Shadows with Glow */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.7);
+    --shadow-kenyan: 0 0 20px rgba(16, 207, 116, 0.3);
+    
+    /* Dark Mode Glow Effects */
+    --glow-green: 0 0 20px rgba(16, 207, 116, 0.4);
+    --glow-red: 0 0 20px rgba(255, 51, 85, 0.4);
+    
+    /* Update page background color for animations */
+    --page-background-color: #0a0e12;
+}
+
+/* Smooth Transitions for Theme Switch */
+*,
+*::before,
+*::after {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                fill 0.3s ease,
+                stroke 0.3s ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
+}
+
+/* Dark Mode Body Background */
+body.dark-theme {
+    background: #0a0e12;
+    color: #e8edf3;
+}
+
+/* Dark Mode Background Pattern */
+body.dark-theme .background-pattern {
+    opacity: 0.15;
+    filter: invert(1);
+}
+
+/* Dark Mode Kenyan Gradient */
+body.dark-theme .kenyan-gradient {
+    background: linear-gradient(45deg, #10cf74 0%, #ff3355 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(16, 207, 116, 0.4));
+}
+
+/* Dark Mode SplitText character elements */
+body.dark-theme .kenyan-gradient .char-masked,
+body.dark-theme .kenyan-gradient .char {
+    background: linear-gradient(45deg, #10cf74 0%, #ff3355 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(16, 207, 116, 0.4));
+}
+
+/* Dark Mode Code Elements */
+body.dark-theme .code-element {
+    opacity: 0.08;
+    color: #10cf74;
+}
+
+body.dark-theme .code-element-left-1,
+body.dark-theme .code-element-right-2 {
+    color: #10cf74;
+}
+
+body.dark-theme .code-element-left-2,
+body.dark-theme .code-element-right-1 {
+    color: #ff3355;
+}
+
+body.dark-theme .code-element-left-3,
+body.dark-theme .code-element-right-3 {
+    color: #e8edf3;
+}
+
+/* Dark Mode Decorative Shapes */
+body.dark-theme .shape {
+    opacity: 0.3;
+}
+
+body.dark-theme .shape-1 {
+    background: radial-gradient(circle, rgba(16, 207, 116, 0.3), transparent);
+}
+
+body.dark-theme .shape-2 {
+    background: radial-gradient(circle, rgba(255, 51, 85, 0.3), transparent);
+}
+
+body.dark-theme .shape-3 {
+    background: radial-gradient(circle, rgba(232, 237, 243, 0.2), transparent);
+}
+
+/* Dark Mode Hero Section Organic Shapes */
+body.dark-theme .hero-section::before {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+body.dark-theme .hero-section::after {
+    background: rgba(255, 51, 85, 0.6);
+}
+
+body.dark-theme .landing-page::before {
+    background: rgba(16, 207, 116, 0.4);
+}
+
+/* Dark Mode Decorative Lines */
+body.dark-theme .line-black {
+    background: #ffffff;
+}
+
+body.dark-theme .line-red {
+    background: #ff3355;
+}
+
+body.dark-theme .line-green {
+    background: #10cf74;
+}
+
+/* Dark Mode Link Hover */
+body.dark-theme a:hover,
+body.dark-theme a:focus {
+    color: #ffffff !important;
+}
+
+/* Dark Mode Location */
+body.dark-theme .location {
+    color: #bab4b0;
+}
+
+/* Dark Mode Greeting */
+body.dark-theme .greeting {
+    color: #ffffff;
+}
+
+/* Dark Mode Primary Button - Hover Only */
+body.dark-theme .btn-primary {
+    position: relative;
+}
+
+body.dark-theme .btn-primary:hover {
+    background: linear-gradient(135deg, #004d2e 0%, #8b0000 100%);
+    border-color: transparent;
+    color: transparent;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+body.dark-theme .btn-primary:hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #cec0b9 !important;
+    border-radius: inherit;
+    z-index: -1;
+}
+
+/* Dark Mode Secondary Button */
+body.dark-theme .btn-secondary {
+    color: #cec0b9;
+}
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+body.dark-theme .scroll-progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #006b3f, #10cf74);
+    transition: width 0.1s ease-out;
+}
+
+/* ============================================
+   SCROLL REVEAL ANIMATIONS
+   ============================================ */
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ============================================
+   SMOOTH SCROLL BEHAVIOR
+   ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ============================================
+   SECTION STYLES
+   ============================================ */
+
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--section-padding) var(--content-padding);
+}
+
+.section-title {
+    font-family: "Asimovian", sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 1rem 0;
+}
+
+.section-subtitle {
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--secondary-text);
+    text-align: center;
+    margin: 0 0 3rem 0;
+}
+
+body.dark-theme .section-subtitle {
+    color: rgba(232, 237, 243, 0.7);
+}
+
+.section-cta {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* ============================================
+   RECENT WORK SECTION
+   ============================================ */
+
+.recent-work-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-padding) 0;
+}
+
+.recent-work-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .recent-work-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .recent-work-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-theme .project-card {
+    background: rgba(30, 39, 48, 0.6);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .project-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.project-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #006b3f 0%, #ce1126 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.project-placeholder-text {
+    font-family: "Enriqueta", serif;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+.project-card-content {
+    padding: 1.5rem;
+}
+
+.project-name {
+    font-family: "Enriqueta", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 0 0 0.5rem 0;
+}
+
+body.dark-theme .project-name {
+    color: #e8edf3;
+}
+
+.project-tagline {
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    color: var(--secondary-text);
+    margin: 0 0 1rem 0;
+}
+
+body.dark-theme .project-tagline {
+    color: rgba(232, 237, 243, 0.7);
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tech-badge {
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 107, 63, 0.1);
+    color: #006b3f;
+    border-radius: 1rem;
+    font-weight: 600;
+}
+
+body.dark-theme .tech-badge {
+    background: rgba(16, 207, 116, 0.2);
+    color: #10cf74;
+}
+
+.project-link {
+    font-family: "Enriqueta", serif;
+    font-size: 0.875rem;
+    color: #006b3f;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.project-link:hover {
+    color: #004d2d;
+}
+
+body.dark-theme .project-link {
+    color: #10cf74;
+}
+
+body.dark-theme .project-link:hover {
+    color: #0ea55e;
+}
+
+/* ============================================
+   TECH STACK SECTION
+   ============================================ */
+
+.tech-stack-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-padding) 0;
+    position: relative;
+}
+
+.tech-stack-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+}
+
+.tech-category {
+    text-align: center;
+}
+
+.tech-category-title {
+    font-family: "Enriqueta", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 0 0 1rem 0;
+}
+
+body.dark-theme .tech-category-title {
+    color: #e8edf3;
+}
+
+.tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.tech-pill {
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--primary-text);
+    border-radius: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+.tech-pill:hover {
+    transform: scale(1.05);
+    background: #006b3f;
+    color: #ffffff;
+    border-color: #006b3f;
+}
+
+body.dark-theme .tech-pill {
+    background: rgba(30, 39, 48, 0.8);
+    color: #e8edf3;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .tech-pill:hover {
+    background: #10cf74;
+    color: #0a0e12;
+    border-color: #10cf74;
+}
+
+/* ============================================
+   TESTIMONIALS SECTION
+   ============================================ */
+
+.testimonials-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-padding) 0;
+}
+
+.testimonial-carousel {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.testimonial-track {
+    position: relative;
+    min-height: 300px;
+}
+
+.testimonial-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.testimonial-card.active {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.testimonial-quote {
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    color: var(--primary-text);
+    line-height: 1.8;
+    margin: 0 0 2rem 0;
+    text-align: center;
+}
+
+body.dark-theme .testimonial-quote {
+    color: #e8edf3;
+}
+
+.testimonial-author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-style: normal;
+}
+
+.author-name {
+    font-family: "Enriqueta", serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 0.25rem;
+}
+
+body.dark-theme .author-name {
+    color: #e8edf3;
+}
+
+.author-role {
+    font-family: "Space Mono", monospace;
+    font-size: 0.875rem;
+    color: var(--secondary-text);
+}
+
+body.dark-theme .author-role {
+    color: rgba(232, 237, 243, 0.7);
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.carousel-btn {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: all 0.2s ease;
+}
+
+.carousel-btn:hover {
+    background: #006b3f;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+body.dark-theme .carousel-btn {
+    background: rgba(30, 39, 48, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e8edf3;
+}
+
+body.dark-theme .carousel-btn:hover {
+    background: #10cf74;
+    color: #0a0e12;
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.carousel-dot.active {
+    background: #006b3f;
+    transform: scale(1.2);
+}
+
+body.dark-theme .carousel-dot {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-theme .carousel-dot.active {
+    background: #10cf74;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.cta-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-padding) 0;
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 107, 63, 0.05) 0%, rgba(206, 17, 38, 0.05) 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+body.dark-theme .cta-section {
+    background: linear-gradient(135deg, rgba(16, 207, 116, 0.1) 0%, rgba(255, 51, 85, 0.1) 100%);
+    background-size: 200% 200%;
+}
+
+.cta-title {
+    font-family: "Asimovian", sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 1.5rem 0;
+}
+
+.cta-description {
+    font-family: "Enriqueta", serif;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--secondary-text);
+    text-align: center;
+    margin: 0 0 2.5rem 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.dark-theme .cta-description {
+    color: rgba(232, 237, 243, 0.7);
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1.25rem 3rem;
+    background: #006b3f;
+    color: #ffffff;
+    font-family: "Enriqueta", serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0, 107, 63, 0.3);
+    margin-bottom: 2rem;
+}
+
+.cta-button:hover {
+    background: #004d2d;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 107, 63, 0.4);
+}
+
+body.dark-theme .cta-button {
+    background: #10cf74;
+    color: #0a0e12;
+    box-shadow: 0 8px 24px rgba(16, 207, 116, 0.3);
+}
+
+body.dark-theme .cta-button:hover {
+    background: #0ea55e;
+    box-shadow: 0 12px 32px rgba(16, 207, 116, 0.4);
+}
+
+.cta-social {
+    margin-top: 2rem;
+}
+
+/* ============================================
+   QUICK STATS SECTION (MOBILE)
+   ============================================ */
+
+.quick-stats-section {
+    display: none;
+    padding: var(--section-padding) var(--content-padding);
+    margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .quick-stats-section {
+        display: block;
+    }
+}
+
+.quick-stats-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .quick-stats-container {
+    background: rgba(30, 39, 48, 0.6);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.quick-stats-title {
+    font-family: "Enriqueta", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--primary-text);
+    margin: 0 0 1.5rem 0;
+}
+
+body.dark-theme .quick-stats-title {
+    color: #e8edf3;
+}
+
+.quick-stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.quick-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5rem;
+}
+
+body.dark-theme .quick-stat-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.quick-stat-icon {
+    font-size: 1.5rem;
+}
+
+.quick-stat-number {
+    font-family: "Space Mono", monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-text);
+}
+
+body.dark-theme .quick-stat-number {
+    color: #e8edf3;
+}
+
+.quick-stat-label {
+    font-family: "Enriqueta", serif;
+    font-size: 1rem;
+    color: var(--secondary-text);
+    margin-left: auto;
+}
+
+body.dark-theme .quick-stat-label {
+    color: rgba(232, 237, 243, 0.7);
+}
+
+.quick-stats-social {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 1.5rem;
+}
+
+body.dark-theme .quick-stats-social {
+    border-top-color: rgba(255, 255, 255, 0.1);
 }
