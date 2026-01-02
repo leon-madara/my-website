@@ -209,7 +209,205 @@
             </button>
         </div>
 
-        <!-- Main Content Area: Accordion + Horizontal Pages -->
+        <!-- Section Pills Row (NEW - horizontal navigation) -->
+        <div class="section-pills-row" aria-label="Case study sections">
+            <!-- Section 01: Project Details -->
+            <button class="section-pill active" data-section="details" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">01</span>
+                <span class="pill-label">Project Details</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Project Details sub-pages">
+                    <a href="#overview" class="dropdown-link active" role="menuitem" data-page="0">Overview</a>
+                    <a href="#role-timeline" class="dropdown-link" role="menuitem" data-page="1">Role & Timeline</a>
+                    <a href="#tech-stack" class="dropdown-link" role="menuitem" data-page="2">Tech Stack</a>
+                </div>
+            </button>
+
+            <!-- Section 02: Problem -->
+            <button class="section-pill" data-section="problem" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">02</span>
+                <span class="pill-label">Problem</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Problem sub-pages">
+                    <a href="#challenge" class="dropdown-link" role="menuitem" data-page="3">The Challenge</a>
+                    <a href="#pain-points" class="dropdown-link" role="menuitem" data-page="4">Pain Points</a>
+                </div>
+            </button>
+
+            <!-- Section 03: Goal -->
+            <button class="section-pill" data-section="goal" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">03</span>
+                <span class="pill-label">Goal</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Goal sub-pages">
+                    <a href="#objectives" class="dropdown-link" role="menuitem" data-page="5">Objectives</a>
+                    <a href="#success-criteria" class="dropdown-link" role="menuitem" data-page="6">Success Criteria</a>
+                </div>
+            </button>
+
+            <!-- Section 04: Impact -->
+            <button class="section-pill" data-section="impact" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">04</span>
+                <span class="pill-label">Impact</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Impact sub-pages">
+                    <a href="#metrics" class="dropdown-link" role="menuitem" data-page="7">Metrics & Results</a>
+                    <a href="#user-feedback" class="dropdown-link" role="menuitem" data-page="8">User Feedback</a>
+                </div>
+            </button>
+
+            <!-- Section 05: Early Adoption -->
+            <button class="section-pill" data-section="adoption" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">05</span>
+                <span class="pill-label">Early Adoption</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Early Adoption sub-pages">
+                    <a href="#beta-testing" class="dropdown-link" role="menuitem" data-page="9">Beta Testing</a>
+                    <a href="#iterations" class="dropdown-link" role="menuitem" data-page="10">Iterations</a>
+                </div>
+            </button>
+
+            <!-- Section 06: Testing -->
+            <button class="section-pill" data-section="testing" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">06</span>
+                <span class="pill-label">Testing</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Testing sub-pages">
+                    <a href="#qa-process" class="dropdown-link" role="menuitem" data-page="11">QA Process</a>
+                    <a href="#usability" class="dropdown-link" role="menuitem" data-page="12">Usability Testing</a>
+                </div>
+            </button>
+
+            <!-- Section 07: Final Designs -->
+            <button class="section-pill" data-section="designs" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">07</span>
+                <span class="pill-label">Final Designs</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Final Designs sub-pages">
+                    <a href="#ui-showcase" class="dropdown-link" role="menuitem" data-page="13">UI Showcase</a>
+                    <a href="#design-system" class="dropdown-link" role="menuitem" data-page="14">Design System</a>
+                </div>
+            </button>
+
+            <!-- Section 08: Development -->
+            <button class="section-pill" data-section="development" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">08</span>
+                <span class="pill-label">Development</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Development sub-pages">
+                    <a href="#architecture" class="dropdown-link" role="menuitem" data-page="15">Architecture</a>
+                    <a href="#implementation" class="dropdown-link" role="menuitem" data-page="16">Implementation</a>
+                </div>
+            </button>
+
+            <!-- Section 09: Future Steps -->
+            <button class="section-pill" data-section="future" aria-expanded="false" aria-haspopup="true">
+                <span class="pill-number">09</span>
+                <span class="pill-label">Future Steps</span>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7"/>
+                </svg>
+                <div class="pill-dropdown" role="menu" aria-label="Future Steps sub-pages">
+                    <a href="#roadmap" class="dropdown-link" role="menuitem" data-page="17">Roadmap</a>
+                    <a href="#enhancements" class="dropdown-link" role="menuitem" data-page="18">Planned Enhancements</a>
+                </div>
+            </button>
+        </div>
+
+        <!-- NEW: Content Card (Full-width layout for Projects 1 & 2) -->
+        <div class="content-card" id="content-card" aria-label="Project case study content">
+            <!-- Card Header -->
+            <header class="card-header">
+                <!-- Top Row: Status Badge (left) and Metadata (right) -->
+                <div class="header-top-row">
+                    <span class="status-badge" id="status-badge">Production-Ready</span>
+                    <div class="header-metadata">
+                        <span class="meta-item">
+                            <strong>Timeline</strong>
+                            <span id="meta-timeline">3 weeks</span>
+                        </span>
+                        <span class="meta-item">
+                            <strong>Role</strong>
+                            <span id="meta-role">Full Stack Developer</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Project Title -->
+                <h1 class="project-title" id="project-title">Eastleigh Turf Flow</h1>
+                
+                <!-- Project Tagline/Description -->
+                <p class="project-tagline" id="project-tagline">Full-stack e-commerce platform for a professional turf installation business.</p>
+                
+                <!-- Tech Stack Pills -->
+                <div class="tech-stack-pills" id="tech-stack-pills">
+                    <span class="tech-pill">React 18 with TypeScript</span>
+                    <span class="tech-pill">Supabase backend with RLS</span>
+                    <span class="tech-pill">Tailwind CSS UI</span>
+                    <span class="tech-pill">CI/CD via Vercel</span>
+                </div>
+            </header>
+            
+            <!-- Divider -->
+            <hr class="card-divider" aria-hidden="true">
+            
+            <!-- Card Content Area -->
+            <div class="card-content">
+                <!-- Section Label -->
+                <span class="section-label" id="section-label">PROJECT DETAILS</span>
+                
+                <!-- Page Title -->
+                <h2 class="page-title" id="card-page-title">Overview</h2>
+                
+                <!-- Page Content Container -->
+                <div class="page-content" id="card-page-content">
+                    <!-- Dynamic content will be loaded here based on current section/page -->
+                    <p>Full-stack e-commerce platform designed for a professional turf installation business in Kenya. Built with React 18, TypeScript, and Supabase, featuring interactive product showcases, broker authentication, and seamless order management.</p>
+                </div>
+            </div>
+            
+            <!-- Pagination Footer -->
+            <footer class="card-pagination">
+                <button class="pagination-prev" id="pagination-prev" aria-label="Go to previous page">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                    <span>Previous</span>
+                </button>
+                
+                <!-- Dot Indicators -->
+                <div class="pagination-dots" id="pagination-dots" role="tablist" aria-label="Page indicators">
+                    <button class="dot active" role="tab" aria-selected="true" aria-label="Page 1 of 3" data-page="0"></button>
+                    <button class="dot" role="tab" aria-selected="false" aria-label="Page 2 of 3" data-page="1"></button>
+                    <button class="dot" role="tab" aria-selected="false" aria-label="Page 3 of 3" data-page="2"></button>
+                </div>
+                
+                <button class="pagination-next" id="pagination-next" aria-label="Go to next page">
+                    <span>Next</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+            </footer>
+        </div>
+
+        <!-- Main Content Area: Accordion + Horizontal Pages (Legacy - will be hidden for Projects 1 & 2) -->
         <section class="content-wrapper">
             <!-- Left Sidebar: Accordion Navigation -->
             <aside class="accordion-nav" aria-label="Case study navigation">
@@ -2067,6 +2265,8 @@ const { data: carriers } = useQuery({
     <script src="js/projectData.js"></script>
     <script src="js/portfolioContentLoader.js"></script>
     <script src="js/portfolio.js"></script>
+    <script src="js/section-pills.js"></script>
+    <script src="js/content-card.js"></script>
     <script src="js/portfolio-entrance.js"></script>
     <script src="js/profile-card.js"></script>
     <script src="js/liquid-nav.js"></script>

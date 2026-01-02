@@ -267,6 +267,22 @@ function initializeProjectToggle() {
 
     // Set initial active state (project 2 is default)
     updateProjectToggleUI(PortfolioState.currentProject);
+    
+    // ====================================
+    // NEW: Initialize layout visibility and content card
+    // Task 9.2: Toggle visibility based on active project
+    // Requirements: 3.1, 5.1 - Show new layout for Projects 1 and 2
+    // ====================================
+    
+    // Set initial layout visibility
+    if (typeof updateLayoutVisibility === 'function') {
+        updateLayoutVisibility(PortfolioState.currentProject);
+    }
+    
+    // Initialize content card with default project
+    if (typeof switchContentCardProject === 'function') {
+        switchContentCardProject(PortfolioState.currentProject);
+    }
 }
 
 function updateProjectToggleUI(projectNumber) {
@@ -787,6 +803,21 @@ async function switchProject(newProjectNumber) {
     // Reset accordion to first item
     resetAccordionState();
 
+    // ====================================
+    // NEW: Reset section pills and content card for new layout
+    // Requirements: 5.1, 5.3 - Render new layout, reset to first section/page
+    // ====================================
+    
+    // Reset section pills to first section (Project Details) and first page (Overview)
+    if (typeof resetSectionPills === 'function') {
+        resetSectionPills();
+    }
+    
+    // Switch content card to new project and reset to first section/page
+    if (typeof switchContentCardProject === 'function') {
+        switchContentCardProject(newProjectNumber);
+    }
+
     // Phase 4: Fade in new content
     await animateProjectEnter();
 
@@ -805,25 +836,38 @@ function animateProjectExit() {
     return new Promise((resolve) => {
         const contentWrapper = DOM.contentWrapper;
         const accordionNav = document.querySelector('.accordion-nav');
+        const contentCard = document.getElementById('content-card');
+        const sectionPillsRow = document.querySelector('.section-pills-row');
 
-        if (!contentWrapper) {
-            resolve();
-            return;
-        }
-
-        // Apply blinking animation to both accordion-nav and content-wrapper
+        // Apply blinking animation to all content elements
         const animationStyle = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
         
-        // Animate content-wrapper
-        contentWrapper.style.transition = animationStyle;
-        contentWrapper.style.opacity = '0';
-        contentWrapper.style.transform = 'scale(0.95)';
+        // Animate content-wrapper (legacy)
+        if (contentWrapper) {
+            contentWrapper.style.transition = animationStyle;
+            contentWrapper.style.opacity = '0';
+            contentWrapper.style.transform = 'scale(0.95)';
+        }
         
-        // Animate accordion-nav if it exists
+        // Animate accordion-nav if it exists (legacy)
         if (accordionNav) {
             accordionNav.style.transition = animationStyle;
             accordionNav.style.opacity = '0';
             accordionNav.style.transform = 'scale(0.95)';
+        }
+        
+        // Animate content card (new layout)
+        if (contentCard) {
+            contentCard.style.transition = animationStyle;
+            contentCard.style.opacity = '0';
+            contentCard.style.transform = 'scale(0.95)';
+        }
+        
+        // Animate section pills row (new layout)
+        if (sectionPillsRow) {
+            sectionPillsRow.style.transition = animationStyle;
+            sectionPillsRow.style.opacity = '0';
+            sectionPillsRow.style.transform = 'scale(0.95)';
         }
 
         setTimeout(resolve, 400);
@@ -834,37 +878,62 @@ function animateProjectEnter() {
     return new Promise((resolve) => {
         const contentWrapper = DOM.contentWrapper;
         const accordionNav = document.querySelector('.accordion-nav');
+        const contentCard = document.getElementById('content-card');
+        const sectionPillsRow = document.querySelector('.section-pills-row');
 
-        if (!contentWrapper) {
-            resolve();
-            return;
-        }
-
-        // Start both elements from scaled/opacity state
+        // Start all elements from scaled/opacity state
         const startStyle = 'scale(0.95)';
-        contentWrapper.style.transform = startStyle;
-        contentWrapper.style.opacity = '0';
+        
+        if (contentWrapper) {
+            contentWrapper.style.transform = startStyle;
+            contentWrapper.style.opacity = '0';
+        }
         
         if (accordionNav) {
             accordionNav.style.transform = startStyle;
             accordionNav.style.opacity = '0';
         }
+        
+        if (contentCard) {
+            contentCard.style.transform = startStyle;
+            contentCard.style.opacity = '0';
+        }
+        
+        if (sectionPillsRow) {
+            sectionPillsRow.style.transform = startStyle;
+            sectionPillsRow.style.opacity = '0';
+        }
 
         // Force reflow
-        contentWrapper.offsetHeight;
+        if (contentWrapper) contentWrapper.offsetHeight;
+        if (contentCard) contentCard.offsetHeight;
 
-        // Animate both to normal position
+        // Animate all to normal position
         setTimeout(() => {
             const animationStyle = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             
-            contentWrapper.style.transition = animationStyle;
-            contentWrapper.style.opacity = '1';
-            contentWrapper.style.transform = 'scale(1)';
+            if (contentWrapper) {
+                contentWrapper.style.transition = animationStyle;
+                contentWrapper.style.opacity = '1';
+                contentWrapper.style.transform = 'scale(1)';
+            }
             
             if (accordionNav) {
                 accordionNav.style.transition = animationStyle;
                 accordionNav.style.opacity = '1';
                 accordionNav.style.transform = 'scale(1)';
+            }
+            
+            if (contentCard) {
+                contentCard.style.transition = animationStyle;
+                contentCard.style.opacity = '1';
+                contentCard.style.transform = 'scale(1)';
+            }
+            
+            if (sectionPillsRow) {
+                sectionPillsRow.style.transition = animationStyle;
+                sectionPillsRow.style.opacity = '1';
+                sectionPillsRow.style.transform = 'scale(1)';
             }
 
             setTimeout(resolve, 500);
