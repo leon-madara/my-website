@@ -1,0 +1,21 @@
+# Cloudflare Wrangler Ignore File
+# Exclude git internals which are huge AND secure
+.git/
+.github/
+.gitignore
+
+# Exclude editor files
+.vscode/
+.idea/
+.agent/
+
+# Exclude dependencies
+node_modules/
+
+# Exclude configuration/script files not needed in production
+wrangler.jsonc
+package.json
+package-lock.json
+*.md
+*.py
+*.ps1
