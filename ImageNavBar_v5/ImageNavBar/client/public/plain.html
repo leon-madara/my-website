@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frosted Navbar</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
+            color: #1f2937;
+        }
+
+        /* Frosted Glass Container */
+        .nav-container {
+            position: relative;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 9999px;
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.05),
+                0 4px 6px -2px rgba(0, 0, 0, 0.025),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Inner Track */
+        .nav-track {
+            position: relative;
+            display: flex;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            padding: 6px;
+            gap: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+        }
+
+        /* The Moving Pill */
+        .active-pill {
+            position: absolute;
+            top: 6px; /* Matches padding of nav-track */
+            left: 6px;
+            height: calc(100% - 12px);
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 9999px;
+            z-index: 1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1); /* Bouncy Spring Effect */
+            pointer-events: none; /* Let clicks pass through to buttons */
+        }
+
+        /* Nav Items */
+        .nav-item {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 112px; /* w-28 */
+            height: 80px; /* h-20 */
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 9999px;
+            gap: 6px;
+            color: #4b5563;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: white;
+        }
+
+        .nav-item:hover:not(.active) {
+            color: #111827;
+        }
+
+        /* Icon Styles */
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .nav-label {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="nav-container">
+        <div class="nav-track">
+            <!-- The Pill Element -->
+            <div class="active-pill" id="pill"></div>
+
+            <!-- Home -->
+            <button class="nav-item active" data-target="home" onclick="setActive(this)">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span class="nav-label">Home</span>
+            </button>
+
+            <!-- About -->
+            <button class="nav-item" data-target="about" onclick="setActive(this)">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span class="nav-label">About</span>
+            </button>
+
+            <!-- Portfolio -->
+            <button class="nav-item" data-target="portfolio" onclick="setActive(this)">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                <span class="nav-label">Portfolio</span>
+            </button>
+
+            <!-- Contact -->
+            <button class="nav-item" data-target="contact" onclick="setActive(this)">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+                <span class="nav-label">Contact</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const pill = document.getElementById('pill');
+        const items = document.querySelectorAll('.nav-item');
+
+        function setActive(element) {
+            // Remove active class from all items
+            items.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to clicked item
+            element.classList.add('active');
+
+            // Move the pill
+            // We need to calculate position relative to the track container
+            // The pill is absolute, so 'left' is relative to .nav-track
+            const trackRect = document.querySelector('.nav-track').getBoundingClientRect();
+            const itemRect = element.getBoundingClientRect();
+            
+            // Calculate left position relative to track
+            const relativeLeft = itemRect.left - trackRect.left;
+            
+            // Apply width and transform
+            pill.style.width = `${itemRect.width}px`;
+            pill.style.transform = `translateX(${relativeLeft}px)`;
+        }
+
+        // Initialize position
+        window.addEventListener('load', () => {
+            const activeItem = document.querySelector('.nav-item.active');
+            if(activeItem) {
+                // We set width initially
+                pill.style.width = `${activeItem.offsetWidth}px`;
+                // We don't animate the initial state, so we can just set it
+                // But for simplicity, we'll just call setActive which handles it
+                // To avoid animation on load, we could temporarily disable transition
+                pill.style.transition = 'none';
+                setActive(activeItem);
+                // Force reflow
+                void pill.offsetWidth;
+                // Restore transition
+                pill.style.transition = 'all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1)';
+            }
+        });
+    </script>
+</body>
+</html>

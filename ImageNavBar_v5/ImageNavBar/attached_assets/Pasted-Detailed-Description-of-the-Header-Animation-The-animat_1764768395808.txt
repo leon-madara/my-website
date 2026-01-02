@@ -1,0 +1,83 @@
+Detailed Description of the Header Animation
+
+The animation depicts a bottom navigation bar with a smooth, organic movement that shifts the highlighted (active) icon between positions. The bar has three icons: Home, Fire, and Settings.
+
+1. Layout Structure
+
+A long, rounded navigation bar sits horizontally.
+
+Each icon is equally spaced within the bar.
+
+The bar has a glossy black background.
+
+Icons are simple, clean white line icons, except the active one which appears yellow/gold.
+
+2. Active Icon Behavior
+
+The animation highlights whichever icon is selected by placing it inside a circular raised bubble, creating a “spotlight” effect.
+
+Feature Details:
+
+The active icon is centered inside a perfect circle that sits deeper into the navbar.
+
+The circle is slightly elevated visually, making it appear like a floating button.
+
+The active icon’s circle has a white center and a black outer stroke blending into the navbar.
+
+3. Morphing Background Shape
+
+The bar has a wave-like indentation that follows the active icon.
+
+How it moves:
+
+When the user switches tabs, the curved notch slides horizontally across the bar.
+
+The notch resembles a soft "U-shaped" dip carved into the navbar.
+
+The depth of the dip matches the diameter of the icon’s circular container, forming a perfect cradle.
+
+As the notch moves, it morphs smoothly with elastic-like easing (no sharp corners or jumps).
+
+This creates the illusion that
+“the navbar material is soft and deforms around the active icon.”
+
+4. Transition Animation Between Icons
+When switching icons:
+
+The notch begins moving toward the next icon with a fluid liquid-like stretch.
+
+The circular bubble containing the active icon slides along with it.
+
+The previously active icon returns to a flat position in the bar.
+
+The newly selected icon:
+
+Rises slightly as the notch arrives,
+
+Becomes highlighted in yellow/gold,
+
+Sits perfectly within the new dip.
+
+Motion characteristics:
+
+Smooth bezier easing (slow start → fast middle → smooth stop).
+
+No abrupt movements.
+
+A feeling of soft elasticity, similar to iOS-style micro-interactions.
+
+The circular button does not jump; it glides.
+
+5. Overall Visual Impression
+
+The animation feels:
+
+Modern
+
+Smooth and responsive
+
+Playful
+
+Minimalistic
+
+It mimics the behavior of a dynamic floating tab selector where the active button appears to “sink” into the navbar material while the rest stay flat.
