@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+        button {
+            background: #006b3f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #005530; }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>Portfolio Clickability Debug</h1>
+        <p>This page will help diagnose the portfolio clickability issue.</p>
+        
+        <button onclick="openPortfolio()">Open Portfolio Page</button>
+        <button onclick="checkPortfolioState()">Check Portfolio State</button>
+        <button onclick="forceEnablePortfolio()">Force Enable Portfolio</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        let portfolioWindow = null;
+
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            results.appendChild(div);
+            results.scrollTop = results.scrollHeight;
+        }
+
+        function openPortfolio() {
+            log('Opening portfolio page...', 'info');
+            portfolioWindow = window.open('portfolio.html', 'portfolio', 'width=1200,height=800');
+            
+            if (portfolioWindow) {
+                log('✅ Portfolio window opened', 'success');
+                
+                // Check state after page loads
+                setTimeout(() => {
+                    checkPortfolioState();
+                }, 3000);
+            } else {
+                log('❌ Failed to open portfolio window', 'error');
+            }
+        }
+
+        function checkPortfolioState() {
+            if (!portfolioWindow || portfolioWindow.closed) {
+                log('❌ Portfolio window not available', 'error');
+                return;
+            }
+
+            try {
+                const doc = portfolioWindow.document;
+                const body = doc.body;
+                
+                log('=== Portfolio State Check ===', 'info');
+                
+                // Check body classes
+                const hasEntranceComplete = body.classList.contains('entrance-complete');
+                log(`Body has entrance-complete class: ${hasEntranceComplete}`, hasEntranceComplete ? 'success' : 'error');
+                
+                // Check portfolio container
+                const portfolioContainer = doc.querySelector('.portfolio-container');
+                if (portfolioContainer) {
+                    const style = portfolioWindow.getComputedStyle(portfolioContainer);
+                    log(`Portfolio container - opacity: ${style.opacity}, pointer-events: ${style.pointerEvents}, visibility: ${style.visibility}`, 
+                        style.pointerEvents === 'auto' ? 'success' : 'error');
+                } else {
+                    log('❌ Portfolio container not found', 'error');
+                }
+                
+                // Check project toggle buttons
+                const projectButtons = doc.querySelectorAll('.project-toggle-btn');
+                log(`Found ${projectButtons.length} project toggle buttons`, projectButtons.length > 0 ? 'success' : 'error');
+                
+                if (projectButtons.length > 0) {
+                    const firstButton = projectButtons[0];
+                    const buttonStyle = portfolioWindow.getComputedStyle(firstButton);
+                    log(`First button - pointer-events: ${buttonStyle.pointerEvents}, opacity: ${buttonStyle.opacity}`, 
+                        buttonStyle.pointerEvents !== 'none' ? 'success' : 'error');
+                }
+                
+                // Check entrance container
+                const entranceContainer = doc.querySelector('.entrance-3d-container');
+                if (entranceContainer) {
+                    const entranceStyle = portfolioWindow.getComputedStyle(entranceContainer);
+                    log(`Entrance container found - display: ${entranceStyle.display}, z-index: ${entranceStyle.zIndex}`, 'warning');
+                } else {
+                    log('No entrance container found', 'success');
+                }
+                
+                // Check console errors
+                log('Check browser console for JavaScript errors', 'info');
+                
+            } catch (error) {
+                log(`❌ Error checking portfolio state: ${error.message}`, 'error');
+            }
+        }
+
+        function forceEnablePortfolio() {
+            if (!portfolioWindow || portfolioWindow.closed) {
+                log('❌ Portfolio window not available', 'error');
+                return;
+            }
+
+            try {
+                const doc = portfolioWindow.document;
+                const body = doc.body;
+                
+                log('🔧 Force enabling portfolio...', 'info');
+                
+                // Add entrance-complete class
+                body.classList.add('entrance-complete');
+                log('✅ Added entrance-complete class', 'success');
+                
+                // Remove entrance container if exists
+                const entranceContainer = doc.querySelector('.entrance-3d-container');
+                if (entranceContainer) {
+                    entranceContainer.remove();
+                    log('✅ Removed entrance container', 'success');
+                }
+                
+                // Force enable portfolio container
+                const portfolioContainer = doc.querySelector('.portfolio-container');
+                if (portfolioContainer) {
+                    portfolioContainer.style.opacity = '1';
+                    portfolioContainer.style.pointerEvents = 'auto';
+                    portfolioContainer.style.visibility = 'visible';
+                    log('✅ Force enabled portfolio container', 'success');
+                }
+                
+                // Check if it worked
+                setTimeout(() => {
+                    checkPortfolioState();
+                }, 500);
+                
+            } catch (error) {
+                log(`❌ Error force enabling portfolio: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-open portfolio on page load
+        window.addEventListener('load', () => {
+            log('Debug page loaded. Click "Open Portfolio Page" to start diagnosis.', 'info');
+        });
+    </script>
+</body>
+</html>

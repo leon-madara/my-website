@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-clickability-tests",
+  "version": "1.0.0",
+  "description": "Testing framework for portfolio clickability validation",
+  "type": "module",
+  "scripts": {
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "fast-check": "^3.15.0",
+    "@vitest/ui": "^1.0.0",
+    "c8": "^8.0.0",
+    "jsdom": "^23.0.0"
+  }
+}
