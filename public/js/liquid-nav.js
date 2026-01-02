@@ -76,7 +76,7 @@
   function handleClick(e) {
     const clickedLink = e.currentTarget;
     const href = clickedLink.getAttribute("href");
-    
+
     if (!href) {
       e.preventDefault();
       return;
@@ -88,7 +88,7 @@
     const targetPage = href.split("/").pop();
 
     // If it's the current page, do nothing
-    const isCurrentPage = 
+    const isCurrentPage =
       currentPage === targetPage ||
       (currentPage === "" && targetPage === "index.html") ||
       (currentPage === "index.html" && targetPage === "index.html");
@@ -101,19 +101,25 @@
     // Prevent default navigation
     e.preventDefault();
 
-    // Animate indicator to clicked link
-    setActive(clickedLink);
-    moveIndicator(clickedLink, true);
+    try {
+      // Animate indicator to clicked link
+      setActive(clickedLink);
+      moveIndicator(clickedLink, true);
 
-    // Navigate after animation completes
-    setTimeout(function () {
+      // Navigate after animation completes
+      setTimeout(function () {
+        window.location.href = href;
+      }, 350); // Match the CSS transition duration
+    } catch (error) {
+      console.error("Navigation animation failed:", error);
+      // Fallback: navigation immediately
       window.location.href = href;
-    }, 350); // Match the CSS transition duration
+    }
   }
 
   // Random color hover effect
   const hoverColors = ['#000000', '#ce1126', '#0da95f'];
-  
+
   function getRandomColor() {
     return hoverColors[Math.floor(Math.random() * hoverColors.length)];
   }
@@ -121,15 +127,15 @@
   links.forEach(function (link) {
     // Attach click handler
     link.addEventListener("click", handleClick);
-    
+
     // Attach hover handlers for random color
-    link.addEventListener("mouseenter", function() {
+    link.addEventListener("mouseenter", function () {
       if (!this.classList.contains("active")) {
         this.style.color = getRandomColor();
       }
     });
-    
-    link.addEventListener("mouseleave", function() {
+
+    link.addEventListener("mouseleave", function () {
       if (!this.classList.contains("active")) {
         this.style.color = "";
       }
