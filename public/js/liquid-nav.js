@@ -98,23 +98,14 @@
       return;
     }
 
-    // Prevent default navigation
-    e.preventDefault();
+    // Allow native navigation - don't call e.preventDefault()
+    // The animation will play briefly during the page transition
 
-    try {
-      // Animate indicator to clicked link
-      setActive(clickedLink);
-      moveIndicator(clickedLink, true);
+    // Animate indicator to clicked link (visual feedback only)
+    setActive(clickedLink);
+    moveIndicator(clickedLink, true);
 
-      // Navigate after animation completes
-      setTimeout(function () {
-        window.location.href = href;
-      }, 350); // Match the CSS transition duration
-    } catch (error) {
-      console.error("Navigation animation failed:", error);
-      // Fallback: navigation immediately
-      window.location.href = href;
-    }
+    // Browser will navigate naturally via the href
   }
 
   // Random color hover effect
