@@ -45,11 +45,11 @@
             pointer-events: none;
         }
     </style>
-    
+
     <!-- Emergency Portfolio Enabler -->
     <script>
         // Emergency fallback to ensure portfolio is always clickable
-        setTimeout(function() {
+        setTimeout(function () {
             if (!document.body.classList.contains('entrance-complete')) {
                 console.log('🚨 Emergency fallback: Enabling portfolio after 3 seconds');
                 document.body.classList.add('entrance-complete');
@@ -99,6 +99,31 @@
             <span class="label">Contact</span>
         </a>
     </nav>
+
+    <!-- Theme Toggle Switch -->
+    <div class="theme-toggle-wrapper">
+        <div class="toggle-switch" id="themeToggle">
+            <div class="toggle-background">
+                <div class="scenery day-scenery">
+                    <div class="cloud cloud-1"></div>
+                    <div class="cloud cloud-2"></div>
+                    <div class="cloud cloud-3"></div>
+                    <div class="cloud cloud-4"></div>
+                    <div class="cloud cloud-5"></div>
+                </div>
+                <div class="scenery night-scenery">
+                    <div class="star star-1">✦</div>
+                    <div class="star star-2">★</div>
+                    <div class="star star-3">✦</div>
+                </div>
+            </div>
+            <div class="toggle-knob">
+                <div class="crater crater-1"></div>
+                <div class="crater crater-2"></div>
+                <div class="crater crater-3"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Profile Card Sidebar -->
     <aside class="pill-sidebar" role="complementary" aria-label="Profile and social links">
@@ -215,8 +240,9 @@
             <button class="section-pill active" data-section="details" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">01</span>
                 <span class="pill-label">Project Details</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Project Details sub-pages">
                     <a href="#overview" class="dropdown-link active" role="menuitem" data-page="0">Overview</a>
@@ -229,8 +255,9 @@
             <button class="section-pill" data-section="problem" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">02</span>
                 <span class="pill-label">Problem</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Problem sub-pages">
                     <a href="#challenge" class="dropdown-link" role="menuitem" data-page="3">The Challenge</a>
@@ -242,8 +269,9 @@
             <button class="section-pill" data-section="goal" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">03</span>
                 <span class="pill-label">Goal</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Goal sub-pages">
                     <a href="#objectives" class="dropdown-link" role="menuitem" data-page="5">Objectives</a>
@@ -255,8 +283,9 @@
             <button class="section-pill" data-section="impact" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">04</span>
                 <span class="pill-label">Impact</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Impact sub-pages">
                     <a href="#metrics" class="dropdown-link" role="menuitem" data-page="7">Metrics & Results</a>
@@ -268,8 +297,9 @@
             <button class="section-pill" data-section="adoption" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">05</span>
                 <span class="pill-label">Early Adoption</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Early Adoption sub-pages">
                     <a href="#beta-testing" class="dropdown-link" role="menuitem" data-page="9">Beta Testing</a>
@@ -281,8 +311,9 @@
             <button class="section-pill" data-section="testing" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">06</span>
                 <span class="pill-label">Testing</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Testing sub-pages">
                     <a href="#qa-process" class="dropdown-link" role="menuitem" data-page="11">QA Process</a>
@@ -294,8 +325,9 @@
             <button class="section-pill" data-section="designs" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">07</span>
                 <span class="pill-label">Final Designs</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Final Designs sub-pages">
                     <a href="#ui-showcase" class="dropdown-link" role="menuitem" data-page="13">UI Showcase</a>
@@ -307,8 +339,9 @@
             <button class="section-pill" data-section="development" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">08</span>
                 <span class="pill-label">Development</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Development sub-pages">
                     <a href="#architecture" class="dropdown-link" role="menuitem" data-page="15">Architecture</a>
@@ -320,12 +353,14 @@
             <button class="section-pill" data-section="future" aria-expanded="false" aria-haspopup="true">
                 <span class="pill-number">09</span>
                 <span class="pill-label">Future Steps</span>
-                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M19 9l-7 7-7-7"/>
+                <svg class="pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 9l-7 7-7-7" />
                 </svg>
                 <div class="pill-dropdown" role="menu" aria-label="Future Steps sub-pages">
                     <a href="#roadmap" class="dropdown-link" role="menuitem" data-page="17">Roadmap</a>
-                    <a href="#enhancements" class="dropdown-link" role="menuitem" data-page="18">Planned Enhancements</a>
+                    <a href="#enhancements" class="dropdown-link" role="menuitem" data-page="18">Planned
+                        Enhancements</a>
                 </div>
             </button>
         </div>
@@ -348,13 +383,14 @@
                         </span>
                     </div>
                 </div>
-                
+
                 <!-- Project Title -->
                 <h1 class="project-title" id="project-title">Eastleigh Turf Flow</h1>
-                
+
                 <!-- Project Tagline/Description -->
-                <p class="project-tagline" id="project-tagline">Full-stack e-commerce platform for a professional turf installation business.</p>
-                
+                <p class="project-tagline" id="project-tagline">Full-stack e-commerce platform for a professional turf
+                    installation business.</p>
+
                 <!-- Tech Stack Pills -->
                 <div class="tech-stack-pills" id="tech-stack-pills">
                     <span class="tech-pill">React 18 with TypeScript</span>
@@ -363,45 +399,50 @@
                     <span class="tech-pill">CI/CD via Vercel</span>
                 </div>
             </header>
-            
+
             <!-- Divider -->
             <hr class="card-divider" aria-hidden="true">
-            
+
             <!-- Card Content Area -->
             <div class="card-content">
                 <!-- Section Label -->
                 <span class="section-label" id="section-label">PROJECT DETAILS</span>
-                
+
                 <!-- Page Title -->
                 <h2 class="page-title" id="card-page-title">Overview</h2>
-                
+
                 <!-- Page Content Container -->
                 <div class="page-content" id="card-page-content">
                     <!-- Dynamic content will be loaded here based on current section/page -->
-                    <p>Full-stack e-commerce platform designed for a professional turf installation business in Kenya. Built with React 18, TypeScript, and Supabase, featuring interactive product showcases, broker authentication, and seamless order management.</p>
+                    <p>Full-stack e-commerce platform designed for a professional turf installation business in Kenya.
+                        Built with React 18, TypeScript, and Supabase, featuring interactive product showcases, broker
+                        authentication, and seamless order management.</p>
                 </div>
             </div>
-            
+
             <!-- Pagination Footer -->
             <footer class="card-pagination">
                 <button class="pagination-prev" id="pagination-prev" aria-label="Go to previous page">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M15 18l-6-6 6-6"/>
+                        <path d="M15 18l-6-6 6-6" />
                     </svg>
                     <span>Previous</span>
                 </button>
-                
+
                 <!-- Dot Indicators -->
                 <div class="pagination-dots" id="pagination-dots" role="tablist" aria-label="Page indicators">
-                    <button class="dot active" role="tab" aria-selected="true" aria-label="Page 1 of 3" data-page="0"></button>
-                    <button class="dot" role="tab" aria-selected="false" aria-label="Page 2 of 3" data-page="1"></button>
-                    <button class="dot" role="tab" aria-selected="false" aria-label="Page 3 of 3" data-page="2"></button>
+                    <button class="dot active" role="tab" aria-selected="true" aria-label="Page 1 of 3"
+                        data-page="0"></button>
+                    <button class="dot" role="tab" aria-selected="false" aria-label="Page 2 of 3"
+                        data-page="1"></button>
+                    <button class="dot" role="tab" aria-selected="false" aria-label="Page 3 of 3"
+                        data-page="2"></button>
                 </div>
-                
+
                 <button class="pagination-next" id="pagination-next" aria-label="Go to next page">
                     <span>Next</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M9 18l6-6-6-6"/>
+                        <path d="M9 18l6-6-6-6" />
                     </svg>
                 </button>
             </footer>
@@ -2257,8 +2298,11 @@ const { data: carriers } = useQuery({
     </div>
 
     <!-- GSAP Core and ScrollTrigger Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrambleTextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
 
     <!-- Main Scripts -->
     <script src="js/main.js"></script>
@@ -2275,7 +2319,8 @@ const { data: carriers } = useQuery({
     <!-- Simple Theme Toggle (Mobile Only) -->
     <button class="theme-toggle-simple" id="themeToggleSimple" aria-label="Toggle dark mode">
         <!-- Sun Icon (shown in light mode) -->
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -2287,7 +2332,8 @@ const { data: carriers } = useQuery({
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
         <!-- Moon Icon (shown in dark mode) -->
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
     </button>
@@ -2296,29 +2342,29 @@ const { data: carriers } = useQuery({
     <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
         <a href="index.html" class="mobile-nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
             <span>Home</span>
         </a>
         <a href="about.html" class="mobile-nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
             </svg>
             <span>About</span>
         </a>
         <a href="portfolio.html" class="mobile-nav-item active" aria-current="page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
             </svg>
             <span>Portfolio</span>
         </a>
         <a href="contact.html" class="mobile-nav-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
             </svg>
             <span>Contact</span>
         </a>

@@ -517,7 +517,8 @@ body.portfolio-page.portfolio-header-collapsed .portfolio-header-section {
     visibility: hidden;
     transform: translateY(-8px);
     transition: all 0.2s ease;
-    z-index: 100;
+    z-index: 1000;
+    pointer-events: none;
 }
 
 .section-pill.open .pill-dropdown,
@@ -525,6 +526,7 @@ body.portfolio-page.portfolio-header-collapsed .portfolio-header-section {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
 }
 
 /* Dropdown Link */

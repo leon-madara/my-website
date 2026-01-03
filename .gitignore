@@ -30,6 +30,9 @@ desktop.ini
 *.temp
 .cache/
 
+# Test output files
+test_output.txt
+
 # Audio files (if too large, uncomment)
 # sounds/*.mp3
 
