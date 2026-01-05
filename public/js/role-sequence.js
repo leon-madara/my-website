@@ -1,20 +1,21 @@
 /**
- * Hero Role Fade Sequence Controller
+ * Hero Role Scramble Sequence Controller
  * 
- * Cycles through role titles with smooth GSAP-powered fades.
+ * Cycles through role titles with subtle scramble text effect using GSAP ScrambleTextPlugin.
  * 
  * Timeline:
  * - Role 1: shown on load, hold 5s
- * - Fade 2s to Role 2, hold 3s
- * - Fade 2s to Role 3, hold 3s
- * - Fade 2s to Role 4, hold 3s
- * - Loop back to Role 1 (fade 2s, hold 5s) and repeat
+ * - Scramble 1.5s to Role 2, hold 3s
+ * - Scramble 1.5s to Role 3, hold 3s
+ * - Scramble 1.5s to Role 4, hold 3s
+ * - Loop back to Role 1 (scramble 1.5s, hold 5s) and repeat
  * 
  * Features:
- * - GSAP-powered smooth opacity fades
+ * - GSAP ScrambleTextPlugin-powered text scrambling
+ * - Single element approach (no stacked elements)
  * - Pauses on visibility change (tab hidden)
  * - Respects prefers-reduced-motion
- * - Graceful fallbacks for errors or missing GSAP
+ * - Graceful fallbacks for errors or missing plugins
  * - Cleanup on page unload
  */
 
@@ -23,16 +24,28 @@ class RoleSequenceController {
         // Configuration
         this.config = {
             containerSelector: '.role-sequence',
-            itemSelector: '.role-item',
-            activeClass: 'active',
-            fadeDuration: 2,        // seconds for fade transition
-            role1HoldTime: 5,       // seconds to hold role 1 (first display)
-            otherHoldTime: 3,       // seconds to hold roles 2, 3, 4
+            scrambleDuration: 1.5,     // seconds for scramble transition
+            role1HoldTime: 5,          // seconds to hold role 1 (first display)
+            otherHoldTime: 3,          // seconds to hold roles 2, 3, 4
+            // ScrambleTextPlugin configuration (subtle animation)
+            scrambleConfig: {
+                chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ",
+                revealDelay: 0.5,
+                speed: 0.4,
+                delimiter: ""
+            }
         };
+
+        // Role data array (stored in JavaScript instead of DOM)
+        this.roles = [
+            "Full Stack AI Developer",
+            "AI Engineer",
+            "Web Developer & Designer",
+            "Graphic Designer"
+        ];
 
         // State
         this.container = null;
-        this.roleItems = [];
         this.currentIndex = 0;
         this.timeline = null;
         this.isPaused = false;
@@ -67,19 +80,11 @@ class RoleSequenceController {
             // Check for prefers-reduced-motion
             this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             
-            // Get DOM elements
+            // Get DOM element
             this.container = document.querySelector(this.config.containerSelector);
             
             if (!this.container) {
                 console.warn('RoleSequence: Container not found, skipping animation');
-                return;
-            }
-
-            this.roleItems = Array.from(this.container.querySelectorAll(this.config.itemSelector));
-
-            if (this.roleItems.length < 2) {
-                console.warn('RoleSequence: Less than 2 role items found, skipping animation');
-                this.showFallback();
                 return;
             }
 
@@ -90,6 +95,21 @@ class RoleSequenceController {
                 return;
             }
 
+            // Check for ScrambleTextPlugin availability
+            if (typeof ScrambleTextPlugin === 'undefined') {
+                console.warn('RoleSequence: ScrambleTextPlugin not available, showing fallback');
+                this.showFallback();
+                return;
+            }
+
+            // Register ScrambleTextPlugin if needed
+            try {
+                gsap.registerPlugin(ScrambleTextPlugin);
+            } catch (error) {
+                // Plugin may already be registered, or registration may not be needed
+                console.log('RoleSequence: ScrambleTextPlugin registration:', error.message || 'already registered or not required');
+            }
+
             // If reduced motion is preferred, show only first role and skip animation
             if (this.reducedMotion) {
                 console.info('RoleSequence: Reduced motion preferred, showing static role');
@@ -97,8 +117,10 @@ class RoleSequenceController {
                 return;
             }
 
-            // Initialize styles
-            this.initializeStyles();
+            // Ensure container has initial text
+            if (!this.container.textContent.trim()) {
+                this.container.textContent = this.roles[0];
+            }
 
             // Setup event listeners
             this.setupEventListeners();
@@ -106,37 +128,12 @@ class RoleSequenceController {
             // Start the animation sequence
             this.startSequence();
 
-            console.log('RoleSequence: Controller initialized with', this.roleItems.length, 'roles');
+            console.log('RoleSequence: Controller initialized with', this.roles.length, 'roles');
 
         } catch (error) {
             console.error('RoleSequence: Setup error:', error);
             this.showFallback();
         }
-    }
-
-    /**
-     * Initialize inline styles for animation
-     */
-    initializeStyles() {
-        this.roleItems.forEach((item, index) => {
-            if (index === 0) {
-                // First item starts visible
-                gsap.set(item, { 
-                    opacity: 1, 
-                    visibility: 'visible',
-                    position: 'relative'
-                });
-                item.classList.add(this.config.activeClass);
-            } else {
-                // Other items start hidden
-                gsap.set(item, { 
-                    opacity: 0, 
-                    visibility: 'hidden',
-                    position: 'absolute'
-                });
-                item.classList.remove(this.config.activeClass);
-            }
-        });
     }
 
     /**
@@ -207,64 +204,46 @@ class RoleSequenceController {
             }
         });
 
-        const items = this.roleItems;
-        const fadeDuration = this.config.fadeDuration;
+        const roles = this.roles;
+        const scrambleDuration = this.config.scrambleDuration;
         const role1Hold = this.config.role1HoldTime;
         const otherHold = this.config.otherHoldTime;
+        const scrambleConfig = this.config.scrambleConfig;
 
-        // Role 1 is already showing, so we start with hold time
         // Timeline structure:
-        // [Hold role1 5s] -> [Fade to role2 2s] -> [Hold 3s] -> [Fade to role3 2s] -> [Hold 3s] -> [Fade to role4 2s] -> [Hold 3s] -> [Fade to role1 2s] -> repeat
+        // [Hold role1 5s] → [Scramble to role2 1.5s] → [Hold 3s] → [Scramble to role3 1.5s] → [Hold 3s] → [Scramble to role4 1.5s] → [Hold 3s] → [Scramble to role1 1.5s] → repeat
 
         // Initial hold for role 1 (5 seconds)
         this.timeline.to({}, { duration: role1Hold });
 
         // Transition through each role
-        for (let i = 0; i < items.length; i++) {
-            const currentItem = items[i];
-            const nextIndex = (i + 1) % items.length;
-            const nextItem = items[nextIndex];
+        for (let i = 0; i < roles.length; i++) {
+            const nextIndex = (i + 1) % roles.length;
+            const nextRole = roles[nextIndex];
             
             // Determine hold time for next role
             const holdTime = nextIndex === 0 ? role1Hold : otherHold;
 
-            // Cross-fade: fade out current, fade in next
-            this.timeline.add(() => {
-                this.updateAriaLabel(nextItem);
-            });
-
-            // Fade out current item
-            this.timeline.to(currentItem, {
-                opacity: 0,
-                duration: fadeDuration,
-                ease: 'power2.inOut',
+            // Scramble to next role
+            this.timeline.to(this.container, {
+                duration: scrambleDuration,
+                scrambleText: {
+                    text: nextRole,
+                    chars: scrambleConfig.chars,
+                    revealDelay: scrambleConfig.revealDelay,
+                    speed: scrambleConfig.speed,
+                    delimiter: scrambleConfig.delimiter
+                },
+                ease: 'none', // ScrambleTextPlugin handles its own easing
                 onStart: () => {
-                    // Prepare next item for fade in
-                    gsap.set(nextItem, { 
-                        visibility: 'visible',
-                        position: 'absolute' 
-                    });
+                    // Update current index
+                    this.currentIndex = nextIndex;
                 },
                 onComplete: () => {
-                    currentItem.classList.remove(this.config.activeClass);
-                    gsap.set(currentItem, { 
-                        visibility: 'hidden',
-                        position: 'absolute'
-                    });
+                    // Update ARIA label when scramble completes
+                    this.updateAriaLabel(nextRole);
                 }
-            }, `fade${i}`);
-
-            // Fade in next item (overlapping with fade out for smooth cross-fade)
-            this.timeline.to(nextItem, {
-                opacity: 1,
-                duration: fadeDuration,
-                ease: 'power2.inOut',
-                onComplete: () => {
-                    nextItem.classList.add(this.config.activeClass);
-                    gsap.set(nextItem, { position: 'relative' });
-                    this.currentIndex = nextIndex;
-                }
-            }, `fade${i}`);
+            }, `scramble${i}`);
 
             // Hold time for the new role (only if not the last iteration before loop)
             // The loop will handle role 1's hold automatically
@@ -277,10 +256,10 @@ class RoleSequenceController {
     /**
      * Update ARIA label for accessibility
      */
-    updateAriaLabel(activeItem) {
-        if (this.container && activeItem) {
-            const roleText = activeItem.textContent.trim().replace(/\s+/g, ' ');
-            this.container.setAttribute('aria-label', roleText);
+    updateAriaLabel(roleText) {
+        if (this.container && roleText) {
+            const cleanText = roleText.trim().replace(/\s+/g, ' ');
+            this.container.setAttribute('aria-label', cleanText);
         }
     }
 
@@ -312,26 +291,13 @@ class RoleSequenceController {
     showFallback() {
         if (this.container) {
             this.container.classList.add('no-animation');
-        }
-
-        this.roleItems.forEach((item, index) => {
-            if (index === 0) {
-                item.style.opacity = '1';
-                item.style.visibility = 'visible';
-                item.style.position = 'relative';
-                item.style.display = 'block';
-                item.classList.add(this.config.activeClass);
-            } else {
-                item.style.opacity = '0';
-                item.style.visibility = 'hidden';
-                item.style.display = 'none';
-            }
-        });
-
-        // Update ARIA
-        if (this.container && this.roleItems.length > 0) {
-            const roleText = this.roleItems[0].textContent.trim().replace(/\s+/g, ' ');
-            this.container.setAttribute('aria-label', roleText);
+            
+            // Set text to first role
+            this.container.textContent = this.roles[0];
+            this.currentIndex = 0;
+            
+            // Update ARIA
+            this.updateAriaLabel(this.roles[0]);
         }
     }
 
@@ -368,8 +334,8 @@ class RoleSequenceController {
      * Get current role text
      */
     getCurrentRoleText() {
-        if (this.roleItems[this.currentIndex]) {
-            return this.roleItems[this.currentIndex].textContent.trim().replace(/\s+/g, ' ');
+        if (this.roles[this.currentIndex]) {
+            return this.roles[this.currentIndex];
         }
         return '';
     }

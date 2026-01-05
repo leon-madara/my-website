@@ -4703,7 +4703,7 @@ Updated Hero Section for Pill Layout */
 
 /* ============================================
    ROLE SEQUENCE ANIMATION
-   Stacked role items that fade in/out
+   Scramble text effect using GSAP ScrambleTextPlugin
    ============================================ */
 
 /* Container for role sequence */
@@ -4713,64 +4713,21 @@ Updated Hero Section for Pill Layout */
     width: 100%;
     text-align: center;
     min-height: 1.5em; /* Prevent layout shift */
-    /* Ensure container can hold absolutely positioned items */
-    overflow: visible;
-}
-
-/* Role items - stacked on top of each other */
-.role-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    opacity: 0;
-    visibility: hidden;
-    /* GSAP handles transitions - no CSS transition to prevent conflicts */
-    text-align: center;
-    box-sizing: border-box;
-    /* Ensure smooth text rendering during fade */
+    /* Ensure smooth text rendering during scramble */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    will-change: opacity, visibility;
-}
-
-/* Active role item is visible */
-.role-item.active {
-    position: relative;
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Fading out state */
-.role-item.fading-out {
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Fading in state */
-.role-item.fading-in {
-    opacity: 1;
-    visibility: visible;
 }
 
 /* Reduced motion: instant swap */
 @media (prefers-reduced-motion: reduce) {
-    .role-item {
-        transition: none !important;
+    .role-sequence {
+        /* No special styling needed - JS handles instant swap */
     }
 }
 
-/* Fallback: if JS fails, show only first role */
-.role-sequence.no-animation .role-item {
-    display: none !important;
-}
-
-.role-sequence.no-animation .role-item[data-index="0"] {
-    display: block !important;
-    position: relative !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+/* Fallback: if JS fails or animation disabled */
+.role-sequence.no-animation {
+    /* Container displays static text - no special styling needed */
 }
 
 /* Description paragraph styling */
@@ -6626,4 +6583,5 @@ body.dark-theme .quick-stat-label {
 
 body.dark-theme .quick-stats-social {
     border-top-color: rgba(255, 255, 255, 0.1);
+}
 }
