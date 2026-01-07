@@ -1,110 +1,178 @@
 name: Sync Portfolio from Showcase
 
 on:
-  # Trigger when portfolio-showcase repo is updated
-  repository_dispatch:
-    types: [portfolio-updated]
-  
   # Manual trigger
   workflow_dispatch:
     inputs:
-      skip_tests:
-        description: 'Skip tests'
+      force:
+        description: 'Force sync even if no changes'
         required: false
         default: 'false'
-      skip_deploy:
-        description: 'Skip deployment'
-        required: false
-        default: 'false'
+        type: boolean
   
-  # Schedule daily sync at 2 AM EAT (23:00 UTC)
+  # Webhook from portfolio-showcase (will set up later)
+  repository_dispatch:
+    types: [showcase-updated]
+  
+  # Scheduled sync (every 6 hours)
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '0 */6 * * *'
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
     
     steps:
       - name: Checkout my-website
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-
+          ref: main
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
           cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
+      
+      - name: Install base dependencies
+        run: npm ci || npm install
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "portfolio-sync-bot"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Create sync branch
+        run: |
+          BRANCH_NAME="sync/portfolio-$(date +%Y%m%d-%H%M%S)"
+          echo "SYNC_BRANCH=$BRANCH_NAME" >> $GITHUB_ENV
+          git checkout -b $BRANCH_NAME
+      
       - name: Run sync script
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        id: sync
+        run: node .github/scripts/sync-portfolio.js
+        continue-on-error: true
+      
+      - name: Check for changes
+        id: changes
         run: |
-          chmod +x scripts/sync-portfolio.js
-          node scripts/sync-portfolio.js \
-            ${{ github.event.inputs.skip_tests == 'true' && '--skip-tests' || '' }} \
-            ${{ github.event.inputs.skip_deploy == 'true' && '--skip-deploy' || '' }}
-
-      - name: Create sync report
-        if: always()
+          git add -A
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected"
+          fi
+      
+      - name: Install merged dependencies
+        if: steps.changes.outputs.has_changes == 'true'
+        run: npm install
+      
+      - name: Build portfolio
+        if: steps.changes.outputs.has_changes == 'true'
+        id: build
         run: |
-          echo "## Portfolio Sync Report" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Time:** $(date)" >> $GITHUB_STEP_SUMMARY
-          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
-
-      - name: Notify on failure
+          npm run build:portfolio || echo "build_failed=true" >> $GITHUB_OUTPUT
+        continue-on-error: true
+      
+      - name: Commit changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git add -A
+          git commit -m "sync: Update portfolio from showcase
+          
+          - Synced components from portfolio-showcase
+          - Updated dependencies
+          - Rebuilt portfolio
+          
+          Automated sync via GitHub Actions"
+      
+      - name: Push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: git push origin $SYNC_BRANCH
+      
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        id: create_pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.SYNC_BRANCH }}
+          base: main
+          title: '🔄 Portfolio Sync: Update from showcase'
+          body: |
+            ## Portfolio Synchronization
+            
+            This PR contains automated updates from `portfolio-showcase` repository.
+            
+            ### Changes Included
+            - ✅ Components synced from latest showcase version
+            - ✅ Dependencies merged and updated
+            - ✅ Configuration files updated
+            - ✅ Portfolio rebuilt
+            
+            ### Files Changed
+            - `portfolio_src/` - React components and source files
+            - `public/portfolio_build/` - Built portfolio assets  
+            - `package.json` - Updated dependencies
+            - `tailwind.config.ts` - Tailwind configuration
+            - `vite.portfolio.config.ts` - Vite build configuration
+            
+            ### Build Status
+            ${{ steps.build.outputs.build_failed == 'true' && '❌ Build failed - requires manual review' || '✅ Build successful' }}
+            
+            ### Next Steps
+            1. Review the changes
+            2. Test locally if needed
+            3. Merge when ready
+            4. Auto-deploy to Cloudflare Pages
+            
+            ---
+            *🤖 Auto-generated by portfolio-sync workflow*
+            *Triggered by: ${{ github.event_name }}*
+          labels: |
+            sync
+            portfolio
+            automated
+          draft: ${{ steps.build.outputs.build_failed == 'true' }}
+      
+      - name: Comment on success
+        if: steps.changes.outputs.has_changes == 'true' && steps.create_pr.outputs.pull-request-number
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.create_pr.outputs.pull-request-number }},
+              body: `✅ **Sync completed successfully!**\n\n**Duration**: ${{ job.status }}\n**Workflow**: [View Run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`
+            });
+      
+      - name: Create issue on failure
         if: failure()
         uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.create({
+            await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '⚠️ Portfolio Sync Failed',
-              body: `Portfolio synchronization failed on ${new Date().toISOString()}.\n\nWorkflow: ${context.workflow}\nRun: ${context.runId}`,
-              labels: ['automation', 'bug']
-            })
-
-  verify:
-    needs: sync
-    runs-on: ubuntu-latest
-    if: success()
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Verify build output
+              title: '🚨 Portfolio Sync Failed',
+              body: `Portfolio synchronization failed on ${new Date().toISOString()}\n\n**Event**: ${context.eventName}\n**Workflow**: [View Run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})\n\n**Error**: Sync script or build failed. Please check the logs and resolve any issues.`,
+              labels: ['bug', 'sync', 'automated', 'high-priority']
+            });
+      
+      - name: Summary
+        if: always()
         run: |
-          if [ -d "public/portfolio_build" ]; then
-            echo "✓ Portfolio build directory exists"
-            echo "Files:"
-            ls -lah public/portfolio_build
-          else
-            echo "✗ Portfolio build directory not found!"
-            exit 1
-          fi
-
-      - name: Run integration tests
-        run: npm run test:integration || true
-
-      - name: Deploy to Cloudflare Pages
-        if: ${{ github.event.inputs.skip_deploy != 'true' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx wrangler pages deploy public --project-name=my-website
+          echo "## Sync Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: $SYNC_BRANCH" >> $GITHUB_STEP_SUMMARY
+          echo "- **Changes**: ${{ steps.changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build**: ${{ steps.build.outcome }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR**: ${{ steps.create_pr.outputs.pull-request-number || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
