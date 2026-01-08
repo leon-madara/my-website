@@ -1,0 +1,173 @@
+# Portfolio Sync Protection Configuration
+# Files and directories that should NEVER be synced from portfolio-showcase
+#
+# WHY: These files contain YOUR content and custom logic that must be
+# preserved during automated syncs from the design repository.
+
+# ============================================================================
+# CONTENT LAYER - YOUR PROJECT DATA
+# ============================================================================
+
+# TypeScript type definitions for YOUR content structure
+portfolio_src/src/types/portfolio.types.ts
+portfolio_src/src/types/README.md
+
+# YOUR project content data
+portfolio_src/src/data/projectData.ts
+portfolio_src/src/data/projectData.js
+portfolio_src/src/data/*.json
+
+# Data adapter - YOUR mapping logic
+portfolio_src/src/adapters/
+portfolio_src/src/adapters/**
+
+# Legacy project data (original JavaScript version)
+public/js/projectData.js
+
+# ============================================================================
+# CUSTOM ASSETS
+# ============================================================================
+
+# YOUR project images and media
+public/images/projects/**
+public/images/portfolio/**
+public/sounds/**
+
+# Custom animations and entrance effects
+public/js/portfolio-entrance.js
+public/js/portfolioContentLoader.js
+
+# ============================================================================
+# CONFIGURATION & ENVIRONMENT
+# ============================================================================
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+.env.*.local
+
+# Package configuration (merge strategy needed, not direct sync)
+package.json
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# TypeScript configuration (custom to my-website)
+tsconfig.json
+tsconfig.*.json
+
+# Build configuration
+vite.config.ts
+vite.portfolio.config.ts
+wrangler.jsonc
+wrangler.toml
+
+# ============================================================================
+# CLOUDFLARE & DEPLOYMENT
+# ============================================================================
+
+# Cloudflare Workers
+workers/
+functions/
+_worker.js
+
+# Deployment configs
+.github/workflows/deploy*.yml
+.github/workflows/cloudflare*.yml
+
+# ============================================================================
+# DOCUMENTATION (YOURS)
+# ============================================================================
+
+README.md
+CONTRIBUTING.md
+LICENSE
+
+# Project documentation
+public/*.md
+public/PROJECT.md
+public/MARKDOWN/**
+
+# ============================================================================
+# GIT & VERSION CONTROL
+# ============================================================================
+
+.git
+.gitignore
+.gitattributes
+
+# ============================================================================
+# IDE & EDITOR
+# ============================================================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ============================================================================
+# BUILD ARTIFACTS (Don't sync built files)
+# ============================================================================
+
+node_modules/
+dist/
+build/
+public/portfolio_build/
+.turbo/
+.cache/
+
+# ============================================================================
+# TESTING
+# ============================================================================
+
+# Test files specific to my-website
+tests/portfolio-sync.test.js
+tests/integration/**
+coverage/
+.nyc_output/
+
+# ============================================================================
+# INTEGRATION FILES (My-Website Specific)
+# ============================================================================
+
+# Theme toggle integration
+public/js/theme-toggle-component.js
+public/js/theme-toggle-landscape-component.js
+
+# Liquid navigation
+public/js/liquid-nav.js
+
+# Custom components
+public/js/content-card.js
+public/js/section-pills.js
+
+# ============================================================================
+# NOTES FOR SYNC SCRIPT
+# ============================================================================
+#
+# When syncing from portfolio-showcase:
+#
+# DO SYNC:
+# - portfolio_src/src/components/**  (UI components)
+# - portfolio_src/src/hooks/**       (React hooks)
+# - portfolio_src/src/lib/**         (Utilities)
+# - portfolio_src/src/index.css      (Global styles)
+# - tailwind.config.ts               (Design tokens)
+# - components.json                  (shadcn/ui config)
+#
+# DON'T SYNC:
+# - Anything in this .syncignore file
+# - Files containing YOUR content
+# - Custom integration logic
+# - Build configurations
+#
+# MERGE STRATEGY:
+# - package.json: Merge dependencies, don't replace
+# - tsconfig.json: Keep my-website version, extend if needed
+# - vite.config.ts: Keep my-website version
+#
+# ============================================================================
