@@ -1,0 +1,43 @@
+{
+  "sourceRepo": "leon-madara/portfolio-showcase",
+  "targetRepo": "leon-madara/my-website",
+  "syncPaths": {
+    "components": {
+      "source": "src/components/portfolio",
+      "target": "public/portfolio_build/components"
+    },
+    "styles": {
+      "source": "src/index.css",
+      "target": "public/portfolio_build/styles/index.css"
+    },
+    "data": {
+      "source": "src/data/portfolioData.ts",
+      "target": "public/portfolio_build/data/portfolioData.ts"
+    },
+    "ui": {
+      "source": "src/components/ui",
+      "target": "public/portfolio_build/components/ui"
+    },
+    "lib": {
+      "source": "src/lib",
+      "target": "public/portfolio_build/lib"
+    }
+  },
+  "buildConfig": {
+    "installCommand": "npm install",
+    "buildCommand": "npm run build:portfolio",
+    "testCommand": "npm run test:portfolio"
+  },
+  "deployConfig": {
+    "provider": "cloudflare",
+    "deployCommand": "wrangler pages deploy public",
+    "branch": "main"
+  },
+  "automation": {
+    "enabled": true,
+    "autoCommit": true,
+    "autoTest": true,
+    "autoDeploy": true,
+    "notifyOnFailure": true
+  }
+}
