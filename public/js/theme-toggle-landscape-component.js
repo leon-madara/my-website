@@ -27,36 +27,54 @@ class ThemeToggleLandscape extends HTMLElement {
                 :host {
                     display: inline-block;
                     position: fixed;
-                    top: 25px;
+                    top: var(--header-control-top, 25px);
                     right: 2rem;
                     z-index: 9999;
                 }
 
                 .theme-toggle-wrapper {
                     position: relative;
-                    height: 2.5rem;
-                    width: 5rem;
+                    box-sizing: border-box;
+                    height: var(--header-control-height, 2.5rem);
+                    width: calc(var(--header-control-height, 2.5rem) + var(--header-control-height, 2.5rem));
                     cursor: pointer;
                     overflow: hidden;
                     border-radius: 9999px;
-                    border-width: 2px;
-                    border-color: hsl(var(--border, 0 0% 85%));
+                    border: 2px solid #0adf86;
                     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                     background: transparent;
-                    border-style: solid;
                     padding: 0;
                     margin: 0;
                     pointer-events: auto;
-                }
-
-                .theme-toggle-wrapper:hover {
-                    transform: scale(1.05);
+                    outline: none;
+                    -webkit-tap-highlight-color: transparent;
                 }
 
                 .theme-toggle-wrapper:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+
+                .theme-toggle-wrapper[data-input-method="keyboard"]:focus {
                     outline: 2px solid transparent;
                     outline-offset: 2px;
                     box-shadow: 0 0 0 2px hsl(var(--ring, 155 100% 21%));
+                }
+
+                .theme-toggle-wrapper:focus-visible {
+                    outline: 2px solid transparent;
+                    outline-offset: 2px;
+                    box-shadow: 0 0 0 2px hsl(var(--ring, 155 100% 21%));
+                }
+
+                .theme-toggle-wrapper[data-input-method="pointer"]:focus-visible {
+                    outline: none;
+                    box-shadow: none;
+                }
+
+                .theme-toggle-wrapper:active {
+                    transform: none;
+                    box-shadow: none;
                 }
 
                 .theme-toggle-scene {
@@ -84,19 +102,19 @@ class ThemeToggleLandscape extends HTMLElement {
 
                 .theme-toggle-celestial {
                     position: absolute;
-                    height: 1.5rem;
-                    width: 1.5rem;
+                    height: 60%;
+                    width: 30%;
                     border-radius: 9999px;
                     transition: all 0.5s cubic-bezier(0, 0, 0.2, 1);
                     top: 50%;
-                    left: 6px;
+                    left: 7.5%;
                     transform: translateY(-50%);
                     background: linear-gradient(135deg, #ffd966, #ffb31a);
                     box-shadow: 0 0 20px #fc39;
                 }
 
                 :host([data-theme="night"]) .theme-toggle-celestial {
-                    left: calc(100% - 30px);
+                    left: 62.5%;
                     background: linear-gradient(135deg, #f5f3f0, #dddad5);
                     box-shadow: 0 0 15px rgba(245, 243, 240, 0.4);
                 }
@@ -114,24 +132,24 @@ class ThemeToggleLandscape extends HTMLElement {
                 }
 
                 .crater-1 {
-                    width: 6px;
-                    height: 6px;
-                    top: 4px;
-                    left: 4px;
+                    width: 25%;
+                    height: 25%;
+                    top: 16.666%;
+                    left: 16.666%;
                 }
 
                 .crater-2 {
-                    width: 4px;
-                    height: 4px;
-                    top: 12px;
-                    left: 10px;
+                    width: 16.666%;
+                    height: 16.666%;
+                    top: 50%;
+                    left: 41.666%;
                 }
 
                 .crater-3 {
-                    width: 3px;
-                    height: 3px;
-                    top: 6px;
-                    left: 14px;
+                    width: 12.5%;
+                    height: 12.5%;
+                    top: 25%;
+                    left: 58.333%;
                 }
 
                 .theme-toggle-stars {
@@ -152,38 +170,38 @@ class ThemeToggleLandscape extends HTMLElement {
                     position: absolute;
                     border-radius: 9999px;
                     background-color: hsl(var(--foreground, 0 0% 10%));
-                    width: 2px;
-                    height: 2px;
+                    width: 2.5%;
+                    height: 5%;
                     animation: twinkle 2s ease-in-out infinite;
                 }
 
                 .star-1 {
-                    top: 8px;
-                    left: 12px;
+                    top: 20%;
+                    left: 15%;
                     animation-delay: 0s;
                 }
 
                 .star-2 {
-                    top: 14px;
-                    left: 20px;
+                    top: 35%;
+                    left: 25%;
                     animation-delay: 0.3s;
                 }
 
                 .star-3 {
-                    top: 6px;
-                    left: 28px;
+                    top: 15%;
+                    left: 35%;
                     animation-delay: 0.6s;
                 }
 
                 .star-4 {
-                    top: 18px;
-                    left: 36px;
+                    top: 45%;
+                    left: 45%;
                     animation-delay: 0.9s;
                 }
 
                 .star-5 {
-                    top: 10px;
-                    left: 44px;
+                    top: 25%;
+                    left: 55%;
                     animation-delay: 1.2s;
                 }
 
@@ -203,7 +221,7 @@ class ThemeToggleLandscape extends HTMLElement {
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    height: 1rem;
+                    height: 40%;
                     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                 }
 
@@ -215,17 +233,17 @@ class ThemeToggleLandscape extends HTMLElement {
                 }
 
                 .cloud-1 {
-                    width: 16px;
-                    height: 6px;
-                    bottom: 10px;
-                    left: 10px;
+                    width: 20%;
+                    height: 37.5%;
+                    bottom: 62.5%;
+                    left: 12.5%;
                 }
 
                 .cloud-2 {
-                    width: 12px;
-                    height: 4px;
-                    bottom: 14px;
-                    left: 50px;
+                    width: 15%;
+                    height: 25%;
+                    bottom: 87.5%;
+                    left: 62.5%;
                 }
 
                 :host([data-theme="night"]) .cloud {
@@ -240,16 +258,16 @@ class ThemeToggleLandscape extends HTMLElement {
                 }
 
                 .mountain-1 {
-                    width: 24px;
-                    height: 10px;
-                    left: 4px;
+                    width: 30%;
+                    height: 62.5%;
+                    left: 5%;
                     background: #478547;
                 }
 
                 .mountain-2 {
-                    width: 20px;
-                    height: 8px;
-                    left: 18px;
+                    width: 25%;
+                    height: 50%;
+                    left: 22.5%;
                     background: #437043;
                 }
 
@@ -291,6 +309,33 @@ class ThemeToggleLandscape extends HTMLElement {
         const button = this.shadowRoot.querySelector('#themeToggle');
         if (button) {
             button.addEventListener('click', () => this.toggleTheme());
+
+            button.dataset.inputMethod = 'pointer';
+
+            this.handlePointerDown = () => {
+                button.dataset.inputMethod = 'pointer';
+            };
+
+            this.handleGlobalKeyDown = (event) => {
+                if (event.key === 'Tab') {
+                    button.dataset.inputMethod = 'keyboard';
+                }
+            };
+
+            button.addEventListener('pointerdown', this.handlePointerDown);
+            window.addEventListener('keydown', this.handleGlobalKeyDown, true);
+        }
+    }
+
+    disconnectedCallback() {
+        const button = this.shadowRoot?.querySelector('#themeToggle');
+
+        if (button && this.handlePointerDown) {
+            button.removeEventListener('pointerdown', this.handlePointerDown);
+        }
+
+        if (this.handleGlobalKeyDown) {
+            window.removeEventListener('keydown', this.handleGlobalKeyDown, true);
         }
     }
 

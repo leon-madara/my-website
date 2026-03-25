@@ -3,6 +3,17 @@
    Logo and nav positioned independently
    ============================================ */
 
+/* Shared header sizing tokens */
+:root {
+    --header-logo-size: 100px;
+    --header-control-height: 48px;
+    --header-control-top: calc((var(--header-logo-size) - var(--header-control-height)) / 2);
+    --nav-pill-width: clamp(208px, 32vw, 408px);
+    --nav-pill-inset: 5px;
+    --nav-pill-link-padding-x: 10px;
+    --nav-pill-icon-size: 16px;
+}
+
 /* Header Bar Layout */
 .header-bar {
     position: fixed;
@@ -48,8 +59,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: var(--header-logo-size);
+    height: var(--header-logo-size);
     padding: 25px;
     box-sizing: border-box;
 }
@@ -111,16 +122,18 @@ body.dark-theme .header-logo::before {
 /* Navigation - Centered horizontally */
 .nav-pills {
     position: fixed;
-    top: 25px;
+    top: var(--header-control-top);
     left: 50%;
     transform: translateX(-50%);
     z-index: 9999;
     display: flex;
     align-items: center;
-    gap: 8px;
-    /* Increased from 4px */
-    padding: 8px;
-    /* Increased from 6px */
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    gap: 0;
+    padding: var(--nav-pill-inset);
+    height: var(--header-control-height);
+    width: var(--nav-pill-width);
     background: transparent;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -134,8 +147,8 @@ body.dark-theme .header-logo::before {
 /* The Sliding Indicator */
 .nav-pills .indicator {
     position: absolute;
-    top: 6px;
-    bottom: 6px;
+    top: var(--nav-pill-inset);
+    bottom: var(--nav-pill-inset);
     left: 0;
     background: #1a1a1a;
     border-radius: 100px;
@@ -154,12 +167,11 @@ body.dark-theme .header-logo::before {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 12px 18px;
-    /* Increased from 10px 14px */
+    height: calc(var(--header-control-height) - (var(--nav-pill-inset) * 2) - 2px);
+    padding: 0 var(--nav-pill-link-padding-x);
     font-family:
         -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 15px;
-    /* Increased from 13px */
     font-weight: 500;
     color: #555;
     text-decoration: none;
@@ -186,16 +198,22 @@ body.dark-theme .header-logo::before {
 
 /* Icons */
 .nav-pills a svg {
-    width: 20px;
-    /* Increased from 16px */
-    height: 20px;
-    /* Increased from 16px */
+    width: var(--nav-pill-icon-size);
+    height: var(--nav-pill-icon-size);
     flex-shrink: 0;
 }
 
-/* Labels - always visible */
+/* Labels - visually hidden but accessible */
 .nav-pills a .label {
-    display: inline;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* ============================================
@@ -224,46 +242,6 @@ body.dark-theme .header-logo::before {
         top: 12px;
         right: 1rem;
     }
-
-    width: 36px;
-    height: 36px;
-    padding: 0;
-}
-
-.header-logo::before {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-.nav-pills {
-    top: 12px;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    padding: 4px;
-}
-
-.nav-pills .indicator {
-    top: 4px;
-    bottom: 4px;
-}
-
-.nav-pills a {
-    padding: 8px 10px;
-    font-size: 12px;
-}
-
-.nav-pills a svg {
-    width: 14px;
-    height: 14px;
-}
-
-/* Hide labels on mobile, show only icons */
-.nav-pills a .label {
-    display: none;
-}
 }
 
 @media (max-width: 400px) {

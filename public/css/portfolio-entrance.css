@@ -15,7 +15,13 @@
     height: 100vh;
     z-index: 10000;
     overflow: hidden;
-    background: var(--background-light);
+    background: hsl(48, 10%, 90%);
+    background-color: hsl(48, 10%, 90%);
+}
+
+body.dark-theme .entrance-3d-container {
+    background: #0a0e12;
+    background-color: #0a0e12;
 }
 
 .entrance-3d-container.completed {

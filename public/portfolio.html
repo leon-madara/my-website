@@ -14,7 +14,7 @@
     <title>Portfolio - Leon Madara</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="images/LeonDevLogo.svg">
+    <link rel="icon" type="image/svg+xml" href="images/leon_dev_logo.svg">
 
     <!-- Preload Entrance Animation Assets -->
     <link rel="preload" href="images/PortFolioImageDesign.svg" as="image">
@@ -48,8 +48,12 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            background-color: #000;
-            /* Prevent white flashes */
+            background-color: hsl(48, 10%, 90%);
+            /* Match site background (no dotted pattern on portfolio) */
+        }
+
+        body.dark-theme {
+            background-color: #0a0e12;
         }
     </style>
 
@@ -68,7 +72,7 @@
 <body class="portfolio-page">
     <!-- Logo -->
     <a href="index.html" class="header-logo" aria-label="Home">
-        <img src="images/LeonDevLogo.svg" alt="Leon Madara" />
+        <img src="images/leon_dev_logo.svg" alt="Leon Madara" />
     </a>
 
     <!-- Navigation -->
