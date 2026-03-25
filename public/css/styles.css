@@ -3731,24 +3731,39 @@ main.landing-page {
     font-weight: 600;
     text-align: center;
     text-decoration: none;
-    border-radius: 1.6rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 100px;
+    transition:
+        background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        background-size 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: 1.6px solid transparent;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #ffffff 0%, #10cf74 100%);
-    color: #000000;
+    background-image:
+        linear-gradient(135deg, rgba(0, 107, 63, 0.85) 0%, rgba(179, 0, 0, 0.85) 100%),
+        linear-gradient(0deg, #006b3f, #006b3f);
+    background-size: 100% 100%, 0% 100%;
+    background-position: 0 0, 0 0;
+    background-repeat: no-repeat;
+    color: #ffffff;
     border-color: transparent;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #ffffff 0%, #10cf74 100%);
-    color: #000000;
+    background-size: 100% 100%, 100% 100%;
+    color: #ffffff;
     border-color: transparent;
-    transform: translateY(-1.6px);
-    box-shadow: 0 3.2px 9.6px rgba(0, 107, 63, 0.3);
+    transform: none;
+    -webkit-transform: none;
+}
+
+.btn-primary:focus,
+.btn-primary:focus-visible {
+    transform: none;
+    -webkit-transform: none;
 }
 
 .btn-secondary {
@@ -3762,13 +3777,19 @@ main.landing-page {
 .btn-secondary:hover {
     background: #1a1a1a;
     color: #ffffff;
-    transform: translateY(-1.6px);
-    box-shadow: 0 3.2px 9.6px rgba(0, 0, 0, 0.15);
+    transform: none;
+    -webkit-transform: none;
+}
+
+.btn-secondary:focus,
+.btn-secondary:focus-visible {
+    transform: none;
+    -webkit-transform: none;
 }
 
 .btn-primary:active,
 .btn-secondary:active {
-    transform: translateY(0);
+    transform: none;
 }
 
 /* ============================================
@@ -5910,27 +5931,22 @@ body.dark-theme .greeting {
     color: #ffffff;
 }
 
-/* Dark Mode Primary Button - Hover Only */
+/* Dark Mode Primary Button */
 body.dark-theme .btn-primary {
-    position: relative;
+    background-image:
+        linear-gradient(135deg, rgba(0, 107, 63, 0.85) 0%, rgba(179, 0, 0, 0.85) 100%),
+        linear-gradient(0deg, #006b3f, #006b3f);
+    background-size: 100% 100%, 0% 100%;
+    background-position: 0 0, 0 0;
+    background-repeat: no-repeat;
+    border-color: transparent;
+    color: #ffffff;
 }
 
 body.dark-theme .btn-primary:hover {
-    background: linear-gradient(135deg, #004d2e 0%, #8b0000 100%);
+    background-size: 100% 100%, 100% 100%;
     border-color: transparent;
-    color: transparent;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-}
-
-body.dark-theme .btn-primary:hover::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: #cec0b9 !important;
-    border-radius: inherit;
-    z-index: -1;
+    color: #ffffff;
 }
 
 /* Dark Mode Secondary Button */
