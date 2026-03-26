@@ -157,7 +157,8 @@ body.dark-theme.about-page .nav-pills a.active svg {
 
 .theme-toggle {
     position: fixed !important;
-    left: 80vw !important; /* Position at 80vw from viewport */
+    left: auto !important;
+    right: var(--header-side-offset, 2rem) !important;
     top: 15px !important; /* Center vertically with header-logo (header-logo is 100px tall, toggle is 70px, so (100-70)/2 = 15px offset) */
     height: 70px !important; /* Reduced by 30px from original 100px */
     width: 70px !important; /* Maintain aspect ratio */

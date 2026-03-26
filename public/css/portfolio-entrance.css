@@ -24,6 +24,11 @@ body.dark-theme .entrance-3d-container {
     background-color: #0a0e12;
 }
 
+/* Portfolio page exception: keep header controls un-symmetrized */
+body.portfolio-page {
+    --header-side-offset: 2rem;
+}
+
 .entrance-3d-container.completed {
     opacity: 0;
     pointer-events: none;
