@@ -8,6 +8,7 @@
     --header-logo-size: 100px;
     --header-control-height: 48px;
     --header-control-top: calc((var(--header-logo-size) - var(--header-control-height)) / 2);
+    --header-side-offset: 20vw;
     --nav-pill-width: clamp(208px, 32vw, 408px);
     --nav-pill-inset: 5px;
     --nav-pill-link-padding-x: 10px;
@@ -221,6 +222,10 @@ body.dark-theme .header-logo::before {
    ============================================ */
 
 @media (max-width: 1024px) {
+    :root {
+        --header-side-offset: 5vw;
+    }
+
     .header-logo {
         left: 5vw;
     }
@@ -233,6 +238,10 @@ body.dark-theme .header-logo::before {
 }
 
 @media (max-width: 768px) {
+    :root {
+        --header-side-offset: 20px;
+    }
+
     .header-logo {
         top: 12px;
         left: 20px;
@@ -245,6 +254,10 @@ body.dark-theme .header-logo::before {
 }
 
 @media (max-width: 400px) {
+    :root {
+        --header-side-offset: 15px;
+    }
+
     .header-logo {
         top: 10px;
         left: 15px;

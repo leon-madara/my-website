@@ -28,7 +28,7 @@ class ThemeToggleLandscape extends HTMLElement {
                     display: inline-block;
                     position: fixed;
                     top: var(--header-control-top, 25px);
-                    right: 2rem;
+                    right: var(--header-side-offset, 2rem);
                     z-index: 9999;
                 }
 
