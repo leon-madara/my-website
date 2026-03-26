@@ -169,50 +169,68 @@ class ThemeToggleLandscape extends HTMLElement {
                 .star {
                     position: absolute;
                     border-radius: 9999px;
-                    background-color: hsl(var(--foreground, 0 0% 10%));
+                    background-color: rgba(255, 255, 255, 0.9);
+                    box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
                     width: 2.5%;
                     height: 5%;
-                    animation: twinkle 2s ease-in-out infinite;
+                }
+
+                :host([data-theme="night"]) .star {
+                    animation-name: twinkle;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: ease-in-out;
+                    animation-fill-mode: both;
                 }
 
                 .star-1 {
                     top: 20%;
                     left: 15%;
                     animation-delay: 0s;
+                    animation-duration: 2.2s;
                 }
 
                 .star-2 {
                     top: 35%;
                     left: 25%;
                     animation-delay: 0.3s;
+                    animation-duration: 2.8s;
                 }
 
                 .star-3 {
                     top: 15%;
                     left: 35%;
                     animation-delay: 0.6s;
+                    animation-duration: 2.4s;
                 }
 
                 .star-4 {
                     top: 45%;
                     left: 45%;
                     animation-delay: 0.9s;
+                    animation-duration: 3.1s;
                 }
 
                 .star-5 {
                     top: 25%;
                     left: 55%;
                     animation-delay: 1.2s;
+                    animation-duration: 2.6s;
                 }
 
                 @keyframes twinkle {
                     0%, 100% {
-                        opacity: 0.4;
+                        opacity: 0.35;
                         transform: scale(1);
                     }
                     50% {
                         opacity: 1;
-                        transform: scale(1.3);
+                        transform: scale(1.25);
+                    }
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    :host([data-theme="night"]) .star {
+                        animation: none;
                     }
                 }
 
@@ -246,8 +264,41 @@ class ThemeToggleLandscape extends HTMLElement {
                     left: 62.5%;
                 }
 
+                @keyframes cloud-drift {
+                    0% {
+                        transform: translateX(-140%);
+                    }
+                    100% {
+                        transform: translateX(140%);
+                    }
+                }
+
+                :host([data-theme="day"]) .cloud {
+                    animation-name: cloud-drift;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                    will-change: transform;
+                }
+
+                :host([data-theme="day"]) .cloud-1 {
+                    animation-duration: 9s;
+                    animation-delay: -3s;
+                }
+
+                :host([data-theme="day"]) .cloud-2 {
+                    animation-duration: 12s;
+                    animation-delay: -7s;
+                }
+
                 :host([data-theme="night"]) .cloud {
                     opacity: 0;
+                    animation: none;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    :host([data-theme="day"]) .cloud {
+                        animation: none;
+                    }
                 }
 
                 .mountain {

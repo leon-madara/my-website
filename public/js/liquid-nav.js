@@ -11,18 +11,40 @@
   const links = nav.querySelectorAll("a");
   if (!indicator || links.length === 0) return;
 
+  function routeKeyFromPathname(pathname) {
+    const lower = String(pathname || "").toLowerCase();
+    const trimmed = lower.replace(/\/+$/, "");
+    const parts = trimmed.split("/").filter(Boolean);
+    let last = parts.length ? parts[parts.length - 1] : "index";
+
+    if (last.endsWith(".html")) {
+      last = last.slice(0, -".html".length);
+    }
+
+    return last || "index";
+  }
+
+  function routeKeyFromHref(href) {
+    try {
+      const url = new URL(href, window.location.href);
+      return routeKeyFromPathname(url.pathname);
+    } catch {
+      const raw = String(href || "").split("#")[0].split("?")[0];
+      return routeKeyFromPathname(raw);
+    }
+  }
+
   // Find active link based on current URL
   function getActiveLink() {
-    const currentPath = window.location.pathname;
-    const currentPage = currentPath.split("/").pop() || "index.html";
+    const currentKey = routeKeyFromPathname(window.location.pathname);
 
     for (const link of links) {
       const href = link.getAttribute("href") || "";
-      const linkPage = href.split("/").pop();
+      const linkKey = routeKeyFromHref(href);
 
       if (
-        currentPage === linkPage ||
-        (currentPage === "" && linkPage === "index.html")
+        currentKey === linkKey ||
+        (currentKey === "index" && linkKey === "index")
       ) {
         return link;
       }
@@ -82,16 +104,9 @@
       return;
     }
 
-    // Get current page for comparison
-    const currentPath = window.location.pathname;
-    const currentPage = currentPath.split("/").pop() || "index.html";
-    const targetPage = href.split("/").pop();
-
-    // If it's the current page, do nothing
-    const isCurrentPage =
-      currentPage === targetPage ||
-      (currentPage === "" && targetPage === "index.html") ||
-      (currentPage === "index.html" && targetPage === "index.html");
+    const currentKey = routeKeyFromPathname(window.location.pathname);
+    const targetKey = routeKeyFromHref(href);
+    const isCurrentPage = currentKey === targetKey;
 
     if (isCurrentPage) {
       e.preventDefault();

@@ -1145,20 +1145,26 @@ body.dark-theme .theme-icon.dark-icon {
 }
 
 .timeline-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
     font-weight: 700;
     color: #006B3F;
     text-decoration: none;
-    border-bottom: 1px solid rgba(0, 107, 63, 0.35);
-    padding-bottom: 2px;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    border: 1px solid rgba(0, 107, 63, 0.35);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    line-height: 1;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .timeline-link:hover,
 .timeline-link:focus-visible {
     color: #CE1126;
     border-color: rgba(206, 17, 38, 0.45);
+    background-color: rgba(206, 17, 38, 0.08);
 }
 
 .timeline-achievements li {
@@ -2788,6 +2794,7 @@ body.dark-theme .timeline-link:hover,
 body.dark-theme .timeline-link:focus-visible {
     color: #ff3355;
     border-color: rgba(255, 51, 85, 0.5);
+    background-color: rgba(255, 51, 85, 0.12);
 }
 
 body.dark-theme .timeline-achievements li {

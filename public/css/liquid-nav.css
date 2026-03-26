@@ -9,7 +9,7 @@
     --header-control-height: 48px;
     --header-control-top: calc((var(--header-logo-size) - var(--header-control-height)) / 2);
     --header-side-offset: 20vw;
-    --nav-pill-width: clamp(208px, 32vw, 408px);
+    --nav-pill-width: clamp(208px, 28vw, 312px);
     --nav-pill-inset: 5px;
     --nav-pill-link-padding-x: 10px;
     --nav-pill-icon-size: 16px;
@@ -129,7 +129,7 @@ body.dark-theme .header-logo::before {
     z-index: 9999;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     box-sizing: border-box;
     gap: 0;
     padding: var(--nav-pill-inset);
@@ -298,6 +298,21 @@ body.dark-theme .header-logo::before {
     top: 25px;
     right: 2rem;
     z-index: 9999;
+}
+
+body.portfolio-page .theme-toggle-wrapper {
+    position: fixed !important;
+    top: var(--header-control-top) !important;
+    right: var(--header-side-offset) !important;
+    z-index: 10000;
+    margin: 0 !important;
+    translate: 0 -6rem;
+}
+
+@supports not (translate: 0 0) {
+    body.portfolio-page .theme-toggle-wrapper {
+        transform: translateY(-6rem) !important;
+    }
 }
 
 /* Toggle Switch Styles */
