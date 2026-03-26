@@ -303,7 +303,7 @@ body.dark-theme .header-logo::before {
 body.portfolio-page .theme-toggle-wrapper {
     position: fixed !important;
     top: var(--header-control-top) !important;
-    right: var(--header-side-offset) !important;
+    right: var(--portfolio-container-inset-right, var(--header-side-offset)) !important;
     z-index: 10000;
     margin: 0 !important;
     translate: 0 -6rem;
@@ -313,6 +313,10 @@ body.portfolio-page .theme-toggle-wrapper {
     body.portfolio-page .theme-toggle-wrapper {
         transform: translateY(-6rem) !important;
     }
+}
+
+body.portfolio-page .header-logo {
+    left: var(--portfolio-container-inset-left, var(--header-side-offset));
 }
 
 /* Toggle Switch Styles */
