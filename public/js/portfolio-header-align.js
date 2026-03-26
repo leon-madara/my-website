@@ -9,11 +9,17 @@
     if (!container) return false;
 
     const rect = container.getBoundingClientRect();
+    const styles = window.getComputedStyle(container);
+    const paddingLeft = Number.parseFloat(styles.paddingLeft) || 0;
+    const paddingRight = Number.parseFloat(styles.paddingRight) || 0;
     const viewportWidth =
       document.documentElement?.clientWidth || window.innerWidth || 0;
 
-    const leftInset = Math.max(0, Math.round(rect.left));
-    const rightInset = Math.max(0, Math.round(viewportWidth - rect.right));
+    const leftInset = Math.max(0, Math.round(rect.left + paddingLeft));
+    const rightInset = Math.max(
+      0,
+      Math.round(viewportWidth - rect.right + paddingRight),
+    );
 
     document.body.style.setProperty(
       "--portfolio-container-inset-left",
@@ -44,4 +50,3 @@
   window.addEventListener("resize", onResize, { passive: true });
   window.addEventListener("load", () => updateInsets(), { once: true });
 })();
-
