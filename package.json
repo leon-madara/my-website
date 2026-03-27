@@ -4,6 +4,11 @@
     "description": "Leon Madara's Portfolio Landing Page - Vanilla HTML/CSS/JavaScript",
     "scripts": {
         "dev": "npx serve public -p 3000",
+        "react:dev": "vite --config vite.react.config.mjs",
+        "react:build": "vite build --config vite.react.config.mjs",
+        "react:preview": "vite preview --config vite.react.config.mjs",
+        "react:test": "vitest --config vitest.react.config.ts --run",
+        "react:typecheck": "tsc --project tsconfig.react.json --noEmit",
         "serve": "npx serve public -p 3000",
         "start": "npx serve public -p 3000",
         "test:gsap": "jest tests/gsapDemoReference.test.js"
@@ -18,9 +23,25 @@
     ],
     "author": "Leon Madara",
     "license": "MIT",
+    "dependencies": {
+        "gsap": "^3.13.0",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "react-router-dom": "^7.13.2"
+    },
     "devDependencies": {
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^14.6.1",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^6.0.1",
+        "jest": "^29.0.0",
+        "jsdom": "^29.0.1",
         "serve": "^14.2.5",
-        "jest": "^29.0.0"
+        "typescript": "^6.0.2",
+        "vite": "^8.0.3",
+        "vitest": "^4.1.2"
     },
     "jest": {
         "modulePathIgnorePatterns": [

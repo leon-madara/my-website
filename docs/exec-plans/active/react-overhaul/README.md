@@ -2,7 +2,7 @@
 
 ## Status
 
-- State: Planning
+- State: In Progress
 - Owner: Codex + Leon
 - Started: 2026-03-27
 - Last Updated: 2026-03-27

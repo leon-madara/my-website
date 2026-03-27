@@ -9,3 +9,52 @@
   - `portfolio.html` already mounts a built React bundle from `public/portfolio_build/assets/*`
   - `portfolio_src/` contains a typed portfolio data and adapter layer
 - [x] Wrote a durable execution plan for the React overhaul in this folder
+- [x] Checkpointed the pre-overhaul working tree on the original branch with commit `cad39d9`
+- [x] Created and switched to `codex/react-overhaul`
+- [x] Added a parallel React workspace under `app/`
+- [x] Added Vite, React Router, React Testing Library, Vitest, and TypeScript support at the repo root
+- [x] Created a route scaffold for `/`, `/about`, `/contact`, `/portfolio`, and `/portfolio/:projectSlug`
+- [x] Added baseline shared shell structure with theme persistence and reduced-motion detection
+- [x] Verified the React foundation with build, test, and typecheck commands
+- [x] Replaced the temporary React shell with parity-oriented shared components for:
+  - Fixed logo
+  - Indicator nav
+  - Desktop and mobile theme toggles
+  - Profile sidebar
+  - Footer
+  - Mobile bottom nav
+  - Decorative background layers
+- [x] Matched theme persistence to the existing `day` / `night` storage convention
+- [x] Added route-aware shell behavior for home, about, contact, and portfolio contexts
+- [x] Replaced the homepage placeholder route with a real React hero section modeled on `public/index.html`
+- [x] Added a React `RoleSequence` component that ports the homepage role morph behavior from `public/js/role-sequence.js`
+- [x] Added a home-only viewport lock hook that ports the legacy `--vh` and no-scroll behavior into React
+- [x] Added homepage CTA links, location pill, decorative lines, and floating shape layers to the React route
+- [x] Added focused homepage test coverage and re-verified the React workspace with build, test, and typecheck
+- [x] Added `gsap@3.13.0` to the React workspace so the migration can use local ScrollTrigger-based motion instead of CDN scripts
+- [x] Replaced the About placeholder route with a real React long-scroll page covering:
+  - Parallax hero
+  - About summary and expertise cards
+  - Skills categories
+  - Experience timeline
+  - Education, projects, and certifications sections
+- [x] Added a scoped About animation hook that applies:
+  - Hero entrance motion
+  - ScrollTrigger-based section reveals
+  - About-only shell fade behavior on scroll
+  - Reduced-motion safe cleanup through React lifecycle management
+- [x] Added focused About route test coverage and re-verified the React workspace with build, test, typecheck, and GSAP checks
+- [x] Replaced the Contact placeholder route with a real React page covering:
+  - Hero CTA section
+  - Reach-out cards
+  - Client-side contact form
+  - Nairobi time and availability cards
+  - FAQ section
+  - Toast feedback
+- [x] Moved Contact page interactions into local React state and helpers for:
+  - Copy to clipboard
+  - Validation and inline form errors
+  - Simulated submit/success flow
+  - Live Nairobi time updates
+  - Availability status messaging
+- [x] Added focused Contact route test coverage and re-verified the React workspace with build, test, typecheck, and GSAP checks

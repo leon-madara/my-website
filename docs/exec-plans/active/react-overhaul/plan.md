@@ -4,26 +4,26 @@
 
 ### Phase 0 - Pre-Migration Guardrails
 
-- [ ] Confirm this is an overhaul effort and follow the repo branching rule before implementation
-- [ ] Checkpoint the current branch state in a commit before any React migration work begins
-- [ ] Ask for approval to branch to `codex/react-overhaul` or a similar approved branch name
-- [ ] Keep `public/` as the live production surface during migration; do not cut it over until parity is proven
+- [x] Confirm this is an overhaul effort and follow the repo branching rule before implementation
+- [x] Checkpoint the current branch state in a commit before any React migration work begins
+- [x] Ask for approval to branch to `codex/react-overhaul` or a similar approved branch name
+- [x] Keep `public/` as the live production surface during migration; do not cut it over until parity is proven
 - [ ] Record the final boundary decision when the React source becomes canonical
 
 ### Phase 1 - Foundation and Architecture
 
-- [ ] Scaffold a React + TypeScript + Vite application in a new authoring surface outside `public/`
-- [ ] Establish folder structure for routes, shared components, hooks, styles, assets, and page features
-- [ ] Add React Router and define route parity for `/`, `/about`, `/contact`, `/portfolio`, and future case-study routes
+- [x] Scaffold a React + TypeScript + Vite application in a new authoring surface outside `public/`
+- [x] Establish folder structure for routes, shared components, hooks, styles, assets, and page features
+- [x] Add React Router and define route parity for `/`, `/about`, `/contact`, `/portfolio`, and future case-study routes
 - [ ] Decide build output strategy for static hosting:
   - Temporary: build to `dist/` or another non-live folder for side-by-side validation
   - Cutover: either publish generated files into `public/` or formally redefine `public/` as deploy output only
-- [ ] Define how assets are referenced so existing images, fonts, and icons remain stable during migration
-- [ ] Set up baseline testing for the React app with Vitest and React Testing Library, while keeping existing targeted tests available
+- [x] Define how assets are referenced so existing images, fonts, and icons remain stable during migration
+- [x] Set up baseline testing for the React app with Vitest and React Testing Library, while keeping existing targeted tests available
 
 ### Phase 2 - Shared UI Extraction
 
-- [ ] Convert repeated page chrome into reusable React components:
+- [x] Convert repeated page chrome into reusable React components:
   - Header logo
   - Liquid navigation
   - Mobile bottom navigation
@@ -31,10 +31,10 @@
   - Theme toggle variants
   - Profile sidebar and social links
   - Shared decorative background layers
-- [ ] Move route awareness from DOM scripts into React state and router-driven active-nav behavior
-- [ ] Consolidate theme persistence logic into a single client hook or provider
-- [ ] Extract common layout and token styles before page-specific rewrites
-- [ ] Preserve accessibility behavior such as ARIA state, keyboard support, and reduced-motion handling
+- [x] Move route awareness from DOM scripts into React state and router-driven active-nav behavior
+- [x] Consolidate theme persistence logic into a single client hook or provider
+- [x] Extract common layout and token styles before page-specific rewrites
+- [x] Preserve accessibility behavior such as ARIA state, keyboard support, and reduced-motion handling
 
 ### Phase 3 - Wave 1: Homepage
 

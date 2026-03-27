@@ -50,3 +50,43 @@
   - The current branch already contains unrelated and in-progress edits
 - Recommended branch name:
   - `codex/react-overhaul`
+
+### 2026-03-27 - Put the new authoring surface in `app/`
+
+- Status: Accepted
+- Reason:
+  - It keeps the React workspace clearly separate from the live `public/` surface
+  - It matches the execution plan naming and makes the migration path easier to follow
+  - It avoids prematurely redefining `public/` as the React source of truth
+
+### 2026-03-27 - Reuse `public/` as the Vite public asset source during migration
+
+- Status: Accepted
+- Reason:
+  - Existing images, icons, and static assets remain available without moving them yet
+  - It supports parity-first page migration with minimal asset churn
+  - Build output is heavier, but the output stays transitional and ignored
+
+### 2026-03-27 - Port homepage hero behavior as isolated React feature modules, not as a new global controller
+
+- Status: Accepted
+- Reason:
+  - The legacy homepage behavior in `public/js/main.js` and `public/js/role-sequence.js` is tightly scoped to the hero route
+  - A dedicated homepage hook and component keep the new React app easier to reason about than recreating another all-page controller
+  - This keeps the migration aligned with route-first ownership and makes later page migrations less error-prone
+
+### 2026-03-27 - Rebuild the About page from structured React content plus scoped GSAP hooks instead of porting the old page-wide scripts verbatim
+
+- Status: Accepted
+- Reason:
+  - The live About page relies on large page-global scripts, CDN-loaded GSAP plugins, and imperative DOM control
+  - Rendering the content from typed React data with a local `gsap` dependency keeps the migration easier to maintain and test
+  - Scoped hooks and section-level selectors reduce the risk of stale ScrollTriggers and make later Contact and Portfolio work cleaner
+
+### 2026-03-27 - Rebuild the Contact page around React state, not a recreated page controller
+
+- Status: Accepted
+- Reason:
+  - The live Contact page behavior is primarily local UI state: copy actions, validation, submit feedback, time, and FAQ toggles
+  - React state and small helper functions are easier to verify and maintain than another imperative `ContactPage` object
+  - This keeps Wave 1 aligned around page-scoped ownership before portfolio complexity begins
