@@ -2,11 +2,21 @@
 
 ## Next Recommended Step
 
-Run a live desktop/mobile browser validation pass on all three migrated Wave 1 React pages, Home, About, and Contact, and polish any layout, motion, or interaction mismatches against `public/index.html`, `public/about.html`, and `public/contact.html`. Once Wave 1 is visually signed off, start the portfolio source-of-truth reconciliation and shell migration.
+Run a fuller parity review on desktop and mobile for the React pages that already passed sanity checks, especially the About long-scroll animation timing and the portfolio layouts against `public/portfolio.html` and `public/edumanage.html`. After that, document the production cutover boundary and replace the remaining legacy entrypoints only when route refresh and visual parity are signed off.
 
 ## Notes
 
 - Relevant files:
+  - `app/src/features/portfolio/PortfolioRoute.tsx`
+  - `app/src/features/portfolio/PortfolioLanding.tsx`
+  - `app/src/features/portfolio/TabbedCaseStudyRoute.tsx`
+  - `app/src/features/portfolio/LongformCaseStudyRoute.tsx`
+  - `app/src/features/portfolio/PortfolioEntrance.tsx`
+  - `app/src/features/portfolio/portfolioContent.ts`
+  - `app/src/features/portfolio/eastleighProject.ts`
+  - `app/src/features/portfolio/legitLogisticsProject.ts`
+  - `app/src/features/portfolio/eduManageProject.ts`
+  - `app/src/features/portfolio/portfolio.css`
   - `app/src/features/home/HomeRoute.tsx`
   - `app/src/features/home/RoleSequence.tsx`
   - `app/src/features/home/useHomeViewportLock.ts`
@@ -21,10 +31,14 @@ Run a live desktop/mobile browser validation pass on all three migrated Wave 1 R
   - `public/index.html`
   - `public/about.html`
   - `public/contact.html`
+  - `public/portfolio.html`
+  - `public/edumanage.html`
   - `public/js/about-parallax.js`
 - Known risks:
-  - Homepage parity still needs browser-level validation on desktop and mobile
-  - About page parity still needs browser-level validation on desktop and mobile
-  - Contact page parity still needs browser-level validation on desktop and mobile
-  - Existing mixed portfolio architecture
+  - Homepage parity still needs broader desktop/mobile comparison beyond sanity checks
+  - About page parity still needs broader desktop/mobile comparison beyond sanity checks
+  - Contact page parity still needs broader desktop/mobile comparison beyond sanity checks
+  - Portfolio parity still needs broader desktop/mobile comparison beyond sanity checks
+  - Existing mixed portfolio architecture until cutover
   - Route handling and static-hosting cutover complexity
+  - React production build currently emits a single JS chunk slightly above Vite's default 500 kB warning threshold

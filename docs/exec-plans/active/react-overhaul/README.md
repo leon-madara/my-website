@@ -59,7 +59,7 @@ Transition the portfolio site from the current mixed static-HTML and partial Rea
 - [ ] The React app architecture is documented with clear source-of-truth boundaries
 - [ ] Shared UI, theme, and navigation are planned as reusable React primitives
 - [ ] Home, About, and Contact have explicit migration scopes and parity checks
-- [ ] Portfolio migration includes a plan for subsections, case studies, and existing typed content
+- [x] Portfolio migration includes a plan for subsections, case studies, and existing typed content
 - [ ] Static hosting and route compatibility are planned before cutover
 - [ ] Verification covers desktop, mobile, accessibility, motion, and regression checks
 - [ ] Another agent can resume the migration from repo docs without chat history

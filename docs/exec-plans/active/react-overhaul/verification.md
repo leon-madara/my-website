@@ -33,6 +33,27 @@
   - Client-side form validation and success state
   - Nairobi time and availability cards
   - FAQ section and toast feedback
+- Replaced the portfolio placeholder with a React portfolio feature set that now includes:
+  - Typed portfolio content and route ownership inside `app/src/features/portfolio/`
+  - A routed landing page with project toggles and preview cards
+  - Query-param deep linking for Eastleigh and Legit Logistics
+  - A long-form routed EduManage case study
+  - A session-aware landing-only entrance animation
+  - Scoped portfolio tests and EduManage GSAP reveal hooks
+- Moved React public assets into `app/public/` so built SPA routes are no longer shadowed by copied legacy HTML files
+- Added a React-side favicon reference and asset so preview/browser sanity checks no longer fail with a missing favicon request
+- Ran browser sanity checks against the built React preview for:
+  - `/`
+  - `/about`
+  - `/contact`
+  - `/portfolio`
+  - `/portfolio/eastleigh?section=details&page=overview`
+  - `/portfolio/legit-logistics?section=problem&page=challenge`
+  - `/portfolio/edumanage#architecture`
+- Confirmed query-param and hash navigation update correctly during the browser sanity pass:
+  - Shared case-study page tabs update `page`
+  - Shared case-study section menus update `section`
+  - EduManage chapter navigation updates the hash
 
 ## Checks Run
 
@@ -40,16 +61,22 @@
 - `npm run react:test`
 - `npm run react:typecheck`
 - `npm run test:gsap`
+- Browser preview on `http://127.0.0.1:4175`
 
 ## Not Yet Verified
 
-- Live desktop browser comparison between the React homepage and `public/index.html`
-- Live mobile browser comparison between the React homepage and `public/index.html`
-- Live desktop browser comparison between the React About page and `public/about.html`
-- Live mobile browser comparison between the React About page and `public/about.html`
-- Live desktop browser comparison between the React Contact page and `public/contact.html`
-- Live mobile browser comparison between the React Contact page and `public/contact.html`
-- Temporary local preview startup for browser validation was blocked in this session, so browser-level parity remains a follow-up
+- Full visual parity review on desktop between the React homepage and `public/index.html`
+- Full visual parity review on mobile between the React homepage and `public/index.html`
+- Full visual parity review on desktop between the React About page and `public/about.html`
+- Full visual parity review on mobile between the React About page and `public/about.html`
+- Full visual parity review on desktop between the React Contact page and `public/contact.html`
+- Full visual parity review on mobile between the React Contact page and `public/contact.html`
+- Full visual parity review on desktop between the React portfolio landing page and `public/portfolio.html`
+- Full visual parity review on mobile between the React portfolio landing page and `public/portfolio.html`
+- Full visual parity review on desktop between the React Eastleigh and Legit Logistics case-study routes and `public/portfolio.html`
+- Full visual parity review on mobile between the React Eastleigh and Legit Logistics case-study routes and `public/portfolio.html`
+- Full visual parity review on desktop between the React EduManage route and `public/edumanage.html`
+- Full visual parity review on mobile between the React EduManage route and `public/edumanage.html`
 
 ## Follow-Up Verification Planned For Implementation
 

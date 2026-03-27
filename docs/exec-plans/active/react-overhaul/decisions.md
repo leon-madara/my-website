@@ -59,13 +59,13 @@
   - It matches the execution plan naming and makes the migration path easier to follow
   - It avoids prematurely redefining `public/` as the React source of truth
 
-### 2026-03-27 - Reuse `public/` as the Vite public asset source during migration
+### 2026-03-27 - Do not reuse the full legacy `public/` directory as the React app public asset source
 
 - Status: Accepted
 - Reason:
-  - Existing images, icons, and static assets remain available without moving them yet
-  - It supports parity-first page migration with minimal asset churn
-  - Build output is heavier, but the output stays transitional and ignored
+  - Copying the full legacy `public/` directory into the React build caused route shadowing for `/about` and `/contact`
+  - The React app only needs a narrow set of shared image assets during migration
+  - A dedicated `app/public/` folder preserves SPA route ownership while keeping asset churn manageable
 
 ### 2026-03-27 - Port homepage hero behavior as isolated React feature modules, not as a new global controller
 
@@ -90,3 +90,35 @@
   - The live Contact page behavior is primarily local UI state: copy actions, validation, submit feedback, time, and FAQ toggles
   - React state and small helper functions are easier to verify and maintain than another imperative `ContactPage` object
   - This keeps Wave 1 aligned around page-scoped ownership before portfolio complexity begins
+
+### 2026-03-27 - Treat the new React portfolio feature layer as the canonical authoring source for routed portfolio pages
+
+- Status: Accepted
+- Reason:
+  - The live portfolio currently splits ownership across `public/portfolio.html`, legacy JS loaders, and generated React build output
+  - The React migration needs one durable source inside `app/src/features/portfolio/` instead of runtime dependence on `public/portfolio_build`
+  - `portfolio_src` and live static sources remain migration inputs, not the long-term routed runtime
+
+### 2026-03-27 - Keep Eastleigh and Legit Logistics on one shared tabbed case-study template
+
+- Status: Accepted
+- Reason:
+  - Projects 01 and 02 already share the same case-study interaction model and information architecture
+  - A shared template reduces migration risk and keeps the route system consistent
+  - Query-param deep linking is simpler and safer than recreating the old horizontal DOM scroll controller
+
+### 2026-03-27 - Keep EduManage as a separate long-form React case-study template
+
+- Status: Accepted
+- Reason:
+  - EduManage already has a different long-scroll structure in the live site
+  - Flattening it into the tabbed case-study model would lose the editorial pacing and chapter rhythm
+  - A dedicated template preserves the content shape while still moving ownership into React
+
+### 2026-03-27 - Scope the portfolio entrance animation to `/portfolio` only
+
+- Status: Accepted
+- Reason:
+  - The entrance is part of the portfolio landing identity, but it should not delay direct case-study entry
+  - This preserves the effect while keeping routed project pages fast and link-friendly
+  - Session-based skipping remains intact for repeat visits

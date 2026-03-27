@@ -58,3 +58,22 @@
   - Live Nairobi time updates
   - Availability status messaging
 - [x] Added focused Contact route test coverage and re-verified the React workspace with build, test, typecheck, and GSAP checks
+- [x] Replaced the portfolio placeholder route with a real React portfolio feature set that now includes:
+  - App-owned typed portfolio models for tabbed and long-form case studies
+  - A routed `/portfolio` landing page with project toggles and preview cards
+  - A session-aware entrance animation scoped to `/portfolio` only
+  - Query-param deep linking for Eastleigh and Legit Logistics
+  - A reusable tabbed case-study template for Projects 01 and 02
+  - A dedicated long-form EduManage route with chapter anchors
+- [x] Added scoped portfolio GSAP reveal behavior for the React EduManage route
+- [x] Added focused portfolio data and route test coverage and re-verified the React workspace with build, test, typecheck, and GSAP checks
+- [x] Fixed React preview route shadowing by moving Vite public assets from the legacy `public/` directory to `app/public/`
+- [x] Added a React-side favicon asset so preview and built routes no longer emit the missing favicon console error
+- [x] Completed a browser sanity pass against the built React app for:
+  - `/`
+  - `/about`
+  - `/contact`
+  - `/portfolio`
+  - `/portfolio/eastleigh?section=details&page=overview`
+  - `/portfolio/legit-logistics?section=problem&page=challenge`
+  - `/portfolio/edumanage#architecture`

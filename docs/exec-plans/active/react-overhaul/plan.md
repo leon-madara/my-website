@@ -67,19 +67,19 @@
 
 ### Phase 6 - Wave 2: Portfolio and Case Studies
 
-- [ ] Audit the current split portfolio setup:
+- [x] Audit the current split portfolio setup:
   - `public/portfolio.html` loading `public/portfolio_build/assets/*`
   - `portfolio_src/` holding typed data and adapter logic
   - `public/js/projectData.js`, `public/portfolio_data/*.json`, and `public/MARKDOWN/*.md`
-- [ ] Choose one canonical portfolio authoring path and document it before coding
-- [ ] Rebuild the portfolio experience in the new React app using route-aware structure
-- [ ] Recommended route model:
+- [x] Choose one canonical portfolio authoring path and document it before coding
+- [x] Rebuild the portfolio experience in the new React app using route-aware structure
+- [x] Recommended route model:
   - `/portfolio`
   - `/portfolio/:projectSlug`
   - Nested section state for case-study subsections
-- [ ] Reuse `portfolio_src` typed data and adapter concepts where they reduce migration risk
-- [ ] Stop treating `public/portfolio_build/assets/*` as an authoring surface; treat it as generated output only
-- [ ] Migrate portfolio entrance animation only after baseline navigation and content rendering are stable
+- [x] Reuse `portfolio_src` typed data and adapter concepts where they reduce migration risk
+- [x] Stop treating `public/portfolio_build/assets/*` as an authoring surface; treat it as generated output only
+- [x] Migrate portfolio entrance animation only after baseline navigation and content rendering are stable
 
 ### Phase 7 - Cutover and Cleanup
 
