@@ -914,55 +914,6 @@
     <script src="js/about-parallax.js"></script>
     <script src="js/liquid-nav.js"></script>
     <script>
-        // Change nav link colors on scroll (dark-mode aware)
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('.nav-pills a');
-
-            function updateNavColors() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const isDark = document.body.classList.contains('dark-theme');
-
-                // Get colors based on theme
-                const scrolledColor = isDark ? '#a8b5c7' : '#000000';  // Gray in dark, black in light
-                const topColor = isDark ? '#a8b5c7' : '#ffffff';       // Gray in dark, white in light
-
-                navLinks.forEach(link => {
-                    const svg = link.querySelector('svg');
-
-                    if (link.classList.contains('active')) {
-                        // Let the shared liquid nav styles control the active state.
-                        link.style.color = '';
-                        if (svg) {
-                            svg.style.color = '';
-                            svg.style.stroke = '';
-                        }
-                    } else {
-                        // Apply color based on scroll position and theme
-                        const color = scrollTop > 50 ? scrolledColor : topColor;
-                        link.style.color = color;
-                        if (svg) {
-                            svg.style.color = color;
-                            svg.style.stroke = color;
-                        }
-                    }
-                });
-            }
-
-            // Update on scroll
-            window.addEventListener('scroll', updateNavColors);
-
-            // Update on theme change (listen for class changes on body)
-            const observer = new MutationObserver(updateNavColors);
-            observer.observe(document.body, {
-                attributes: true,
-                attributeFilter: ['class']
-            });
-
-            // Initial update
-            updateNavColors();
-        });
-    </script>
-    <script>
         // Theme toggle functionality
         const aboutThemeToggle = document.getElementById('theme-toggle');
         const aboutLightIcon = document.getElementById('light-icon');

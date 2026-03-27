@@ -54,6 +54,15 @@
   - Shared case-study page tabs update `page`
   - Shared case-study section menus update `section`
   - EduManage chapter navigation updates the hash
+- Reworked the React homepage role morph to use the Magic UI-style continuous morph/cooldown loop while preserving current role copy, accessible heading semantics, and reduced-motion fallback
+- Added focused `RoleSequence` tests for:
+  - initial accessible heading state
+  - cadence-driven progression to the next role
+  - reduced-motion static fallback
+  - requestAnimationFrame cleanup on unmount
+- Spot-checked the built React homepage hero in-browser and confirmed the role sequence advances with the updated cadence while the accessible label tracks the visible role
+- Replaced the React homepage role morph workaround with the exact Magic UI cooldown handoff and confirmed in-browser that the second layer remains visible during cooldown
+- Switched the focused `RoleSequence` test harness to drive a mocked `Date` clock so the implementation now matches the reference timing source as well as the reference cadence
 
 ## Checks Run
 
@@ -67,6 +76,7 @@
 
 - Full visual parity review on desktop between the React homepage and `public/index.html`
 - Full visual parity review on mobile between the React homepage and `public/index.html`
+- Full visual feel comparison between the React homepage role morph and the Magic UI reference on desktop and mobile
 - Full visual parity review on desktop between the React About page and `public/about.html`
 - Full visual parity review on mobile between the React About page and `public/about.html`
 - Full visual parity review on desktop between the React Contact page and `public/contact.html`

@@ -77,3 +77,10 @@
   - `/portfolio/eastleigh?section=details&page=overview`
   - `/portfolio/legit-logistics?section=problem&page=challenge`
   - `/portfolio/edumanage#architecture`
+- [x] Reworked the React homepage `RoleSequence` component to follow the Magic UI morph/cooldown loop while keeping Leon's role copy, heading semantics, reduced-motion fallback, and height-stability behavior
+- [x] Tightened the React homepage role-sequence styling to better match Magic UI's morph box model without importing Tailwind or changing Leon's hero branding
+- [x] Added focused `RoleSequence` tests covering initial render, cadence-driven progression, reduced-motion fallback, and animation cleanup
+- [x] Re-verified the updated React homepage hero with `react:test`, `react:typecheck`, `react:build`, and a browser spot check on `http://127.0.0.1:4175/`
+- [x] Replaced the temporary role-settling workaround with the exact Magic UI layer handoff so cooldown now leaves the second text layer fully visible, matching the reference behavior
+- [x] Switched the React homepage role morph timing source from `performance.now()` to the reference-style `new Date()` delta loop
+- [x] Updated the focused `RoleSequence` tests to verify exact Magic UI cooldown ownership and `Date`-driven timing behavior

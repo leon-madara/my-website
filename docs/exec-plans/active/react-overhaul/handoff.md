@@ -2,7 +2,7 @@
 
 ## Next Recommended Step
 
-Run a fuller parity review on desktop and mobile for the React pages that already passed sanity checks, especially the About long-scroll animation timing and the portfolio layouts against `public/portfolio.html` and `public/edumanage.html`. After that, document the production cutover boundary and replace the remaining legacy entrypoints only when route refresh and visual parity are signed off.
+Run a fuller parity review on desktop and mobile for the React homepage first, with special attention to the now-exact Magic UI role morph handoff and whether Leon's branded serif styling still feels continuous at full speed. After that, continue the broader parity review for the About long-scroll animation timing and the portfolio layouts against `public/portfolio.html` and `public/edumanage.html`, then document the production cutover boundary before replacing the remaining legacy entrypoints.
 
 ## Notes
 
@@ -19,6 +19,7 @@ Run a fuller parity review on desktop and mobile for the React pages that alread
   - `app/src/features/portfolio/portfolio.css`
   - `app/src/features/home/HomeRoute.tsx`
   - `app/src/features/home/RoleSequence.tsx`
+  - `app/src/features/home/RoleSequence.test.tsx`
   - `app/src/features/home/useHomeViewportLock.ts`
   - `app/src/features/about/AboutRoute.tsx`
   - `app/src/features/about/aboutContent.ts`
@@ -35,7 +36,7 @@ Run a fuller parity review on desktop and mobile for the React pages that alread
   - `public/edumanage.html`
   - `public/js/about-parallax.js`
 - Known risks:
-  - Homepage parity still needs broader desktop/mobile comparison beyond sanity checks
+  - Homepage parity still needs broader desktop/mobile comparison beyond sanity checks, especially whether the exact Magic UI cooldown handoff feels continuous with Leon's current hero typography
   - About page parity still needs broader desktop/mobile comparison beyond sanity checks
   - Contact page parity still needs broader desktop/mobile comparison beyond sanity checks
   - Portfolio parity still needs broader desktop/mobile comparison beyond sanity checks

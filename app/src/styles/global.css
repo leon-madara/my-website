@@ -664,8 +664,14 @@ button {
 
 .role-sequence {
   --role-sequence-height: 1.5em;
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-inline: auto;
   isolation: isolate;
   min-height: var(--role-sequence-height);
+  line-height: 1.08;
+  overflow: visible;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -683,19 +689,19 @@ button {
 
 .role-sequence__text {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset-inline: 0;
+  top: 0;
+  display: inline-block;
   width: 100%;
-  margin: 0 auto;
+  margin-inline: auto;
   color: inherit;
-  line-height: inherit;
+  line-height: 1.08;
   letter-spacing: inherit;
   text-align: inherit;
   white-space: normal;
   pointer-events: none;
   -webkit-text-fill-color: currentColor;
+  transform: translateZ(0);
   will-change: opacity, filter;
 }
 

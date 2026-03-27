@@ -4,6 +4,7 @@
 - [x] Create the checkpoint commit on the current branch, then create the approved `codex/react-overhaul` branch
 - [x] Scaffold the React authoring surface and route skeleton without replacing the current live `public/` pages yet
 - [x] Build shared React shell components for nav, footer, theme, sidebar, and mobile nav
+- [ ] Compare the updated React homepage role morph against the Magic UI reference on desktop and mobile during the homepage parity pass
 - [ ] Finish homepage parity review with live desktop/mobile browser validation and polish any layout mismatches
 - [ ] Finish About page parity review with live desktop/mobile browser validation and polish any layout or motion mismatches
 - [ ] Finish Contact page parity review with live desktop/mobile browser validation and polish any layout or interaction mismatches

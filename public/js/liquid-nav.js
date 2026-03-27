@@ -10,7 +10,10 @@
   const indicator = nav.querySelector(".indicator");
   const links = nav.querySelectorAll("a");
   if (!indicator || links.length === 0) return;
-  const TRANSITION_DURATION_MS = 380;
+  const prefersReducedMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const TRANSITION_DURATION_MS = prefersReducedMotion ? 0 : 380;
   let pendingHref = null;
   let navigationTimer = null;
   let isNavigating = false;
@@ -60,13 +63,10 @@
   function moveIndicator(target, animate = true) {
     if (!target) return;
 
-    const navRect = nav.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
+    const left = target.offsetLeft;
+    const width = target.offsetWidth;
 
-    const left = targetRect.left - navRect.left;
-    const width = targetRect.width;
-
-    if (!animate) {
+    if (!animate || prefersReducedMotion) {
       indicator.style.transition = "none";
       indicator.offsetHeight; // Force reflow
     } else {
@@ -177,35 +177,20 @@
 
     setActive(clickedLink);
     requestAnimationFrame(function () {
-      moveIndicator(clickedLink, true);
+      moveIndicator(clickedLink, !prefersReducedMotion);
     });
 
+    if (prefersReducedMotion) {
+      completeNavigation();
+      return;
+    }
+
     navigationTimer = window.setTimeout(completeNavigation, TRANSITION_DURATION_MS + 140);
-  }
-
-  // Random color hover effect
-  const hoverColors = ['#000000', '#ce1126', '#0da95f'];
-
-  function getRandomColor() {
-    return hoverColors[Math.floor(Math.random() * hoverColors.length)];
   }
 
   links.forEach(function (link) {
     // Attach click handler
     link.addEventListener("click", handleClick);
-
-    // Attach hover handlers for random color
-    link.addEventListener("mouseenter", function () {
-      if (!this.classList.contains("active") && !nav.classList.contains("is-transitioning")) {
-        this.style.color = getRandomColor();
-      }
-    });
-
-    link.addEventListener("mouseleave", function () {
-      if (!this.classList.contains("active")) {
-        this.style.color = "";
-      }
-    });
   });
 
   indicator.addEventListener("transitionend", function (event) {

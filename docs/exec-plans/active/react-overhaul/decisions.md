@@ -122,3 +122,19 @@
   - The entrance is part of the portfolio landing identity, but it should not delay direct case-study entry
   - This preserves the effect while keeping routed project pages fast and link-friendly
   - Session-based skipping remains intact for repeat visits
+
+### 2026-03-27 - Align the React homepage hero morph to Magic UI timing but keep Leon-specific branding and accessibility
+
+- Status: Accepted
+- Reason:
+  - The existing React hero already matched the legacy blur math, but its hold-heavy timing felt less fluid than the Magic UI reference
+  - Keeping the current role copy, `<h2>` semantics, and reduced-motion behavior preserves homepage identity and accessibility while improving the motion system
+  - Porting the Magic UI loop into the existing React feature is lower risk than introducing Tailwind, shadcn, or a new shared abstraction mid-migration
+
+### 2026-03-27 - Use the exact Magic UI cooldown handoff in the React homepage hero
+
+- Status: Accepted
+- Reason:
+  - The intermediate React workaround reassigned the finished word back onto the first layer, which diverged from the reference component
+  - The requested goal is exact Magic UI behavior with Leon's words, so cooldown ownership must remain on the second text layer
+  - Accessibility and stability wrappers should adapt around the reference algorithm rather than rewriting its visual handoff

@@ -8,48 +8,50 @@ const roles = [
   "Graphic Designer"
 ];
 
-const morphDuration = 1450;
-const firstHoldDuration = 5000;
-const otherHoldDuration = 3000;
+const morphTime = 1.5;
+const cooldownTime = 0.5;
 
 export function RoleSequence() {
   const containerRef = useRef<HTMLHeadingElement | null>(null);
-  const currentTextRef = useRef<HTMLSpanElement | null>(null);
-  const nextTextRef = useRef<HTMLSpanElement | null>(null);
+  const text1Ref = useRef<HTMLSpanElement | null>(null);
+  const text2Ref = useRef<HTMLSpanElement | null>(null);
   const screenReaderTextRef = useRef<HTMLSpanElement | null>(null);
+  const textIndexRef = useRef(0);
+  const morphRef = useRef(0);
+  const cooldownRef = useRef(0);
+  const timeRef = useRef(new Date());
+  const rafIdRef = useRef<number | null>(null);
+  const pausedRef = useRef(false);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const container = containerRef.current;
-    const currentText = currentTextRef.current;
-    const nextText = nextTextRef.current;
+    const text1 = text1Ref.current;
+    const text2 = text2Ref.current;
     const screenReaderText = screenReaderTextRef.current;
 
-    if (!container || !currentText || !nextText || !screenReaderText) {
+    if (!container || !text1 || !text2 || !screenReaderText) {
       return;
     }
 
-    let rafId: number | null = null;
-    let lastTimestamp: number | null = null;
-    let phaseElapsed = 0;
-    let currentIndex = 0;
-    let nextIndex = 1;
-    let phase: "hold" | "morph" = "hold";
-    let paused = false;
-
-    const updateAccessibleText = (roleText: string) => {
+    const updateAccessibleText = () => {
+      const roleText = roles[textIndexRef.current % roles.length];
       screenReaderText.textContent = roleText;
       container.setAttribute("aria-label", roleText);
     };
 
     const resetVisualState = () => {
-      currentText.textContent = roles[currentIndex];
-      nextText.textContent = roles[nextIndex];
-      currentText.style.filter = "none";
-      currentText.style.opacity = "1";
-      nextText.style.filter = "none";
-      nextText.style.opacity = "0";
-      updateAccessibleText(roles[currentIndex]);
+      textIndexRef.current = 0;
+      morphRef.current = 0;
+      cooldownRef.current = 0;
+      timeRef.current = new Date();
+      text1.textContent = roles[0];
+      text2.textContent = roles[1];
+      text1.style.filter = "none";
+      text1.style.opacity = "100%";
+      text2.style.filter = "none";
+      text2.style.opacity = "0%";
+      updateAccessibleText();
     };
 
     const measureMaxRoleHeight = () => {
@@ -57,7 +59,7 @@ export function RoleSequence() {
       measurement.className = "role-sequence__text role-sequence__measure";
       measurement.setAttribute("aria-hidden", "true");
       measurement.style.position = "static";
-      measurement.style.display = "block";
+      measurement.style.display = "inline-block";
       measurement.style.opacity = "1";
       measurement.style.filter = "none";
       measurement.style.visibility = "hidden";
@@ -82,92 +84,89 @@ export function RoleSequence() {
       }
     };
 
-    const applyCooldownState = () => {
-      currentText.textContent = roles[currentIndex];
-      nextText.textContent = roles[nextIndex];
-      currentText.style.filter = "none";
-      currentText.style.opacity = "1";
-      nextText.style.filter = "none";
-      nextText.style.opacity = "0";
-    };
-
-    const applyMorphState = (fraction: number) => {
-      const safeFraction = Math.max(fraction, 0.0001);
-      const inverseFraction = Math.max(1 - fraction, 0.0001);
-
-      container.classList.add("role-sequence--ready");
-      nextText.style.filter = `blur(${Math.min(8 / safeFraction - 8, 100)}px)`;
-      nextText.style.opacity = `${Math.pow(safeFraction, 0.4)}`;
-      currentText.style.filter = `blur(${Math.min(8 / inverseFraction - 8, 100)}px)`;
-      currentText.style.opacity = `${Math.pow(inverseFraction, 0.4)}`;
-    };
-
-    const completeTransition = () => {
-      currentIndex = nextIndex;
-      nextIndex = (currentIndex + 1) % roles.length;
-      phase = "hold";
-      phaseElapsed = 0;
-      resetVisualState();
-    };
-
-    const getHoldDuration = (index: number) =>
-      index === 0 ? firstHoldDuration : otherHoldDuration;
-
     const cancelFrame = () => {
-      if (rafId !== null) {
-        window.cancelAnimationFrame(rafId);
-        rafId = null;
+      if (rafIdRef.current !== null) {
+        window.cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
       }
     };
 
-    const animate = (timestamp: number) => {
-      if (paused || prefersReducedMotion) {
+    const setStyles = (fraction: number) => {
+      text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+      const invertedFraction = 1 - fraction;
+      text1.style.filter = `blur(${Math.min(8 / invertedFraction - 8, 100)}px)`;
+      text1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`;
+
+      text1.textContent = roles[textIndexRef.current % roles.length];
+      text2.textContent = roles[(textIndexRef.current + 1) % roles.length];
+    };
+
+    const doMorph = () => {
+      morphRef.current -= cooldownRef.current;
+      cooldownRef.current = 0;
+
+      let fraction = morphRef.current / morphTime;
+
+      if (fraction > 1) {
+        cooldownRef.current = cooldownTime;
+        fraction = 1;
+      }
+
+      setStyles(fraction);
+
+      if (fraction === 1) {
+        textIndexRef.current += 1;
+        updateAccessibleText();
+      }
+    };
+
+    const doCooldown = () => {
+      morphRef.current = 0;
+
+      text2.style.filter = "none";
+      text2.style.opacity = "100%";
+      text1.style.filter = "none";
+      text1.style.opacity = "0%";
+
+      updateAccessibleText();
+    };
+
+    const animate = () => {
+      if (pausedRef.current || prefersReducedMotion) {
         return;
       }
 
-      if (lastTimestamp === null) {
-        lastTimestamp = timestamp;
-        rafId = window.requestAnimationFrame(animate);
-        return;
-      }
+      rafIdRef.current = window.requestAnimationFrame(animate);
 
-      const delta = timestamp - lastTimestamp;
-      lastTimestamp = timestamp;
-      phaseElapsed += delta;
+      const newTime = new Date();
+      const dt = (newTime.getTime() - timeRef.current.getTime()) / 1000;
+      timeRef.current = newTime;
 
-      if (phase === "hold") {
-        applyCooldownState();
+      cooldownRef.current -= dt;
 
-        if (phaseElapsed >= getHoldDuration(currentIndex)) {
-          phase = "morph";
-          phaseElapsed = 0;
-          nextIndex = (currentIndex + 1) % roles.length;
-          currentText.textContent = roles[currentIndex];
-          nextText.textContent = roles[nextIndex];
-        }
+      if (cooldownRef.current <= 0) {
+        doMorph();
       } else {
-        const fraction = Math.min(phaseElapsed / morphDuration, 1);
-        applyMorphState(fraction);
-
-        if (fraction >= 1) {
-          completeTransition();
-        }
+        doCooldown();
       }
-
-      rafId = window.requestAnimationFrame(animate);
     };
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        paused = true;
+        pausedRef.current = true;
         cancelFrame();
-        lastTimestamp = null;
         return;
       }
 
-      paused = false;
-      lastTimestamp = null;
-      rafId = window.requestAnimationFrame(animate);
+      if (prefersReducedMotion) {
+        return;
+      }
+
+      pausedRef.current = false;
+      timeRef.current = new Date();
+      animate();
     };
 
     const handleResize = () => {
@@ -193,12 +192,17 @@ export function RoleSequence() {
     window.addEventListener("orientationchange", handleResize);
 
     if (prefersReducedMotion) {
+      pausedRef.current = false;
+      cancelFrame();
+      resetVisualState();
       container.classList.add("no-animation", "role-sequence--reduced-motion");
       container.classList.remove("role-sequence--ready");
     } else {
+      pausedRef.current = false;
       container.classList.remove("no-animation", "role-sequence--reduced-motion");
       container.classList.add("role-sequence--ready");
-      rafId = window.requestAnimationFrame(animate);
+      timeRef.current = new Date();
+      animate();
     }
 
     return () => {
@@ -243,14 +247,14 @@ export function RoleSequence() {
       <span
         aria-hidden="true"
         className="role-sequence__text role-sequence__text--current"
-        ref={currentTextRef}
+        ref={text1Ref}
       >
         {roles[0]}
       </span>
       <span
         aria-hidden="true"
         className="role-sequence__text role-sequence__text--next"
-        ref={nextTextRef}
+        ref={text2Ref}
       />
       <span className="role-sequence__sr-text sr-only" ref={screenReaderTextRef}>
         {roles[0]}
