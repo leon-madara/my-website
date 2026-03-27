@@ -294,7 +294,7 @@ console.log('✓ Projects array:', projects.length === 3);
 
 // Test 2: Project map
 console.log('✓ Eastleigh exists:', !!projectsMap['eastleigh']);
-console.log('✓ Delivah exists:', !!projectsMap['delivah']);
+console.log('✓ Legit Logistics exists:', !!projectsMap['legit-logistics']);
 console.log('✓ EduManage exists:', !!projectsMap['edumanage']);
 
 // Test 3: Structure
@@ -354,7 +354,7 @@ Create `public/test-typescript-adapter.html`:
       <ul>
         <li>✅ Projects array length: ${projects.length}</li>
         <li>✅ Eastleigh exists: ${!!projectsMap['eastleigh']}</li>
-        <li>✅ Delivah exists: ${!!projectsMap['delivah']}</li>
+        <li>✅ Legit Logistics exists: ${!!projectsMap['legit-logistics']}</li>
         <li>✅ EduManage exists: ${!!projectsMap['edumanage']}</li>
       </ul>
     `;
@@ -455,7 +455,7 @@ After building TypeScript, open `test-typescript-adapter.html` in browser.
 **Problem**: `getProject()` returns undefined
 
 **Solution**:
-1. Check project ID is correct: `'eastleigh'`, `'delivah'`, or `'edumanage'`
+1. Check project ID is correct: `'eastleigh'`, `'legit-logistics'`, or `'edumanage'`
 2. Verify projectData.ts exports correctly
 3. Test with: `console.log(Object.keys(projectsData))`
 

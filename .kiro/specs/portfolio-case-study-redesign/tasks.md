@@ -181,3 +181,12 @@ This implementation transforms the portfolio page from a sidebar accordion layou
 - Checkpoints ensure incremental validation
 - Property tests validate universal correctness properties
 - The existing accordion code is preserved but hidden, not deleted
+
+## Active Migration: Project 02 -> Legit Logistics
+
+- [x] 13. Track Legit Logistics content migration
+  - Update Project 02 naming in the live portfolio to `Legit Logistics`
+  - Replace Project 02 narrative, metrics, highlights, and links with content sourced from `C:\Users\Leon\DevMode\design-compass`
+  - Remove all legacy Project-02 naming from the live case study and supporting portfolio documentation
+  - Keep Project 01 and Project 03 behavior unchanged
+  - Point `public/portfolio.html` at the refreshed compiled asset to avoid stale cached runtime content during verification

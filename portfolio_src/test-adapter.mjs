@@ -42,7 +42,7 @@ try {
 console.log('\n🔍 Test 2: Project Existence');
 const { projects, projectsMap } = adaptPortfolioData(projectsData);
 
-const expectedProjects = ['eastleigh', 'delivah', 'edumanage'];
+const expectedProjects = ['eastleigh', 'legit-logistics', 'edumanage'];
 expectedProjects.forEach(id => {
   if (projectsMap[id]) {
     console.log(`   ✅ ${id}: Found`);
@@ -139,7 +139,7 @@ projects.forEach(project => {
 // ========================================================================
 console.log('\n🎯 Test 6: Single Project Retrieval');
 const eastleigh = getProject(projectsData, 'eastleigh');
-const delivah = getProject(projectsData, 'delivah');
+const legitLogistics = getProject(projectsData, 'legit-logistics');
 const edumanage = getProject(projectsData, 'edumanage');
 const invalid = getProject(projectsData, 'nonexistent');
 
@@ -150,10 +150,10 @@ if (eastleigh && eastleigh.id === 'eastleigh') {
   process.exit(1);
 }
 
-if (delivah && delivah.id === 'delivah') {
-  console.log('   ✅ getProject("delivah") works');
+if (legitLogistics && legitLogistics.id === 'legit-logistics') {
+  console.log('   ✅ getProject("legit-logistics") works');
 } else {
-  console.error('   ❌ getProject("delivah") failed');
+  console.error('   ❌ getProject("legit-logistics") failed');
   process.exit(1);
 }
 

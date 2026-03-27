@@ -1,0 +1,167 @@
+{
+  "id": "legit-logistics",
+  "badge": "02",
+  "title": "Legit Logistics",
+  "summary": "Owner-operated delivery operations platform with quote, tracking, and dispatch workflows.",
+  "timeline": "Phased rollout",
+  "role": "Full Stack Developer",
+  "status": "Production-Ready",
+  "highlights": [
+    "React 18 + TypeScript + Supabase",
+    "Admin dashboard + driver proof workflow",
+    "Public tracking + quote review flow",
+    "15,000+ deliveries completed"
+  ],
+  "link": "https://legit-logistics.com",
+  "sections": [
+    {
+      "id": "details",
+      "title": "Project Details",
+      "pages": [
+        {
+          "id": 20,
+          "title": "Overview",
+          "content": "Legit Logistics is an owner-operated delivery operations platform built for a New England logistics business. It connects service marketing, quote requests, dispatch execution, public tracking, and proof-of-delivery workflows in one polished product.\n\nRather than stopping at a brochure site, the platform supports the real operational journey: customers request quotes, admins create and manage jobs, customers receive trustworthy tracking links, and drivers complete deliveries with proof."
+        },
+        {
+          "id": 21,
+          "title": "Role & Team",
+          "content": "I led the product as the Full Stack Developer, shaping both the public-facing experience and the operational core. My work covered the landing experience, quote workflow, admin dashboard, tracking routes, and driver proof interactions.\n\nThe interface had to feel personal, reliable, and practical for real dispatch work because the business is owner-operated."
+        },
+        {
+          "id": 22,
+          "title": "Timeline",
+          "content": "This platform shipped as a phased rollout instead of a single short sprint. Phase one established the brand and quote entry points, phase two built the admin dashboard and delivery creation flow, phase three connected tracking and driver proof workflows, and the final phase focused on responsive polish and production readiness."
+        }
+      ]
+    },
+    {
+      "id": "problem",
+      "title": "Problem",
+      "pages": [
+        {
+          "id": 23,
+          "title": "Industry Context",
+          "content": "Small and mid-sized delivery businesses often run on fragmented workflows: calls for quotes, manual confirmations, status updates over text, and proof collected in inconsistent ways. That makes same-day delivery harder to scale and weakens customer trust.\n\nLegit Logistics needed a product that felt premium on the surface while still solving the real operational problem underneath."
+        },
+        {
+          "id": 24,
+          "title": "Friction Points",
+          "content": "Customers wanted clear pricing conversations, reliable updates, and proof that a delivery was truly in motion. Dispatchers needed one place to create jobs, share tracking, and monitor progress. Drivers needed mobile-friendly status tools instead of heavy desktop workflows."
+        }
+      ]
+    },
+    {
+      "id": "goal",
+      "title": "Goal",
+      "pages": [
+        {
+          "id": 25,
+          "title": "Objectives",
+          "content": "The goal was to build a connected quote-to-delivery experience: make service options easy to understand, let customers review and negotiate quotes, give admins a reliable dispatch dashboard, and provide public tracking only when a delivery is genuinely confirmed.\n\nA second objective was to support real-world operational proof through photo capture and signature collection on mobile."
+        },
+        {
+          "id": 26,
+          "title": "Success Criteria",
+          "content": "Success meant the platform had to work for both trust and speed. Key indicators included under-two-minute job creation in the admin dashboard, clean public tracking, responsive mobile workflows, reliable build quality, and a strong operational story anchored in real delivery metrics."
+        }
+      ]
+    },
+    {
+      "id": "impact",
+      "title": "Impact",
+      "pages": [
+        {
+          "id": 27,
+          "title": "Results",
+          "content": "The product surfaces strong operational proof points: 15,000+ deliveries completed, a 99.2% on-time rate, 500+ business clients, and 24/7 support coverage. On the admin side, dispatchers can create jobs in under two minutes and move quickly from job setup to shareable tracking."
+        },
+        {
+          "id": 28,
+          "title": "Operational Value",
+          "content": "Legit Logistics turns a fragmented delivery workflow into a connected operational system. Quote review, dispatch creation, tracking visibility, and proof-of-delivery now support one another instead of living in separate tools.\n\nThat creates a more trustworthy customer experience and a more manageable operations layer for the business."
+        }
+      ]
+    },
+    {
+      "id": "adoption",
+      "title": "Early Adoption",
+      "pages": [
+        {
+          "id": 29,
+          "title": "User Research",
+          "content": "Customer stories and workflow feedback shaped the product. People responded positively to receiving tracking only after a job was truly confirmed, and business customers appreciated having room to discuss price through the quote review and counter-offer flow."
+        },
+        {
+          "id": 30,
+          "title": "Workflow Validation",
+          "content": "Admin and driver workflows were documented and manually validated as part of the rollout. That work confirmed that the delivery creation flow, tracking-share tools, and field-proof interactions were practical enough for everyday use across desktop and mobile screens."
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "pages": [
+        {
+          "id": 31,
+          "title": "Strategy",
+          "content": "Verification focused on the workflows that mattered most: quote interactions, admin job creation, public tracking, driver status controls, and responsive behavior. The codebase also includes accessibility and infrastructure tests alongside production build verification."
+        },
+        {
+          "id": 32,
+          "title": "Reliability",
+          "content": "The documented admin milestone shipped with zero TypeScript errors, a successful production build, and real-time dashboard updates through Supabase. The interface stays usable across desktop and mobile, which is critical for dispatchers and drivers working away from a desk."
+        }
+      ]
+    },
+    {
+      "id": "designs",
+      "title": "Final Designs",
+      "pages": [
+        {
+          "id": 33,
+          "title": "Customer Experience",
+          "content": "The customer-facing experience combines a strong services narrative with a trust-building logistics flow. It packages same-day delivery, local and regional coverage, final mile, small moves, and construction logistics into a clear visual system with quote-first calls to action and testimonial support."
+        },
+        {
+          "id": 34,
+          "title": "Admin Dashboard",
+          "content": "The operational centerpiece is a tabbed admin dashboard where dispatchers can create jobs, inspect details, share links or QR codes, and monitor status. Driver controls then extend the workflow into the field with proof capture and signature collection."
+        }
+      ]
+    },
+    {
+      "id": "development",
+      "title": "Development",
+      "pages": [
+        {
+          "id": 35,
+          "title": "Tech Stack",
+          "content": "Core: React 18, TypeScript, Vite.\n\nUI: Tailwind CSS, shadcn/ui, Framer Motion.\n\nPlatform: Supabase, TanStack Query, React Hook Form, Zod."
+        },
+        {
+          "id": 36,
+          "title": "Architecture",
+          "content": "The architecture blends public routes with operational tooling: service pages, quote review routes, order lookup, public tracking, admin authentication, and driver interactions. Supabase powers authentication, data, storage, and subscriptions, while React Query keeps admin state responsive."
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "title": "Future Steps",
+      "pages": [
+        {
+          "id": 37,
+          "title": "Roadmap",
+          "content": "Next priorities include driver assignment, richer notification automation, route optimization, and deeper delivery analytics. The roadmap also includes cleaning up the data model so customer and pricing data live in dedicated tables instead of temporary structures."
+        },
+        {
+          "id": 38,
+          "title": "Key Learnings",
+          "content": "This project reinforced that logistics UX is really about trust, timing, and operational clarity. Showing tracking at the right moment matters as much as visual polish, and admin-first workflows are often what turns a good-looking site into a genuinely useful product."
+        }
+      ]
+    }
+  ]
+}

@@ -112,7 +112,7 @@ class SoundManager {
 // ====================================
 
 const PortfolioState = {
-    currentProject: 2, // Default to project 2 (Delivah)
+    currentProject: 2, // Default to project 2 (Legit Logistics)
     currentPage: 0,
     isAnimating: false,
     soundEnabled: true,

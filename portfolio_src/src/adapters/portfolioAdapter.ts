@@ -350,7 +350,7 @@ class PortfolioAdapter {
   ): AdaptedPortfolioData {
     const projects: ShowcaseProject[] = [
       this.adaptProject(projectsData.eastleigh, '01'),
-      this.adaptProject(projectsData.delivah, '02'),
+      this.adaptProject(projectsData['legit-logistics'], '02'),
       this.adaptProject(projectsData.edumanage, '03'),
     ];
 

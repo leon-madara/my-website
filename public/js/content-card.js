@@ -319,31 +319,30 @@ const PROJECTS = {
         }
     },
     2: {
-        id: 'delivah',
-        title: 'Delivah Dispatch Hub',
-        tagline: 'Enterprise freight logistics platform with industry-leading 3% commission rates.',
+        id: 'legit-logistics',
+        title: 'Legit Logistics',
+        tagline: 'Owner-operated delivery operations platform with quote, tracking, and dispatch workflows.',
         status: 'Production-Ready',
-        timeline: '8 weeks',
+        timeline: 'Phased rollout',
         role: 'Full Stack Developer',
         techStack: [
             'React 18 with TypeScript',
-            'Supabase with RLS',
-            'TanStack Query',
-            'SendGrid Email'
+            'Supabase with realtime data',
+            'TanStack Query + validated forms',
+            'Public tracking + driver proof workflow'
         ],
         content: {
-            // Section: Project Details
             'details': {
                 'overview': {
                     title: 'Overview',
                     html: `
-                        <p>Enterprise-grade freight logistics management platform built for Delivah Freight Logistics, offering just 3% commission rates. This full-stack TypeScript application (97.2% coverage) streamlines freight operations for carriers, dispatchers, and shippers across multiple freight categories.</p>
+                        <p>Legit Logistics is an owner-operated delivery operations platform built for a New England logistics business. It combines a polished public brand with the real workflows that matter: quote review, dispatch operations, public tracking, and proof-of-delivery.</p>
                         <h3>Key Highlights</h3>
                         <ul>
-                            <li><strong>3% Commission Model</strong> - Industry-disrupting rates vs standard 15-25%</li>
-                            <li><strong>Enterprise Document Management</strong> - 50MB uploads with 98% success rate</li>
-                            <li><strong>Multi-Layer Security</strong> - Supabase Auth with Row-Level Security</li>
-                            <li><strong>Automated Email System</strong> - 98% inbox delivery rate</li>
+                            <li><strong>Service-led logistics experience</strong> with same-day, regional, final mile, small-move, and construction offerings</li>
+                            <li><strong>Quote workflow</strong> with review, accept, decline, and counter-offer states</li>
+                            <li><strong>Public tracking</strong> that activates only after delivery confirmation</li>
+                            <li><strong>Admin + driver operations</strong> with status updates, photo proof, and signatures</li>
                         </ul>
                     `
                 },
@@ -351,13 +350,13 @@ const PROJECTS = {
                     title: 'Role & Timeline',
                     html: `
                         <h3>My Role</h3>
-                        <p>As the <strong>Full Stack Developer</strong>, I architected and built the entire platform from ground up.</p>
+                        <p>As the <strong>Full Stack Developer</strong>, I designed and implemented the public experience and the operational core: the quote flow, admin dashboard, tracking routes, and driver proof interactions.</p>
                         <h3>Timeline Breakdown</h3>
                         <ul>
-                            <li><strong>Weeks 1-2:</strong> Requirements gathering, technical architecture, database schema design</li>
-                            <li><strong>Weeks 3-6:</strong> Core feature development: registration, document upload, admin dashboard</li>
-                            <li><strong>Week 7:</strong> Security hardening: RLS policies, file validation, CORS configuration</li>
-                            <li><strong>Week 8:</strong> Email integration: templates, triggers, deliverability optimization</li>
+                            <li><strong>Phase 1:</strong> Brand story, services positioning, quote CTA, and public trust signals</li>
+                            <li><strong>Phase 2:</strong> Admin dashboard, delivery creation, job detail, and share tools</li>
+                            <li><strong>Phase 3:</strong> Public tracking, order lookup, and driver proof-of-delivery workflow</li>
+                            <li><strong>Phase 4:</strong> Reliability, responsive polish, and production-readiness documentation</li>
                         </ul>
                     `
                 },
@@ -366,213 +365,152 @@ const PROJECTS = {
                     html: `
                         <h3>Frontend</h3>
                         <ul>
-                            <li><strong>React 18</strong> - Modern component-based architecture</li>
-                            <li><strong>TypeScript</strong> - 97.2% coverage for enterprise-grade type safety</li>
-                            <li><strong>TanStack Query</strong> - Server state management</li>
-                            <li><strong>Tailwind CSS + shadcn/ui</strong> - Accessible component library</li>
+                            <li><strong>React 18</strong> for public and admin experiences</li>
+                            <li><strong>TypeScript</strong> for type-safe flows and UI state</li>
+                            <li><strong>Tailwind CSS + shadcn/ui</strong> for responsive, accessible interface primitives</li>
                         </ul>
-                        <h3>Backend</h3>
+                        <h3>Platform</h3>
                         <ul>
-                            <li><strong>Supabase</strong> - PostgreSQL, Auth, Storage</li>
-                            <li><strong>SendGrid</strong> - Email delivery with 98% inbox rate</li>
+                            <li><strong>Supabase</strong> for auth, data, storage, and live updates</li>
+                            <li><strong>TanStack Query</strong> for server-state orchestration</li>
+                            <li><strong>React Hook Form + Zod</strong> for validated quote and delivery forms</li>
                         </ul>
                     `
                 }
             },
-            // Section: Problem
             'problem': {
                 'challenge': {
-                    title: 'The Challenge',
+                    title: 'Industry Context',
                     html: `
-                        <p>The freight logistics industry operates in a highly competitive, margin-sensitive environment:</p>
+                        <p>Delivery businesses often rely on disconnected tools for quotes, dispatching, tracking, and proof collection. That creates friction for customers and slows down operations.</p>
                         <ul>
-                            <li><strong>High Commission Rates</strong> - 15-25% erodes carrier profits</li>
-                            <li><strong>Manual Paperwork</strong> - Delays load confirmations</li>
-                            <li><strong>Poor Rate Negotiation</strong> - Leaves money on the table</li>
-                            <li><strong>Fragmented Communication</strong> - Between stakeholders</li>
-                            <li><strong>Complex Compliance</strong> - No centralized platform</li>
+                            <li><strong>Quotes and dispatch</strong> are often disconnected</li>
+                            <li><strong>Status visibility</strong> is inconsistent and manual</li>
+                            <li><strong>Proof collection</strong> is easy to lose or delay</li>
+                            <li><strong>Customer trust</strong> suffers when updates feel premature or vague</li>
                         </ul>
                     `
                 },
                 'pain-points': {
-                    title: 'Pain Points',
+                    title: 'Friction Points',
                     html: `
-                        <h3>Carrier Pain Points</h3>
+                        <h3>Customer Pain Points</h3>
                         <ul>
-                            <li>Insurance certificates (90% of carriers struggle)</li>
-                            <li>W9 forms (75% face issues)</li>
-                            <li>MC Authority verification (60%)</li>
+                            <li>Not knowing when tracking is actually trustworthy</li>
+                            <li>Needing flexibility around quote pricing and delivery requirements</li>
+                            <li>Wanting a cleaner view of delivery progress without repeated phone calls</li>
                         </ul>
-                        <h3>Business Pain Points</h3>
+                        <h3>Operations Pain Points</h3>
                         <ul>
-                            <li>3-5 day onboarding process</li>
-                            <li>Manual document verification</li>
-                            <li>Email deliverability issues</li>
+                            <li>No single dashboard for job creation and monitoring</li>
+                            <li>Drivers need mobile-friendly proof capture</li>
+                            <li>Special handling instructions can get lost between handoffs</li>
                         </ul>
                     `
                 }
             },
-            // Section: Goal
             'goal': {
                 'objectives': {
                     title: 'Objectives',
                     html: `
                         <h3>Primary Objectives</h3>
                         <ul>
-                            <li>Reduce commission rates to 3%</li>
-                            <li>Automate carrier onboarding</li>
-                            <li>Implement secure document management</li>
-                            <li>Achieve 98%+ email deliverability</li>
+                            <li>Connect quote review, dispatch, tracking, and proof in one workflow</li>
+                            <li>Give dispatchers a fast admin dashboard for creating and managing jobs</li>
+                            <li>Support trustworthy customer tracking and mobile-friendly driver proof</li>
                         </ul>
                     `
                 },
                 'success-criteria': {
                     title: 'Success Criteria',
                     html: `
-                        <h3>Measurable Success Metrics</h3>
+                        <h3>Measurable Success Signals</h3>
                         <ul>
-                            <li><strong>Onboarding Time:</strong> 85% faster (3-5 days → same-day)</li>
-                            <li><strong>Commission Rate:</strong> 3% vs 15-25% industry standard</li>
-                            <li><strong>Upload Success:</strong> 98% even on 3G connections</li>
-                            <li><strong>Email Delivery:</strong> 98% inbox placement</li>
+                            <li><strong>15,000+ deliveries completed</strong></li>
+                            <li><strong>99.2% on-time rate</strong></li>
+                            <li><strong>&lt;2 minute job creation</strong></li>
+                            <li><strong>500+ business clients</strong></li>
                         </ul>
                     `
                 }
             },
-            // Section: Impact
             'impact': {
                 'metrics': {
                     title: 'Metrics & Results',
                     html: `
                         <h3>Key Performance Indicators</h3>
                         <div class="metrics-grid">
-                            <div class="metric-item">
-                                <span class="metric-value">85%</span>
-                                <span class="metric-label">Faster Onboarding</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">3%</span>
-                                <span class="metric-label">Commission Rate</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">98%</span>
-                                <span class="metric-label">Upload Success</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">$5K</span>
-                                <span class="metric-label">Saved/Year</span>
-                            </div>
+                            <div class="metric-item"><span class="metric-value">15,000+</span><span class="metric-label">Deliveries Completed</span></div>
+                            <div class="metric-item"><span class="metric-value">99.2%</span><span class="metric-label">On-Time Rate</span></div>
+                            <div class="metric-item"><span class="metric-value">500+</span><span class="metric-label">Business Clients</span></div>
+                            <div class="metric-item"><span class="metric-value">&lt;2 min</span><span class="metric-label">Job Creation</span></div>
                         </div>
                     `
                 },
                 'user-feedback': {
-                    title: 'User Feedback',
+                    title: 'Operational Value',
                     html: `
-                        <h3>Carrier Feedback</h3>
-                        <p>Spoke with 8 independent carriers about pain points. Top issues identified:</p>
-                        <ul>
-                            <li>Insurance certificates - 90%</li>
-                            <li>W9 forms - 75%</li>
-                            <li>MC Authority verification - 60%</li>
-                        </ul>
+                        <p>Legit Logistics creates a more trustworthy customer journey while making dispatch operations easier to run. Quote review, delivery creation, tracking visibility, and proof-of-delivery all live inside one connected product story.</p>
                     `
                 }
             },
-            // Section: Early Adoption
             'adoption': {
                 'beta-testing': {
-                    title: 'Beta Testing',
+                    title: 'User Research',
                     html: `
-                        <h3>Testing Approach</h3>
-                        <p>UAT with carriers and admin workflow validation.</p>
-                        <h3>Key Findings</h3>
-                        <ul>
-                            <li>File upload reliability critical for carriers</li>
-                            <li>Email notifications essential for engagement</li>
-                            <li>Admin dashboard streamlined operations</li>
-                        </ul>
+                        <p>Customer feedback reinforced the trust-first model. People preferred receiving tracking only after a delivery was confirmed, and business clients appreciated having room to discuss price through the counter-offer workflow.</p>
                     `
                 },
                 'iterations': {
-                    title: 'Iterations',
+                    title: 'Workflow Validation',
                     html: `
-                        <h3>Key Iterations</h3>
                         <ul>
-                            <li><strong>V1:</strong> Basic registration form</li>
-                            <li><strong>V2:</strong> Added retry mechanism for uploads</li>
-                            <li><strong>V3:</strong> Implemented email deliverability fixes</li>
+                            <li>Admin dashboard flows were documented and manually validated</li>
+                            <li>Driver controls were refined for smaller touch screens</li>
+                            <li>Tracking share tools were tied closely to real delivery confirmation</li>
                         </ul>
                     `
                 }
             },
-            // Section: Testing
             'testing': {
                 'qa-process': {
-                    title: 'QA Process',
+                    title: 'Strategy',
                     html: `
                         <h3>Quality Assurance Strategy</h3>
                         <ul>
-                            <li><strong>TypeScript:</strong> 97.2% coverage prevented 20+ runtime errors</li>
-                            <li><strong>Security Testing:</strong> RLS policies, CORS configuration</li>
-                            <li><strong>Upload Testing:</strong> 3G connection simulation</li>
+                            <li>Manual verification of quote, tracking, admin, and driver flows</li>
+                            <li>Build and TypeScript verification for production readiness</li>
+                            <li>Responsive checks across desktop and mobile</li>
                         </ul>
                     `
                 },
                 'usability': {
-                    title: 'Usability Testing',
+                    title: 'Reliability',
                     html: `
-                        <h3>User Testing Sessions</h3>
-                        <p>Conducted UAT with carriers and admin workflow validation.</p>
-                        <h3>Key Improvements</h3>
-                        <ul>
-                            <li>Simplified document upload flow</li>
-                            <li>Added progress indicators for uploads</li>
-                            <li>Improved error messaging</li>
-                        </ul>
+                        <p>The documented admin milestone shipped with zero TypeScript errors, a successful production build, and live operational updates through Supabase.</p>
                     `
                 }
             },
-            // Section: Final Designs
             'designs': {
                 'ui-showcase': {
-                    title: 'UI Showcase',
+                    title: 'Customer Experience',
                     html: `
-                        <h3>Design Highlights</h3>
-                        <p>Professional, enterprise-grade interface designed for freight industry users.</p>
-                        <ul>
-                            <li>Clean registration flow</li>
-                            <li>Document upload with progress</li>
-                            <li>Admin dashboard for management</li>
-                        </ul>
+                        <p>The customer-facing experience blends strong logistics branding with clear service packaging and conversion-focused calls to action.</p>
                     `
                 },
                 'design-system': {
-                    title: 'Design System',
+                    title: 'Admin Dashboard',
                     html: `
-                        <h3>Component Library</h3>
-                        <p>Built on shadcn/ui with enterprise-focused customizations.</p>
-                        <h3>Key Components</h3>
-                        <ul>
-                            <li>File upload with retry mechanism</li>
-                            <li>Status badges for carrier states</li>
-                            <li>Data tables with sorting/filtering</li>
-                        </ul>
+                        <p>The operational layer centers on a tabbed admin dashboard with delivery creation, job detail review, tracking link sharing, and workflow progression.</p>
                     `
                 }
             },
-            // Section: Development
             'development': {
                 'architecture': {
                     title: 'Architecture',
                     html: `
                         <h3>System Architecture</h3>
-                        <p>Multi-page application with public pages, carrier portal, and admin dashboard.</p>
-                        <h3>Key Architectural Decisions</h3>
-                        <ul>
-                            <li><strong>Supabase:</strong> Accelerated MVP by 3 months</li>
-                            <li><strong>Three-tier retry system:</strong> 98% upload success</li>
-                            <li><strong>SendGrid integration:</strong> 98% inbox delivery</li>
-                        </ul>
+                        <p>The product combines public marketing routes, quote review pages, order lookup, public tracking, an authenticated admin dashboard, and driver interactions.</p>
                     `
                 },
                 'implementation': {
@@ -580,41 +518,40 @@ const PROJECTS = {
                     html: `
                         <h3>Development Highlights</h3>
                         <ul>
-                            <li>Sophisticated retry mechanism with exponential backoff</li>
-                            <li>Persistent session management</li>
-                            <li>SPF/DKIM/DMARC email configuration</li>
+                            <li>Connected quote-to-delivery workflow instead of isolated pages</li>
+                            <li>Trust-first tracking reveal aligned with real dispatch confirmation</li>
+                            <li>Mobile-friendly proof capture for field operations</li>
                         </ul>
                     `
                 }
             },
-            // Section: Future Steps
             'future': {
                 'roadmap': {
                     title: 'Roadmap',
                     html: `
                         <h3>Planned Features</h3>
                         <ul>
-                            <li>Real-time load tracking</li>
-                            <li>Automated rate negotiation</li>
-                            <li>Mobile app for carriers</li>
-                            <li>Integration with load boards</li>
+                            <li>Driver assignment tools</li>
+                            <li>SMS and email notification automation</li>
+                            <li>Route optimization and dispatch analytics</li>
                         </ul>
                     `
                 },
                 'enhancements': {
-                    title: 'Planned Enhancements',
+                    title: 'Key Learnings',
                     html: `
-                        <h3>Technical Improvements</h3>
+                        <h3>Project Learnings</h3>
                         <ul>
-                            <li>AI-powered load matching</li>
-                            <li>Predictive analytics for rates</li>
-                            <li>Blockchain for document verification</li>
+                            <li>Tracking timing matters as much as tracking detail</li>
+                            <li>Admin-first visibility reduces operational friction quickly</li>
+                            <li>Mobile proof capture is central to logistics UX</li>
                         </ul>
                     `
                 }
             }
         }
     }
+
 };
 
 

@@ -81,7 +81,7 @@ const firstProject = projects[0]; // Eastleigh
 
 // Access by ID
 const eastleigh = projectsMap['eastleigh'];
-const delivah = projectsMap['delivah'];
+const legitLogistics = projectsMap['legit-logistics'];
 const edumanage = projectsMap['edumanage'];
 ```
 
@@ -266,7 +266,7 @@ Vite optimization`
 **Input**: Complete `ProjectData` object with all projects
 
 **Output**: Object containing:
-- `projects`: Array of `ShowcaseProject` (ordered: Eastleigh, Delivah, EduManage)
+- `projects`: Array of `ShowcaseProject` (ordered: Eastleigh, Legit Logistics, EduManage)
 - `projectsMap`: Object mapping project ID → `ShowcaseProject`
 
 **Example**:
@@ -275,12 +275,12 @@ const { projects, projectsMap } = adaptPortfolioData(projectsData);
 
 // Array access
 projects[0]; // Eastleigh (badge '01')
-projects[1]; // Delivah (badge '02')
+projects[1]; // Legit Logistics (badge '02')
 projects[2]; // EduManage (badge '03')
 
 // Map access
 projectsMap['eastleigh'];
-projectsMap['delivah'];
+projectsMap['legit-logistics'];
 projectsMap['edumanage'];
 ```
 

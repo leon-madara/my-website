@@ -71,7 +71,7 @@ CONTENT → ADAPTER → DESIGN
 // Step 1: Your content (protected)
 const myProjects: ProjectData = {
   eastleigh: { /* your data */ },
-  delivah: { /* your data */ },
+  'legit-logistics': { /* your data */ },
   edumanage: { /* your data */ }
 };
 
@@ -106,7 +106,7 @@ npm run dev
    // src/types/portfolio.types.ts
    export interface ProjectData {
      eastleigh: ProjectInfo;
-     delivah: ProjectInfo;
+     'legit-logistics': ProjectInfo;
      edumanage: ProjectInfo;
      newProject: ProjectInfo; // Add here
    }

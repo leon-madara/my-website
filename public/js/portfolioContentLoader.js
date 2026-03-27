@@ -8,7 +8,7 @@ const PortfolioContentLoader = {
     // Project ID mapping (1-indexed to match toggle buttons)
     projectMap: {
         1: 'eastleigh',
-        2: 'delivah',
+        2: 'legit-logistics',
         3: 'edumanage'
     },
 
@@ -113,7 +113,7 @@ const PortfolioContentLoader = {
     updateResponsibilityCards(cards, project) {
         const stack = project.technical?.stack || [];
         const isEduManage = project.id === 'edumanage';
-        const isDelivah = project.id === 'delivah';
+        const isLegitLogistics = project.id === 'legit-logistics';
 
         // Frontend card
         if (cards[0]) {
@@ -126,7 +126,7 @@ const PortfolioContentLoader = {
                         <li>CSV upload workflow for student data</li>
                         <li>Real-time progress indicators during generation</li>
                     `;
-                } else if (isDelivah) {
+                } else if (isLegitLogistics) {
                     ul.innerHTML = `
                         <li>React 18 component architecture with TypeScript</li>
                         <li>Responsive UI/UX design using Tailwind CSS</li>
@@ -148,7 +148,7 @@ const PortfolioContentLoader = {
                         <li>Constraint satisfaction algorithm engine</li>
                         <li>Multi-format export (PDF, Excel, CSV)</li>
                     `;
-                } else if (isDelivah) {
+                } else if (isLegitLogistics) {
                     ul.innerHTML = `
                         <li>Supabase database schema design (PostgreSQL)</li>
                         <li>Row-Level Security (RLS) policies</li>

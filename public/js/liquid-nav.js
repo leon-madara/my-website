@@ -10,6 +10,10 @@
   const indicator = nav.querySelector(".indicator");
   const links = nav.querySelectorAll("a");
   if (!indicator || links.length === 0) return;
+  const TRANSITION_DURATION_MS = 380;
+  let pendingHref = null;
+  let navigationTimer = null;
+  let isNavigating = false;
 
   function routeKeyFromPathname(pathname) {
     const lower = String(pathname || "").toLowerCase();
@@ -81,10 +85,53 @@
 
   // Set active class
   function setActive(target) {
-    links.forEach((link) => link.classList.remove("active"));
+    links.forEach((link) => {
+      link.classList.remove("active");
+      link.removeAttribute("aria-current");
+      link.style.color = "";
+    });
     if (target) {
       target.classList.add("active");
+      target.setAttribute("aria-current", "page");
     }
+  }
+
+  function clearPendingNavigation() {
+    pendingHref = null;
+    isNavigating = false;
+    nav.classList.remove("is-transitioning");
+    if (navigationTimer) {
+      window.clearTimeout(navigationTimer);
+      navigationTimer = null;
+    }
+  }
+
+  function completeNavigation() {
+    if (!pendingHref) {
+      clearPendingNavigation();
+      return;
+    }
+
+    const href = pendingHref;
+    clearPendingNavigation();
+    window.location.href = href;
+  }
+
+  function shouldHandleAnimatedNavigation(event) {
+    if (event.defaultPrevented) return false;
+    if (event.button && event.button !== 0) return false;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return false;
+    }
+
+    const target = event.currentTarget;
+    if (!target) return false;
+
+    if (target.target && target.target.toLowerCase() !== "_self") {
+      return false;
+    }
+
+    return true;
   }
 
   // Initialize
@@ -92,10 +139,15 @@
     const activeLink = getActiveLink();
     setActive(activeLink);
     moveIndicator(activeLink, false);
+    clearPendingNavigation();
   }
 
   // Handle click - animate first, then navigate
   function handleClick(e) {
+    if (!shouldHandleAnimatedNavigation(e)) {
+      return;
+    }
+
     const clickedLink = e.currentTarget;
     const href = clickedLink.getAttribute("href");
 
@@ -113,14 +165,22 @@
       return;
     }
 
-    // Allow native navigation - don't call e.preventDefault()
-    // The animation will play briefly during the page transition
+    if (isNavigating) {
+      e.preventDefault();
+      return;
+    }
 
-    // Animate indicator to clicked link (visual feedback only)
+    e.preventDefault();
+    pendingHref = href;
+    isNavigating = true;
+    nav.classList.add("is-transitioning");
+
     setActive(clickedLink);
-    moveIndicator(clickedLink, true);
+    requestAnimationFrame(function () {
+      moveIndicator(clickedLink, true);
+    });
 
-    // Browser will navigate naturally via the href
+    navigationTimer = window.setTimeout(completeNavigation, TRANSITION_DURATION_MS + 140);
   }
 
   // Random color hover effect
@@ -136,7 +196,7 @@
 
     // Attach hover handlers for random color
     link.addEventListener("mouseenter", function () {
-      if (!this.classList.contains("active")) {
+      if (!this.classList.contains("active") && !nav.classList.contains("is-transitioning")) {
         this.style.color = getRandomColor();
       }
     });
@@ -146,6 +206,14 @@
         this.style.color = "";
       }
     });
+  });
+
+  indicator.addEventListener("transitionend", function (event) {
+    if (event.propertyName !== "left" || !isNavigating) {
+      return;
+    }
+
+    completeNavigation();
   });
 
   // Wait for fonts and layout before initial positioning

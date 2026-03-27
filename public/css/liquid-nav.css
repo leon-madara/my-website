@@ -13,6 +13,8 @@
     --nav-pill-inset: 5px;
     --nav-pill-link-padding-x: 10px;
     --nav-pill-icon-size: 16px;
+    --nav-pill-indicator-color: #111111;
+    --nav-pill-active-color: #ffffff;
 }
 
 /* Header Bar Layout */
@@ -151,13 +153,17 @@ body.dark-theme .header-logo::before {
     top: var(--nav-pill-inset);
     bottom: var(--nav-pill-inset);
     left: 0;
-    background: #1a1a1a;
+    background: var(--nav-pill-indicator-color);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 100px;
     z-index: 1;
+    pointer-events: none;
     transition:
         left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
         width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
 }
 
 /* Navigation Links */
@@ -178,6 +184,7 @@ body.dark-theme .header-logo::before {
     text-decoration: none;
     border-radius: 100px;
     white-space: nowrap;
+    cursor: pointer;
     transition: none !important;
     transform: none !important;
 }
@@ -194,7 +201,7 @@ body.dark-theme .header-logo::before {
 }
 
 .nav-pills a.active {
-    color: #0adf86;
+    color: var(--nav-pill-active-color);
 }
 
 /* Icons */
@@ -202,6 +209,8 @@ body.dark-theme .header-logo::before {
     width: var(--nav-pill-icon-size);
     height: var(--nav-pill-icon-size);
     flex-shrink: 0;
+    color: currentColor;
+    stroke: currentColor;
 }
 
 /* Labels - visually hidden but accessible */
@@ -618,9 +627,11 @@ body.dark-theme .nav-pills {
 
 /* Dark Mode Indicator */
 body.dark-theme .nav-pills .indicator {
-    background: linear-gradient(135deg, #10cf74, #0ea862);
-    box-shadow: 0 2px 8px rgba(16, 207, 116, 0.4),
-        0 0 20px rgba(16, 207, 116, 0.3);
+    background: #111111;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.42),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
 }
 
 /* Dark Mode Navigation Links */
@@ -629,8 +640,8 @@ body.dark-theme .nav-pills a {
 }
 
 body.dark-theme .nav-pills a.active {
-    color: #000000;
-    text-shadow: 0 0 10px rgba(16, 207, 116, 0.5);
+    color: #ffffff;
+    text-shadow: none;
 }
 
 body.dark-theme .nav-pills a:hover {
