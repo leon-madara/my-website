@@ -13,6 +13,30 @@
   const supportsHover =
     window.matchMedia && window.matchMedia("(hover: hover)").matches;
 
+  // Swap the hero SVG when the theme toggle flips `body.dark-theme`.
+  const heroImg = document.querySelector(".dp-hero-svg-image");
+  if (heroImg) {
+    const srcDay =
+      heroImg.getAttribute("data-src-day") || heroImg.getAttribute("src") || "";
+    const srcNight = heroImg.getAttribute("data-src-night") || "";
+
+    const syncHero = () => {
+      const isNight = document.body.classList.contains("dark-theme");
+      const nextSrc = isNight && srcNight ? srcNight : srcDay;
+      if (!nextSrc) return;
+      if (heroImg.getAttribute("src") === nextSrc) return;
+      heroImg.setAttribute("src", nextSrc);
+    };
+
+    syncHero();
+
+    const themeObserver = new MutationObserver(syncHero);
+    themeObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+
   const triggers = Array.from(document.querySelectorAll("[data-artifact]"));
   if (triggers.length === 0) return;
 
