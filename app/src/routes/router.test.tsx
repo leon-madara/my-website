@@ -15,6 +15,7 @@ describe("AppLayout", () => {
 
     expect(screen.getAllByRole("link", { name: /^home$/i }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: /about/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("link", { name: /process/i }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: /contact/i }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: /portfolio/i }).length).toBeGreaterThan(0);
   });

@@ -15,7 +15,7 @@
   --header-control-height: 48px;
   --header-control-top: calc((var(--header-logo-size) - var(--header-control-height)) / 2);
   --header-side-offset: 20vw;
-  --nav-pill-width: clamp(208px, 28vw, 312px);
+  --nav-pill-width: clamp(260px, 34vw, 420px);
   --nav-pill-inset: 5px;
   --nav-pill-link-padding-x: 10px;
   --nav-pill-icon-size: 16px;
@@ -163,7 +163,8 @@ button {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  width: calc((100% - 8px) / 4);
+  flex: 1;
+  min-width: 0;
   height: calc(var(--header-control-height) - (var(--nav-pill-inset) * 2) - 2px);
   padding: 0 var(--nav-pill-link-padding-x);
   color: #555;
@@ -339,6 +340,55 @@ button {
 
 :root[data-theme="dark"] .theme-toggle-simple__moon {
   display: inline;
+}
+
+.theme-toggle-sunmoon {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 9999;
+  display: none;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(10, 14, 18, 0.38);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.theme-toggle-sunmoon__option {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.theme-toggle-sunmoon__option svg {
+  width: 26px;
+  height: 26px;
+}
+
+.theme-toggle-sunmoon__option.is-active {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111111;
+}
+
+.theme-toggle-sunmoon__option:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 3px;
+}
+
+:root[data-theme="dark"] .theme-toggle-sunmoon {
+  background: rgba(20, 32, 29, 0.54);
 }
 
 .pill-sidebar {
@@ -1145,45 +1195,67 @@ button {
   z-index: 9998;
   display: none;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem;
-  border: 1px solid rgba(122, 72, 56, 0.16);
+  gap: 0.25rem;
+  padding: 0.5rem;
+  width: min(520px, calc(100vw - 24px));
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+  background: rgba(10, 14, 18, 0.58);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 18px 40px rgba(0, 0, 0, 0.26);
 }
 
 :root[data-theme="dark"] .mobile-bottom-nav {
-  background: rgba(20, 32, 29, 0.88);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(20, 32, 29, 0.66);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .mobile-nav-item {
+  position: relative;
+  flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 0.25rem;
-  min-width: 64px;
-  padding: 0.55rem 0.7rem;
+  justify-content: center;
+  gap: 0;
+  min-width: 44px;
+  height: 56px;
+  padding: 0 0.5rem;
   border-radius: 999px;
-  color: var(--muted);
-  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.mobile-nav-item::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background: transparent;
+  transition: background 180ms ease;
 }
 
 .mobile-nav-item.active {
-  background: var(--kenyan-black);
   color: #ffffff;
 }
 
-:root[data-theme="dark"] .mobile-nav-item.active {
-  background: #f0f3f7;
-  color: #0a0e12;
+.mobile-nav-item.active::before {
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .mobile-nav-item svg {
-  width: 18px;
-  height: 18px;
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+}
+
+.mobile-nav-item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 3px;
 }
 
 .background-pattern {
@@ -1294,7 +1366,7 @@ button {
   }
 }
 
-@media (max-width: 768px) {
+  @media (max-width: 768px) {
   .site-main,
   .app-shell--with-sidebar .site-main {
     padding: 96px 20px 108px;
@@ -1321,9 +1393,17 @@ button {
     display: none;
   }
 
-  .theme-toggle-simple {
-    display: inline-flex;
-  }
+    .theme-toggle-simple {
+      display: inline-flex;
+    }
+
+    .design-process-page .theme-toggle-simple {
+      display: none;
+    }
+
+    .design-process-page .theme-toggle-sunmoon {
+      display: inline-flex;
+    }
 
   .pill-sidebar {
     display: none;
@@ -1333,9 +1413,9 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .mobile-bottom-nav {
-    display: flex;
-  }
+    .mobile-bottom-nav {
+      display: flex;
+    }
 
   .footer {
     display: none;

@@ -19,6 +19,8 @@ export function AppLayout() {
         ? "home-page"
         : location.pathname.startsWith("/portfolio")
           ? "portfolio-page"
+          : location.pathname === "/design-process"
+            ? "design-process-page"
           : location.pathname === "/contact"
             ? "contact-page"
             : "about-page";
@@ -27,7 +29,8 @@ export function AppLayout() {
       "home-page",
       "about-page",
       "contact-page",
-      "portfolio-page"
+      "portfolio-page",
+      "design-process-page"
     );
     document.body.classList.add(routeClass);
 

@@ -23,7 +23,7 @@ export function MobileBottomNav() {
             to={route.path}
           >
             <Icon aria-hidden="true" strokeWidth="2" />
-            <span>{route.title}</span>
+            <span className="sr-only">{route.title}</span>
           </NavLink>
         );
       })}

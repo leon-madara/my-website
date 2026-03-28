@@ -1,0 +1,102 @@
+@font-face {
+  font-family: "Organical";
+  src: url("/designProcess/organical-personal-use.bold-italic.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+.page-content--design-process {
+  margin: 0;
+}
+
+.dp-hero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  background: #f3e7cf;
+  overflow: visible;
+}
+
+:root[data-theme="dark"] .dp-hero {
+  background: #001a09;
+}
+
+.dp-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dp-hero-note {
+  position: absolute;
+  top: clamp(118px, 16vh, 210px);
+  right: clamp(2rem, 6vw, 6.2rem);
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  font-family: "Organical", "Enriqueta", Georgia, serif;
+  font-size: clamp(2.1rem, 4.08vw, 3.72rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #573e0f;
+  transform: rotate(-1.5deg);
+  z-index: 2;
+  pointer-events: none;
+  text-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dp-hero-note span {
+  line-height: 1;
+}
+
+.dp-section--intro {
+  padding: 3.5rem 0 6rem;
+}
+
+.dp-container {
+  width: min(92ch, 100%);
+  margin: 0 auto;
+}
+
+.dp-h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  letter-spacing: -0.02em;
+}
+
+.dp-lead {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--text) 72%, transparent);
+}
+
+@media (max-width: 768px) {
+  /* Keep the full mural visible above the fixed mobile capsule nav. */
+  .dp-hero {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .dp-hero-note {
+    top: clamp(104px, 14vh, 160px);
+    right: 1.2rem;
+    gap: 1.2rem;
+    font-size: clamp(1.62rem, 8.4vw, 2.7rem);
+  }
+
+  .dp-section--intro {
+    padding: 2.8rem 0 6rem;
+  }
+}
+
