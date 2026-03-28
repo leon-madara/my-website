@@ -19,12 +19,32 @@ body.design-process-page {
 .dp-main {
     position: relative;
     z-index: 1;
-    padding-top: 140px;
+    padding-top: 0;
     padding-left: clamp(1.2rem, 3vw, 3rem);
     padding-right: clamp(1.2rem, 3vw, 3rem);
     padding-bottom: 6rem;
     max-width: var(--container-max-width);
     margin: 0 auto;
+}
+
+.dp-hero-svg {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    height: 100vh;
+    height: 100svh;
+    background: #F3E7CF;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.dp-hero-svg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .dp-hero {
@@ -862,7 +882,7 @@ body.design-process-page {
 
 @media (max-width: 768px) {
     .dp-main {
-        padding-top: 96px;
+        padding-top: 0;
         padding-bottom: 5.5rem;
     }
 

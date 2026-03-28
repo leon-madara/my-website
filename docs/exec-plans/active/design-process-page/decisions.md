@@ -14,4 +14,5 @@
 - No third-party screenshots committed; use placeholder frames until we curate real visuals.
 
 ## Hero Direction v1
-- Wall Mural: cream top + bright yellow wave bottom, stacked uppercase title, big calligraphy "Process", and a small serif closer line.
+- Hero is the custom mural SVG: `public/designProcess/DesignProcess.svg`.
+- Height uses `100svh` with `100vh` fallback.
