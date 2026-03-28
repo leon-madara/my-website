@@ -7,3 +7,7 @@
   - AI exploration concept variants
 - Expand keyword artifact mapping (more triggers, better previews).
 - Manual browser check on desktop + mobile.
+- Fine-tune Wall Mural hero:
+  - adjust wave shape + proportions
+  - experiment with the script word (Design vs Process vs Design Process)
+  - decide whether to keep/remove the highlighted "not rigidity" treatment
