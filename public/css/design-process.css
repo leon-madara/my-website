@@ -929,6 +929,19 @@ body.design-process-page.dark-theme .header-logo::before {
         padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
     }
 
+    body.design-process-page .mobile-bottom-nav {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+    }
+
+    body.design-process-page.dark-theme .mobile-bottom-nav {
+        background: transparent;
+        box-shadow: none;
+        border-top-color: transparent;
+    }
+
     .dp-main {
         padding-top: 0;
         padding-bottom: 5.5rem;
