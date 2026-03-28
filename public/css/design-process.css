@@ -3,6 +3,15 @@
    Epic starter scaffold + minimal interactions
    ============================================ */
 
+@font-face {
+    font-family: "Organical";
+    src: url("../designProcess/organical-personal-use.bold-italic.ttf")
+        format("truetype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
 body.design-process-page {
     min-height: 100vh;
     overflow-x: hidden;
@@ -45,6 +54,29 @@ body.design-process-page {
     height: 100%;
     object-fit: contain;
     display: block;
+}
+
+.dp-hero-note {
+    position: absolute;
+    top: clamp(118px, 16vh, 210px);
+    right: clamp(2rem, 6vw, 6.2rem);
+    display: flex;
+    align-items: baseline;
+    gap: clamp(1.4rem, 3vw, 2.6rem);
+    font-family: "Organical", var(--font-greeting);
+    font-size: clamp(1.75rem, 3.4vw, 3.1rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c01e59;
+    transform: rotate(-1.5deg);
+    z-index: 2;
+    pointer-events: none;
+    user-select: none;
+    text-shadow: 0 14px 32px rgba(0, 0, 0, 0.10);
+}
+
+.dp-hero-note span {
+    line-height: 1;
 }
 
 .dp-hero {
@@ -884,6 +916,13 @@ body.design-process-page {
     .dp-main {
         padding-top: 0;
         padding-bottom: 5.5rem;
+    }
+
+    .dp-hero-note {
+        top: clamp(104px, 14vh, 160px);
+        right: 1.2rem;
+        gap: 1.2rem;
+        font-size: clamp(1.35rem, 7vw, 2.25rem);
     }
 
     .dp-hero {

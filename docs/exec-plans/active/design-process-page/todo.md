@@ -10,4 +10,5 @@
 - Fine-tune SVG hero:
   - decide contain vs cover for the mural on small screens
   - ensure mobile bottom nav doesn't hide any critical parts (or add safe padding)
+  - tune the "MY DESIGN" overlay placement + color for different screen sizes
   - optional: add a subtle "Scroll" hint / affordance
