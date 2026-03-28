@@ -56,6 +56,7 @@ body.design-process-page.dark-theme .header-logo::before {
     display: grid;
     place-items: center;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .dp-hero-svg-image {
@@ -923,6 +924,11 @@ body.design-process-page.dark-theme .header-logo::before {
 }
 
 @media (max-width: 768px) {
+    /* Prevent the fixed mobile bottom nav from covering the hero's lower strokes. */
+    .dp-hero-svg {
+        padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    }
+
     .dp-main {
         padding-top: 0;
         padding-bottom: 5.5rem;
