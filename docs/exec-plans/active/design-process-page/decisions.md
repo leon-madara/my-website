@@ -18,6 +18,7 @@
 - Height uses `100svh` with `100vh` fallback.
 - Hero overlay text: "MY DESIGN" (top-right) using `public/designProcess/organical-personal-use.bold-italic.ttf`.
 - Dark mode hero asset: `public/designProcess/DesignProcessDarkMode.svg` (swapped via `body.dark-theme`).
+- Mobile hero asset: `public/designProcess/DesignProcessMobile.svg` (used on small screens).
 
 ## Theme Toggle
 - Use the shared `theme-toggle-landscape` web component (same pattern as `index.html`).

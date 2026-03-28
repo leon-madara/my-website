@@ -19,10 +19,24 @@
     const srcDay =
       heroImg.getAttribute("data-src-day") || heroImg.getAttribute("src") || "";
     const srcNight = heroImg.getAttribute("data-src-night") || "";
+    const srcMobile = heroImg.getAttribute("data-src-mobile") || "";
+    const srcMobileNight = heroImg.getAttribute("data-src-mobile-night") || "";
+
+    const isMobileQuery =
+      window.matchMedia && window.matchMedia("(max-width: 768px)");
 
     const syncHero = () => {
       const isNight = document.body.classList.contains("dark-theme");
-      const nextSrc = isNight && srcNight ? srcNight : srcDay;
+      const isMobile = isMobileQuery ? isMobileQuery.matches : false;
+
+      const nextSrc = isMobile
+        ? isNight && srcMobileNight
+          ? srcMobileNight
+          : srcMobile || (isNight && srcNight ? srcNight : srcDay)
+        : isNight && srcNight
+          ? srcNight
+          : srcDay;
+
       if (!nextSrc) return;
       if (heroImg.getAttribute("src") === nextSrc) return;
       heroImg.setAttribute("src", nextSrc);
@@ -35,6 +49,13 @@
       attributes: true,
       attributeFilter: ["class"],
     });
+
+    if (isMobileQuery) {
+      isMobileQuery.addEventListener("change", syncHero);
+    } else {
+      // Fallback for older engines: keep it correct on resize/orientation.
+      window.addEventListener("resize", syncHero, { passive: true });
+    }
   }
 
   const triggers = Array.from(document.querySelectorAll("[data-artifact]"));
