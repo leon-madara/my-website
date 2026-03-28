@@ -61,7 +61,7 @@ body.design-process-page.dark-theme .header-logo::before {
 .dp-hero-svg-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     display: block;
 }
