@@ -19,6 +19,7 @@
 - Hero overlay text: "MY DESIGN" (top-right) using `public/designProcess/organical-personal-use.bold-italic.ttf`.
 - Dark mode hero asset: `public/designProcess/DesignProcessDarkMode.svg` (swapped via `body.dark-theme`).
 - Mobile hero asset: `public/designProcess/DesignProcessMobile.svg` (used on small screens).
+- Mobile dark hero asset: `public/designProcess/DesignProcessMobileDark.svg` (used on small screens when dark mode is enabled).
 
 ## Theme Toggle
 - Use the shared `theme-toggle-landscape` web component (same pattern as `index.html`).
