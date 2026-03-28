@@ -64,10 +64,10 @@ body.design-process-page {
     align-items: baseline;
     gap: clamp(1.4rem, 3vw, 2.6rem);
     font-family: "Organical", var(--font-greeting);
-    font-size: clamp(1.75rem, 3.4vw, 3.1rem);
+    font-size: clamp(2.1rem, 4.08vw, 3.72rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #c01e59;
+    color: #573E0F;
     transform: rotate(-1.5deg);
     z-index: 2;
     pointer-events: none;
@@ -922,7 +922,7 @@ body.design-process-page {
         top: clamp(104px, 14vh, 160px);
         right: 1.2rem;
         gap: 1.2rem;
-        font-size: clamp(1.35rem, 7vw, 2.25rem);
+        font-size: clamp(1.62rem, 8.4vw, 2.7rem);
     }
 
     .dp-hero {
