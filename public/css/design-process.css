@@ -25,6 +25,15 @@ body.design-process-page {
         var(--background-light);
 }
 
+/* Design Process page uses its own logo icon assets (light/dark). */
+body.design-process-page .header-logo::before {
+    background-image: url("../images/logoICON.svg");
+}
+
+body.design-process-page.dark-theme .header-logo::before {
+    background-image: url("../images/logoIconDark.svg");
+}
+
 .dp-main {
     position: relative;
     z-index: 1;
