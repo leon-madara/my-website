@@ -26,11 +26,14 @@ function useIsMobile(query = "(max-width: 768px)") {
   return matches;
 }
 
-function AiLogoTile({ tool }: { tool: AiTool }) {
+function AiLogoTile({ tool, compact = false }: { tool: AiTool; compact?: boolean }) {
   const [missing, setMissing] = useState(false);
 
   return (
-    <span className="dp-logo-tile" data-ai={tool.key}>
+    <span
+      className={compact ? "dp-logo-tile dp-logo-tile--compact" : "dp-logo-tile"}
+      data-ai={tool.key}
+    >
       <span className="sr-only">{tool.label}</span>
       {!missing && tool.logoSrc ? (
         <img
@@ -56,10 +59,11 @@ export function DesignProcessRoute() {
 
   const aiTools: AiTool[] = useMemo(
     () => [
-      { key: "chatgpt", label: "ChatGPT" },
-      { key: "claude", label: "Claude" },
-      { key: "kimi", label: "Kimi" },
-      { key: "zai", label: "Z AI" }
+      { key: "chatgpt", label: "ChatGPT", logoSrc: "/ai/chatgpt-logo.png" },
+      { key: "claude", label: "Claude", logoSrc: "/ai/claude-logo.png" },
+      { key: "kimi", label: "Kimi", logoSrc: "/ai/kimi-logo.svg" },
+      { key: "zai", label: "Z AI", logoSrc: "/ai/zai-logo.svg" },
+      { key: "google", label: "Google", logoSrc: "/ai/google-logo.svg" }
     ],
     []
   );
@@ -68,6 +72,7 @@ export function DesignProcessRoute() {
   const claude = aiTools[1];
   const kimi = aiTools[2];
   const zai = aiTools[3];
+  const google = aiTools[4];
 
   const heroSrc = useMemo(() => {
     if (isMobile) {
@@ -120,26 +125,38 @@ export function DesignProcessRoute() {
             </h2>
             <p className="dp-ai-headline">
               <span className="dp-ai-line">
-                I brainstorm with <AiLogoTile tool={chatgpt} />
+                I start the first pass with <AiLogoTile tool={chatgpt} />
               </span>
               <span className="dp-ai-line">
-                then I let <AiLogoTile tool={claude} /> <AiLogoTile tool={kimi} />{" "}
-                <AiLogoTile tool={zai} /> pressure-test the draft.
+                Then <AiLogoTile tool={claude} /> <AiLogoTile tool={kimi} />{" "}
+                <AiLogoTile tool={zai} /> challenge the draft, expose weak logic, and
+                sharpen the direction.
               </span>
               <span className="dp-ai-line">
-                For complex builds, I merge the best critiques and loop until it’s clean.
+                For complex builds, I iterate until every serious issue is resolved and
+                the idea feels inevitable.
               </span>
             </p>
           </div>
 
           <div className="dp-ai-right">
             <p className="dp-ai-body">
-              Draft, critique, merge, repeat. A multi-model loop helps surface edge cases, contradictions, and weak
-              assumptions early, before I commit to architecture or UI.
+              This loop is deliberate: draft, critique, merge, re-check. When different
+              models flag the same risk, it stops being opinion and becomes a real
+              requirement before I commit to architecture or UI.
             </p>
             <p className="dp-ai-body">
-              For simple tasks, I keep it tight: usually 2–3 tools max. AI accelerates exploration, but judgment stays
-              human.
+              I use that pressure to catch contradictions early, test edge cases, and
+              strengthen both structure and story. In parallel, I explore visual
+              pathways through screenshots, Pinterest, Dribbble, Magic UI, and{" "}
+              <AiLogoTile compact tool={google} /> Labs, then reimagine the strongest
+              directions into focused mockups.
+            </p>
+            <p className="dp-ai-body">
+              For simple tasks, I keep it lean with 2-3 tools. AI expands the
+              exploration surface, but final decisions still pass through human
+              judgment, context, and taste. Speed matters, but trust and clarity come
+              first.
             </p>
           </div>
         </div>
@@ -147,3 +164,5 @@ export function DesignProcessRoute() {
     </div>
   );
 }
+
+
