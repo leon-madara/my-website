@@ -114,32 +114,170 @@ export function DesignProcessRoute() {
       </section>
 
       <section
+        aria-labelledby="dp-clarity-title"
+        className="dp-section dp-section--clarity"
+        id="client-clarity"
+      >
+        <div className="dp-container dp-ai-flow dp-flow-block">
+          <p className="dp-ai-kicker">Client Clarity Layer</p>
+          <h2 className="dp-ai-headline" id="dp-clarity-title">
+            Before I design the interface, I decode how the client makes
+            decisions.
+          </h2>
+          <div className="dp-ai-copy">
+            <p className="dp-ai-body">
+              Most projects feel complex only until this part is clear. Once I
+              understand who is making the decision and how they react, the next
+              design moves stop being guesswork and become a guided system.
+            </p>
+            <p className="dp-ai-body">
+              <strong>Clear-direction clients:</strong> they arrive with examples
+              and firm preferences. I protect what matters to them, then test
+              strategic variants so the final route still performs.
+            </p>
+            <p className="dp-ai-body">
+              <strong>Unclear-direction clients:</strong> they struggle with abstract
+              questions but respond instantly to visuals. I show contrasting routes
+              and use emotional reaction as the fastest alignment signal.
+            </p>
+            <p className="dp-ai-body">
+              <strong>In-between clients:</strong> they know parts of what they want
+              and clearly know what they do not want. I map the hard no's, narrow
+              options quickly, and keep momentum without killing discovery.
+            </p>
+            <p className="dp-ai-body">
+              My rule is simple: "no" is data. Rejection is not friction, it is
+              direction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="dp-sf-title"
+        className="dp-section dp-section--sf"
+        id="screenshot-frenzy"
+      >
+        <div className="dp-sf-stage">
+          <div className="dp-sf-header dp-flow-block">
+            <p className="dp-ai-kicker">Visual Direction Layer</p>
+            <h2 className="dp-ai-headline" id="dp-sf-title">
+              Screenshot Frenzy
+            </h2>
+            <p className="dp-ai-body">
+              I collect references at speed, then sort them by emotion,
+              implementation reality, and pattern fit. Only directions that pass
+              all three filters move into wireframes.
+            </p>
+          </div>
+          <div className="dp-sf-inner-container">
+            <div className="dp-sf-bento" role="list" aria-label="Screenshot direction cards">
+              <article className="dp-sf-card dp-sf-card--left-top" role="listitem">
+                <div className="dp-sf-card-media">
+                  <img
+                    alt="Screenshot board showing mixed AI exploration references"
+                    decoding="async"
+                    loading="lazy"
+                    src="/Screenshots/1.png"
+                  />
+                </div>
+                <div className="dp-sf-card-copy">
+                  <span className="dp-sf-chip">Emotion Bucket</span>
+                  <h3 className="dp-sf-card-title">Find the tone before committing to layout.</h3>
+                  <p className="dp-sf-card-text">
+                    I track mood, texture, and energy first so the section feels right
+                    before structure starts to lock in.
+                  </p>
+                </div>
+              </article>
+
+              <article className="dp-sf-card dp-sf-card--right-top" role="listitem">
+                <div className="dp-sf-card-media">
+                  <img
+                    alt="Design process mural visual with typography-led framing"
+                    decoding="async"
+                    loading="lazy"
+                    src="/Screenshots/2.png"
+                  />
+                </div>
+                <div className="dp-sf-card-copy">
+                  <span className="dp-sf-chip">Direction Signal</span>
+                  <h3 className="dp-sf-card-title">Stress-test what should lead the story.</h3>
+                  <p className="dp-sf-card-text">
+                    This card checks if headline weight, flow, and hierarchy feel
+                    inevitable on first glance.
+                  </p>
+                </div>
+              </article>
+
+              <article className="dp-sf-card dp-sf-card--left-bottom" role="listitem">
+                <div className="dp-sf-card-header">
+                  <img 
+                    alt="Creative tools icon"
+                    decoding="async" 
+                    loading="lazy" 
+                    className="dp-sf-icon"
+                    src="/Screenshots/3.png" 
+                  />
+                  <span className="dp-sf-chip">Pattern Fit</span>
+                </div>
+                <div className="dp-sf-card-copy">
+                  <h3 className="dp-sf-card-title">Borrow proven conversion rhythm, not just style.</h3>
+                  <p className="dp-sf-card-text">
+                    I keep references that teach pacing, offer clarity, and guide
+                    attention where action should happen.
+                  </p>
+                </div>
+              </article>
+
+              <article className="dp-sf-card dp-sf-card--mid-bottom" role="listitem">
+                <div className="dp-sf-card-header">
+                  <span className="dp-sf-icon-placeholder">♫</span>
+                </div>
+                <div className="dp-sf-card-copy">
+                  <span className="dp-sf-chip">Copy Pulse</span>
+                  <h3 className="dp-sf-card-title">Does the message land in under five seconds?</h3>
+                </div>
+              </article>
+
+              <article className="dp-sf-card dp-sf-card--right-bottom" role="listitem">
+                <div className="dp-sf-card-header">
+                  <span className="dp-sf-icon-placeholder">⚒</span>
+                </div>
+                <div className="dp-sf-card-copy">
+                  <span className="dp-sf-chip">Merge Rule</span>
+                  <h3 className="dp-sf-card-title">Only the strongest fragments graduate to wireframe.</h3>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
         aria-labelledby="dp-ai-title"
         className="dp-section dp-section--ai"
         id="ai-exploration"
       >
-        <div className="dp-container dp-ai-grid">
-          <div className="dp-ai-left">
-            <h2 className="dp-ai-kicker" id="dp-ai-title">
-              AI Exploration
-            </h2>
-            <p className="dp-ai-headline">
-              <span className="dp-ai-line">
-                I start the first pass with <AiLogoTile tool={chatgpt} />
-              </span>
-              <span className="dp-ai-line">
-                Then <AiLogoTile tool={claude} /> <AiLogoTile tool={kimi} />{" "}
-                <AiLogoTile tool={zai} /> challenge the draft, expose weak logic, and
-                sharpen the direction.
-              </span>
-              <span className="dp-ai-line">
-                For complex builds, I iterate until every serious issue is resolved and
-                the idea feels inevitable.
-              </span>
-            </p>
-          </div>
-
-          <div className="dp-ai-right">
+        <div className="dp-container dp-ai-flow">
+          <h2 className="dp-ai-kicker" id="dp-ai-title">
+            AI Exploration
+          </h2>
+          <p className="dp-ai-headline">
+            <span className="dp-ai-line">
+              I start the first pass with <AiLogoTile tool={chatgpt} />
+            </span>
+            <span className="dp-ai-line">
+              Then <AiLogoTile tool={claude} /> <AiLogoTile tool={kimi} />{" "}
+              <AiLogoTile tool={zai} /> challenge the draft, expose weak logic, and
+              sharpen the direction.
+            </span>
+            <span className="dp-ai-line">
+              For complex builds, I iterate until every serious issue is resolved and
+              the idea feels inevitable.
+            </span>
+          </p>
+          <div className="dp-ai-copy">
             <p className="dp-ai-body">
               This loop is deliberate: draft, critique, merge, re-check. When different
               models flag the same risk, it stops being opinion and becomes a real
