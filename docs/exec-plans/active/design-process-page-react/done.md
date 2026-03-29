@@ -6,3 +6,4 @@
 - Added design-process assets to `app/public/designProcess/` and fixed SVG clipping by expanding viewBox + clipPath.
 - Implemented the mobile sun/moon theme toggle UI for `/design-process`.
 - Overrode header logo icons on `/design-process` to use `logoICON.svg` (light) and `logoIconDark.svg` (dark).
+- Added a v1 “AI Exploration” section using inline tool tiles (logo-ready placeholders) and refined copy for the critique-loop workflow.

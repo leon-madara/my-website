@@ -12,5 +12,5 @@
 - [x] Run React typecheck + tests, document results
 
 ## Next
-- [ ] Expand the Design Process page sections (Hero -> CTA) with the agreed narrative
+- [ ] Expand the remaining Design Process sections (Clarity, Screenshot Frenzy, Research-led structure, Hero-first, Typography, Finish loop, CTA)
 - [ ] Add minimal hover-reveal keyword artifacts (popover system) in React

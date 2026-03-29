@@ -64,6 +64,10 @@
   padding: 3.5rem 0 6rem;
 }
 
+.dp-section {
+  position: relative;
+}
+
 .dp-container {
   width: min(92ch, 100%);
   margin: 0 auto;
@@ -82,6 +86,103 @@
   color: color-mix(in srgb, var(--text) 72%, transparent);
 }
 
+.dp-section--ai {
+  padding: 3.2rem 0 6rem;
+}
+
+.dp-ai-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.dp-ai-kicker {
+  margin: 0 0 1.25rem;
+  font-family: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--text) 68%, transparent);
+}
+
+.dp-ai-headline {
+  margin: 0;
+  font-size: clamp(2.1rem, 4.8vw, 3.9rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.dp-ai-line {
+  display: block;
+}
+
+.dp-ai-line + .dp-ai-line {
+  margin-top: 0.55em;
+}
+
+.dp-logo-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(34px, 4vw, 52px);
+  padding: 0.35rem 0.7rem;
+  margin: 0 0.18em;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  vertical-align: middle;
+  transform: translateY(0.08em);
+}
+
+.dp-logo-tile img {
+  height: 100%;
+  width: auto;
+  max-width: 92px;
+  object-fit: contain;
+  display: block;
+}
+
+.dp-logo-fallback {
+  font-family: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dp-logo-tile[data-ai="chatgpt"] .dp-logo-fallback {
+  color: #10a37f;
+}
+
+.dp-logo-tile[data-ai="claude"] .dp-logo-fallback {
+  color: #ff6a00;
+}
+
+.dp-logo-tile[data-ai="kimi"] .dp-logo-fallback {
+  color: #6b4eff;
+}
+
+.dp-logo-tile[data-ai="zai"] .dp-logo-fallback {
+  color: #0ea5e9;
+}
+
+.dp-ai-body {
+  margin: 0 0 1.1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--text) 74%, transparent);
+}
+
+.dp-ai-body:last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   /* Keep the full mural visible above the fixed mobile capsule nav. */
   .dp-hero {
@@ -98,5 +199,12 @@
   .dp-section--intro {
     padding: 2.8rem 0 6rem;
   }
-}
 
+  .dp-ai-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dp-section--ai {
+    padding: 2.6rem 0 6rem;
+  }
+}
