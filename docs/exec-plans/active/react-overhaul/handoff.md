@@ -2,16 +2,17 @@
 
 ## Next Recommended Step
 
-Run a fuller parity review on desktop and mobile for the React homepage first, with special attention to the now-exact Magic UI role morph handoff and whether Leon's branded serif styling still feels continuous at full speed. After that, continue the broader parity review for the About long-scroll animation timing and the portfolio layouts against `public/portfolio.html` and `public/edumanage.html`, then document the production cutover boundary before replacing the remaining legacy entrypoints.
+Run the same screenshot-driven parity pass on Legit Logistics and then regression-check EduManage under the updated portfolio shell. Eastleigh now fits the locked `100vh` workspace with instant page changes and much closer screenshot parity, so the best next step is to confirm the shared styling holds up on the other portfolio routes without reintroducing layout drift or internal scrolling.
 
 ## Notes
 
 - Relevant files:
+  - `public/css/portfolio.css`
   - `app/src/features/portfolio/PortfolioRoute.tsx`
-  - `app/src/features/portfolio/PortfolioLanding.tsx`
   - `app/src/features/portfolio/TabbedCaseStudyRoute.tsx`
   - `app/src/features/portfolio/LongformCaseStudyRoute.tsx`
   - `app/src/features/portfolio/PortfolioEntrance.tsx`
+  - `app/src/features/portfolio/PortfolioBackground.tsx`
   - `app/src/features/portfolio/portfolioContent.ts`
   - `app/src/features/portfolio/eastleighProject.ts`
   - `app/src/features/portfolio/legitLogisticsProject.ts`
@@ -28,7 +29,15 @@ Run a fuller parity review on desktop and mobile for the React homepage first, w
   - `app/src/features/contact/ContactRoute.tsx`
   - `app/src/features/contact/contactContent.ts`
   - `app/src/features/contact/contact.css`
+  - `app/src/features/designProcess/DesignProcessRoute.tsx`
+  - `app/src/features/designProcess/designProcess.css`
+  - `app/src/features/designProcess/PixelImage.tsx`
   - `app/src/styles/global.css`
+  - `app/src/shared/RouteErrorBoundary.tsx`
+  - `app/src/shared/ThemeToggle.tsx`
+  - `app/src/shared/AppLayout.tsx`
+  - `app/src/shared/ProfileSidebar.tsx`
+  - `package.json`
   - `public/index.html`
   - `public/about.html`
   - `public/contact.html`
@@ -37,9 +46,11 @@ Run a fuller parity review on desktop and mobile for the React homepage first, w
   - `public/js/about-parallax.js`
 - Known risks:
   - Homepage parity still needs broader desktop/mobile comparison beyond sanity checks, especially whether the exact Magic UI cooldown handoff feels continuous with Leon's current hero typography
-  - About page parity still needs broader desktop/mobile comparison beyond sanity checks
-  - Contact page parity still needs broader desktop/mobile comparison beyond sanity checks
-  - Portfolio parity still needs broader desktop/mobile comparison beyond sanity checks
+  - About page parity still needs broader desktop/mobile comparison beyond sanity checks, although its route-width and hero-structure mismatch has now had a first correction pass
+  - Contact page parity still needs broader desktop/mobile comparison beyond sanity checks, although its route-width cap from the shared `.page-content` shell has now been fixed
+  - Design Process parity still needs broader desktop/mobile comparison beyond sanity checks
+  - Eastleigh is much closer to the supplied screenshot states now, but Legit Logistics still needs the same screenshot-driven polish pass
+  - EduManage still needs an explicit regression check after the portfolio-specific chrome changes
   - Existing mixed portfolio architecture until cutover
   - Route handling and static-hosting cutover complexity
   - React production build currently emits a single JS chunk slightly above Vite's default 500 kB warning threshold

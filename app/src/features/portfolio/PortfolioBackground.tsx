@@ -9,7 +9,10 @@ export function PortfolioBackground({ variant }: PortfolioBackgroundProps) {
         aria-hidden="true"
         className={`portfolio-background portfolio-background--${variant}`}
       />
-      <div aria-hidden="true" className="portfolio-code-elements">
+      <div
+        aria-hidden="true"
+        className={`portfolio-code-elements portfolio-code-elements--${variant}`}
+      >
         <span className="portfolio-code portfolio-code--1">&lt;/&gt;</span>
         <span className="portfolio-code portfolio-code--2">{"{ }"}</span>
         <span className="portfolio-code portfolio-code--3">[ ]</span>

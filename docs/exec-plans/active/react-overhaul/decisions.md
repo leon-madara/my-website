@@ -138,3 +138,67 @@
   - The intermediate React workaround reassigned the finished word back onto the first layer, which diverged from the reference component
   - The requested goal is exact Magic UI behavior with Leon's words, so cooldown ownership must remain on the second text layer
   - Accessibility and stability wrappers should adapt around the reference algorithm rather than rewriting its visual handoff
+
+### 2026-03-30 - Make `npm run dev` target the React app on `codex/react-overhaul`
+
+- Status: Accepted
+- Reason:
+  - The default `dev` script was still serving the legacy static `public/` site, which hid the React-only `/design-process` route during normal local startup
+  - This branch now needs the default developer entrypoint to represent the React migration surface, not the legacy static server
+  - Keeping `serve` and `start` pointed at `public/` preserves the legacy static workflow when it is needed explicitly
+
+### 2026-03-30 - Keep the left profile pill homepage-only in the React shared shell
+
+- Status: Accepted
+- Reason:
+  - The left profile pill is part of the homepage composition and should not bleed into inner pages
+  - Reusing it on other routes changes the intended page hierarchy and distracts from page-specific layouts
+  - The shared shell should apply the sidebar layout offset only on `/`
+
+### 2026-03-30 - Route-specific parity fixes may override the shared `.page-content` width with higher-specificity selectors
+
+- Status: Accepted
+- Reason:
+  - Inner routes like About and Contact need to escape the shared `1040px` cap when their legacy layouts are full-width compositions
+  - Relying on equal-specificity selectors made the outcome depend on stylesheet order, which caused incorrect route width on Contact
+  - A route-specific selector such as `.page-content.page-content--contact` is a safer parity fix than loosening the shared default for every page
+
+### 2026-03-30 - Treat the live workspace view of `public/portfolio.html` as the parity target for the React portfolio
+
+- Status: Accepted
+- Reason:
+  - The user wants the React portfolio to match the native design exactly, and the rendered native portfolio experience is a compact case-study workspace rather than a summary landing page
+  - The current React `/portfolio` landing composition adds a new information architecture that does not exist in the native design
+  - The React tabbed case-study route is closer to the native experience, so the React rebuild should converge toward that workspace model instead of polishing the migration-only landing page
+
+### 2026-03-30 - Make `/portfolio` open directly into the default tabbed workspace
+
+- Status: Accepted
+- Reason:
+  - The native portfolio route is the workspace itself, not an intermediate chooser page
+  - Keeping `/portfolio` as a migration-only landing page preserved the biggest parity mismatch in the portfolio migration
+  - Using Eastleigh as the default workspace entry keeps React routing intact while matching the native entry experience much more closely
+
+### 2026-03-30 - Let portfolio routes own their own chrome
+
+- Status: Accepted
+- Reason:
+  - The native portfolio presentation keeps the logo and theme toggle but does not use the full shared React nav/footer/background chrome
+  - The shared nav pill and footer changed the top-of-page composition and made the portfolio feel like a generic routed page instead of a self-contained workspace
+  - Route-specific chrome rules are lower risk than introducing another specialized global layout abstraction mid-migration
+
+### 2026-03-30 - Lock the Eastleigh tabbed portfolio workspace to a strict 100vh shell with instant transitions
+
+- Status: Accepted
+- Reason:
+  - The supplied screenshots show a fully locked viewport composition where the content card always lands on the bottom edge of the screen
+  - Smooth scroll resets made the React workspace feel looser than the reference and were explicitly called out by the user
+  - A fixed-height card with instant tab changes keeps the portfolio experience closer to the native workspace without changing the route model
+
+### 2026-03-30 - Use the screenshot composition, not the earlier red-outline selector styling, as the portfolio shell source of truth
+
+- Status: Accepted
+- Reason:
+  - The newer screenshots show a softer green-highlighted project selector, visible landscape toggle, and card-edge-aligned logo placement
+  - Preserving the older red-outline selector styling kept a visible mismatch after the first React portfolio rebuild
+  - Updating the selector shell and copy to follow the screenshot composition gives the React portfolio a more faithful parity target

@@ -82,6 +82,69 @@ button {
   border: 0;
 }
 
+.route-error {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: var(--page-bg);
+  color: var(--text);
+}
+
+.route-error__panel {
+  width: min(560px, 100%);
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--surface-strong);
+  box-shadow: var(--shadow);
+}
+
+.route-error__eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.route-error__title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.route-error__message {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.route-error__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.route-error__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.route-error__link--primary {
+  background: var(--kenyan-green);
+  border-color: var(--kenyan-green);
+  color: #ffffff;
+}
+
 .app-shell {
   min-height: 100vh;
 }
@@ -90,6 +153,61 @@ button {
   position: relative;
   min-height: 100vh;
   padding: 120px 20vw 96px;
+}
+
+.design-process-page .site-main {
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.portfolio-page .footer,
+.portfolio-page .mobile-bottom-nav,
+.portfolio-page .background-pattern,
+.portfolio-page .kenyan-code-elements {
+  display: none;
+}
+
+/* Nav collapses into indicator after 2s; hover the indicator area to reveal */
+.nav-is-collapsed .nav-pills {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease 0s;
+}
+
+.nav-is-collapsed.nav-is-hovered .nav-pills {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.3s ease 0s;
+}
+
+.nav-pills {
+  transition: opacity 0.6s ease 1s;
+}
+
+.portfolio-page .header-logo {
+  top: 0;
+  left: max(1rem, calc((100vw - 1336px) / 2));
+  width: 100px;
+  height: 100px;
+  padding: 25px;
+}
+
+.portfolio-page .theme-toggle-landscape {
+  top: 26px;
+  right: max(1rem, calc((100vw - 1336px) / 2));
+  display: inline-flex;
+  width: 80px;
+  height: 48px;
+  border: 2px solid rgba(222, 219, 211, 1);
+}
+
+.portfolio-page .theme-toggle-simple {
+  display: none;
+}
+
+.design-process-page .page-content {
+  width: 100%;
+  max-width: none;
 }
 
 .app-shell--with-sidebar .site-main {
@@ -1169,6 +1287,16 @@ button {
   z-index: 10;
 }
 
+.design-process-page .footer {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  width: 100%;
+  height: auto;
+  padding: 1rem 0;
+  backdrop-filter: blur(8px);
+}
+
 :root[data-theme="dark"] .footer {
   background: rgba(12, 16, 20, 0.82);
 }
@@ -1393,17 +1521,37 @@ button {
     display: none;
   }
 
-    .theme-toggle-simple {
-      display: inline-flex;
-    }
+  .portfolio-page .header-logo {
+    top: 8px;
+    left: 12px;
+    width: 68px;
+    height: 68px;
+    padding: 10px;
+  }
 
-    .design-process-page .theme-toggle-simple {
-      display: none;
-    }
+  .portfolio-page .theme-toggle-landscape {
+    top: 12px;
+    right: 12px;
+    width: 72px;
+    height: 44px;
+    display: inline-flex;
+  }
 
-    .design-process-page .theme-toggle-sunmoon {
-      display: inline-flex;
-    }
+  .theme-toggle-simple {
+    display: inline-flex;
+  }
+
+  .portfolio-page .theme-toggle-simple {
+    display: none;
+  }
+
+  .design-process-page .theme-toggle-simple {
+    display: none;
+  }
+
+  .design-process-page .theme-toggle-sunmoon {
+    display: inline-flex;
+  }
 
   .pill-sidebar {
     display: none;

@@ -46,9 +46,10 @@ export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   const isHome = location.pathname === "/";
+  const isPortfolio = location.pathname.startsWith("/portfolio");
   const isDesignProcess = location.pathname === "/design-process";
 
-  if (isHome) {
+  if (isHome || isPortfolio) {
     return (
       <button
         aria-label="Toggle dark and light mode"
@@ -86,6 +87,7 @@ export function ThemeToggle() {
         }
         role="group"
       >
+        <div className="theme-toggle-sunmoon__slider" />
         <button
           aria-label="Switch to light mode"
           className={

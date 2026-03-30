@@ -11,12 +11,10 @@ export const legitLogisticsProject: TabbedCaseStudyProject = {
   timeline: "Phased rollout",
   role: "Full Stack Developer",
   techStack: [
-    "React 18",
-    "TypeScript",
-    "Supabase",
-    "Tailwind CSS",
-    "TanStack Query",
-    "React Hook Form"
+    "React 18 + TypeScript + Supabase",
+    "Admin dashboard + driver proof workflow",
+    "Public tracking + quote review flow",
+    "15,000+ deliveries completed"
   ],
   links: {
     live: "https://legit-logistics.com",

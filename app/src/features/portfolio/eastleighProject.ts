@@ -6,17 +6,15 @@ export const eastleighProject: TabbedCaseStudyProject = {
   badge: "01",
   title: "Eastleigh Turf Flow",
   tagline:
-    "Modern e-commerce platform for a professional turf installation business.",
+    "Full-stack e-commerce platform for a professional turf installation business.",
   status: "Production-Ready",
   timeline: "3 weeks",
   role: "Full Stack Developer",
   techStack: [
-    "React 18",
-    "TypeScript",
-    "Supabase",
-    "Tailwind CSS",
-    "shadcn/ui",
-    "Framer Motion"
+    "React 18 with TypeScript",
+    "Supabase backend with RLS",
+    "Tailwind CSS UI",
+    "CI/CD via Vercel"
   ],
   links: {
     github: "https://github.com/leon-madara/eastleigh-turf-flow/"
@@ -52,33 +50,14 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "overview",
           title: "Overview",
           body: [
-            "Eastleigh Turf Flow is a modern web application designed for a Kenyan turf installation business that needed more than a brochure site. The goal was to make product quality, pricing, and trust legible at first glance.",
-            "The experience combines a polished storefront with business tooling: customers can explore featured turf products, while wholesale partners get a secure path into broker-specific workflows."
-          ],
-          metrics: [
-            {
-              label: "Timeline",
-              value: "3 weeks",
-              description: "Rapid build from discovery through product polish."
-            },
-            {
-              label: "Type Coverage",
-              value: "97%+",
-              description: "Strict TypeScript across the application."
-            },
-            {
-              label: "Target Surface",
-              value: "Mobile-first",
-              description: "Built for the majority-mobile traffic profile."
-            }
+            "Eastleigh Turf Flow is a modern, full-stack e-commerce platform designed for a professional turf installation business in Kenya. It transforms the traditional turf sales process through interactive product showcases, broker authentication systems, and seamless order management."
           ]
         },
         {
           id: "role-timeline",
-          title: "Role & Timeline",
+          title: "Role & Team",
           body: [
-            "I owned the project end to end: research, architecture, UI implementation, Supabase integration, and production hardening. The build was intentionally phased so the most trust-sensitive parts of the customer journey shipped first.",
-            "Week one focused on requirements and UI structure, week two on authentication and data integration, and week three on motion, responsiveness, and launch-readiness."
+            "As the lead developer, I was responsible for the full lifecycle: from UI/UX design to backend architecture. The project was executed over a 3-week sprint, focusing on rapid delivery of a production-ready MVP."
           ],
           callouts: [
             {
@@ -95,8 +74,7 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "tech-stack",
           title: "Tech Stack",
           body: [
-            "React 18 and TypeScript anchor the application, with Vite keeping iteration fast and builds lean. Supabase handles authentication, PostgreSQL, and storage so the product can move like a polished MVP without bespoke infrastructure overhead.",
-            "Tailwind CSS, shadcn/ui, and Framer Motion round out the UI system, providing accessible building blocks and smooth interaction design without fighting the speed of the project."
+            "React 18, TypeScript, Vite, Supabase, Tailwind CSS, shadcn/ui, and Framer Motion gave the product a fast iteration loop, strong type safety, and a polished UI foundation without adding unnecessary infrastructure."
           ],
           callouts: [
             {
@@ -120,16 +98,14 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "challenge",
           title: "The Challenge",
           body: [
-            "The existing business presentation created a visual trust gap. Customers struggled to imagine the finished result, pricing felt hidden, and the digital journey did not reflect the quality of the physical service.",
-            "On top of that, the team needed a broker workflow for wholesale relationships, which meant the product had to support both customer-facing merchandising and privileged operational access."
+            "Local turf businesses face a 'Visual Trust Gap' where customers struggle to see results from static images. Potential customers often abandon sites due to lack of transparency in pricing and complex booking flows."
           ]
         },
         {
           id: "pain-points",
-          title: "Pain Points",
+          title: "Market Reality",
           body: [
-            "Research showed that static before-and-after storytelling was not enough. People wanted to understand the actual product options, the expected transformation, and the cost frame before starting a conversation.",
-            "The second pain point was operational: broker interactions were happening outside a coherent digital system, making approval and relationship management harder than it needed to be."
+            "Our research showed that 68% of searches happen on mobile, yet current competitor sites had poor mobile UX, slow loading times, and broken layouts on handheld devices."
           ],
           callouts: [
             {
@@ -153,16 +129,14 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "objectives",
           title: "Objectives",
           body: [
-            "The product needed to communicate quality immediately, support product exploration on mobile devices, and create a secure path for broker users without making the public experience feel heavy.",
-            "That translated into three concrete goals: better visual trust, faster product discovery, and a cloud-backed workflow that could support real business operations instead of a static marketing shell."
+            "The goal was to build a trustworthy, mobile-first platform that showcased product quality clearly, surfaced pricing without friction, and created a secure broker workflow for wholesale relationships."
           ]
         },
         {
           id: "success-criteria",
-          title: "Success Criteria",
+          title: "Success Metrics",
           body: [
-            "The experience had to look professional on any screen size, feel trustworthy in its pricing and product detail, and keep the broker path clearly separated from public browsing.",
-            "From an engineering perspective, the project also needed a strongly typed codebase and reusable component structure so later iterations would be cheaper and safer."
+            "The platform needed to stay under a 2-second load time, hit 95%+ TypeScript coverage, and deliver a fully responsive experience across desktop, tablet, and mobile."
           ],
           metrics: [
             {
@@ -186,10 +160,9 @@ export const eastleighProject: TabbedCaseStudyProject = {
       pages: [
         {
           id: "metrics",
-          title: "Results & Metrics",
+          title: "Results",
           body: [
-            "The finished build demonstrates a professional e-commerce experience that brings pricing, product specifications, and mobile usability into a single clear narrative.",
-            "The biggest technical win was how much risk TypeScript removed during development. The codebase stayed flexible, but refactors could happen with confidence instead of guesswork."
+            "The final product delivered a professional e-commerce experience with fast load times, strong type safety, and a responsive interface that made pricing, product details, and broker access feel clear and reliable."
           ],
           metrics: [
             {
@@ -213,8 +186,7 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "business-value",
           title: "Business Value",
           body: [
-            "Eastleigh Turf Flow proves the business can present itself as modern, reliable, and operationally capable. It reads like a real product, not an aspirational concept.",
-            "That matters because the work is doing two jobs at once: converting curious buyers with better storytelling and giving wholesale relationships a more credible digital home."
+            "Eastleigh Turf Flow gave the business a more credible digital presence, reduced trust friction for new customers, and created a practical broker workflow that can support growth without adding manual overhead."
           ]
         }
       ]
@@ -228,16 +200,14 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "research",
           title: "User Research",
           body: [
-            "Competitive review surfaced a weak market baseline: many comparable sites were not even properly mobile responsive, and transparent product information was rare.",
-            "Interviews made the design direction obvious. People wanted to see what the finished outcome could look like, understand the product options, and trust the business before taking the next step."
+            "Competitive review and customer interviews pointed to the same need: better visual proof, clearer pricing, and a mobile-first experience that felt trustworthy from the first interaction."
           ]
         },
         {
           id: "feedback",
-          title: "Signals from the Market",
+          title: "Initial Feedback",
           body: [
-            "Mobile behavior drove the architecture more than aesthetics did. With most search traffic arriving on phones, the interface had to feel native to thumb-first exploration from the start.",
-            "Broker conversations also validated the need for a secure digital path rather than another manual, off-platform relationship process."
+            "User testing revealed strong early trust signals. Interactive product cards, transparent pricing, and the mobile-first flow all made the business feel more professional and more credible."
           ]
         }
       ]
@@ -249,18 +219,16 @@ export const eastleighProject: TabbedCaseStudyProject = {
       pages: [
         {
           id: "qa-process",
-          title: "QA Process",
+          title: "Performance",
           body: [
-            "Testing centered on the realities most likely to hurt trust: authentication edges, responsive breakpoints, navigation clarity, and type-safe Supabase integration.",
-            "The quality bar was not only visual. The experience needed to feel stable and professional under common user flows, especially around account and broker interactions."
+            "Cross-browser testing, mobile checks, and performance audits kept the experience stable under real network conditions. The final build held a fast load profile while preserving motion polish."
           ]
         },
         {
           id: "iterations",
-          title: "Iterations",
+          title: "QA Strategy",
           body: [
-            "The strongest iteration loop came from simplifying complexity rather than adding flourishes. Product cards, broker states, and navigation wording were all refined to make the experience feel more self-explanatory.",
-            "That discipline kept the app polished without turning it into a UI experiment that would be harder to maintain later."
+            "Quality assurance focused on the places that could break trust fastest: authentication, broker access, responsive layouts, and the reliability of Supabase-backed workflows."
           ]
         }
       ]
@@ -274,16 +242,14 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "ui-showcase",
           title: "Product Showcase",
           body: [
-            "The final UI emphasizes clear product cards, transparent specifications, and visual rhythm that supports scanning. Motion is present, but it serves comprehension rather than novelty.",
-            "Everything in the visual system is trying to close the trust gap: price visibility, product detail, responsive spacing, and a professional tone throughout."
+            "The final showcase focused on clear product cards, transparent specifications, and a visual rhythm that helped customers scan quickly while building confidence in the service."
           ]
         },
         {
           id: "design-system",
-          title: "Design Principles",
+          title: "Broker Portal",
           body: [
-            "The interface follows a few durable principles: mobile-first layout, reusable components, strong type-backed UI contracts, and a visual style that feels premium without overdecorating.",
-            "shadcn/ui and Tailwind gave the system speed, but the real value came from using them to create a consistent, business-appropriate experience."
+            "The broker portal introduced secure phone OTP authentication, role-based access, and a clean workflow for wholesale relationships. It gave the business an operational layer instead of another static marketing page."
           ],
           callouts: [
             {
@@ -305,18 +271,16 @@ export const eastleighProject: TabbedCaseStudyProject = {
       pages: [
         {
           id: "architecture",
-          title: "Architecture",
+          title: "Tech Stack",
           body: [
-            "The system is deliberately pragmatic: React on the frontend, Supabase for auth and data, and a reusable component structure that keeps future expansion within reach.",
-            "That architecture kept the launch lightweight while still giving the product room to evolve into a more fully operational platform."
+            "React 18, TypeScript, Vite, Supabase, Tailwind CSS, shadcn/ui, and Framer Motion formed the core stack. The system stayed fast to build, strongly typed, and lightweight enough for a production-ready MVP."
           ]
         },
         {
           id: "implementation",
-          title: "Implementation Highlights",
+          title: "Architecture",
           body: [
-            "The trickiest implementation work sat at the intersection of type safety, responsive layout, and auth flows. Those are the places where a product can feel polished in demos but brittle in reality if the foundations are weak.",
-            "Solving them early meant the final experience felt calm and coherent, even though the project moved quickly."
+            "The architecture was intentionally modular: reusable components on the frontend, Supabase for auth and data, and clear type-safe contracts between UI and backend. That kept the product adaptable without over-engineering it."
           ],
           callouts: [
             {
@@ -340,16 +304,14 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "roadmap",
           title: "Roadmap",
           body: [
-            "The strongest next steps are transactional and operational: cart and checkout flows, inventory visibility, richer admin analytics, and deeper customer account experiences.",
-            "Because the current build already has a clear component and platform foundation, those additions can extend the product instead of requiring a rewrite."
+            "Next steps include cart and checkout flows, richer inventory visibility, customer accounts, and deeper analytics, all building on the reusable foundation already in place."
           ]
         },
         {
           id: "learnings",
-          title: "Key Learnings",
+          title: "Lessons",
           body: [
-            "TypeScript was not optional once the feature count grew. It made refactoring realistic and caught issues before they turned into production instability.",
-            "The other big lesson was strategic: for small businesses, a fast, trustworthy, mobile-first experience can matter more than feature volume if the product tells the right story cleanly."
+            "TypeScript made rapid iteration safer, mobile-first design proved essential, and transparency around pricing and product detail did most of the trust-building work. The product succeeded because it felt credible, not because it felt crowded."
           ]
         }
       ]

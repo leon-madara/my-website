@@ -7,7 +7,7 @@ export function ProfileSidebar() {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const isVisible = useMemo(
-    () => location.pathname === "/" || location.pathname === "/contact",
+    () => location.pathname === "/",
     [location.pathname]
   );
 

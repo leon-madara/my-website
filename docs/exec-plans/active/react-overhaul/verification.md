@@ -63,6 +63,45 @@
 - Spot-checked the built React homepage hero in-browser and confirmed the role sequence advances with the updated cadence while the accessible label tracks the visible role
 - Replaced the React homepage role morph workaround with the exact Magic UI cooldown handoff and confirmed in-browser that the second layer remains visible during cooldown
 - Switched the focused `RoleSequence` test harness to drive a mocked `Date` clock so the implementation now matches the reference timing source as well as the reference cadence
+- Transplanted the React Design Process page and its page-local assets onto `codex/react-overhaul`
+- Added a shared route error boundary so React route failures no longer fall back to the default raw React Router error screen
+- Updated `npm run dev` to launch the React Vite app instead of the legacy static `serve public` workflow on this branch
+- Confirmed the React dev server now runs cleanly at `http://localhost:5173/`
+- Browser-validated `http://localhost:5173/design-process` and confirmed:
+  - the route renders from the React app
+  - the Design Process bento assets resolve with `200` responses
+  - the AI logo assets resolve with `200` responses
+  - the browser console reports no errors on the page
+- Fixed the About page GSAP matchMedia cleanup so route navigation no longer triggers a `Maximum call stack size exceeded` crash
+- Browser-validated primary navigation transitions for:
+  - `/design-process` -> `/about`
+  - `/about` -> `/portfolio`
+  - `/portfolio` -> `/contact`
+  - `/contact` -> `/`
+- Updated the shared shell so the left profile pill/sidebar renders only on `/`, not on inner routes like `/contact`
+- Browser-compared the React About route against the legacy `public/about.html` layout and corrected the main width/parallax hero sizing mismatch
+- Browser-validated the React Contact route width fix on desktop and mobile so the page now expands to the full available route width instead of being capped at the shared `1040px`
+- Compared the live static portfolio experience against the React portfolio routes by:
+  - running a temporary static server for `public/`
+  - checking `http://localhost:4180/portfolio.html`
+  - checking `http://localhost:5173/portfolio`
+  - checking `http://localhost:5173/portfolio/eastleigh?section=details&page=overview`
+  - capturing screenshots for side-by-side comparison of the native workspace view and the current React landing/case-study routes
+- Rebuilt the React portfolio workspace and browser-validated:
+  - `http://localhost:5173/portfolio`
+  - `http://localhost:5173/portfolio/legit-logistics?section=details&page=overview`
+  - mobile `http://localhost:5173/portfolio` at `430x932`
+- Confirmed the rebuilt React `/portfolio` route now:
+  - opens directly into the tabbed case-study workspace instead of the migration-only landing page
+  - uses a centered project-toggle shell, compact section-pill row, divider, and full-width content card
+  - hides the shared nav/footer/background chrome on portfolio routes while keeping the logo and theme toggle
+- Ran a second screenshot-driven Eastleigh portfolio pass and:
+  - switched the portfolio route to the landscape theme toggle used in the supplied composition
+  - aligned the portfolio logo and theme toggle with the content-card edges
+  - matched the softer green selector styling for the active project button and section-pill states
+  - removed smooth scroll transitions for portfolio page changes
+  - changed the footer dots to the full 19-page case-study progression
+  - tightened Eastleigh copy so all 19 tabbed pages now fit inside the locked `100vh` workspace
 
 ## Checks Run
 
@@ -71,6 +110,32 @@
 - `npm run react:typecheck`
 - `npm run test:gsap`
 - Browser preview on `http://127.0.0.1:4175`
+- `npm run react:typecheck`
+- `npm run react:build`
+- Browser validation on `http://localhost:5173/design-process`
+- `npm run react:typecheck`
+- Browser validation on `http://localhost:5173/design-process`, `http://localhost:5173/about`, `http://localhost:5173/portfolio`, `http://localhost:5173/contact`, and `http://localhost:5173/`
+- Browser validation on `http://localhost:5173/contact`, `http://localhost:5173/design-process`, and `http://localhost:5173/` for homepage-only sidebar visibility
+- `npm run react:typecheck`
+- Browser validation on `http://localhost:5173/about` for the first About parity pass
+- Browser validation on `http://localhost:5173/contact` for the route-width fix on desktop and mobile
+- `npm run react:test -- PortfolioRoute`
+- `npm run react:typecheck`
+- `npm run react:build`
+- Browser validation on `http://localhost:5173/portfolio`
+- Browser validation on `http://localhost:5173/portfolio/legit-logistics?section=details&page=overview`
+- Browser validation on mobile `http://localhost:5173/portfolio` (`430x932`)
+- Browser validation on:
+  - `http://localhost:5173/portfolio?section=details&page=overview`
+  - `http://localhost:5173/portfolio?section=details&page=role-timeline`
+  - `http://localhost:5173/portfolio?section=problem&page=challenge`
+  - `http://localhost:5173/portfolio?section=problem&page=pain-points`
+- Programmatic browser validation across all 19 Eastleigh portfolio pages confirming:
+  - no window scrolling on the route
+  - no internal scrolling inside `.portfolio-content-card__body`
+- `npm run react:test -- PortfolioRoute`
+- `npm run react:typecheck`
+- `npm run react:build`
 
 ## Not Yet Verified
 
@@ -81,9 +146,9 @@
 - Full visual parity review on mobile between the React About page and `public/about.html`
 - Full visual parity review on desktop between the React Contact page and `public/contact.html`
 - Full visual parity review on mobile between the React Contact page and `public/contact.html`
-- Full visual parity review on desktop between the React portfolio landing page and `public/portfolio.html`
-- Full visual parity review on mobile between the React portfolio landing page and `public/portfolio.html`
-- Full visual parity review on desktop between the React Eastleigh and Legit Logistics case-study routes and `public/portfolio.html`
+- Full visual parity review on desktop between the React Design Process page and its intended reference/WIP layout
+- Full visual parity review on mobile between the React Design Process page and its intended reference/WIP layout
+- Full visual parity review on desktop between the React Legit Logistics case-study route and `public/portfolio.html`
 - Full visual parity review on mobile between the React Eastleigh and Legit Logistics case-study routes and `public/portfolio.html`
 - Full visual parity review on desktop between the React EduManage route and `public/edumanage.html`
 - Full visual parity review on mobile between the React EduManage route and `public/edumanage.html`

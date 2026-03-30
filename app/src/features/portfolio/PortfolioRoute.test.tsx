@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { PortfolioRoute } from "./PortfolioRoute";
 
@@ -24,30 +24,37 @@ function renderPortfolioRoute(initialEntry: string) {
 }
 
 describe("PortfolioRoute", () => {
-  it("renders the landing page and lets the user switch project previews", async () => {
+  it("renders the workspace-style portfolio index with project toggles", async () => {
     renderPortfolioRoute("/portfolio");
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole("heading", {
-          level: 1,
-          name: /portfolio case studies, now routed in react/i
-        })
-      ).toBeInTheDocument();
-    });
-
-    fireEvent.click(
-      screen.getByRole("tab", {
-        name: /03edumanage sms/i
-      })
-    );
-
-    expect(screen.getAllByText(/edumanage sms/i)[0]).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: /open case study/i
+        name: /02\s*legit logistics/i
+      })
+    ).toHaveAttribute("href", "/portfolio/legit-logistics?section=details&page=overview");
+    expect(
+      screen.getByRole("link", {
+        name: /03\s*edumanage/i
       })
     ).toHaveAttribute("href", "/portfolio/edumanage#crisis");
+    expect(
+      screen.queryByRole("heading", {
+        level: 1,
+        name: /portfolio case studies, now routed in react/i
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", {
+        level: 1,
+        name: /eastleigh turf flow/i
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: /overview/i
+      })
+    ).toBeInTheDocument();
   });
 
   it("renders a tabbed case study from deep-link query params", async () => {
@@ -61,11 +68,33 @@ describe("PortfolioRoute", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        level: 3,
-        name: /results & metrics/i
+        level: 2,
+        name: /results/i
       })
     ).toBeInTheDocument();
-    expect(screen.getByText(/page load/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/professional e-commerce experience/i)
+    ).toBeInTheDocument();
+  });
+
+  it("renders the default workspace project from index-route query params", async () => {
+    renderPortfolioRoute("/portfolio?section=impact&page=metrics");
+
+    expect(
+      await screen.findByRole("heading", {
+        level: 1,
+        name: /eastleigh turf flow/i
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: /results/i
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/professional e-commerce experience/i)
+    ).toBeInTheDocument();
   });
 
   it("normalizes invalid tabbed-case-study params back to the first valid page", async () => {
@@ -80,7 +109,7 @@ describe("PortfolioRoute", () => {
 
     expect(
       screen.getByRole("heading", {
-        level: 3,
+        level: 2,
         name: /overview/i
       })
     ).toBeInTheDocument();

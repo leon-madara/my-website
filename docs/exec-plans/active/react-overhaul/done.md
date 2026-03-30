@@ -84,3 +84,39 @@
 - [x] Replaced the temporary role-settling workaround with the exact Magic UI layer handoff so cooldown now leaves the second text layer fully visible, matching the reference behavior
 - [x] Switched the React homepage role morph timing source from `performance.now()` to the reference-style `new Date()` delta loop
 - [x] Updated the focused `RoleSequence` tests to verify exact Magic UI cooldown ownership and `Date`-driven timing behavior
+- [x] Transplanted the React Design Process page onto `codex/react-overhaul` from the saved React WIP, including:
+  - `app/src/features/designProcess/DesignProcessRoute.tsx`
+  - `app/src/features/designProcess/designProcess.css`
+  - `app/src/features/designProcess/PixelImage.tsx`
+  - `app/public/designProcess/bento/*`
+  - refreshed Design Process hero SVG assets in `app/public/designProcess/`
+- [x] Added route-level React error handling with a shared `RouteErrorBoundary`
+- [x] Updated `npm run dev` on `codex/react-overhaul` to start the React Vite app instead of the legacy static `serve public` process
+- [x] Revalidated the React app with `react:typecheck`, `react:build`, and a browser pass on `http://localhost:5173/design-process`
+- [x] Fixed the React About route GSAP cleanup recursion so navigation from `/design-process` to `/about` no longer crashes with a maximum call stack error
+- [x] Revalidated primary navigation across `/design-process`, `/about`, `/portfolio`, `/contact`, and `/`
+- [x] Restricted the shared left profile pill/sidebar to the homepage only by updating the shared shell visibility logic
+- [x] Completed a first React About parity pass by:
+  - removing the shared `.page-content` width cap from the About route
+  - restoring native-like full-width hero proportions
+  - matching About section content widths more closely to the legacy page
+- [x] Fixed the React Contact route width cap by increasing the route-level selector specificity so it no longer inherits the shared `.page-content` max-width
+- [x] Completed a portfolio parity audit comparing the live static portfolio experience against the React portfolio routes and identified the main mismatch:
+  - the static source-of-truth behaves like a viewport-locked case-study workspace
+  - the current React `/portfolio` route behaves like a migration-era landing page
+  - the React tabbed case-study route is closer to parity than the React landing route, but still differs in top-shell composition, spacing, and information density
+- [x] Rebuilt the active React portfolio flow around the native workspace model by:
+  - making `/portfolio` open directly into the default Eastleigh tabbed workspace
+  - replacing the migration-era landing composition with a centered project-toggle shell, section-pill row, divider, and full-width content card
+  - hiding the shared React nav/footer/background chrome on portfolio routes so the portfolio owns its own workspace framing
+- [x] Tuned the React tabbed case-study template closer to the native portfolio design by:
+  - restoring viewport-locked card behavior on desktop and stacked behavior on mobile
+  - tightening the card header, metadata, tech pills, pagination, and section-pill geometry
+  - aligning Eastleigh and Legit Logistics header copy/tech-stack pill content more closely with the readable legacy content reference
+- [x] Completed a second screenshot-driven Eastleigh portfolio polish pass by:
+  - switching the portfolio route to the landscape theme toggle shown in the reference composition
+  - aligning the portfolio logo and theme toggle with the content-card edges instead of the screen edges
+  - softening the project selector and section-pill styling to match the supplied screenshots more closely
+  - replacing the footer dots with the full 19-page case-study progression and adding the smaller section-progress cluster above the card
+  - removing smooth scroll transitions so portfolio page changes are instant
+  - tightening Eastleigh page titles and copy so all 19 pages now fit inside the locked `100vh` workspace without internal scrolling

@@ -1,4 +1,4 @@
-.page-content--about {
+.page-content.page-content--about {
   width: 100%;
   max-width: none;
   gap: 0;
@@ -22,54 +22,71 @@
 
 .parallax-hero {
   position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 0 20vw;
+  padding: 0;
   overflow: hidden;
 }
 
 .top-gradient-section {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 45%, rgba(0, 107, 63, 0.24), transparent 28%),
-    radial-gradient(circle at 78% 18%, rgba(206, 17, 38, 0.18), transparent 24%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 48%);
+  left: 20px;
+  top: 10px;
+  right: 20px;
+  width: calc(100% - 40px);
+  height: 82px;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(0, 107, 63, 0.85) 0%, rgba(179, 0, 0, 0.85) 100%);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.2);
   pointer-events: none;
 }
 
 .hero-image-wrapper {
   position: absolute;
-  left: 17vw;
-  top: 54%;
+  left: 10vw;
+  top: 50%;
   z-index: 1;
-  width: min(34vw, 470px);
-  transform: translateY(-50%);
+  width: min(42vw, 600px);
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%) scale(0.5);
+  transform-origin: center;
 }
 
 .hero-image {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.2));
+  object-position: center;
 }
 
 .hero-container {
   position: relative;
   z-index: 2;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .hero-text-wrapper {
-  width: min(100%, 760px);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
 
 .about-text-container {
@@ -77,75 +94,95 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  opacity: 0;
   text-align: center;
 }
 
 .about-text {
-  color: rgba(26, 26, 26, 0.72);
+  color: var(--kenyan-green);
   font-family: "Space Mono", monospace;
-  font-size: clamp(1.4rem, 2vw, 2rem);
-  letter-spacing: 0.12em;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-shadow: 0 2px 10px rgba(0, 107, 63, 0.3);
   text-transform: uppercase;
 }
 
 .name-text {
   position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--text);
+  display: inline-block;
   font-family: "Asimovian", sans-serif;
-  font-size: clamp(3.6rem, 9vw, 6.8rem);
-  line-height: 0.95;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #000000 0%, #ce1126 50%, #006b3f 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
 }
 
 .name-underline {
   display: block;
-  width: 72%;
-  height: 5px;
-  margin-top: 0.85rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--kenyan-green), var(--kenyan-red));
-  transform: scaleX(1);
+  position: absolute;
+  left: 0;
+  bottom: -0.2em;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: #ce1126;
   transform-origin: left center;
+  transform: scaleX(0);
 }
 
 .about-decorative-shapes {
-  top: auto;
-  bottom: 18%;
-  left: auto;
-  right: 14vw;
+  inset: 0;
 }
 
 .about-section {
   position: relative;
-  padding: 5.5rem 20vw;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .what-i-do-section {
-  padding-top: 7rem;
+  min-height: 100vh;
+  padding-top: 8rem;
+  padding-bottom: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .section-content {
   width: 100%;
-  max-width: 980px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .what-i-do-section .section-content,
 .skills-section .section-content,
 .experience-section .section-content,
-.projects-section .section-content,
+.projects-section .section-content {
+  max-width: 800px;
+}
+
+.education-section .section-content {
+  max-width: 1100px;
+}
+
 .certifications-section .section-content {
-  max-width: 1040px;
+  max-width: 1400px;
 }
 
 .section-title {
   margin: 0 0 2.5rem;
   text-align: center;
   font-family: "Asimovian", sans-serif;
-  font-size: clamp(2.8rem, 6vw, 4.8rem);
-  line-height: 1;
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1.2;
 }
 
 .section-title .char-masked {
@@ -159,8 +196,10 @@
 
 .intro-text {
   margin: 0;
+  max-width: 900px;
+  margin-inline: auto;
   color: #2d2d2d;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   line-height: 1.8;
   text-align: center;
 }
@@ -175,6 +214,7 @@
 
 .expertise-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 3rem;
 }
 
 .expertise-item,
@@ -269,15 +309,13 @@
 }
 
 .skills-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
 }
 
 .skill-category {
   padding: 1.8rem;
-}
-
-.skill-category:first-child {
-  grid-column: 1 / -1;
 }
 
 .skill-category-title {
@@ -415,8 +453,9 @@
 
 .education-grid {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  max-width: 880px;
+  max-width: 900px;
   margin: 0 auto;
+  margin-top: 3rem;
 }
 
 .education-item {
@@ -452,6 +491,8 @@
 
 .projects-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
 }
 
 .project-card:first-child {
@@ -479,9 +520,10 @@
 .certifications-grid {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-  max-width: 860px;
+  gap: 2.5rem;
+  max-width: 800px;
   margin: 0 auto;
+  margin-top: 3rem;
 }
 
 .certification-card {
@@ -613,14 +655,11 @@
 }
 
 :root[data-theme="dark"] .about-text {
-  color: #a8b5c7;
+  color: #10cf74;
 }
 
 :root[data-theme="dark"] .top-gradient-section {
-  background:
-    radial-gradient(circle at 20% 45%, rgba(16, 207, 116, 0.22), transparent 30%),
-    radial-gradient(circle at 78% 18%, rgba(255, 51, 85, 0.18), transparent 24%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 45%);
+  background: linear-gradient(135deg, rgba(16, 207, 116, 0.9) 0%, rgba(255, 51, 85, 0.9) 100%);
 }
 
 :root[data-theme="dark"] .intro-text {
@@ -688,18 +727,8 @@
 }
 
 @media (max-width: 1280px) {
-  .parallax-hero,
-  .about-section {
-    padding-left: 8vw;
-    padding-right: 8vw;
-  }
-
   .hero-image-wrapper {
-    left: 6vw;
-  }
-
-  .about-decorative-shapes {
-    right: 6vw;
+    width: min(40vw, 520px);
   }
 }
 
@@ -709,7 +738,6 @@
     grid-template-columns: 1fr;
   }
 
-  .skill-category:first-child,
   .project-card:first-child {
     grid-column: auto;
   }
@@ -722,14 +750,15 @@
 
   .parallax-hero {
     min-height: 90vh;
-    padding: 7rem 20px 3rem;
+    padding: 0;
   }
 
   .hero-image-wrapper {
     position: relative;
     left: auto;
     top: auto;
-    width: min(100%, 360px);
+    width: min(100%, 400px);
+    height: 65vh;
     margin: 0 auto 2rem;
     transform: none;
   }
@@ -738,21 +767,30 @@
     align-items: flex-start;
   }
 
-  .name-text {
-    font-size: clamp(2.8rem, 14vw, 4.4rem);
+  .hero-text-wrapper {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    padding-bottom: 3rem;
   }
 
-  .about-decorative-shapes {
-    right: 42px;
-    bottom: 8%;
+  .top-gradient-section {
+    left: 12px;
+    right: 12px;
+    width: calc(100% - 24px);
+    height: 74px;
   }
 
   .about-section {
-    padding: 4rem 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .what-i-do-section {
-    padding-top: 5rem;
+    min-height: auto;
+    padding-top: 6rem;
+    padding-bottom: 3rem;
   }
 
   .intro-text {
@@ -767,7 +805,6 @@
   }
 
   .expertise-item--featured,
-  .skill-category:first-child,
   .project-card:first-child {
     grid-column: auto;
   }

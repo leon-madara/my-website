@@ -107,19 +107,28 @@ export function useAboutAnimations(rootRef: RefObject<HTMLElement | null>) {
             introTimeline
               .fromTo(
                 heroImage,
-                {
-                  autoAlpha: 0,
-                  scale: 0.92,
-                  xPercent: conditions?.desktop ? 18 : 0,
-                  yPercent: 6
-                },
-                {
-                  autoAlpha: 1,
-                  scale: 1,
-                  xPercent: 0,
-                  yPercent: 0,
-                  duration: 1.15
-                }
+                conditions?.desktop
+                  ? {
+                      autoAlpha: 0
+                    }
+                  : {
+                      autoAlpha: 0,
+                      scale: 0.92,
+                      xPercent: 0,
+                      yPercent: 6
+                    },
+                conditions?.desktop
+                  ? {
+                      autoAlpha: 1,
+                      duration: 1.15
+                    }
+                  : {
+                      autoAlpha: 1,
+                      scale: 1,
+                      xPercent: 0,
+                      yPercent: 0,
+                      duration: 1.15
+                    }
               )
               .fromTo(
                 heroText,
@@ -139,33 +148,35 @@ export function useAboutAnimations(rootRef: RefObject<HTMLElement | null>) {
           }
 
           if (heroSection && heroImage && heroText) {
-            gsap.timeline({
+            const heroTimeline = gsap.timeline({
               scrollTrigger: {
                 trigger: heroSection,
                 start: "top top",
                 end: "bottom top",
                 scrub: conditions?.mobile ? 0.55 : 0.9
               }
-            })
-              .to(
-                heroText,
+            }).to(
+              heroText,
+              {
+                autoAlpha: 0,
+                y: -80,
+                scale: 0.92,
+                ease: "none"
+              },
+              0
+            );
+
+            if (conditions?.mobile) {
+              heroTimeline.to(
+                heroImage,
                 {
-                  autoAlpha: 0,
-                  y: -80,
+                  yPercent: -6,
                   scale: 0.92,
                   ease: "none"
                 },
                 0
-              )
-              .to(
-                heroImage,
-                {
-                  yPercent: conditions?.desktop ? -10 : -6,
-                  scale: conditions?.desktop ? 0.82 : 0.92,
-                  ease: "none"
-                },
-                0
               );
+            }
           }
 
           sections.forEach((section) => {
@@ -219,12 +230,12 @@ export function useAboutAnimations(rootRef: RefObject<HTMLElement | null>) {
               );
             }
           });
-
-          return () => {
-            mm.revert();
-          };
         }
       );
+
+      return () => {
+        mm.revert();
+      };
     }, root);
 
     return () => {

@@ -42,7 +42,7 @@ export function AppLayout() {
   return (
     <div
       className={
-        location.pathname === "/" || location.pathname === "/contact"
+        location.pathname === "/"
           ? "app-shell app-shell--with-sidebar"
           : "app-shell"
       }

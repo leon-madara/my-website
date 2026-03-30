@@ -1,10 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { LongformCaseStudyRoute } from "./LongformCaseStudyRoute";
 import { PortfolioBackground } from "./PortfolioBackground";
-import { PortfolioLanding } from "./PortfolioLanding";
 import "./portfolio.css";
 import {
-  getPortfolioLandingProjects,
+  getDefaultPortfolioProject,
   getPortfolioProject
 } from "./portfolioContent";
 import {
@@ -32,13 +31,23 @@ function PortfolioNotFound() {
 export function PortfolioRoute() {
   const { projectSlug } = useParams();
   const project = projectSlug ? getPortfolioProject(projectSlug) : null;
+  const defaultProject = getDefaultPortfolioProject();
+  const isTabbedRoute = !projectSlug || (project && isTabbedCaseStudyProject(project));
+  const routeVariantClass = isTabbedRoute
+    ? "portfolio-route--tabbed"
+    : project && isLongformCaseStudyProject(project)
+      ? "portfolio-route--longform"
+      : "portfolio-route--not-found";
+  const backgroundVariant = projectSlug
+    ? project?.template ?? "tabbed-case-study"
+    : "tabbed-case-study";
 
   return (
-    <div className="portfolio-route">
-      <PortfolioBackground variant={project?.template ?? "landing"} />
+    <div className={`portfolio-route ${routeVariantClass}`}>
+      <PortfolioBackground variant={backgroundVariant} />
 
       {!projectSlug ? (
-        <PortfolioLanding projects={getPortfolioLandingProjects()} />
+        <TabbedCaseStudyRoute project={defaultProject} showEntrance />
       ) : project && isTabbedCaseStudyProject(project) ? (
         <TabbedCaseStudyRoute project={project} />
       ) : project && isLongformCaseStudyProject(project) ? (
