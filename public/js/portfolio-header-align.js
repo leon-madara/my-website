@@ -3,6 +3,8 @@
 
   const rootSelector = "#root";
   const containerSelector = "#root .container";
+  const floatingToggleSelector =
+    'button.theme-toggle-wrapper[aria-label*="mode"]';
 
   function updateInsets() {
     const container = document.querySelector(containerSelector);
@@ -33,20 +35,53 @@
     return true;
   }
 
+  function keepThemeToggleInRoot() {
+    const root = document.querySelector(rootSelector);
+    if (!root) return false;
+
+    const toggleInRoot = root.querySelector(floatingToggleSelector);
+    const toggleInBody = Array.from(
+      document.body.querySelectorAll(`:scope > ${floatingToggleSelector}`),
+    ).find((toggle) => toggle !== toggleInRoot);
+
+    if (toggleInRoot) {
+      if (toggleInBody) toggleInBody.remove();
+      return true;
+    }
+
+    if (toggleInBody) {
+      root.appendChild(toggleInBody);
+      return true;
+    }
+
+    return false;
+  }
+
+  let syncQueued = false;
+  function syncPortfolioHeader() {
+    syncQueued = false;
+    updateInsets();
+    keepThemeToggleInRoot();
+  }
+
+  function scheduleSync() {
+    if (syncQueued) return;
+    syncQueued = true;
+    window.requestAnimationFrame(syncPortfolioHeader);
+  }
+
   let resizeTimer = null;
   function onResize() {
     if (resizeTimer) window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(() => updateInsets(), 50);
+    resizeTimer = window.setTimeout(scheduleSync, 50);
   }
 
   const root = document.querySelector(rootSelector);
-  const observer = new MutationObserver(() => {
-    if (updateInsets()) observer.disconnect();
-  });
+  const observer = new MutationObserver(scheduleSync);
 
   if (root) observer.observe(root, { childList: true, subtree: true });
 
-  updateInsets();
+  syncPortfolioHeader();
   window.addEventListener("resize", onResize, { passive: true });
-  window.addEventListener("load", () => updateInsets(), { once: true });
+  window.addEventListener("load", scheduleSync, { once: true });
 })();

@@ -1,169 +1,155 @@
 /**
- * Hero Role Scramble Sequence Controller
- * 
- * Cycles through role titles with subtle scramble text effect using GSAP ScrambleTextPlugin.
- * 
+ * Hero Role Morph Sequence Controller
+ *
+ * Cycles through role titles with a two-layer morphing text effect.
+ *
  * Timeline:
  * - Role 1: shown on load, hold 5s
- * - Scramble 1.5s to Role 2, hold 3s
- * - Scramble 1.5s to Role 3, hold 3s
- * - Scramble 1.5s to Role 4, hold 3s
- * - Loop back to Role 1 (scramble 1.5s, hold 5s) and repeat
- * 
- * Features:
- * - GSAP ScrambleTextPlugin-powered text scrambling
- * - Single element approach (no stacked elements)
- * - Pauses on visibility change (tab hidden)
- * - Respects prefers-reduced-motion
- * - Graceful fallbacks for errors or missing plugins
- * - Cleanup on page unload
+ * - Morph 1.45s to Role 2, hold 3s
+ * - Morph 1.45s to Role 3, hold 3s
+ * - Morph 1.45s to Role 4, hold 3s
+ * - Loop back to Role 1 and repeat
  */
 
 class RoleSequenceController {
     constructor() {
-        // Configuration
         this.config = {
             containerSelector: '.role-sequence',
-            scrambleDuration: 1.5,     // seconds for scramble transition
-            role1HoldTime: 5,          // seconds to hold role 1 (first display)
-            otherHoldTime: 3,          // seconds to hold roles 2, 3, 4
-            // ScrambleTextPlugin configuration (subtle animation)
-            scrambleConfig: {
-                chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ",
-                revealDelay: 0.5,
-                speed: 0.4,
-                delimiter: ""
-            }
+            currentTextSelector: '.role-sequence__text--current',
+            nextTextSelector: '.role-sequence__text--next',
+            screenReaderTextSelector: '.role-sequence__sr-text',
+            morphDuration: 1450,
+            role1HoldTime: 5000,
+            otherHoldTime: 3000,
+            filterId: 'role-sequence-threshold'
         };
 
-        // Role data array (stored in JavaScript instead of DOM)
         this.roles = [
-            "Full Stack AI Developer",
-            "AI Engineer",
-            "Web Developer & Designer",
-            "Graphic Designer"
+            'Full Stack AI Developer',
+            'AI Engineer',
+            'Web Developer & Designer',
+            'Graphic Designer'
         ];
 
-        // State
         this.container = null;
+        this.currentText = null;
+        this.nextText = null;
+        this.screenReaderText = null;
+        this.motionQuery = null;
         this.currentIndex = 0;
-        this.timeline = null;
+        this.nextIndex = 1;
+        this.phase = 'hold';
+        this.phaseElapsed = 0;
+        this.rafId = null;
+        this.lastTimestamp = null;
         this.isPaused = false;
         this.isDestroyed = false;
         this.reducedMotion = false;
+        this.hasStarted = false;
 
-        // Bind methods for event listeners
         this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
         this.handleBeforeUnload = this.handleBeforeUnload.bind(this);
+        this.handleResize = this.handleResize.bind(this);
+        this.handleMotionPreferenceChange = this.handleMotionPreferenceChange.bind(this);
+        this.animate = this.animate.bind(this);
         this.destroy = this.destroy.bind(this);
 
         this.init();
     }
 
-    /**
-     * Initialize the controller
-     */
     init() {
-        // Wait for DOM to be ready
+        if (typeof document === 'undefined') {
+            return;
+        }
+
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.setup());
+            document.addEventListener('DOMContentLoaded', () => this.setup(), { once: true });
         } else {
             this.setup();
         }
     }
 
-    /**
-     * Setup the animation system
-     */
     setup() {
         try {
-            // Check for prefers-reduced-motion
-            this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            
-            // Get DOM element
             this.container = document.querySelector(this.config.containerSelector);
-            
+
             if (!this.container) {
                 console.warn('RoleSequence: Container not found, skipping animation');
                 return;
             }
 
-            // Check for GSAP availability
-            if (typeof gsap === 'undefined') {
-                console.warn('RoleSequence: GSAP not available, showing fallback');
+            this.currentText = this.container.querySelector(this.config.currentTextSelector);
+            this.nextText = this.container.querySelector(this.config.nextTextSelector);
+            this.screenReaderText = this.container.querySelector(this.config.screenReaderTextSelector);
+
+            if (!this.currentText || !this.nextText || !this.screenReaderText) {
+                console.warn('RoleSequence: Required text layers not found, falling back');
                 this.showFallback();
                 return;
             }
 
-            // Check for ScrambleTextPlugin availability
-            if (typeof ScrambleTextPlugin === 'undefined') {
-                console.warn('RoleSequence: ScrambleTextPlugin not available, showing fallback');
-                this.showFallback();
-                return;
-            }
+            this.motionQuery = typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+                ? window.matchMedia('(prefers-reduced-motion: reduce)')
+                : null;
 
-            // Register ScrambleTextPlugin if needed
-            try {
-                gsap.registerPlugin(ScrambleTextPlugin);
-            } catch (error) {
-                // Plugin may already be registered, or registration may not be needed
-                console.log('RoleSequence: ScrambleTextPlugin registration:', error.message || 'already registered or not required');
-            }
+            this.reducedMotion = Boolean(this.motionQuery && this.motionQuery.matches);
 
-            // If reduced motion is preferred, show only first role and skip animation
+            this.injectFilter();
+            this.setupEventListeners();
+            this.resetVisualState();
+            this.measureMaxRoleHeight();
+            this.queueFontMeasurement();
+
             if (this.reducedMotion) {
                 console.info('RoleSequence: Reduced motion preferred, showing static role');
                 this.showFallback();
                 return;
             }
 
-            // Ensure container has initial text
-            if (!this.container.textContent.trim()) {
-                this.container.textContent = this.roles[0];
-            }
-
-            // Setup event listeners
-            this.setupEventListeners();
-
-            // Start the animation sequence
             this.startSequence();
 
             console.log('RoleSequence: Controller initialized with', this.roles.length, 'roles');
-
         } catch (error) {
             console.error('RoleSequence: Setup error:', error);
             this.showFallback();
         }
     }
 
-    /**
-     * Setup event listeners for visibility and cleanup
-     */
     setupEventListeners() {
-        // Pause/resume on visibility change
         document.addEventListener('visibilitychange', this.handleVisibilityChange);
-
-        // Cleanup on page unload
         window.addEventListener('beforeunload', this.handleBeforeUnload);
         window.addEventListener('pagehide', this.handleBeforeUnload);
+        window.addEventListener('resize', this.handleResize);
+        window.addEventListener('orientationchange', this.handleResize);
 
-        // Listen for reduced motion preference changes
-        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        if (motionQuery.addEventListener) {
-            motionQuery.addEventListener('change', (e) => {
-                if (e.matches) {
-                    this.destroy();
-                    this.showFallback();
-                }
-            });
+        if (!this.motionQuery) {
+            return;
+        }
+
+        if (typeof this.motionQuery.addEventListener === 'function') {
+            this.motionQuery.addEventListener('change', this.handleMotionPreferenceChange);
+        } else if (typeof this.motionQuery.addListener === 'function') {
+            this.motionQuery.addListener(this.handleMotionPreferenceChange);
         }
     }
 
-    /**
-     * Handle page visibility changes (tab switching)
-     */
+    handleMotionPreferenceChange(event) {
+        this.reducedMotion = Boolean(event && event.matches);
+
+        if (this.reducedMotion) {
+            this.stopAnimationFrame();
+            this.showFallback();
+            return;
+        }
+
+        this.resetVisualState();
+        this.startSequence(true);
+    }
+
     handleVisibilityChange() {
-        if (this.isDestroyed) return;
+        if (this.isDestroyed) {
+            return;
+        }
 
         if (document.hidden) {
             this.pause();
@@ -172,193 +158,343 @@ class RoleSequenceController {
         }
     }
 
-    /**
-     * Handle page unload - cleanup
-     */
     handleBeforeUnload() {
         this.destroy();
     }
 
-    /**
-     * Start the animation sequence
-     */
-    startSequence() {
-        if (this.isDestroyed) return;
-
-        this.buildTimeline();
-    }
-
-    /**
-     * Build the GSAP timeline for the role sequence
-     */
-    buildTimeline() {
-        // Kill any existing timeline
-        if (this.timeline) {
-            this.timeline.kill();
+    handleResize() {
+        if (this.isDestroyed || !this.container) {
+            return;
         }
 
-        this.timeline = gsap.timeline({
-            repeat: -1,  // Infinite loop
-            onComplete: () => {
-                // This won't fire due to infinite loop, but here for safety
+        const remeasure = () => this.measureMaxRoleHeight();
+
+        if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(remeasure);
+        } else {
+            remeasure();
+        }
+    }
+
+    queueFontMeasurement() {
+        if (!document.fonts || !document.fonts.ready || typeof document.fonts.ready.then !== 'function') {
+            return;
+        }
+
+        document.fonts.ready.then(() => {
+            if (!this.isDestroyed) {
+                this.measureMaxRoleHeight();
             }
+        }).catch(() => {
+            // Ignore font loading issues; fallback measurements are already in place.
+        });
+    }
+
+    injectFilter() {
+        if (document.getElementById(this.config.filterId)) {
+            return;
+        }
+
+        const svg = this.createSvgElement('svg');
+        const defs = this.createSvgElement('defs');
+        const filter = this.createSvgElement('filter');
+        const colorMatrix = this.createSvgElement('feColorMatrix');
+
+        svg.setAttribute('id', `${this.config.filterId}-svg`);
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('focusable', 'false');
+        svg.setAttribute('width', '0');
+        svg.setAttribute('height', '0');
+        svg.style.position = 'fixed';
+
+        filter.setAttribute('id', this.config.filterId);
+
+        colorMatrix.setAttribute('in', 'SourceGraphic');
+        colorMatrix.setAttribute('type', 'matrix');
+        colorMatrix.setAttribute(
+            'values',
+            '1 0 0 0 0 ' +
+            '0 1 0 0 0 ' +
+            '0 0 1 0 0 ' +
+            '0 0 0 255 -140'
+        );
+
+        filter.appendChild(colorMatrix);
+        defs.appendChild(filter);
+        svg.appendChild(defs);
+
+        const target = document.body || document.documentElement;
+        if (target) {
+            target.appendChild(svg);
+        }
+    }
+
+    createSvgElement(tagName) {
+        if (typeof document.createElementNS === 'function') {
+            return document.createElementNS('http://www.w3.org/2000/svg', tagName);
+        }
+
+        return document.createElement(tagName);
+    }
+
+    startSequence(resetState = false) {
+        if (this.isDestroyed || this.reducedMotion || !this.container || typeof window === 'undefined') {
+            return;
+        }
+
+        if (resetState) {
+            this.currentIndex = 0;
+            this.nextIndex = 1;
+            this.phase = 'hold';
+            this.phaseElapsed = 0;
+            this.lastTimestamp = null;
+            this.isPaused = false;
+            this.resetVisualState();
+        }
+
+        this.container.classList.remove('no-animation', 'role-sequence--reduced-motion');
+        this.container.classList.add('role-sequence--ready');
+
+        this.hasStarted = true;
+        this.stopAnimationFrame();
+        this.rafId = window.requestAnimationFrame(this.animate);
+    }
+
+    animate(timestamp) {
+        if (this.isDestroyed || this.isPaused || this.reducedMotion) {
+            return;
+        }
+
+        if (this.lastTimestamp === null) {
+            this.lastTimestamp = timestamp;
+            this.rafId = window.requestAnimationFrame(this.animate);
+            return;
+        }
+
+        const delta = timestamp - this.lastTimestamp;
+        this.lastTimestamp = timestamp;
+        this.phaseElapsed += delta;
+
+        if (this.phase === 'hold') {
+            this.applyCooldownState();
+
+            if (this.phaseElapsed >= this.getHoldDuration(this.currentIndex)) {
+                this.phase = 'morph';
+                this.phaseElapsed = 0;
+                this.nextIndex = (this.currentIndex + 1) % this.roles.length;
+                this.currentText.textContent = this.roles[this.currentIndex];
+                this.nextText.textContent = this.roles[this.nextIndex];
+            }
+        } else {
+            const fraction = Math.min(this.phaseElapsed / this.config.morphDuration, 1);
+            this.applyMorphState(fraction);
+
+            if (fraction >= 1) {
+                this.completeTransition();
+            }
+        }
+
+        this.rafId = window.requestAnimationFrame(this.animate);
+    }
+
+    applyMorphState(fraction) {
+        const safeFraction = Math.max(fraction, 0.0001);
+        const inverseFraction = Math.max(1 - fraction, 0.0001);
+
+        this.container.classList.add('role-sequence--ready');
+
+        this.nextText.style.filter = `blur(${Math.min(8 / safeFraction - 8, 100)}px)`;
+        this.nextText.style.opacity = `${Math.pow(safeFraction, 0.4)}`;
+
+        this.currentText.style.filter = `blur(${Math.min(8 / inverseFraction - 8, 100)}px)`;
+        this.currentText.style.opacity = `${Math.pow(inverseFraction, 0.4)}`;
+    }
+
+    applyCooldownState() {
+        this.currentText.textContent = this.roles[this.currentIndex];
+        this.nextText.textContent = this.roles[this.nextIndex];
+        this.currentText.style.filter = 'none';
+        this.currentText.style.opacity = '1';
+        this.nextText.style.filter = 'none';
+        this.nextText.style.opacity = '0';
+    }
+
+    completeTransition() {
+        this.currentIndex = this.nextIndex;
+        this.nextIndex = (this.currentIndex + 1) % this.roles.length;
+        this.phase = 'hold';
+        this.phaseElapsed = 0;
+        this.resetVisualState();
+        this.updateAccessibleText(this.roles[this.currentIndex]);
+    }
+
+    resetVisualState() {
+        if (!this.currentText || !this.nextText) {
+            return;
+        }
+
+        this.currentText.textContent = this.roles[this.currentIndex];
+        this.nextText.textContent = this.roles[this.nextIndex];
+        this.currentText.style.filter = 'none';
+        this.currentText.style.opacity = '1';
+        this.nextText.style.filter = 'none';
+        this.nextText.style.opacity = '0';
+        this.updateAccessibleText(this.roles[this.currentIndex]);
+    }
+
+    updateAccessibleText(roleText) {
+        if (!this.container || !roleText) {
+            return;
+        }
+
+        const cleanText = roleText.trim().replace(/\s+/g, ' ');
+
+        if (this.screenReaderText) {
+            this.screenReaderText.textContent = cleanText;
+        }
+
+        this.container.setAttribute('aria-label', cleanText);
+    }
+
+    getHoldDuration(index) {
+        return index === 0 ? this.config.role1HoldTime : this.config.otherHoldTime;
+    }
+
+    measureMaxRoleHeight() {
+        if (!this.container) {
+            return;
+        }
+
+        const measurement = document.createElement('span');
+        measurement.className = 'role-sequence__text role-sequence__measure';
+        measurement.setAttribute('aria-hidden', 'true');
+        measurement.style.position = 'static';
+        measurement.style.display = 'block';
+        measurement.style.opacity = '1';
+        measurement.style.filter = 'none';
+        measurement.style.visibility = 'hidden';
+
+        let maxHeight = 0;
+
+        this.container.appendChild(measurement);
+
+        this.roles.forEach((role) => {
+            measurement.textContent = role;
+            const rect = typeof measurement.getBoundingClientRect === 'function'
+                ? measurement.getBoundingClientRect()
+                : { height: 0 };
+            const height = rect.height || measurement.offsetHeight || 0;
+            maxHeight = Math.max(maxHeight, height);
         });
 
-        const roles = this.roles;
-        const scrambleDuration = this.config.scrambleDuration;
-        const role1Hold = this.config.role1HoldTime;
-        const otherHold = this.config.otherHoldTime;
-        const scrambleConfig = this.config.scrambleConfig;
+        this.container.removeChild(measurement);
 
-        // Timeline structure:
-        // [Hold role1 5s] → [Scramble to role2 1.5s] → [Hold 3s] → [Scramble to role3 1.5s] → [Hold 3s] → [Scramble to role4 1.5s] → [Hold 3s] → [Scramble to role1 1.5s] → repeat
-
-        // Initial hold for role 1 (5 seconds)
-        this.timeline.to({}, { duration: role1Hold });
-
-        // Transition through each role
-        for (let i = 0; i < roles.length; i++) {
-            const nextIndex = (i + 1) % roles.length;
-            const nextRole = roles[nextIndex];
-            
-            // Determine hold time for next role
-            const holdTime = nextIndex === 0 ? role1Hold : otherHold;
-
-            // Scramble to next role
-            this.timeline.to(this.container, {
-                duration: scrambleDuration,
-                scrambleText: {
-                    text: nextRole,
-                    chars: scrambleConfig.chars,
-                    revealDelay: scrambleConfig.revealDelay,
-                    speed: scrambleConfig.speed,
-                    delimiter: scrambleConfig.delimiter
-                },
-                ease: 'none', // ScrambleTextPlugin handles its own easing
-                onStart: () => {
-                    // Update current index
-                    this.currentIndex = nextIndex;
-                },
-                onComplete: () => {
-                    // Update ARIA label when scramble completes
-                    this.updateAriaLabel(nextRole);
-                }
-            }, `scramble${i}`);
-
-            // Hold time for the new role (only if not the last iteration before loop)
-            // The loop will handle role 1's hold automatically
-            if (nextIndex !== 0) {
-                this.timeline.to({}, { duration: holdTime });
-            }
+        if (maxHeight > 0) {
+            this.container.style.setProperty('--role-sequence-height', `${Math.ceil(maxHeight)}px`);
         }
     }
 
-    /**
-     * Update ARIA label for accessibility
-     */
-    updateAriaLabel(roleText) {
-        if (this.container && roleText) {
-            const cleanText = roleText.trim().replace(/\s+/g, ' ');
-            this.container.setAttribute('aria-label', cleanText);
-        }
-    }
-
-    /**
-     * Pause the animation
-     */
     pause() {
-        if (this.timeline && !this.isPaused) {
-            this.timeline.pause();
-            this.isPaused = true;
-            console.log('RoleSequence: Paused');
+        if (this.isPaused || this.reducedMotion || this.isDestroyed) {
+            return;
         }
+
+        this.isPaused = true;
+        this.stopAnimationFrame();
+        this.lastTimestamp = null;
+        console.log('RoleSequence: Paused');
     }
 
-    /**
-     * Resume the animation
-     */
     resume() {
-        if (this.timeline && this.isPaused && !this.isDestroyed) {
-            this.timeline.resume();
-            this.isPaused = false;
-            console.log('RoleSequence: Resumed');
+        if (!this.isPaused || this.isDestroyed || this.reducedMotion || !this.hasStarted) {
+            return;
         }
+
+        this.isPaused = false;
+        this.lastTimestamp = null;
+        this.rafId = window.requestAnimationFrame(this.animate);
+        console.log('RoleSequence: Resumed');
     }
 
-    /**
-     * Show fallback state (only first role visible, no animation)
-     */
+    stopAnimationFrame() {
+        if (this.rafId !== null && typeof window !== 'undefined' && typeof window.cancelAnimationFrame === 'function') {
+            window.cancelAnimationFrame(this.rafId);
+        }
+
+        this.rafId = null;
+    }
+
     showFallback() {
-        if (this.container) {
-            this.container.classList.add('no-animation');
-            
-            // Set text to first role
-            this.container.textContent = this.roles[0];
-            this.currentIndex = 0;
-            
-            // Update ARIA
-            this.updateAriaLabel(this.roles[0]);
+        if (!this.container || !this.currentText || !this.nextText) {
+            return;
         }
+
+        this.currentIndex = 0;
+        this.nextIndex = 1;
+        this.phase = 'hold';
+        this.phaseElapsed = 0;
+        this.container.classList.add('no-animation', 'role-sequence--reduced-motion');
+        this.container.classList.remove('role-sequence--ready');
+        this.stopAnimationFrame();
+        this.lastTimestamp = null;
+        this.isPaused = false;
+        this.resetVisualState();
+        this.measureMaxRoleHeight();
     }
 
-    /**
-     * Destroy the controller and clean up
-     */
     destroy() {
-        if (this.isDestroyed) return;
+        if (this.isDestroyed) {
+            return;
+        }
 
         this.isDestroyed = true;
+        this.stopAnimationFrame();
 
-        // Kill GSAP timeline
-        if (this.timeline) {
-            this.timeline.kill();
-            this.timeline = null;
+        if (typeof document !== 'undefined') {
+            document.removeEventListener('visibilitychange', this.handleVisibilityChange);
         }
 
-        // Remove event listeners
-        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
-        window.removeEventListener('beforeunload', this.handleBeforeUnload);
-        window.removeEventListener('pagehide', this.handleBeforeUnload);
+        if (typeof window !== 'undefined') {
+            window.removeEventListener('beforeunload', this.handleBeforeUnload);
+            window.removeEventListener('pagehide', this.handleBeforeUnload);
+            window.removeEventListener('resize', this.handleResize);
+            window.removeEventListener('orientationchange', this.handleResize);
+        }
+
+        if (this.motionQuery) {
+            if (typeof this.motionQuery.removeEventListener === 'function') {
+                this.motionQuery.removeEventListener('change', this.handleMotionPreferenceChange);
+            } else if (typeof this.motionQuery.removeListener === 'function') {
+                this.motionQuery.removeListener(this.handleMotionPreferenceChange);
+            }
+        }
 
         console.log('RoleSequence: Controller destroyed');
     }
 
-    /**
-     * Get current role index
-     */
     getCurrentIndex() {
         return this.currentIndex;
     }
 
-    /**
-     * Get current role text
-     */
     getCurrentRoleText() {
-        if (this.roles[this.currentIndex]) {
-            return this.roles[this.currentIndex];
-        }
-        return '';
+        return this.roles[this.currentIndex] || '';
     }
 }
 
-// Initialize the controller when script loads
 let roleSequenceController = null;
 
-// Only initialize if on a page with the role sequence
-if (document.querySelector('.role-sequence')) {
-    roleSequenceController = new RoleSequenceController();
-} else {
-    // Wait for DOM and check again
-    if (document.readyState === 'loading') {
+if (typeof document !== 'undefined') {
+    if (document.querySelector('.role-sequence')) {
+        roleSequenceController = new RoleSequenceController();
+    } else if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             if (document.querySelector('.role-sequence')) {
                 roleSequenceController = new RoleSequenceController();
             }
-        });
+        }, { once: true });
     }
 }
 
-// Export for potential module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = RoleSequenceController;
 }

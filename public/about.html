@@ -914,79 +914,29 @@
     <script src="js/about-parallax.js"></script>
     <script src="js/liquid-nav.js"></script>
     <script>
-        // Change nav link colors on scroll (dark-mode aware)
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('.nav-pills a');
-
-            function updateNavColors() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const isDark = document.body.classList.contains('dark-theme');
-
-                // Get colors based on theme
-                const scrolledColor = isDark ? '#a8b5c7' : '#000000';  // Gray in dark, black in light
-                const topColor = isDark ? '#a8b5c7' : '#ffffff';       // Gray in dark, white in light
-                const activeColor = '#14ff8e';  // Always bright green for active state
-
-                navLinks.forEach(link => {
-                    const svg = link.querySelector('svg');
-
-                    if (link.classList.contains('active')) {
-                        // Keep active color (#14ff8e) regardless of scroll or theme
-                        link.style.color = activeColor;
-                        if (svg) {
-                            svg.style.color = activeColor;
-                            svg.style.stroke = activeColor;
-                        }
-                    } else {
-                        // Apply color based on scroll position and theme
-                        const color = scrollTop > 50 ? scrolledColor : topColor;
-                        link.style.color = color;
-                        if (svg) {
-                            svg.style.color = color;
-                            svg.style.stroke = color;
-                        }
-                    }
-                });
-            }
-
-            // Update on scroll
-            window.addEventListener('scroll', updateNavColors);
-
-            // Update on theme change (listen for class changes on body)
-            const observer = new MutationObserver(updateNavColors);
-            observer.observe(document.body, {
-                attributes: true,
-                attributeFilter: ['class']
-            });
-
-            // Initial update
-            updateNavColors();
-        });
-    </script>
-    <script>
         // Theme toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const lightIcon = document.getElementById('light-icon');
-        const darkIcon = document.getElementById('dark-icon');
+        const aboutThemeToggle = document.getElementById('theme-toggle');
+        const aboutLightIcon = document.getElementById('light-icon');
+        const aboutDarkIcon = document.getElementById('dark-icon');
 
-        if (themeToggle && lightIcon && darkIcon) {
+        if (aboutThemeToggle && aboutLightIcon && aboutDarkIcon) {
             // Check for saved theme preference on page load
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'night') {
                 document.body.classList.add('dark-theme');
-                lightIcon.style.display = 'none';
-                darkIcon.style.display = 'block';
+                aboutLightIcon.style.display = 'none';
+                aboutDarkIcon.style.display = 'block';
             } else {
                 document.body.classList.remove('dark-theme');
-                lightIcon.style.display = 'block';
-                darkIcon.style.display = 'none';
+                aboutLightIcon.style.display = 'block';
+                aboutDarkIcon.style.display = 'none';
             }
 
             // Toggle theme on click
-            themeToggle.addEventListener('click', function () {
+            aboutThemeToggle.addEventListener('click', function () {
                 const isDark = document.body.classList.toggle('dark-theme');
-                lightIcon.style.display = isDark ? 'none' : 'block';
-                darkIcon.style.display = isDark ? 'block' : 'none';
+                aboutLightIcon.style.display = isDark ? 'none' : 'block';
+                aboutDarkIcon.style.display = isDark ? 'block' : 'none';
                 localStorage.setItem('theme', isDark ? 'night' : 'day');
             });
         }

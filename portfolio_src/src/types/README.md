@@ -123,7 +123,7 @@ When adding a new project:
    // Add to ProjectData interface
    export interface ProjectData {
      eastleigh: ProjectInfo;
-     delivah: ProjectInfo;
+     'legit-logistics': ProjectInfo;
      edumanage: ProjectInfo;
      newProject: ProjectInfo; // ← Add here
    }
@@ -156,7 +156,7 @@ import { isProjectId } from './types/portfolio.types';
 
 const id: string = 'eastleigh';
 if (isProjectId(id)) {
-  // TypeScript knows id is 'eastleigh' | 'delivah' | 'edumanage'
+  // TypeScript knows id is 'eastleigh' | 'legit-logistics' | 'edumanage'
   const project = projectsData[id];
 }
 ```

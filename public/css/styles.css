@@ -4724,31 +4724,74 @@ Updated Hero Section for Pill Layout */
 
 /* ============================================
    ROLE SEQUENCE ANIMATION
-   Scramble text effect using GSAP ScrambleTextPlugin
+   Morphing text effect inspired by Magic UI
    ============================================ */
 
-/* Container for role sequence */
 .role-sequence {
+    --role-sequence-height: 1.5em;
     position: relative;
     display: block;
     width: 100%;
+    min-height: var(--role-sequence-height);
     text-align: center;
-    min-height: 1.5em; /* Prevent layout shift */
-    /* Ensure smooth text rendering during scramble */
+    isolation: isolate;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Reduced motion: instant swap */
-@media (prefers-reduced-motion: reduce) {
-    .role-sequence {
-        /* No special styling needed - JS handles instant swap */
-    }
+.role-sequence.role-sequence--ready {
+    filter: url(#role-sequence-threshold) blur(0.6px);
 }
 
-/* Fallback: if JS fails or animation disabled */
-.role-sequence.no-animation {
-    /* Container displays static text - no special styling needed */
+.role-sequence__text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    color: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    white-space: normal;
+    pointer-events: none;
+    -webkit-text-fill-color: currentColor;
+    will-change: opacity, filter;
+}
+
+.role-sequence__text--current {
+    opacity: 1;
+}
+
+.role-sequence__text--next {
+    opacity: 0;
+}
+
+.role-sequence__measure {
+    position: static;
+    display: block;
+    visibility: hidden;
+    opacity: 1;
+    filter: none;
+    pointer-events: none;
+}
+
+.role-sequence.no-animation,
+.role-sequence.role-sequence--reduced-motion {
+    filter: none;
+}
+
+.role-sequence.no-animation .role-sequence__text--next,
+.role-sequence.role-sequence--reduced-motion .role-sequence__text--next {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .role-sequence {
+        filter: none !important;
+    }
 }
 
 /* Description paragraph styling */

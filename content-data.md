@@ -3,10 +3,10 @@
 ## Eastleigh Turf Flow
 ```yaml
 title: "Eastleigh Turf Flow"
-summary: "Full‑stack e‑commerce platform for a professional turf installation business."
+summary: "Full-stack e-commerce platform for a professional turf installation business."
 timeline: "3 weeks"
 role: "Full Stack Developer"
-status: "Production‑Ready"
+status: "Production-Ready"
 highlights:
   - "React 18 with TypeScript"
   - "Supabase backend with RLS"
@@ -14,16 +14,16 @@ highlights:
   - "CI/CD via Vercel"
 ```
 
-## Delivah Logistics
+## Legit Logistics
 ```yaml
-title: "Delivah Logistics"
-summary: "Logistics dispatch hub enabling real‑time carrier coordination."
-timeline: "4 weeks"
+title: "Legit Logistics"
+summary: "Owner-operated delivery operations platform with quote, tracking, and dispatch workflows."
+timeline: "Phased rollout"
 role: "Full Stack Developer"
-status: "Beta"
+status: "Production-Ready"
 highlights:
-  - "Map integration for route optimization"
-  - "Realtime updates with WebSockets"
-  - "Secure auth via Supabase"
-  - "Responsive design with Tailwind"
+  - "React 18 + TypeScript + Supabase"
+  - "Admin dashboard + driver proof workflow"
+  - "Public tracking + quote review flow"
+  - "15,000+ deliveries completed"
 ```

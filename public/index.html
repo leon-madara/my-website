@@ -190,7 +190,11 @@
                 <p class="greeting">Hi, I'm</p>
                 <h1 class="name">Leon Madara</h1>
                 <h2 class="role kenyan-gradient role-sequence" aria-label="Full Stack AI Developer" aria-live="polite"
-                    tabindex="0">Full Stack AI Developer</h2>
+                    aria-atomic="true" tabindex="0">
+                    <span class="role-sequence__text role-sequence__text--current" aria-hidden="true">Full Stack AI Developer</span>
+                    <span class="role-sequence__text role-sequence__text--next" aria-hidden="true"></span>
+                    <span class="role-sequence__sr-text sr-only">Full Stack AI Developer</span>
+                </h2>
                 <p class="description">
                     I design and build delightful digital products with a
                     Kenyan twist — blending professional polish with playful
@@ -320,11 +324,6 @@
     </div>
 
     <!-- JavaScript -->
-    <!-- GSAP Animation Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/TextPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrambleTextPlugin.min.js"></script>
     <!-- Set actual viewport height (prevents scroll on home page only) -->
     <script>
         // Set CSS custom property for actual viewport height (excludes browser UI)

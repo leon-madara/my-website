@@ -1,0 +1,122 @@
+# Done
+
+- [x] Classified the request as `Complex`
+- [x] Read required repo workflow and architecture docs before planning
+- [x] Confirmed there was no existing active execution-plan folder for this migration
+- [x] Audited the current page entry points in `public/`
+- [x] Confirmed the site is currently a mixed stack:
+  - `index.html`, `about.html`, and `contact.html` are static HTML pages with page-specific scripts
+  - `portfolio.html` already mounts a built React bundle from `public/portfolio_build/assets/*`
+  - `portfolio_src/` contains a typed portfolio data and adapter layer
+- [x] Wrote a durable execution plan for the React overhaul in this folder
+- [x] Checkpointed the pre-overhaul working tree on the original branch with commit `cad39d9`
+- [x] Created and switched to `codex/react-overhaul`
+- [x] Added a parallel React workspace under `app/`
+- [x] Added Vite, React Router, React Testing Library, Vitest, and TypeScript support at the repo root
+- [x] Created a route scaffold for `/`, `/about`, `/contact`, `/portfolio`, and `/portfolio/:projectSlug`
+- [x] Added baseline shared shell structure with theme persistence and reduced-motion detection
+- [x] Verified the React foundation with build, test, and typecheck commands
+- [x] Replaced the temporary React shell with parity-oriented shared components for:
+  - Fixed logo
+  - Indicator nav
+  - Desktop and mobile theme toggles
+  - Profile sidebar
+  - Footer
+  - Mobile bottom nav
+  - Decorative background layers
+- [x] Matched theme persistence to the existing `day` / `night` storage convention
+- [x] Added route-aware shell behavior for home, about, contact, and portfolio contexts
+- [x] Replaced the homepage placeholder route with a real React hero section modeled on `public/index.html`
+- [x] Added a React `RoleSequence` component that ports the homepage role morph behavior from `public/js/role-sequence.js`
+- [x] Added a home-only viewport lock hook that ports the legacy `--vh` and no-scroll behavior into React
+- [x] Added homepage CTA links, location pill, decorative lines, and floating shape layers to the React route
+- [x] Added focused homepage test coverage and re-verified the React workspace with build, test, and typecheck
+- [x] Added `gsap@3.13.0` to the React workspace so the migration can use local ScrollTrigger-based motion instead of CDN scripts
+- [x] Replaced the About placeholder route with a real React long-scroll page covering:
+  - Parallax hero
+  - About summary and expertise cards
+  - Skills categories
+  - Experience timeline
+  - Education, projects, and certifications sections
+- [x] Added a scoped About animation hook that applies:
+  - Hero entrance motion
+  - ScrollTrigger-based section reveals
+  - About-only shell fade behavior on scroll
+  - Reduced-motion safe cleanup through React lifecycle management
+- [x] Added focused About route test coverage and re-verified the React workspace with build, test, typecheck, and GSAP checks
+- [x] Replaced the Contact placeholder route with a real React page covering:
+  - Hero CTA section
+  - Reach-out cards
+  - Client-side contact form
+  - Nairobi time and availability cards
+  - FAQ section
+  - Toast feedback
+- [x] Moved Contact page interactions into local React state and helpers for:
+  - Copy to clipboard
+  - Validation and inline form errors
+  - Simulated submit/success flow
+  - Live Nairobi time updates
+  - Availability status messaging
+- [x] Added focused Contact route test coverage and re-verified the React workspace with build, test, typecheck, and GSAP checks
+- [x] Replaced the portfolio placeholder route with a real React portfolio feature set that now includes:
+  - App-owned typed portfolio models for tabbed and long-form case studies
+  - A routed `/portfolio` landing page with project toggles and preview cards
+  - A session-aware entrance animation scoped to `/portfolio` only
+  - Query-param deep linking for Eastleigh and Legit Logistics
+  - A reusable tabbed case-study template for Projects 01 and 02
+  - A dedicated long-form EduManage route with chapter anchors
+- [x] Added scoped portfolio GSAP reveal behavior for the React EduManage route
+- [x] Added focused portfolio data and route test coverage and re-verified the React workspace with build, test, typecheck, and GSAP checks
+- [x] Fixed React preview route shadowing by moving Vite public assets from the legacy `public/` directory to `app/public/`
+- [x] Added a React-side favicon asset so preview and built routes no longer emit the missing favicon console error
+- [x] Completed a browser sanity pass against the built React app for:
+  - `/`
+  - `/about`
+  - `/contact`
+  - `/portfolio`
+  - `/portfolio/eastleigh?section=details&page=overview`
+  - `/portfolio/legit-logistics?section=problem&page=challenge`
+  - `/portfolio/edumanage#architecture`
+- [x] Reworked the React homepage `RoleSequence` component to follow the Magic UI morph/cooldown loop while keeping Leon's role copy, heading semantics, reduced-motion fallback, and height-stability behavior
+- [x] Tightened the React homepage role-sequence styling to better match Magic UI's morph box model without importing Tailwind or changing Leon's hero branding
+- [x] Added focused `RoleSequence` tests covering initial render, cadence-driven progression, reduced-motion fallback, and animation cleanup
+- [x] Re-verified the updated React homepage hero with `react:test`, `react:typecheck`, `react:build`, and a browser spot check on `http://127.0.0.1:4175/`
+- [x] Replaced the temporary role-settling workaround with the exact Magic UI layer handoff so cooldown now leaves the second text layer fully visible, matching the reference behavior
+- [x] Switched the React homepage role morph timing source from `performance.now()` to the reference-style `new Date()` delta loop
+- [x] Updated the focused `RoleSequence` tests to verify exact Magic UI cooldown ownership and `Date`-driven timing behavior
+- [x] Transplanted the React Design Process page onto `codex/react-overhaul` from the saved React WIP, including:
+  - `app/src/features/designProcess/DesignProcessRoute.tsx`
+  - `app/src/features/designProcess/designProcess.css`
+  - `app/src/features/designProcess/PixelImage.tsx`
+  - `app/public/designProcess/bento/*`
+  - refreshed Design Process hero SVG assets in `app/public/designProcess/`
+- [x] Added route-level React error handling with a shared `RouteErrorBoundary`
+- [x] Updated `npm run dev` on `codex/react-overhaul` to start the React Vite app instead of the legacy static `serve public` process
+- [x] Revalidated the React app with `react:typecheck`, `react:build`, and a browser pass on `http://localhost:5173/design-process`
+- [x] Fixed the React About route GSAP cleanup recursion so navigation from `/design-process` to `/about` no longer crashes with a maximum call stack error
+- [x] Revalidated primary navigation across `/design-process`, `/about`, `/portfolio`, `/contact`, and `/`
+- [x] Restricted the shared left profile pill/sidebar to the homepage only by updating the shared shell visibility logic
+- [x] Completed a first React About parity pass by:
+  - removing the shared `.page-content` width cap from the About route
+  - restoring native-like full-width hero proportions
+  - matching About section content widths more closely to the legacy page
+- [x] Fixed the React Contact route width cap by increasing the route-level selector specificity so it no longer inherits the shared `.page-content` max-width
+- [x] Completed a portfolio parity audit comparing the live static portfolio experience against the React portfolio routes and identified the main mismatch:
+  - the static source-of-truth behaves like a viewport-locked case-study workspace
+  - the current React `/portfolio` route behaves like a migration-era landing page
+  - the React tabbed case-study route is closer to parity than the React landing route, but still differs in top-shell composition, spacing, and information density
+- [x] Rebuilt the active React portfolio flow around the native workspace model by:
+  - making `/portfolio` open directly into the default Eastleigh tabbed workspace
+  - replacing the migration-era landing composition with a centered project-toggle shell, section-pill row, divider, and full-width content card
+  - hiding the shared React nav/footer/background chrome on portfolio routes so the portfolio owns its own workspace framing
+- [x] Tuned the React tabbed case-study template closer to the native portfolio design by:
+  - restoring viewport-locked card behavior on desktop and stacked behavior on mobile
+  - tightening the card header, metadata, tech pills, pagination, and section-pill geometry
+  - aligning Eastleigh and Legit Logistics header copy/tech-stack pill content more closely with the readable legacy content reference
+- [x] Completed a second screenshot-driven Eastleigh portfolio polish pass by:
+  - switching the portfolio route to the landscape theme toggle shown in the reference composition
+  - aligning the portfolio logo and theme toggle with the content-card edges instead of the screen edges
+  - softening the project selector and section-pill styling to match the supplied screenshots more closely
+  - replacing the footer dots with the full 19-page case-study progression and adding the smaller section-progress cluster above the card
+  - removing smooth scroll transitions so portfolio page changes are instant
+  - tightening Eastleigh page titles and copy so all 19 pages now fit inside the locked `100vh` workspace without internal scrolling

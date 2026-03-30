@@ -34,22 +34,12 @@ body.about-page .nav-pills a svg {
 }
 
 body.about-page .nav-pills a.active {
-    color: #14ff8e;
+    color: #ffffff;
 }
 
 body.about-page .nav-pills a.active svg {
-    color: #14ff8e;
-    stroke: #14ff8e;
-}
-
-/* Dark Mode - Active nav link label and icon should be black */
-body.dark-theme.about-page .nav-pills a.active .label {
-    color: #000000;
-}
-
-body.dark-theme.about-page .nav-pills a.active svg {
-    color: #000000;
-    stroke: #000000;
+    color: #ffffff;
+    stroke: #ffffff;
 }
 
 /* ========================================

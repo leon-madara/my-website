@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This feature redesigns the portfolio page layout for Projects 01 (Eastleigh Turf Flow) and 02 (Delivah Logistics). The redesign replaces the left sidebar accordion navigation with horizontal section tabs featuring dropdowns, and restructures the content area into a full-width card with improved layout and spacing. Project 03 (EduManage) remains unchanged and continues to redirect to its dedicated page.
+This feature redesigns the portfolio page layout for Projects 01 (Eastleigh Turf Flow) and 02 (Legit Logistics). The redesign replaces the left sidebar accordion navigation with horizontal section tabs featuring dropdowns, restructures the content area into a full-width card with improved layout and spacing, and now tracks the Project 02 content migration from `C:\Users\Leon\DevMode\design-compass`. Project 03 (EduManage) remains unchanged and continues to redirect to its dedicated page.
 
 ## Glossary
 
@@ -13,6 +13,7 @@ This feature redesigns the portfolio page layout for Projects 01 (Eastleigh Turf
 - **Status_Badge**: A colored label indicating the project's current status (e.g., "Production-Ready")
 - **Sub_Page**: An individual content page within a section (e.g., "Overview" within "Project Details")
 - **Portfolio_System**: The overall portfolio page component managing navigation and content display
+- **Legit_Logistics_Migration**: The Project 02 content replacement that removes the legacy Project 02 naming from the active case study and replaces it with Legit Logistics content sourced from `design-compass`
 
 ## Requirements
 

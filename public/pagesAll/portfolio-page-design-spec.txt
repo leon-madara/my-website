@@ -36,7 +36,7 @@ portfolio-page (body)
 │   ├── project-toggle-section
 │   │   └── project-toggle-container
 │   │       ├── project-toggle-btn (01 Eastleigh)
-│   │       ├── project-toggle-btn (02 Delivah)
+│   │       ├── project-toggle-btn (02 Legit Logistics)
 │   │       └── project-toggle-btn (03 EduManage)
 │   └── content-wrapper
 │       ├── accordion-nav (left sidebar)
@@ -102,7 +102,7 @@ portfolio-page (body)
    - E-commerce platform
    - React 18, TypeScript, Supabase
 
-2. **Delivah Dispatch Hub** (02)
+2. **Legit Logistics** (02)
    - Logistics platform
    - Freight carrier management
 

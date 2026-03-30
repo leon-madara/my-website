@@ -25,8 +25,10 @@ This guide will help you deploy your portfolio website to Cloudflare Pages.
    - **Project name**: `leons-portfolio` (or your preferred name)
    - **Production branch**: `main`
    - **Build command**: (leave empty - no build needed for static site)
-   - **Build output directory**: `.` (root directory)
+   - **Build output directory**: `public`
    - **Root directory**: (leave empty or set to `.`)
+
+   The site entry files are inside `public/`. Publishing the repository root will cause Cloudflare Pages to miss `index.html` and return a 404.
 
 4. **Environment Variables** (if needed)
    - Add any environment variables if your site requires them
@@ -49,7 +51,7 @@ npm install -g wrangler
 wrangler login
 
 # Deploy to Pages
-wrangler pages deploy . --project-name=leons-portfolio
+wrangler pages deploy public --project-name=leons-portfolio
 ```
 
 ## Custom Domain Setup
@@ -93,9 +95,9 @@ To add custom security headers, you can use Cloudflare Pages Functions:
 
 ## File Structure
 
-Your site structure is already optimized for Cloudflare Pages:
+Your site structure is already optimized for Cloudflare Pages when `public/` is the published directory:
 ```
-/
+public/
 ├── index.html          # Homepage
 ├── about.html          # About page
 ├── contact.html        # Contact page
@@ -109,7 +111,10 @@ Your site structure is already optimized for Cloudflare Pages:
 ## Troubleshooting
 
 ### Issue: 404 errors on routes
-- Solution: The `_redirects` file handles clean URLs. Ensure it's in your root directory.
+- Solution: The `_redirects` file handles clean URLs such as `/about` and `/portfolio`. Ensure it is inside the published `public/` directory.
+
+### Issue: Site shows a 404 immediately after deployment
+- Solution: Make sure the Cloudflare Pages publish directory is `public`, not the repository root.
 
 ### Issue: Assets not loading
 - Solution: Check that all asset paths are relative (not absolute). Cloudflare Pages serves from the root.

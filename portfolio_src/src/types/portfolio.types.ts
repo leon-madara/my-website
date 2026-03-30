@@ -13,7 +13,7 @@
 
 export interface ProjectData {
   eastleigh: ProjectInfo;
-  delivah: ProjectInfo;
+  'legit-logistics': ProjectInfo;
   edumanage: ProjectInfo;
 }
 
@@ -236,7 +236,7 @@ export interface AdaptedPortfolioData {
 /**
  * Extract project IDs as a union type
  */
-export type ProjectId = 'eastleigh' | 'delivah' | 'edumanage';
+export type ProjectId = 'eastleigh' | 'legit-logistics' | 'edumanage';
 
 /**
  * Make all properties of an interface optional recursively
@@ -249,5 +249,5 @@ export type DeepPartial<T> = {
  * Type guard to check if a value is a valid ProjectId
  */
 export function isProjectId(value: string): value is ProjectId {
-  return ['eastleigh', 'delivah', 'edumanage'].includes(value);
+  return ['eastleigh', 'legit-logistics', 'edumanage'].includes(value);
 }

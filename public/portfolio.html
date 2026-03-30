@@ -52,10 +52,15 @@
             /* Match site background (no dotted pattern on portfolio) */
         }
 
-        body.dark-theme {
-            background-color: #0a0e12;
+         body.dark-theme {
+             background-color: #0a0e12;
+         }
+
+        /* Portfolio: remove top spacer above Case Studies selector */
+        body.portfolio-page #root .min-h-screen > header {
+            margin-top: 0 !important;
         }
-    </style>
+     </style>
 
     <!-- Emergency Portfolio Enabler -->
     <script>
@@ -124,8 +129,11 @@
     <!-- Align logo & theme toggle to portfolio container -->
     <script src="js/portfolio-header-align.js"></script>
 
+    <!-- Smart header collapse (portfolio only) -->
+    <script src="js/portfolio-nav-collapse.js"></script>
+
     <!-- React App Script -->
-    <script type="module" src="portfolio_build/assets/index-B-NOlmU5.js"></script>
+    <script type="module" src="portfolio_build/assets/index-Clegit20260326.js"></script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design transforms the portfolio page navigation from a left sidebar accordion to a horizontal pill-based navigation system with dropdowns. The content area becomes a full-width card with a structured header containing project metadata, status badge, and tech stack pills. This redesign applies only to Projects 01 (Eastleigh Turf Flow) and 02 (Delivah Logistics), while Project 03 (EduManage) continues to use its dedicated page.
+This design transforms the portfolio page navigation from a left sidebar accordion to a horizontal pill-based navigation system with dropdowns. The content area becomes a full-width card with a structured header containing project metadata, status badge, and tech stack pills. This redesign applies only to Projects 01 (Eastleigh Turf Flow) and 02 (Legit Logistics), while Project 03 (EduManage) continues to use its dedicated page.
 
 The key changes are:
 1. Replace the 22% width accordion sidebar with horizontal section pills
@@ -225,8 +225,8 @@ const PROJECTS = {
     // Page content data...
   },
   2: {
-    title: 'Delivah Logistics',
-    // Similar structure...
+    title: 'Legit Logistics',
+    // Content sourced from design-compass / Legit Logistics app docs
   }
 };
 ```

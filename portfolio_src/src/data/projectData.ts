@@ -272,185 +272,184 @@ export const projectsData: ProjectData = {
     }
   },
 
-  delivah: {
-    id: 'delivah',
-    name: 'Delivah Dispatch Hub',
-    tagline: 'Enterprise Freight Logistics Platform | React + TypeScript + Supabase',
+  'legit-logistics': {
+    id: 'legit-logistics',
+    name: 'Legit Logistics',
+    tagline: 'Owner-operated delivery operations platform | React + TypeScript + Supabase',
     status: 'Production-Ready',
-    timeline: '8 weeks',
+    timeline: 'Phased rollout',
     caseStudy: true,
 
     quickStats: {
-      duration: '8 weeks',
-      status: 'Active Development',
-      techStack: 'React 18, TypeScript, Supabase, Tailwind CSS',
-      impact: '85% faster onboarding',
-      commission: '3% (vs 15-25% industry standard)'
+      duration: 'Phased rollout',
+      status: 'Production-Ready',
+      techStack: 'React 18, TypeScript, Supabase, Tailwind CSS, TanStack Query',
+      impact: '15,000+ deliveries completed',
+      reliability: '99.2% on-time rate'
     },
 
     hero: {
       role: 'Full Stack Developer',
-      client: 'Delivah Freight Logistics',
-      duration: '8 weeks',
+      client: 'Legit Logistics',
+      duration: 'Phased rollout',
       status: 'Production-Ready'
     },
 
-    links: {
-      live: 'https://sdelivahfreightlogistics.com',
-      github: 'https://github.com/leon-madara/delivah-dispatch-hub/',
-      demo: null
+    challenge: {
+      title: 'Challenge',
+      problems: [
+        'Quotes, dispatch, tracking, and proof were fragmented across separate steps',
+        'Customers needed trustworthy updates instead of premature tracking links',
+        'Dispatchers needed a fast admin dashboard for job creation and monitoring',
+        'Drivers needed mobile-friendly status, photo, and signature workflows'
+      ]
+    },
+
+    solution: {
+      title: 'Solution',
+      description: 'A connected logistics platform that combines quote review, admin dispatch, public tracking, and proof-of-delivery in one workflow.',
+      benefits: [
+        'Service-led public experience for same-day, regional, final mile, and construction logistics',
+        'Quote review flow with accept, decline, and counter-offer states',
+        'Tracking links shared only after delivery confirmation to improve trust',
+        'Admin and driver tooling that supports real operational proof'
+      ]
     },
 
     features: [
-      {
-        feature: '3% Commission Model',
-        impact: 'Industry-disrupting pricing vs standard 15-25%',
-        icon: '💰'
-      },
-      {
-        feature: 'Enterprise Document Management',
-        impact: '50MB uploads with 98% success rate',
-        icon: '📄'
-      },
-      {
-        feature: 'Multi-Layer Security',
-        impact: 'Supabase Auth with RLS policies',
-        icon: '🔐'
-      },
-      {
-        feature: 'Automated Email System',
-        impact: '98% inbox delivery rate',
-        icon: '📧'
-      }
+      { feature: 'Quote + Counter-Offer Workflow', impact: 'Customers can review pricing before a job goes live', icon: '??' },
+      { feature: 'Admin Dispatch Dashboard', impact: 'Centralized delivery creation, sharing, and monitoring', icon: '??' },
+      { feature: 'Public Tracking Experience', impact: 'Trust-first delivery visibility for customers', icon: '??' },
+      { feature: 'Driver Proof Workflow', impact: 'Mobile-friendly photos, signatures, and status progression', icon: '?' }
     ],
 
+    research: {
+      userInsights: [
+        'Customers preferred tracking only after a delivery was confirmed',
+        'Business clients liked having room to discuss price through the quote flow',
+        'Dispatch operations needed one source of truth for pending, active, and completed jobs',
+        'Mobile interactions mattered for both dispatchers and drivers'
+      ]
+    },
+
+    technicalArchitecture: {
+      stack: ['React 18', 'TypeScript', 'Vite', 'Supabase', 'Tailwind CSS', 'shadcn/ui', 'TanStack Query', 'Framer Motion'],
+      architecture: [
+        'Public service pages and trust-building marketing flows',
+        'Quote review, accept, decline, and counter-offer routes',
+        'Public tracking and order lookup for customer self-service',
+        'Admin dashboard for delivery creation and monitoring',
+        'Driver controls for proof-of-delivery capture'
+      ]
+    },
+
+    results: {
+      metrics: [
+        '15,000+ deliveries completed',
+        '99.2% on-time rate',
+        '500+ business clients served',
+        'Under 2 minutes to create a delivery from the admin dashboard'
+      ]
+    },
+
+    designPrinciples: [
+      'Trust-First Tracking: reveal tracking only after confirmation',
+      'Mobile-First Operations: keep proof capture fast on smaller screens',
+      'Owner-Operated Clarity: make the business feel responsive and accountable',
+      'Operational Visibility: connect quote, dispatch, tracking, and proof in one flow'
+    ],
+
+    futureEnhancements: [
+      'Driver assignment tools',
+      'SMS and email notification automation',
+      'Route optimization and dispatch analytics',
+      'Dedicated customer and pricing data models'
+    ],
+
+    learnings: [
+      'Tracking timing matters as much as tracking detail',
+      'Admin-first visibility reduces operational friction quickly',
+      'Mobile proof capture is central to logistics UX',
+      'Type-safe, documented workflows make phased delivery easier to sustain'
+    ],
+
+    links: {
+      live: 'https://legit-logistics.com',
+      github: 'https://github.com/leon-madara/design-compass.git',
+      demo: null
+    },
+
     overview: {
-      hero: 'Enterprise-grade freight logistics management platform built for Delivah Freight Logistics, offering just 3% commission rates. This full-stack TypeScript application (97.2% coverage) streamlines freight operations for carriers, dispatchers, and shippers across multiple freight categories.',
-
-      problem: 'The freight logistics industry operates in a highly competitive, margin-sensitive environment where brokers and carriers face numerous operational challenges: High commission rates (15-25%) erode carrier profits, manual paperwork delays load confirmations, poor rate negotiation leaves money on the table, fragmented communication between stakeholders, lack of transparency in load tracking, and complex compliance requirements with no centralized platform.',
-
-      solution: 'Delivah Dispatch Hub delivers an industry-leading 3% commission rate, best rate negotiations securing top-paying loads, automated broker/shipper credit checks, complete paperwork automation, digital sign & secure confirmations, centralized registration system, and secure document storage with compliance-ready file management.',
-
+      hero: 'Legit Logistics is an owner-operated delivery operations platform built for a New England logistics business. It combines a polished services and quote experience with real dispatch tooling, public tracking, and proof-of-delivery workflows.',
+      problem: 'Delivery businesses often juggle quotes, dispatch coordination, status updates, and proof collection across disconnected tools. That slows down operations, weakens trust, and makes same-day delivery harder to scale.',
+      solution: 'Legit Logistics connects the workflow end to end: customers request and review quotes, admins create and manage jobs from one dashboard, customers track confirmed deliveries publicly, and drivers close jobs with proof.',
       keyFeatures: [
-        {
-          icon: '💰',
-          title: '3% Commission Model',
-          description: 'Industry-disrupting 3% commission vs standard 15-25%, maximizing carrier profitability with high volume strategy'
-        },
-        {
-          icon: '📄',
-          title: 'Enterprise Document Management',
-          description: '50MB file uploads with retry mechanism, 98% upload success rate, multi-format support (PDF, DOC, DOCX, JPG, PNG), automatic expiration tracking'
-        },
-        {
-          icon: '🔐',
-          title: 'Multi-Layer Security',
-          description: 'Supabase Auth with session management, Row-Level Security policies, file validation and virus scanning, encrypted document storage'
-        },
-        {
-          icon: '📧',
-          title: 'Automated Email System',
-          description: 'Carrier registration notifications, document upload confirmations, application status updates, load assignment alerts - 98% inbox delivery'
-        },
-        {
-          icon: '⚡',
-          title: 'Real-Time Operations',
-          description: 'Digital carrier registration (30 min vs 3-5 days), instant credit checks, automated compliance tracking, live status updates'
-        }
+        { icon: '??', title: 'Service-Led Logistics Experience', description: 'Packages same-day delivery, local and regional coverage, final mile, small moves, and construction logistics into a clear service catalog.' },
+        { icon: '??', title: 'Quote Review Workflow', description: 'Supports accept, decline, and counter-offer states before dispatch begins.' },
+        { icon: '??', title: 'Public Tracking + Order Lookup', description: 'Provides customer-facing visibility without exposing tracking before the job is confirmed.' },
+        { icon: '??', title: 'Admin + Driver Operations', description: 'Gives dispatchers and drivers a single operational path from job creation to proof-of-delivery.' }
       ]
     },
 
     technical: {
       stack: [
-        { name: 'React', version: '18+', purpose: 'Modern component-based architecture' },
-        { name: 'TypeScript', version: '97.2% coverage', purpose: 'Enterprise-grade type safety' },
-        { name: 'Vite', version: 'Latest', purpose: 'Lightning-fast development server' },
-        { name: 'Supabase', version: 'Latest', purpose: 'Backend (PostgreSQL, Auth, Storage)' },
-        { name: 'Tailwind CSS', version: '3.x', purpose: 'Utility-first styling system' },
-        { name: 'shadcn/ui', version: 'Latest', purpose: 'Accessible component library' },
-        { name: 'TanStack Query', version: 'Latest', purpose: 'Server state management' }
+        { name: 'React', version: '18+', purpose: 'Component-driven frontend for public and admin workflows' },
+        { name: 'TypeScript', version: '5.x', purpose: 'Type-safe UI state and integrations' },
+        { name: 'Vite', version: '5.x', purpose: 'Fast iteration and production builds' },
+        { name: 'Supabase', version: '2.x', purpose: 'Authentication, data, storage, and subscriptions' },
+        { name: 'Tailwind CSS', version: '3.x', purpose: 'Responsive layout and design tokens' },
+        { name: 'shadcn/ui', version: 'Latest', purpose: 'Accessible primitives for forms, dialogs, and cards' },
+        { name: 'TanStack Query', version: '5.x', purpose: 'Server-state orchestration for admin workflows' },
+        { name: 'React Hook Form + Zod', version: 'Latest', purpose: 'Validated quote and delivery forms' }
       ],
-
-      architecture: 'Multi-page application with public pages (Home, About, Services, Contact), carrier portal (Registration, Document Upload, Profile Management), admin dashboard (Authentication, Carrier Management, Document Verification, Load Dispatch), and core infrastructure (Supabase integration, Storage System, Email Service, Security Layer).',
-
+      architecture: 'The platform spans public marketing routes, quote review flows, public tracking pages, an authenticated admin dashboard, and driver-focused mobile interactions. Supabase provides authentication, data, storage, and live updates, while React Query keeps admin screens responsive as jobs change state.',
       keyDecisions: [
-        {
-          question: 'Why Supabase over custom backend?',
-          answer: 'PostgreSQL for relational freight data, built-in authentication system, real-time subscriptions for live updates, storage for carrier documents, row-level security for data protection, and cost-effective at scale. Accelerated MVP by 3 months.'
-        },
-        {
-          question: 'Why 97.2% TypeScript coverage?',
-          answer: 'Prevented 20+ potential runtime errors during development. Type safety enabled confident refactoring of auth system. Self-documenting interfaces reduced onboarding time. Types caught bugs related to missing MC numbers and incorrect document types.'
-        },
-        {
-          question: 'File Upload Reliability Strategy',
-          answer: 'Three-tier retry system with automatic retry on network errors (up to 3 attempts), exponential backoff delay (1s, 2s, 4s), timeout protection (30 seconds max), and user-friendly error messages. Result: 98% upload success rate even on 3G connections.'
-        }
+        { question: 'Why combine marketing and operations in one product?', answer: 'The business needed a seamless path from first impression to fulfilled delivery. Keeping the quote flow, tracking flow, and admin operations connected reduced handoff friction and made the experience feel complete.' },
+        { question: 'Why use a trust-first tracking model?', answer: 'Customer feedback showed that premature tracking links feel unreliable. Tracking now appears only after a delivery is confirmed, which makes updates feel more honest and operationally grounded.' },
+        { question: 'Why Supabase with React Query?', answer: 'Supabase covered auth, database, storage, and subscriptions quickly, while React Query kept the admin dashboard responsive with caching and controlled refetching.' }
       ],
-
       challenges: [
-        {
-          challenge: 'Reliable File Uploads for Large Documents',
-          problem: 'Carriers upload 10-50MB insurance certificates that frequently failed on slow connections',
-          solution: 'Sophisticated retry mechanism with exponential backoff, timeout protection, and network error detection',
-          result: '95% upload success rate even on 3G connections'
-        },
-        {
-          challenge: 'Admin Authentication Security',
-          problem: 'Need secure admin access without complex authentication flow',
-          solution: 'Supabase Auth with persistent session management, real-time auth state monitoring, automatic redirect on session expiration',
-          result: 'Secure, seamless admin experience with zero unauthorized access attempts'
-        },
-        {
-          challenge: 'Email Deliverability',
-          problem: 'Registration confirmations ending up in spam folders',
-          solution: 'SPF/DKIM/DMARC configuration, SendGrid integration with established sender reputation, proper email formatting',
-          result: '98% inbox delivery rate, 42% open rate (from 18%)'
-        }
+        { challenge: 'Balancing public trust with operational reality', problem: 'Customers wanted visibility, but showing tracking before assignment created false confidence.', solution: 'The workflow activates tracking only after admin confirmation and shares links tied to real deliveries.', result: 'The product feels more trustworthy and aligned with actual dispatch behavior.' },
+        { challenge: 'Designing mobile-friendly proof capture', problem: 'Drivers need to update status, capture photos, and collect signatures while moving quickly.', solution: 'The driver flow uses touch-friendly controls and focused proof steps instead of heavy desktop-style forms.', result: 'Operational proof becomes easier to complete consistently in the field.' },
+        { challenge: 'Giving admins one place to run delivery operations', problem: 'Job creation, link sharing, and status visibility were fragmented across separate actions.', solution: 'A tabbed admin dashboard centralizes delivery creation, detail review, share tools, and workflow progression.', result: 'Dispatchers can create and manage jobs in under two minutes while staying inside one interface.' }
       ]
     },
 
     impact: {
       metrics: [
-        { label: 'Onboarding Time', value: '85% faster', description: 'From 3-5 days to same-day approval' },
-        { label: 'Commission Rate', value: '3% vs 15-25%', description: '12-22% lower than industry standard' },
-        { label: 'Upload Success', value: '98%', description: 'Even on 3G connections' },
-        { label: 'Email Delivery', value: '98%', description: 'Inbox placement rate' },
-        { label: 'Document Storage', value: '$5K saved/year', description: 'Eliminated physical file cabinets' }
+        { label: 'Deliveries Completed', value: '15,000+', description: 'Published product metric for handled deliveries' },
+        { label: 'On-Time Rate', value: '99.2%', description: 'Operational reliability highlighted in the live experience' },
+        { label: 'Business Clients', value: '500+', description: 'Commercial customers supported by the platform' },
+        { label: 'Job Creation Time', value: '<2 min', description: 'Admin dashboard workflow for creating deliveries' },
+        { label: 'Support Coverage', value: '24/7', description: 'Always-on support promise surfaced in the product' }
       ],
-
-      businessValue: 'Delivah Dispatch Hub demonstrates the ability to build mission-critical business platforms that combine modern technology, robust security, and operational excellence to deliver measurable business value in competitive industries. The 3% commission model is only sustainable through technological efficiency.',
-
+      businessValue: 'Legit Logistics shows how a small logistics business can pair strong brand positioning with real operational software. The result is more than a brochure site: it is a connected quote-to-delivery system that improves trust, centralizes dispatch work, and gives customers a cleaner delivery experience.',
       testimonials: []
     },
 
     process: {
       research: [
-        'Spoke with 8 independent carriers about pain points',
-        'Top issues: Insurance certificates (90%), W9 forms (75%), MC Authority verification (60%), Credit checks (55%)',
-        'Analyzed competitor pricing: average 18-22% commission',
-        'Question explored: "Why 3% commission when competitors charge 15-25%?" - Answer: High volume at low margin vs low volume at high margin'
+        'Customer feedback emphasized that confirmed tracking matters more than early placeholder updates',
+        'Quote negotiation needed to feel flexible for businesses with budget and timing constraints',
+        'Dispatch operations required a shared source of truth for active, pending, and completed deliveries',
+        'Driver workflows had to stay lightweight enough for real use on mobile devices'
       ],
-
-      methodology: 'Phase 1: Business Requirements Gathering (Week 1) - Analyzed freight brokerage workflows. Phase 2: Technical Architecture Design (Week 2) - Designed multi-page application structure. Phase 3: Core Feature Development (Weeks 3-6) - Implemented registration, uploads, admin dashboard. Phase 4: Security Hardening (Week 7). Phase 5: Email Integration (Week 8). Phase 6: Testing & Refinement (Weeks 9-10).',
-
+      methodology: 'The platform shipped as a phased rollout: first the public brand and quote experience, then the admin dispatch tools, then public tracking and driver proof workflows, followed by reliability passes and responsive polish.',
       timeline: [
-        { phase: 'Weeks 1-2', tasks: 'Requirements gathering, technical architecture, database schema design' },
-        { phase: 'Weeks 3-6', tasks: 'Core feature development: registration, document upload, admin dashboard' },
-        { phase: 'Week 7', tasks: 'Security hardening: RLS policies, file validation, CORS configuration' },
-        { phase: 'Week 8', tasks: 'Email integration: templates, triggers, deliverability optimization' },
-        { phase: 'Weeks 9-10', tasks: 'UAT with carriers, admin workflow validation, security testing' }
+        { phase: 'Phase 1', tasks: 'Service positioning, brand story, quote CTA, contact and FAQ flows' },
+        { phase: 'Phase 2', tasks: 'Admin dashboard structure, job creation form, job detail views, and sharing tools' },
+        { phase: 'Phase 3', tasks: 'Public tracking, order lookup, driver status controls, and proof capture' },
+        { phase: 'Phase 4', tasks: 'Reliability checks, responsive polish, accessibility work, and production-readiness documentation' }
       ],
-
       lessonsLearned: [
-        'TypeScript Catches Problems Before Users See Them: 97.2% coverage prevented 20+ runtime errors',
-        'File Upload Reliability is Mission-Critical: Retry mechanism increased success from 60% to 98%',
-        'Authentication Must Be Invisible When Right: Session persistence prevents frustrating re-logins',
-        'Disruptive Pricing Requires Operational Excellence: 3% commission only works with efficiency',
-        'Email Deliverability Affects Business Outcomes: Proper authentication increased opens by 124%'
+        'Trust in logistics UX comes from showing the right information at the right time',
+        'Admin workflows deserve as much design attention as the public landing experience',
+        'Mobile capture and delivery proof change the usefulness of the entire system',
+        'Tight docs and milestone tracking make multi-phase frontend work easier to continue'
       ]
     }
   },
+
 
   edumanage: {
     id: 'edumanage',
