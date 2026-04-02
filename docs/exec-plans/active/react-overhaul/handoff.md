@@ -2,7 +2,7 @@
 
 ## Next Recommended Step
 
-Commit and push the current `main` worktree version of the hoverless scenic React toggle so `main` matches the already-updated React feature branches, then review the pushed behavior across home/contact/process and decide whether to mirror the same click-only behavior into the static `public/` scenic toggle.
+Review the slower `1.2s` React scenic-toggle timing across home/contact/design-process in a manual desktop/mobile pass, then decide whether to keep that immediate-theme/slow-celestial cadence as React-only behavior or mirror it into the legacy static `public/` scenic toggle.
 
 ## Notes
 
@@ -47,7 +47,7 @@ Commit and push the current `main` worktree version of the hoverless scenic Reac
   - `public/js/about-parallax.js`
 - Known risks:
   - The React app now depends on `app/public/js/theme-toggle-landscape-component.js`, and it intentionally diverges from `public/js/theme-toggle-landscape-component.js` because the React version is now hoverless
-  - `codex/react-overhaul` and `codex/design-process-page-react` now carry pushed scenic-toggle updates, so `main` is the remaining branch that still needs a matching commit if the React branches should stay in sync
+- `codex/react-overhaul` and `codex/design-process-page-react` now carry pushed scenic-toggle slowdown updates, so `main` is the remaining branch that still needs the matching timing commit if the React branches should stay in sync
   - Homepage parity still needs broader desktop/mobile comparison beyond sanity checks, especially whether the exact Magic UI cooldown handoff feels continuous with Leon's current hero typography
   - About page parity still needs broader desktop/mobile comparison beyond sanity checks, although its route-width and hero-structure mismatch has now had a first correction pass
   - Contact page parity still needs broader desktop/mobile comparison beyond sanity checks, although its route-width cap from the shared `.page-content` shell has now been fixed

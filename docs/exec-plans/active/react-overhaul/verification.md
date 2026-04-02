@@ -103,6 +103,15 @@
   - removed smooth scroll transitions for portfolio page changes
   - changed the footer dots to the full 19-page case-study progression
   - tightened Eastleigh copy so all 19 tabbed pages now fit inside the locked `100vh` workspace
+- Slowed the React scenic theme-toggle celestial timing so the page theme flips immediately while the sun/moon animation keeps moving for roughly `1.2s`
+- Re-ran focused React verification for the slower scenic timing with:
+  - `npm run react:test -- ThemeToggle router ThemeToggleLandscapeComponent`
+  - `npm run react:typecheck`
+  - `npm run react:build`
+- Browser-validated the built React output at `http://127.0.0.1:4176/` after the timing change and confirmed:
+  - `/` flips into dark mode immediately on click while `data-transition="to-night"` remains active beyond the first second
+  - the moon animation reports a running `1200ms` scenic animation immediately after click
+  - client navigation from `/` to `/contact` and `/design-process` keeps the React scenic toggle present and theme-persistent
 
 ## Checks Run
 
@@ -150,6 +159,13 @@
 - `npm run react:test -- PortfolioRoute`
 - `npm run react:typecheck`
 - `npm run react:build`
+- `npm run react:test -- ThemeToggle router ThemeToggleLandscapeComponent`
+- `npm run react:typecheck`
+- `npm run react:build`
+- Browser validation on built React output at `http://127.0.0.1:4176/` after slowing the scenic celestial timing, including:
+  - `/` confirms `body.dark-theme` flips immediately while the moon animation reports a running `1200ms` duration and `data-transition` remains active past the one-second mark
+  - client navigation from `/` to `/contact` confirms the React scenic toggle remains present and keeps the current theme
+  - client navigation from `/contact` to `/design-process` confirms the React scenic toggle remains present and keeps the current theme
 - Attempted focused React branch verification in temporary worktrees for:
   - `codex/react-overhaul`
   - `codex/design-process-page-react`
@@ -166,7 +182,7 @@
 - Full visual parity review on desktop between the React Contact page and `public/contact.html`
 - Full visual parity review on mobile between the React Contact page and `public/contact.html`
 - Full visual parity review on desktop/mobile for the scenic landscape toggle across the React home, about, contact, and design-process routes
-- User approval of the new hoverless React-only scenic-toggle behavior relative to the still-hovering static-site scenic toggle
+- User approval of the new slower `1.2s` React scenic timing feel across home, contact, and design-process after manual review
 - Focused automated test re-run for the propagated scenic toggle changes directly inside the local `codex/react-overhaul` and `codex/design-process-page-react` worktrees after their dependency resolution is normalized or the changes are committed and tested from the primary workspace
 - Full visual parity review on desktop between the React Design Process page and its intended reference/WIP layout
 - Full visual parity review on mobile between the React Design Process page and its intended reference/WIP layout

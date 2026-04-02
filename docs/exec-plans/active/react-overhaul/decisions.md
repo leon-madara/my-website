@@ -233,3 +233,11 @@
   - The user wants the React toggle to stay visually quiet on hover and only animate on click
   - Removing preview and activation states makes the sun set or the moon lower directly into the theme change
   - This is intentionally scoped to the React-side copy of the landscape component, leaving the static-site component unchanged for now
+
+### 2026-04-03 - Keep the React theme switch immediate but stretch scenic celestial motion to `1.2s`
+
+- Status: Accepted
+- Reason:
+  - The user wants the site theme to respond instantly while the sun/moon finishes the visual story more gently afterward
+  - Slowing only the scenic bodies preserves responsiveness better than delaying the actual theme state change
+  - Keeping this timing change scoped to the React-side landscape component avoids unintentionally changing the already-diverged static-site toggle

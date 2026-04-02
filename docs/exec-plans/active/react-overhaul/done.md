@@ -140,6 +140,13 @@
   - no hover growth for the moon
   - click immediately starts the scenic transition instead of entering a preview or activation phase
 - [x] Added focused React-side web-component tests for the hoverless scenic toggle behavior in `app/src/shared/ThemeToggleLandscapeComponent.test.ts`
+- [x] Slowed the React scenic sun/moon motion to a gentler `1.2s` while keeping the actual page theme switch immediate:
+  - light/dark mode still flips on click with no delay
+  - the incoming moon/sun now keeps moving after the page colors have already changed
+  - the hoverless React interaction model remains unchanged
 - [x] Committed and pushed the hoverless scenic React toggle update on:
   - `codex/react-overhaul` at `d2e9908`
   - `codex/design-process-page-react` at `026d8e5`
+- [x] Committed and pushed the slower `1.2s` scenic React timing update on:
+  - `codex/react-overhaul` at `2646699`
+  - `codex/design-process-page-react` at `905f0a2`

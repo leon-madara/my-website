@@ -10,6 +10,7 @@
 - [ ] Finish About page parity review with live desktop/mobile browser validation and polish any layout or motion mismatches
 - [ ] Finish Contact page parity review with live desktop/mobile browser validation and polish any layout or interaction mismatches
 - [ ] Decide whether to mirror the new hoverless React scenic-toggle behavior back into the legacy static `public/` surface or keep the two stacks temporarily different
+- [ ] Review the new slower `1.2s` React scenic sun/moon timing on desktop and mobile and tune only if the celestial motion still feels too abrupt
 - [ ] Decide whether to retire the now-unused React-only `.theme-toggle-simple` and `.theme-toggle-sunmoon` CSS once all route parity checks are complete
 - [x] Commit and push the propagated scenic React theme-toggle changes from `codex/react-overhaul` and `codex/design-process-page-react`
 - [ ] Run live desktop/mobile browser validation on the React Design Process route and polish any layout mismatches
@@ -27,7 +28,7 @@
 - The final source-of-truth boundary between the future React app and `public/` must be documented before cutover.
 - A live browser validation pass is also still needed for the React About page before it can be called parity-complete.
 - A live browser validation pass is also still needed for the React Contact page before Wave 1 can be treated as visually and behaviorally signed off.
-- The scenic React toggle is now pushed on `codex/react-overhaul` and `codex/design-process-page-react`, but `main` still needs its own commit and push so the source branch matches the propagated React branches.
+- The scenic React toggle slowdown is now pushed on `codex/react-overhaul` and `codex/design-process-page-react`; `main` still needs its own commit and push for this latest timing pass so all React branches match again.
 - The React scenic toggle is now intentionally hoverless while the static-site scenic toggle still has hover preview, so behavior currently differs by stack.
 - Navigating from the React About route into Contact can still trigger the pre-existing GSAP revert recursion (`Maximum call stack size exceeded`); direct entry to Contact still works and the new shared theme toggle does not appear to be the cause.
 - A live browser validation pass is still needed for the React Design Process page before it can be treated as parity-complete.
