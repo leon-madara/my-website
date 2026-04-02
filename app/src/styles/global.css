@@ -201,6 +201,11 @@ button {
   border: 2px solid rgba(222, 219, 211, 1);
 }
 
+.portfolio-page theme-toggle-landscape.react-theme-toggle {
+  --header-control-top: 26px;
+  --header-side-offset: max(1rem, calc((100vw - 1336px) / 2));
+}
+
 .portfolio-page .theme-toggle-simple {
   display: none;
 }
@@ -308,6 +313,10 @@ button {
   z-index: 9999;
   border: none;
   cursor: pointer;
+}
+
+theme-toggle-landscape.react-theme-toggle {
+  z-index: 9999;
 }
 
 .theme-toggle-landscape {
@@ -1644,6 +1653,10 @@ button {
     right: 5vw;
   }
 
+  theme-toggle-landscape.react-theme-toggle {
+    --header-side-offset: 5vw;
+  }
+
   .pill-sidebar {
     left: 1rem;
     width: 240px;
@@ -1688,6 +1701,12 @@ button {
     display: none;
   }
 
+  theme-toggle-landscape.react-theme-toggle {
+    --header-control-height: 44px;
+    --header-control-top: 12px;
+    --header-side-offset: 12px;
+  }
+
   .portfolio-page .header-logo {
     top: 8px;
     left: 12px;
@@ -1702,6 +1721,12 @@ button {
     width: 72px;
     height: 44px;
     display: inline-flex;
+  }
+
+  .portfolio-page theme-toggle-landscape.react-theme-toggle {
+    --header-control-height: 44px;
+    --header-control-top: 12px;
+    --header-side-offset: 12px;
   }
 
   .theme-toggle-simple {

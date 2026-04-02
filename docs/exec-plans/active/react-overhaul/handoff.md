@@ -2,7 +2,7 @@
 
 ## Next Recommended Step
 
-Browser-validate the React homepage hero against `public/index.html` with a specific focus on the newly ported organic floating blobs (light/dark theme + reduced-motion), then continue the screenshot-driven parity pass on Legit Logistics and regression-check EduManage under the updated portfolio shell.
+Commit and push the current `main` worktree version of the hoverless scenic React toggle so `main` matches the already-updated React feature branches, then review the pushed behavior across home/contact/process and decide whether to mirror the same click-only behavior into the static `public/` scenic toggle.
 
 ## Notes
 
@@ -37,6 +37,7 @@ Browser-validate the React homepage hero against `public/index.html` with a spec
   - `app/src/shared/ThemeToggle.tsx`
   - `app/src/shared/AppLayout.tsx`
   - `app/src/shared/ProfileSidebar.tsx`
+  - `app/public/js/theme-toggle-landscape-component.js`
   - `package.json`
   - `public/index.html`
   - `public/about.html`
@@ -45,9 +46,12 @@ Browser-validate the React homepage hero against `public/index.html` with a spec
   - `public/edumanage.html`
   - `public/js/about-parallax.js`
 - Known risks:
+  - The React app now depends on `app/public/js/theme-toggle-landscape-component.js`, and it intentionally diverges from `public/js/theme-toggle-landscape-component.js` because the React version is now hoverless
+  - `codex/react-overhaul` and `codex/design-process-page-react` now carry pushed scenic-toggle updates, so `main` is the remaining branch that still needs a matching commit if the React branches should stay in sync
   - Homepage parity still needs broader desktop/mobile comparison beyond sanity checks, especially whether the exact Magic UI cooldown handoff feels continuous with Leon's current hero typography
   - About page parity still needs broader desktop/mobile comparison beyond sanity checks, although its route-width and hero-structure mismatch has now had a first correction pass
   - Contact page parity still needs broader desktop/mobile comparison beyond sanity checks, although its route-width cap from the shared `.page-content` shell has now been fixed
+  - Navigating from `/about` to `/contact` in the built React app can still trigger the known GSAP revert recursion crash; direct entry to `/contact` remains healthy
   - Design Process parity still needs broader desktop/mobile comparison beyond sanity checks
   - Eastleigh is much closer to the supplied screenshot states now, but Legit Logistics still needs the same screenshot-driven polish pass
   - EduManage still needs an explicit regression check after the portfolio-specific chrome changes

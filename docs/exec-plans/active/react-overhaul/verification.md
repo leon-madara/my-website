@@ -123,6 +123,19 @@
 - `npm run react:test -- PortfolioRoute`
 - `npm run react:typecheck`
 - `npm run react:build`
+- `npm run react:test -- ThemeToggle router`
+- `npm run react:test -- ThemeToggle router ThemeToggleLandscapeComponent`
+- `npm run react:test -- app/src/routes/router.test.tsx app/src/shared/ThemeToggle.test.tsx app/src/shared/ThemeToggleLandscapeComponent.test.ts`
+- `npm run react:typecheck`
+- `npm run react:build`
+- Browser validation on built React output at `http://127.0.0.1:4176/`, including:
+  - `/` confirms the scenic landscape toggle button renders in the shared shell
+  - client navigation from `/` to `/contact` confirms the scenic landscape toggle remains present on the Contact route
+  - client navigation from `/` to `/about` confirms the scenic landscape toggle remains present on the About route
+- Browser validation on built React output at `http://127.0.0.1:4176/` after removing hover preview, including:
+  - element screenshots on `/` show the home scenic toggle remains visually unchanged between rest and hover
+  - click on `/` switches the button label from `Activate dark theme` to `Activate light theme`
+  - client navigation from `/` to `/contact` and `/design-process` confirms the hoverless scenic toggle remains present on both routes
 - Browser validation on `http://localhost:5173/portfolio`
 - Browser validation on `http://localhost:5173/portfolio/legit-logistics?section=details&page=overview`
 - Browser validation on mobile `http://localhost:5173/portfolio` (`430x932`)
@@ -137,6 +150,11 @@
 - `npm run react:test -- PortfolioRoute`
 - `npm run react:typecheck`
 - `npm run react:build`
+- Attempted focused React branch verification in temporary worktrees for:
+  - `codex/react-overhaul`
+  - `codex/design-process-page-react`
+  - command intent: `react:test` for `app/src/routes/router.test.tsx` and `app/src/shared/ThemeToggle.test.tsx`
+  - result: blocked by temp-worktree module resolution (`vitest/config`, `@vitejs/plugin-react`, and `@testing-library/jest-dom/vitest`) rather than by a reported assertion failure in the propagated toggle changes
 
 ## Not Yet Verified
 
@@ -147,6 +165,9 @@
 - Full visual parity review on mobile between the React About page and `public/about.html`
 - Full visual parity review on desktop between the React Contact page and `public/contact.html`
 - Full visual parity review on mobile between the React Contact page and `public/contact.html`
+- Full visual parity review on desktop/mobile for the scenic landscape toggle across the React home, about, contact, and design-process routes
+- User approval of the new hoverless React-only scenic-toggle behavior relative to the still-hovering static-site scenic toggle
+- Focused automated test re-run for the propagated scenic toggle changes directly inside the local `codex/react-overhaul` and `codex/design-process-page-react` worktrees after their dependency resolution is normalized or the changes are committed and tested from the primary workspace
 - Full visual parity review on desktop between the React Design Process page and its intended reference/WIP layout
 - Full visual parity review on mobile between the React Design Process page and its intended reference/WIP layout
 - Full visual parity review on desktop between the React Legit Logistics case-study route and `public/portfolio.html`
@@ -161,3 +182,4 @@
 - Run `npm run test:gsap` when animation-sensitive behavior is touched
 - Perform desktop and mobile browser validation for each migrated page
 - Verify route refreshes, keyboard access, theme persistence, and reduced-motion behavior before cutover
+- Re-check the known `/about` -> `/contact` GSAP revert recursion separately from the theme-toggle integration work

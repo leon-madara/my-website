@@ -121,3 +121,25 @@
   - removing smooth scroll transitions so portfolio page changes are instant
   - tightening Eastleigh page titles and copy so all 19 pages now fit inside the locked `100vh` workspace without internal scrolling
 - [x] Ported the vanilla homepage hero organic floating blobs into React by introducing `HeroOrganicBlobs`/`HeroOrganicBlob` components and matching the legacy `float` animation, dark-mode colors, and reduced-motion behavior
+- [x] Switched the shared React theme toggle to the rebuilt scenic landscape component by:
+  - copying the shipped `theme-toggle-landscape` web component into `app/public/js/`
+  - loading it from `app/index.html`
+  - wrapping it in `app/src/shared/ThemeToggle.tsx`
+  - bridging its `theme-changed` event back into the React `ThemeProvider`
+  - making it the default shared toggle across React routes instead of the old simple/sunmoon variants
+- [x] Mirrored the current scenic React theme-toggle implementation from the `main` worktree into the local `codex/react-overhaul` and `codex/design-process-page-react` worktrees so the React branches now carry the same file set:
+  - `app/index.html`
+  - `app/public/js/theme-toggle-landscape-component.js`
+  - `app/src/shared/ThemeToggle.tsx`
+  - `app/src/shared/ThemeToggle.test.tsx`
+  - `app/src/theme/ThemeProvider.tsx`
+  - `app/src/routes/router.test.tsx`
+  - `app/src/styles/global.css`
+- [x] Removed the React scenic toggle hover preview so the shared React toggle is now click-only:
+  - no hover growth for the sun
+  - no hover growth for the moon
+  - click immediately starts the scenic transition instead of entering a preview or activation phase
+- [x] Added focused React-side web-component tests for the hoverless scenic toggle behavior in `app/src/shared/ThemeToggleLandscapeComponent.test.ts`
+- [x] Committed and pushed the hoverless scenic React toggle update on:
+  - `codex/react-overhaul` at `d2e9908`
+  - `codex/design-process-page-react` at `026d8e5`
