@@ -1154,6 +1154,70 @@ button {
   background: #006b3f;
 }
 
+.home-page .hero-organic-blobs {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.home-page .hero-organic-blob {
+  position: absolute;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.home-page .hero-organic-blob--top-left {
+  top: 15vh;
+  left: 20vw;
+  width: 18.75rem;
+  height: 12.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 50% 30% 70% 40%;
+  filter: blur(2.5rem);
+  animation: float 6s ease-in-out infinite;
+}
+
+.home-page .hero-organic-blob--right-red {
+  top: 60vh;
+  right: 20%;
+  width: 12.5rem;
+  height: 9.375rem;
+  background: rgba(206, 17, 38, 0.6);
+  border-radius: 40% 60% 30% 70%;
+  filter: blur(1.875rem);
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.home-page .hero-organic-blob--mid-green {
+  top: 60vh;
+  left: 60%;
+  width: 9.375rem;
+  height: 6.25rem;
+  background: rgba(0, 107, 63, 0.4);
+  border-radius: 60% 40% 80% 20%;
+  filter: blur(1.5625rem);
+  animation: float 10s ease-in-out infinite;
+}
+
+@media (max-width: 1024px) {
+  .home-page .hero-organic-blob {
+    opacity: 0.3;
+  }
+}
+
+:root[data-theme="dark"] .home-page .hero-organic-blob--top-left {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+:root[data-theme="dark"] .home-page .hero-organic-blob--right-red {
+  background: rgba(255, 51, 85, 0.6);
+}
+
+:root[data-theme="dark"] .home-page .hero-organic-blob--mid-green {
+  background: rgba(16, 207, 116, 0.4);
+}
+
 .decorative-shapes {
   position: absolute;
   top: 80%;
@@ -1741,6 +1805,7 @@ button {
 
   .hero-content > *,
   .shape,
+  .hero-organic-blob,
   .location-pin,
   .pulse-ring {
     animation: none !important;

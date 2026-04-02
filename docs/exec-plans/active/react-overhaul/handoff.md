@@ -2,7 +2,7 @@
 
 ## Next Recommended Step
 
-Run the same screenshot-driven parity pass on Legit Logistics and then regression-check EduManage under the updated portfolio shell. Eastleigh now fits the locked `100vh` workspace with instant page changes and much closer screenshot parity, so the best next step is to confirm the shared styling holds up on the other portfolio routes without reintroducing layout drift or internal scrolling.
+Browser-validate the React homepage hero against `public/index.html` with a specific focus on the newly ported organic floating blobs (light/dark theme + reduced-motion), then continue the screenshot-driven parity pass on Legit Logistics and regression-check EduManage under the updated portfolio shell.
 
 ## Notes
 

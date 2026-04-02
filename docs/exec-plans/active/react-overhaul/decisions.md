@@ -202,3 +202,10 @@
   - The newer screenshots show a softer green-highlighted project selector, visible landscape toggle, and card-edge-aligned logo placement
   - Preserving the older red-outline selector styling kept a visible mismatch after the first React portfolio rebuild
   - Updating the selector shell and copy to follow the screenshot composition gives the React portfolio a more faithful parity target
+
+### 2026-04-02 - Implement homepage hero organic blobs as React components (not CSS pseudo-elements)
+
+- Status: Accepted
+- Reason:
+  - The legacy design expresses the blobs as `.hero-section::before/::after` and `.landing-page::before`, but React benefits from explicit, composable DOM nodes for parity work and future reuse across routes
+  - Componentized blobs keep the migration work isolated to the Home route and avoid coupling global selectors to pseudo-element behavior

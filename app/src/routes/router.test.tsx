@@ -47,4 +47,18 @@ describe("AppLayout", () => {
       screen.getByRole("button", { name: /toggle dark mode/i })
     ).toBeInTheDocument();
   });
+
+  it("renders the landscape theme toggle on contact", () => {
+    render(
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/contact"]}>
+          <AppLayout />
+        </MemoryRouter>
+      </ThemeProvider>
+    );
+
+    expect(
+      screen.getByRole("button", { name: /toggle dark and light mode/i })
+    ).toBeInTheDocument();
+  });
 });

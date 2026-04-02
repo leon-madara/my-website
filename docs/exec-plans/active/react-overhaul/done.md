@@ -120,3 +120,4 @@
   - replacing the footer dots with the full 19-page case-study progression and adding the smaller section-progress cluster above the card
   - removing smooth scroll transitions so portfolio page changes are instant
   - tightening Eastleigh page titles and copy so all 19 pages now fit inside the locked `100vh` workspace without internal scrolling
+- [x] Ported the vanilla homepage hero organic floating blobs into React by introducing `HeroOrganicBlobs`/`HeroOrganicBlob` components and matching the legacy `float` animation, dark-mode colors, and reduced-motion behavior

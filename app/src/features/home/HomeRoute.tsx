@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { HeroOrganicBlobs } from "./HeroOrganicBlobs";
 import { RoleSequence } from "./RoleSequence";
 import { useHomeViewportLock } from "./useHomeViewportLock";
 
@@ -46,6 +47,7 @@ export function HomeRoute() {
             <span className="line line-green" />
           </div>
         </div>
+        <HeroOrganicBlobs />
         <div aria-hidden="true" className="decorative-shapes">
           <div className="shape shape-1" />
           <div className="shape shape-2" />

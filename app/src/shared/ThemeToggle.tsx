@@ -47,37 +47,56 @@ export function ThemeToggle() {
 
   const isHome = location.pathname === "/";
   const isPortfolio = location.pathname.startsWith("/portfolio");
+  const isContact = location.pathname === "/contact";
   const isDesignProcess = location.pathname === "/design-process";
 
-  if (isHome || isPortfolio) {
+  if (isHome || isPortfolio || isContact) {
     return (
-      <button
-        aria-label="Toggle dark and light mode"
-        className="theme-toggle-landscape"
-        onClick={toggleTheme}
-        type="button"
-      >
-        <span className="theme-toggle-landscape__sky" />
-        <span className="theme-toggle-landscape__stars" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-        </span>
-        <span className="theme-toggle-landscape__clouds" aria-hidden="true">
-          <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--1" />
-          <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--2" />
-          <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--3" />
-        </span>
-        <span className="theme-toggle-landscape__sun-moon">
-          <span className="theme-toggle-landscape__crater" />
-          <span className="theme-toggle-landscape__crater theme-toggle-landscape__crater--small" />
-        </span>
-        <span className="theme-toggle-landscape__hills" />
-        <span className="theme-toggle-landscape__sr">
-          {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-        </span>
-      </button>
+      <>
+        <button
+          aria-label="Toggle dark and light mode"
+          className="theme-toggle-landscape"
+          onClick={toggleTheme}
+          type="button"
+        >
+          <span className="theme-toggle-landscape__sky" />
+          <span className="theme-toggle-landscape__stars" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="theme-toggle-landscape__clouds" aria-hidden="true">
+            <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--1" />
+            <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--2" />
+            <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--3" />
+          </span>
+          <span className="theme-toggle-landscape__sun-moon">
+            <span className="theme-toggle-landscape__crater" />
+            <span className="theme-toggle-landscape__crater theme-toggle-landscape__crater--small" />
+          </span>
+          <span className="theme-toggle-landscape__hills" />
+          <span className="theme-toggle-landscape__sr">
+            {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          </span>
+        </button>
+        <button
+          aria-label="Toggle dark mode"
+          className="theme-toggle-simple"
+          onClick={toggleTheme}
+          type="button"
+        >
+          <span className="theme-toggle-simple__sun" aria-hidden="true">
+            {"\u2600"}
+          </span>
+          <span className="theme-toggle-simple__moon" aria-hidden="true">
+            {"\u263E"}
+          </span>
+          <span className="sr-only">
+            {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          </span>
+        </button>
+      </>
     );
   }
 

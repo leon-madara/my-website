@@ -78,6 +78,7 @@
   - `/about` -> `/portfolio`
   - `/portfolio` -> `/contact`
   - `/contact` -> `/`
+- Ran `npm run react:typecheck` and `npm run react:test` after porting the legacy homepage hero organic blobs into the React Home route
 - Updated the shared shell so the left profile pill/sidebar renders only on `/`, not on inner routes like `/contact`
 - Browser-compared the React About route against the legacy `public/about.html` layout and corrected the main width/parallax hero sizing mismatch
 - Browser-validated the React Contact route width fix on desktop and mobile so the page now expands to the full available route width instead of being capped at the shared `1040px`
