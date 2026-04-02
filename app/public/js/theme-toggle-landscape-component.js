@@ -14,7 +14,7 @@ class ThemeToggleLandscape extends HTMLElement {
         this.button = null;
 
         this.timings = {
-            transition: 860,
+            transition: 1400,
             reducedTransition: 260
         };
 
@@ -56,12 +56,12 @@ class ThemeToggleLandscape extends HTMLElement {
                     --slide-duration: 470ms;
                     --slide-fade-duration: 180ms;
                     --slide-fade-delay: 300ms;
-                    --scenic-set-duration: 300ms;
-                    --scenic-set-delay: 160ms;
-                    --scenic-rise-duration: 380ms;
-                    --scenic-rise-delay: 170ms;
+                    --scenic-set-duration: 1200ms;
+                    --scenic-set-delay: 60ms;
+                    --scenic-rise-duration: 1200ms;
+                    --scenic-rise-delay: 60ms;
                     --stars-duration: 190ms;
-                    --stars-delay: 320ms;
+                    --stars-delay: 460ms;
                     display: inline-block;
                     position: fixed;
                     top: var(--header-control-top, 25px);

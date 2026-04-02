@@ -94,7 +94,7 @@ describe("React landscape theme-toggle web component", () => {
     expect(themeChanged).toHaveBeenCalledTimes(1);
     expect(themeChanged.mock.calls[0][0].detail).toEqual({ theme: "night" });
 
-    vi.advanceTimersByTime(860);
+    vi.advanceTimersByTime(1400);
     expect(toggle.hasAttribute("data-transition")).toBe(false);
   });
 
