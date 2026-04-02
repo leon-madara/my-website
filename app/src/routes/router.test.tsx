@@ -34,8 +34,8 @@ describe("AppLayout", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the simple theme toggle on about", () => {
-    render(
+  it("renders the landscape theme toggle on about", () => {
+    const { container } = render(
       <ThemeProvider>
         <MemoryRouter initialEntries={["/about"]}>
           <AppLayout />
@@ -43,8 +43,18 @@ describe("AppLayout", () => {
       </ThemeProvider>
     );
 
-    expect(
-      screen.getByRole("button", { name: /toggle dark mode/i })
-    ).toBeInTheDocument();
+    expect(container.querySelector("theme-toggle-landscape")).toBeInTheDocument();
+  });
+
+  it("renders the landscape theme toggle on contact", () => {
+    const { container } = render(
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/contact"]}>
+          <AppLayout />
+        </MemoryRouter>
+      </ThemeProvider>
+    );
+
+    expect(container.querySelector("theme-toggle-landscape")).toBeInTheDocument();
   });
 });

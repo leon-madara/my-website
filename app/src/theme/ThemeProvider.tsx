@@ -12,6 +12,7 @@ type Theme = "light" | "dark";
 interface ThemeContextValue {
   theme: Theme;
   toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
 }
 
 const STORAGE_KEY = "theme";
@@ -49,6 +50,7 @@ export function ThemeProvider({ children }: PropsWithChildren) {
   const value = useMemo(
     () => ({
       theme,
+      setTheme,
       toggleTheme: () => {
         setTheme((current) => (current === "light" ? "dark" : "light"));
       }
