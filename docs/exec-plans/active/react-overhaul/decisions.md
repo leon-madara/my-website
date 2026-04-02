@@ -209,3 +209,27 @@
 - Reason:
   - The legacy design expresses the blobs as `.hero-section::before/::after` and `.landing-page::before`, but React benefits from explicit, composable DOM nodes for parity work and future reuse across routes
   - Componentized blobs keep the migration work isolated to the Home route and avoid coupling global selectors to pseudo-element behavior
+
+### 2026-04-02 - Use the rebuilt landscape web component as the default React theme toggle
+
+- Status: Accepted
+- Reason:
+  - The shipped vanilla landscape toggle now owns the scenic sun/moon choreography the user approved, so React should reuse that exact interaction model instead of maintaining a second approximation
+  - Wrapping the custom element inside React is lower risk than reimplementing the full animation system a second time in `app/src/`
+  - Bridging its `theme-changed` event into `ThemeProvider` preserves React-side theme state while keeping the visual behavior identical across static and React surfaces
+
+### 2026-04-03 - Propagate the scenic React toggle by copying the canonical main-worktree file set into the other local React branches
+
+- Status: Accepted
+- Reason:
+  - The current `main` worktree already contains the most up-to-date React-side scenic toggle integration
+  - Copying the known-good file set into the other local React branches is lower risk than re-deriving the same integration separately on each branch
+  - Separate git worktrees allow the propagation without disturbing the in-progress uncommitted work on `main`
+
+### 2026-04-03 - Make the React scenic toggle click-only with no hover preview
+
+- Status: Accepted
+- Reason:
+  - The user wants the React toggle to stay visually quiet on hover and only animate on click
+  - Removing preview and activation states makes the sun set or the moon lower directly into the theme change
+  - This is intentionally scoped to the React-side copy of the landscape component, leaving the static-site component unchanged for now
