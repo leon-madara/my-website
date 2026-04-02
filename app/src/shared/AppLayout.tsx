@@ -34,6 +34,11 @@ export function AppLayout() {
     );
     document.body.classList.add(routeClass);
 
+    // Always restore nav visibility when navigating away from portfolio
+    if (!location.pathname.startsWith("/portfolio")) {
+      document.body.classList.remove("nav-is-collapsed", "nav-is-hovered");
+    }
+
     return () => {
       document.body.classList.remove(routeClass);
     };

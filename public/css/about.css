@@ -8,6 +8,8 @@ body.about-page {
     min-height: 100vh;
     background: var(--background-light);
     overflow-x: hidden;
+    /* Safety: ensure scroll is always available, even during animations */
+    overflow-y: auto !important;
 }
 
 main.about-page {
@@ -34,12 +36,22 @@ body.about-page .nav-pills a svg {
 }
 
 body.about-page .nav-pills a.active {
-    color: #ffffff;
+    color: #14ff8e;
 }
 
 body.about-page .nav-pills a.active svg {
-    color: #ffffff;
-    stroke: #ffffff;
+    color: #14ff8e;
+    stroke: #14ff8e;
+}
+
+/* Dark Mode - Active nav link label and icon should be black */
+body.dark-theme.about-page .nav-pills a.active .label {
+    color: #000000;
+}
+
+body.dark-theme.about-page .nav-pills a.active svg {
+    color: #000000;
+    stroke: #000000;
 }
 
 /* ========================================
@@ -90,7 +102,7 @@ body.about-page .nav-pills a.active svg {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: visible;
     background: transparent; /* Allow background elements to show through */
     z-index: 1;
 }
@@ -794,28 +806,6 @@ body.dark-theme .theme-icon.dark-icon {
         transform: none;
     }
 
-    /* Disable creative card animations for accessibility */
-    .cert-frontend-dev::before,
-    .cert-frontend-dev::after,
-    .cert-ux-design::before,
-    .cert-ux-design::after {
-        animation: none !important;
-    }
-
-    .cert-ux-design .skill-tag {
-        animation: none !important;
-    }
-
-    .cert-frontend-dev:hover,
-    .cert-ux-design:hover {
-        transform: none !important;
-    }
-
-    .cert-frontend-dev .skill-tag:hover,
-    .cert-ux-design .skill-tag:hover {
-        transform: scale(1.05) !important;
-    }
-}
 
 /* ========================================
    SKILLS SECTION
@@ -904,7 +894,7 @@ body.dark-theme .theme-icon.dark-icon {
 .experience-section {
     position: relative;
     min-height: 100vh;
-    padding: 2rem 2rem 6rem 2rem;
+    padding: 6rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -952,27 +942,6 @@ body.dark-theme .theme-icon.dark-icon {
     border-radius: 50%;
     box-shadow: 0 0 0 4px rgba(0, 107, 63, 0.1);
     z-index: 1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Marker variations by role (subtle, keeps current layout) */
-.timeline-item[data-role='analyst'] .timeline-marker {
-    background: linear-gradient(135deg, #006B3F, #006B3F);
-}
-
-.timeline-item[data-role='freelance'] .timeline-marker {
-    background: linear-gradient(135deg, #CE1126, #006B3F);
-}
-
-.timeline-item[data-role='company'] .timeline-marker {
-    background: linear-gradient(135deg, #006B3F, #CE1126);
-    box-shadow: 0 0 0 4px rgba(206, 17, 38, 0.08);
-}
-
-.timeline-item:hover .timeline-marker,
-.timeline-item:focus-within .timeline-marker {
-    transform: scale(1.08);
-    box-shadow: 0 0 0 6px rgba(0, 107, 63, 0.12);
 }
 
 .timeline-content {
@@ -984,32 +953,15 @@ body.dark-theme .theme-icon.dark-icon {
     padding: 2rem;
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.1),
-        0 0 60px rgba(0, 107, 63, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
-    will-change: transform;
+        0 0 60px rgba(0, 107, 63, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .timeline-content:hover {
-    transform: translateX(8px) scale(1.01);
+    transform: translateX(8px);
     box-shadow:
         0 12px 48px rgba(0, 0, 0, 0.15),
-        0 0 80px rgba(0, 107, 63, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.65);
-    border-color: rgba(0, 107, 63, 0.35);
-}
-
-/* Keyboard parity with hover */
-.timeline-content:focus-within {
-    transform: translateX(8px) scale(1.01);
-    box-shadow:
-        0 12px 48px rgba(0, 0, 0, 0.15),
-        0 0 80px rgba(0, 107, 63, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.65);
-    border-color: rgba(0, 107, 63, 0.35);
+        0 0 80px rgba(0, 107, 63, 0.12);
 }
 
 /* Slightly elevated “company” card without changing the base layout */
@@ -1035,24 +987,6 @@ body.dark-theme .theme-icon.dark-icon {
     font-weight: 700;
     color: var(--primary-text);
     margin-bottom: 0.5rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    line-height: 1.25;
-}
-
-.timeline-icon {
-    font-size: 1.1rem;
-    line-height: 1;
-    opacity: 0.9;
-}
-
-.timeline-subtitle {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.95rem;
-    color: var(--secondary-text);
-    margin: 0 0 0.75rem 0;
-    line-height: 1.45;
 }
 
 .timeline-location {
@@ -1062,102 +996,14 @@ body.dark-theme .theme-icon.dark-icon {
     font-style: italic;
 }
 
-.timeline-reveal {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0 0 1rem 0;
-}
-
-.timeline-chip {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: var(--primary-text);
-}
-
 .timeline-achievements {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.timeline-details {
-    margin: 0;
-}
-
-.timeline-summary {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--secondary-text);
-    cursor: pointer;
-    user-select: none;
-    margin-bottom: 0.75rem;
-    list-style: none;
-}
-
-.timeline-summary::-webkit-details-marker {
-    display: none;
-}
-
-.timeline-summary::before {
-    content: '+';
-    display: inline-block;
-    width: 1.25rem;
-    color: #006B3F;
-    font-weight: 700;
-}
-
-.timeline-details[open] .timeline-summary::before {
-    content: '–';
-}
-
-.timeline-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1.25rem;
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transition: opacity 0.25s ease, max-height 0.25s ease;
-}
-
-.timeline-content:hover .timeline-links,
-.timeline-content:focus-within .timeline-links {
-    max-height: 4rem;
-    opacity: 1;
-}
-
-.timeline-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #006B3F;
-    text-decoration: none;
-    border: 1px solid rgba(0, 107, 63, 0.35);
-    border-radius: 999px;
-    padding: 0.35rem 0.85rem;
-    line-height: 1;
-    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.timeline-link:hover,
-.timeline-link:focus-visible {
-    color: #CE1126;
-    border-color: rgba(206, 17, 38, 0.45);
-    background-color: rgba(206, 17, 38, 0.08);
-}
-
-.timeline-achievements li {
+.timeline-details[open] .timeline-content:hover .timeline-links,
+.timeline-content:focus-within .timeline-achievements li {
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.75rem;
@@ -1681,689 +1527,6 @@ body.dark-theme .theme-icon.dark-icon {
 }
 
 /* ========================================
-   DOMAIN-SPECIFIC CARD TREATMENTS
-   ======================================== */
-
-/* ----------------------------------------
-   Card 1: Data Analytics - Green Theme
-   Domain: Data, Metrics, Analysis, Charts
-   ---------------------------------------- */
-.cert-data-analytics {
-    border-left: 3px solid rgba(0, 107, 63, 0.15);
-}
-
-/* Subtle diagonal lines background pattern */
-.cert-data-analytics::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(0, 107, 63, 0.02) 10px,
-        rgba(0, 107, 63, 0.02) 11px
-    );
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 16px;
-}
-
-.cert-data-analytics > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* Chart-inspired metrics layout */
-.cert-data-analytics .cert-metrics {
-    background: rgba(0, 107, 63, 0.04);
-    border-color: rgba(0, 107, 63, 0.08);
-}
-
-.cert-data-analytics .metric-value {
-    color: rgba(0, 107, 63, 0.85);
-}
-
-/* Grid-patterned skills tags (2x2 structure) */
-.cert-data-analytics .skills-tags {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-}
-
-.cert-data-analytics .skill-tag {
-    background: rgba(0, 107, 63, 0.06);
-    border-color: rgba(0, 107, 63, 0.12);
-    color: rgba(0, 107, 63, 0.75);
-    text-align: center;
-}
-
-.cert-data-analytics .cert-topics li::before {
-    color: rgba(0, 107, 63, 0.5);
-}
-
-.cert-data-analytics:hover {
-    border-left-color: rgba(0, 107, 63, 0.25);
-}
-
-/* ----------------------------------------
-   Card 2: Web Design - Blue-Grey Theme
-   Domain: Layout, Structure, Grid Systems
-   ---------------------------------------- */
-.cert-web-design {
-    border-left: 3px solid rgba(100, 116, 139, 0.15);
-}
-
-/* Subtle grid dots background pattern */
-.cert-web-design::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: radial-gradient(
-        rgba(100, 116, 139, 0.08) 1px,
-        transparent 1px
-    );
-    background-size: 16px 16px;
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 16px;
-}
-
-.cert-web-design > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* Grid-based metrics layout */
-.cert-web-design .cert-metrics {
-    background: rgba(100, 116, 139, 0.04);
-    border-color: rgba(100, 116, 139, 0.08);
-}
-
-.cert-web-design .metric-value {
-    color: rgba(100, 116, 139, 0.85);
-}
-
-/* Horizontal flow skills tags (responsive behavior) */
-.cert-web-design .skills-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.cert-web-design .skill-tag {
-    background: rgba(100, 116, 139, 0.06);
-    border-color: rgba(100, 116, 139, 0.12);
-    color: rgba(100, 116, 139, 0.75);
-}
-
-.cert-web-design .cert-topics li::before {
-    color: rgba(100, 116, 139, 0.5);
-}
-
-.cert-web-design .cert-year {
-    background: rgba(100, 116, 139, 0.06);
-    border-color: rgba(100, 116, 139, 0.1);
-    color: rgba(100, 116, 139, 0.8);
-}
-
-.cert-web-design:hover {
-    border-left-color: rgba(100, 116, 139, 0.25);
-}
-
-/* ----------------------------------------
-   Card 3: Frontend Dev - CREATIVE Purple/Blue/Cyan Theme
-   Domain: Code, Components, Technical Creativity
-   ---------------------------------------- */
-.cert-frontend-dev {
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.98) 0%,
-        rgba(139, 92, 246, 0.03) 50%,
-        rgba(59, 130, 246, 0.05) 100%
-    );
-    border: none;
-    border-radius: 20px;
-    position: relative;
-    padding: 2.5rem 2rem;
-}
-
-/* Animated gradient border using pseudo-element */
-.cert-frontend-dev::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 20px;
-    padding: 3px;
-    background: linear-gradient(135deg, 
-        #8B5CF6 0%, 
-        #3B82F6 50%, 
-        #06B6D4 100%
-    );
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
-    transition: opacity 0.4s ease, background 0.4s ease;
-}
-
-/* Animated gradient mesh background pattern */
-.cert-frontend-dev::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
-    background-size: 100% 100%;
-    animation: gradientMesh 8s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 20px;
-    opacity: 0.7;
-    transition: opacity 0.4s ease;
-}
-
-.cert-frontend-dev > * {
-    position: relative;
-    z-index: 2;
-}
-
-/* Enhanced hover state with glow */
-.cert-frontend-dev:hover {
-    transform: translateY(-6px);
-    box-shadow: 
-        0 8px 32px rgba(139, 92, 246, 0.15),
-        0 0 0 1px rgba(139, 92, 246, 0.1),
-        0 20px 40px rgba(59, 130, 246, 0.1);
-}
-
-.cert-frontend-dev:hover::after {
-    opacity: 1;
-    background: linear-gradient(135deg, 
-        #8B5CF6 0%, 
-        #3B82F6 33%,
-        #06B6D4 66%,
-        #8B5CF6 100%
-    );
-    background-size: 300% 300%;
-    animation: borderGlow 3s ease infinite;
-}
-
-.cert-frontend-dev:hover::before {
-    opacity: 1;
-}
-
-/* Code-inspired metrics layout with gradient */
-.cert-frontend-dev .cert-metrics {
-    background: linear-gradient(135deg, 
-        rgba(139, 92, 246, 0.06) 0%,
-        rgba(59, 130, 246, 0.04) 100%
-    );
-    border: 1px solid rgba(139, 92, 246, 0.12);
-    font-family: 'Space Mono', monospace;
-    border-radius: 12px;
-}
-
-.cert-frontend-dev .metric-value {
-    background: linear-gradient(135deg, #8B5CF6, #3B82F6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
-}
-
-/* Header with gradient accent */
-.cert-frontend-dev .cert-header {
-    border-bottom: 2px solid transparent;
-    border-image: linear-gradient(90deg, 
-        rgba(139, 92, 246, 0.3) 0%,
-        rgba(59, 130, 246, 0.2) 50%,
-        transparent 100%
-    ) 1;
-    padding-bottom: 1.25rem;
-}
-
-/* Creative skills tags layout */
-.cert-frontend-dev .skills-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.cert-frontend-dev .skill-tag {
-    border-radius: 8px;
-    font-family: 'Space Mono', monospace;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Domain-specific skill tag colors */
-.cert-frontend-dev .skill-tag:nth-child(1) { /* React */
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    color: #3B82F6;
-}
-
-.cert-frontend-dev .skill-tag:nth-child(2) { /* JavaScript */
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.25);
-    color: #D97706;
-}
-
-.cert-frontend-dev .skill-tag:nth-child(3) { /* UI/UX */
-    background: rgba(139, 92, 246, 0.1);
-    border: 1px solid rgba(139, 92, 246, 0.25);
-    color: #8B5CF6;
-}
-
-.cert-frontend-dev .skill-tag:nth-child(4) { /* Version Control */
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    color: #10B981;
-}
-
-.cert-frontend-dev .skill-tag:hover {
-    transform: scale(1.08) translateY(-2px);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
-}
-
-.cert-frontend-dev .cert-topics li::before {
-    content: '>';
-    color: #8B5CF6;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.9rem;
-    font-weight: 700;
-}
-
-.cert-frontend-dev .cert-year {
-    background: linear-gradient(135deg, 
-        rgba(139, 92, 246, 0.1) 0%,
-        rgba(59, 130, 246, 0.08) 100%
-    );
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    color: #8B5CF6;
-    font-weight: 700;
-}
-
-/* Creative action buttons */
-.cert-frontend-dev .btn-verify {
-    background: linear-gradient(135deg, #8B5CF6, #3B82F6);
-    border: none;
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.cert-frontend-dev .btn-verify::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
-    transition: left 0.5s ease;
-}
-
-.cert-frontend-dev .btn-verify:hover::before {
-    left: 100%;
-}
-
-.cert-frontend-dev .btn-verify:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-}
-
-.cert-frontend-dev .btn-view {
-    background: rgba(139, 92, 246, 0.08);
-    border: 1.5px solid rgba(139, 92, 246, 0.2);
-    color: #8B5CF6;
-}
-
-.cert-frontend-dev .btn-view:hover {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.4);
-    transform: translateY(-3px);
-}
-
-/* ----------------------------------------
-   Card 4: UX Design - CREATIVE Warm Coral/Pink Theme
-   Domain: User-Centered, Research, Design Thinking
-   ---------------------------------------- */
-.cert-ux-design {
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.98) 0%,
-        rgba(249, 115, 22, 0.03) 40%,
-        rgba(236, 72, 153, 0.04) 100%
-    );
-    border: none;
-    border-radius: 24px;
-    position: relative;
-    padding: 2.5rem 2rem;
-}
-
-/* Animated warm gradient border */
-.cert-ux-design::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 24px;
-    padding: 3px;
-    background: linear-gradient(135deg, 
-        #F97316 0%, 
-        #EC4899 50%, 
-        #EF4444 100%
-    );
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-/* Organic flowing shapes background */
-.cert-ux-design::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: 
-        radial-gradient(ellipse at 10% 90%, rgba(249, 115, 22, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 90% 10%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(239, 68, 68, 0.05) 0%, transparent 60%);
-    background-size: 100% 100%;
-    animation: organicFlow 10s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 24px;
-    opacity: 0.8;
-    transition: opacity 0.4s ease;
-}
-
-.cert-ux-design > * {
-    position: relative;
-    z-index: 2;
-}
-
-/* Enhanced hover with warm glow */
-.cert-ux-design:hover {
-    transform: translateY(-6px);
-    box-shadow: 
-        0 8px 32px rgba(249, 115, 22, 0.15),
-        0 0 0 1px rgba(236, 72, 153, 0.1),
-        0 20px 40px rgba(236, 72, 153, 0.1);
-}
-
-.cert-ux-design:hover::after {
-    opacity: 0.8;
-    background: linear-gradient(135deg, 
-        #F97316 0%, 
-        #EC4899 33%,
-        #EF4444 66%,
-        #F97316 100%
-    );
-    background-size: 300% 300%;
-    animation: warmGlow 4s ease infinite;
-}
-
-.cert-ux-design:hover::before {
-    opacity: 1;
-}
-
-/* User-focused metrics with warm rounded style */
-.cert-ux-design .cert-metrics {
-    background: linear-gradient(135deg, 
-        rgba(249, 115, 22, 0.06) 0%,
-        rgba(236, 72, 153, 0.04) 100%
-    );
-    border: 1px solid rgba(249, 115, 22, 0.12);
-    border-radius: 20px;
-    padding: 1.5rem;
-}
-
-.cert-ux-design .metric-value {
-    background: linear-gradient(135deg, #F97316, #EC4899);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
-}
-
-/* Header with warm gradient accent */
-.cert-ux-design .cert-header {
-    border-bottom: 2px solid transparent;
-    border-image: linear-gradient(90deg, 
-        rgba(249, 115, 22, 0.3) 0%,
-        rgba(236, 72, 153, 0.2) 50%,
-        transparent 100%
-    ) 1;
-    padding-bottom: 1.25rem;
-}
-
-/* Organic flow skills tags with design-tool colors */
-.cert-ux-design .skills-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    justify-content: flex-start;
-}
-
-.cert-ux-design .skill-tag {
-    border-radius: 24px;
-    padding: 0.5rem 1.1rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    animation: gentleFloat 3s ease-in-out infinite;
-}
-
-/* Domain-specific skill tag colors for design tools */
-.cert-ux-design .skill-tag:nth-child(1) { /* Figma */
-    background: rgba(168, 85, 247, 0.1);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    color: #A855F7;
-    animation-delay: 0s;
-}
-
-.cert-ux-design .skill-tag:nth-child(2) { /* Prototyping */
-    background: rgba(249, 115, 22, 0.1);
-    border: 1px solid rgba(249, 115, 22, 0.25);
-    color: #F97316;
-    animation-delay: 0.5s;
-}
-
-.cert-ux-design .skill-tag:nth-child(3) { /* UX Research */
-    background: rgba(236, 72, 153, 0.1);
-    border: 1px solid rgba(236, 72, 153, 0.25);
-    color: #EC4899;
-    animation-delay: 1s;
-}
-
-.cert-ux-design .skill-tag:nth-child(4) { /* Wireframing */
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    color: #3B82F6;
-    animation-delay: 1.5s;
-}
-
-.cert-ux-design .skill-tag:hover {
-    transform: scale(1.1) translateY(-4px);
-    box-shadow: 0 6px 16px rgba(249, 115, 22, 0.2);
-    animation-play-state: paused;
-}
-
-.cert-ux-design .cert-topics li::before {
-    content: '◉';
-    color: #EC4899;
-    font-size: 0.7rem;
-}
-
-.cert-ux-design .cert-year {
-    background: linear-gradient(135deg, 
-        rgba(249, 115, 22, 0.1) 0%,
-        rgba(236, 72, 153, 0.08) 100%
-    );
-    border: 1px solid rgba(249, 115, 22, 0.2);
-    color: #F97316;
-    font-weight: 700;
-    border-radius: 12px;
-}
-
-/* Creative action buttons for UX card */
-.cert-ux-design .btn-verify {
-    background: linear-gradient(135deg, #F97316, #EC4899);
-    border: none;
-    color: white;
-    border-radius: 14px;
-    position: relative;
-    overflow: hidden;
-}
-
-.cert-ux-design .btn-verify::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-    );
-    transition: left 0.6s ease;
-}
-
-.cert-ux-design .btn-verify:hover::before {
-    left: 100%;
-}
-
-.cert-ux-design .btn-verify:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
-}
-
-.cert-ux-design .btn-view {
-    background: rgba(249, 115, 22, 0.08);
-    border: 1.5px solid rgba(249, 115, 22, 0.2);
-    color: #F97316;
-    border-radius: 14px;
-}
-
-.cert-ux-design .btn-view:hover {
-    background: rgba(249, 115, 22, 0.15);
-    border-color: rgba(249, 115, 22, 0.4);
-    transform: translateY(-3px);
-}
-
-/* ========================================
-   CREATIVE CARD ANIMATIONS
-   ======================================== */
-
-/* Gradient mesh animation for Frontend Dev card */
-@keyframes gradientMesh {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-/* Border glow animation for Frontend Dev card */
-@keyframes borderGlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Organic flow animation for UX Design card */
-@keyframes organicFlow {
-    0%, 100% {
-        background-position: 0% 0%;
-    }
-    25% {
-        background-position: 100% 0%;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    75% {
-        background-position: 0% 100%;
-    }
-}
-
-/* Warm glow animation for UX Design card */
-@keyframes warmGlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Gentle floating animation for UX skill tags */
-@keyframes gentleFloat {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-3px);
-    }
-}
-
-/* Tag bounce animation on hover */
-@keyframes tagBounce {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-/* ========================================
    RESPONSIVE ADJUSTMENTS FOR NEW SECTIONS
    ======================================== */
 
@@ -2435,14 +1598,6 @@ body.dark-theme .theme-icon.dark-icon {
         flex-direction: column;
     }
     
-    /* Reset domain-specific skills layout on mobile for consistency */
-    .cert-data-analytics .skills-tags,
-    .cert-frontend-dev .skills-tags {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-    }
-    
     /* On mobile, all items stack vertically, so reset grid-column */
     .expertise-item:first-child,
     .project-card:first-child {
@@ -2472,19 +1627,11 @@ body.dark-theme .theme-icon.dark-icon {
     }
 
     /* No hover on most touch devices: keep quick links visible */
-    .timeline-links {
-        max-height: none;
-        opacity: 1;
     }
-}
 
 /* Touch devices (including larger tablets): keep quick links visible */
 @media (hover: none) {
-    .timeline-links {
-        max-height: none;
-        opacity: 1;
     }
-}
 
 /* ========================================
    PRINT STYLES
@@ -2713,20 +1860,6 @@ body.dark-theme .timeline-marker {
     box-shadow: 0 0 0 4px rgba(16, 207, 116, 0.2);
 }
 
-/* Dark Mode marker variations by role */
-body.dark-theme .timeline-item[data-role='analyst'] .timeline-marker {
-    background: linear-gradient(135deg, #10cf74, #10cf74);
-}
-
-body.dark-theme .timeline-item[data-role='freelance'] .timeline-marker {
-    background: linear-gradient(135deg, #ff3355, #10cf74);
-}
-
-body.dark-theme .timeline-item[data-role='company'] .timeline-marker {
-    background: linear-gradient(135deg, #10cf74, #ff3355);
-    box-shadow: 0 0 0 4px rgba(255, 51, 85, 0.15);
-}
-
 body.dark-theme .timeline-content {
     background: rgba(30, 39, 48, 0.85);
     backdrop-filter: blur(20px);
@@ -2734,14 +1867,14 @@ body.dark-theme .timeline-content {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.6),
-        0 0 60px rgba(16, 207, 116, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 0 60px rgba(16, 207, 116, 0.1);
 }
 
 body.dark-theme .timeline-content:hover {
+    transform: translateX(8px);
     box-shadow:
-        0 12px 48px rgba(0, 0, 0, 0.7),
-        0 0 80px rgba(16, 207, 116, 0.2);
+        0 12px 48px rgba(0, 0, 0, 0.15),
+        0 0 80px rgba(0, 107, 63, 0.12);
 }
 
 body.dark-theme .timeline-date {
@@ -2755,36 +1888,6 @@ body.dark-theme .timeline-title {
 
 body.dark-theme .timeline-location {
     color: #a8b5c7;
-}
-
-body.dark-theme .timeline-subtitle {
-    color: #a8b5c7;
-}
-
-body.dark-theme .timeline-chip {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #e8edf3;
-}
-
-body.dark-theme .timeline-summary {
-    color: #a8b5c7;
-}
-
-body.dark-theme .timeline-summary::before {
-    color: #10cf74;
-}
-
-body.dark-theme .timeline-link {
-    color: #10cf74;
-    border-color: rgba(16, 207, 116, 0.4);
-}
-
-body.dark-theme .timeline-link:hover,
-body.dark-theme .timeline-link:focus-visible {
-    color: #ff3355;
-    border-color: rgba(255, 51, 85, 0.5);
-    background-color: rgba(255, 51, 85, 0.12);
 }
 
 body.dark-theme .timeline-achievements li {
@@ -2923,9 +2026,10 @@ body.dark-theme .footer-text {
     will-change: opacity, transform;
 }
 
-/* Hidden state - fade out only (no movement) */
+/* Hidden state - fade out and move up slightly */
 .scroll-fade-target.scroll-fade-hidden {
     opacity: 0;
+    transform: translateY(-6px);
     pointer-events: none;
     visibility: hidden;
 }
@@ -2933,5 +2037,4 @@ body.dark-theme .footer-text {
 /* Ensure smooth transitions */
 .scroll-fade-target.scroll-fade-hidden * {
     pointer-events: none;
-}
 }

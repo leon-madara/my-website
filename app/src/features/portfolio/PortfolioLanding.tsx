@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { PortfolioEntrance } from "./PortfolioEntrance";
 import {
+  isLegacyAccordionCaseStudyProject,
   isLongformCaseStudyProject,
   isTabbedCaseStudyProject,
   PortfolioProject
@@ -12,7 +13,11 @@ interface PortfolioLandingProps {
 }
 
 function getProjectHref(project: PortfolioProject) {
-  if (isTabbedCaseStudyProject(project)) {
+  if (project.slug === "edumanage") {
+    return "/edumanage.html";
+  }
+
+  if (isTabbedCaseStudyProject(project) || isLegacyAccordionCaseStudyProject(project)) {
     const firstSection = project.sections[0];
     const firstPage = firstSection.pages[0];
     return `/portfolio/${project.slug}?section=${firstSection.id}&page=${firstPage.id}`;
@@ -40,6 +45,15 @@ export function PortfolioLanding({ projects }: PortfolioLandingProps) {
         label: section.label,
         href: `/portfolio/${selectedProject.slug}?section=${section.id}&page=${section.pages[0].id}`
       }))
+    : isLegacyAccordionCaseStudyProject(selectedProject)
+      ? selectedProject.sections.map((section) => ({
+          id: section.id,
+          label: section.label,
+          href:
+            selectedProject.slug === "edumanage"
+              ? `/edumanage.html#${section.id}`
+              : `/portfolio/${selectedProject.slug}?section=${section.id}&page=${section.pages[0].id}`
+        }))
     : selectedProject.chapters.map((chapter) => ({
         id: chapter.id,
         label: chapter.label,
@@ -62,7 +76,7 @@ export function PortfolioLanding({ projects }: PortfolioLandingProps) {
             The portfolio migration keeps the identity of the live experience,
             but turns the old in-place content swapping into real routes. Projects
             01 and 02 share a paged case-study template, while Project 03 keeps
-            its long-form editorial structure.
+            its legacy accordion-style structure.
           </p>
         </header>
 
@@ -130,9 +144,15 @@ export function PortfolioLanding({ projects }: PortfolioLandingProps) {
             </div>
 
             <div className="portfolio-preview-card__actions">
-              <Link className="btn-primary portfolio-action-button" to={getProjectHref(selectedProject)}>
-                Open case study
-              </Link>
+              {selectedProject.slug === "edumanage" ? (
+                <a className="btn-primary portfolio-action-button" href="/edumanage.html">
+                  Open case study
+                </a>
+              ) : (
+                <Link className="btn-primary portfolio-action-button" to={getProjectHref(selectedProject)}>
+                  Open case study
+                </Link>
+              )}
               {selectedProject.links.live ? (
                 <a
                   className="btn-secondary portfolio-action-button"
@@ -165,22 +185,39 @@ export function PortfolioLanding({ projects }: PortfolioLandingProps) {
 
             <div className="portfolio-side-panel__stack">
               {projects.map((project) => (
-                <Link
-                  className="portfolio-mini-card"
-                  key={project.slug}
-                  to={getProjectHref(project)}
-                >
-                  <span className="portfolio-mini-card__badge">{project.badge}</span>
-                  <div>
-                    <h3>{project.title}</h3>
-                    <p>{project.preview.highlights[0]}</p>
-                    {isLongformCaseStudyProject(project) ? (
-                      <span className="portfolio-mini-card__template">Long-form case study</span>
-                    ) : (
-                      <span className="portfolio-mini-card__template">Tabbed case study</span>
-                    )}
-                  </div>
-                </Link>
+                project.slug === "edumanage" ? (
+                  <a
+                    className="portfolio-mini-card"
+                    href="/edumanage.html"
+                    key={project.slug}
+                  >
+                    <span className="portfolio-mini-card__badge">{project.badge}</span>
+                    <div>
+                      <h3>{project.title}</h3>
+                      <p>{project.preview.highlights[0]}</p>
+                      <span className="portfolio-mini-card__template">Vanilla case study</span>
+                    </div>
+                  </a>
+                ) : (
+                  <Link
+                    className="portfolio-mini-card"
+                    key={project.slug}
+                    to={getProjectHref(project)}
+                  >
+                    <span className="portfolio-mini-card__badge">{project.badge}</span>
+                    <div>
+                      <h3>{project.title}</h3>
+                      <p>{project.preview.highlights[0]}</p>
+                      {isLongformCaseStudyProject(project) ? (
+                        <span className="portfolio-mini-card__template">Long-form case study</span>
+                      ) : isLegacyAccordionCaseStudyProject(project) ? (
+                        <span className="portfolio-mini-card__template">Legacy accordion case study</span>
+                      ) : (
+                        <span className="portfolio-mini-card__template">Tabbed case study</span>
+                      )}
+                    </div>
+                  </Link>
+                )
               ))}
             </div>
           </aside>

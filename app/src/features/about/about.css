@@ -48,7 +48,7 @@
 
 .hero-image-wrapper {
   position: absolute;
-  left: 10vw;
+  left: 50%;
   top: 50%;
   z-index: 1;
   width: min(42vw, 600px);
@@ -56,8 +56,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -50%) scale(0.5);
+  /* GSAP owns the transform — starts centered, full size */
+  transform: translate(-50%, -50%) scale(1);
   transform-origin: center;
+  will-change: transform, left;
 }
 
 .hero-image {

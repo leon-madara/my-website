@@ -2,6 +2,7 @@ import { eduManageProject } from "./eduManageProject";
 import { eastleighProject } from "./eastleighProject";
 import { legitLogisticsProject } from "./legitLogisticsProject";
 import {
+  isLegacyAccordionCaseStudyProject,
   isLongformCaseStudyProject,
   isTabbedCaseStudyProject,
   PortfolioProject,
@@ -47,6 +48,13 @@ export function getPortfolioProjectHref(project: PortfolioProject) {
     return firstChapter
       ? `/portfolio/${project.slug}#${firstChapter}`
       : `/portfolio/${project.slug}`;
+  }
+
+  if (isLegacyAccordionCaseStudyProject(project)) {
+    const firstSection = project.sections[0];
+    const firstPage = firstSection.pages[0];
+    const search = `?section=${firstSection.id}&page=${firstPage.id}`;
+    return `/portfolio/${project.slug}${search}`;
   }
 
   const firstSection = project.sections[0];

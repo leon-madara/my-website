@@ -14,12 +14,31 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Viewport:', `${window.innerWidth}x${window.innerHeight}`);
     console.log('About page loaded, initializing parallax...');
 
+    // ========================================
+    // CRITICAL SAFETY: Ensure page always becomes interactive
+    // ========================================
+    const ABSOLUTE_MAX_ANIMATION_TIME = 6000; // 6 seconds absolute max
+    const masterSafetyTimeout = window.setTimeout(() => {
+        console.error('[CRITICAL EMERGENCY] Force-enabling page interaction after timeout');
+        document.body.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+        // Kill all GSAP animations
+        if (typeof gsap !== 'undefined') {
+            gsap.globalTimeline.clear();
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+            }
+        }
+    }, ABSOLUTE_MAX_ANIMATION_TIME);
+
     // Check if GSAP and ScrollTrigger are available
     console.log('Checking GSAP library availability...');
     if (typeof gsap === 'undefined') {
         console.error('❌ GSAP library failed to load from CDN. Activating fallback mode.');
         console.error('Context: GSAP library not found in global scope');
         console.log('Fallback mode: All content will be displayed immediately without animations.');
+        if (masterSafetyTimeout) clearTimeout(masterSafetyTimeout);
         activateFallbackMode('GSAP library not loaded');
         return;
     }
@@ -31,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('❌ ScrollTrigger plugin failed to load from CDN. Activating fallback mode.');
         console.error('Context: ScrollTrigger plugin not found in global scope');
         console.log('Fallback mode: All content will be displayed immediately without animations.');
+        if (masterSafetyTimeout) clearTimeout(masterSafetyTimeout);
         activateFallbackMode('ScrollTrigger plugin not loaded');
         return;
     }
@@ -49,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stack: error.stack
         });
         console.log('Activating fallback mode due to plugin registration failure.');
+        if (masterSafetyTimeout) clearTimeout(masterSafetyTimeout);
         activateFallbackMode('ScrollTrigger registration failed');
         return;
     }
@@ -87,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion) {
         console.log('⚠️ Reduced motion preference detected');
         console.log('Accessibility mode: Using simplified animations');
+        if (masterSafetyTimeout) clearTimeout(masterSafetyTimeout);
         fallbackNoAnimation();
         return;
     }
@@ -96,6 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Starting parallax hero initialization...');
     try {
         initParallaxHero();
+        // Clear master safety timeout - animation initialized successfully
+        if (masterSafetyTimeout) {
+            clearTimeout(masterSafetyTimeout);
+            console.log('✓ Master safety timeout cleared - animation initialized successfully');
+        }
     } catch (error) {
         console.error('❌ Error during parallax initialization:', error);
         console.error('Error details:', {
@@ -319,51 +346,46 @@ function initParallaxHero() {
     const loadTimeline = gsap.timeline({
         onComplete: () => {
             console.log('✓ Initial load animation complete');
+            // Ensure scroll is enabled after animations complete
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
     });
 
-    // Step 1: Slide lion to 20vw and scale to 50%
+    // Safety timeout: Force-complete animations after 5.5 seconds to prevent blocking
+    // This ensures the page becomes interactive even if animations get stuck
+    const animationSafetyTimeout = window.setTimeout(() => {
+        if (loadTimeline && !loadTimeline.isActive && loadTimeline.progress() < 1) {
+            console.warn('[SAFETY] Force-completing stalled initial animations');
+            loadTimeline.progress(1);
+            loadTimeline.kill();
+        }
+    }, 5500);
+
+    // Step 1: Lion starts centered and large, slides left and scales down.
+    // GSAP owns the full transform — use xPercent/yPercent for centering
+    // so there's no conflict with the CSS translate(-50%,-50%).
+    // left:50%, top:50% are the anchor; xPercent/yPercent center it there.
+    // Then we animate x from 0 → negative offset to slide left.
     console.log('Step 1: Animating lion graphic to final position (image only)');
+    gsap.set(heroImageWrapper, {
+        left: '50%',
+        top: '50%',
+        xPercent: -50,
+        yPercent: -50,
+        scale: 1,
+        transformOrigin: '50% 50%'
+    });
     loadTimeline.to(heroImageWrapper, {
         x: '-40vw',
         scale: 0.5,
         duration: 2.5,
         ease: 'power2.inOut',
         onStart: () => {
-            console.log('▶️ Lion image sliding to 10vw (from center) and scaling to 50%');
+            console.log('▶️ Lion image sliding left and scaling to 50%');
         },
         onComplete: () => {
-            console.log('✓ Lion image positioned at 10vw, scale 50%');
-            // Ensure lion stays fixed after animation completes
-            // Get the actual screen position after GSAP animation and lock it in place
-            if (heroImageWrapper) {
-                // Get the bounding rect to find the actual screen position after transform
-                const rect = heroImageWrapper.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                
-                // Calculate the center point of the element (since we use translate(-50%, -50%))
-                const elementCenterX = rect.left + (rect.width / 2);
-                const elementCenterY = rect.top + (rect.height / 2);
-                
-                // Set position fixed explicitly
-                heroImageWrapper.style.position = 'fixed';
-                // Set left and top to the center position (since translate(-50%, -50%) will center it)
-                heroImageWrapper.style.left = `${elementCenterX}px`;
-                heroImageWrapper.style.top = `${elementCenterY}px`;
-                // Reset transform to only include scale and centering (remove x translation)
-                // translate(-50%, -50%) centers the element at the left/top position
-                heroImageWrapper.style.transform = 'translate(-50%, -50%) scale(0.5)';
-                
-                console.log('✓ Lion image locked in fixed position:', {
-                    left: `${elementCenterX}px`,
-                    top: `${elementCenterY}px`,
-                    scale: '0.5',
-                    position: 'fixed',
-                    'final-screen-position': `center at (${elementCenterX}px, ${elementCenterY}px)`
-                });
-                console.log('✓ Lion image will remain static during scroll');
-            }
+            console.log('✓ Lion image positioned at left side, scale 50%');
         }
     });
 
@@ -454,6 +476,17 @@ function initParallaxHero() {
             duration: 1
         }, 'lion-positioned+=0.1');
     }
+
+    // Clear safety timeout when animations complete normally
+    loadTimeline.eventCallback('onComplete', () => {
+        if (animationSafetyTimeout) {
+            window.clearTimeout(animationSafetyTimeout);
+            console.log('✓ Animation safety timeout cleared - animations completed normally');
+        }
+        // Ensure page is scrollable after initial animations
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+    });
 
     console.log('========================================');
     console.log('🎨 CREATING SCROLL ANIMATION');

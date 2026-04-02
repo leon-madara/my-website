@@ -14,6 +14,7 @@ import {
 } from "./portfolioContent";
 import { PortfolioEntrance } from "./PortfolioEntrance";
 import { TabbedCaseStudyProject } from "./portfolio.types";
+import { usePortfolioScrollNav } from "./usePortfolioScrollNav";
 
 interface TabbedCaseStudyRouteProps {
   project: TabbedCaseStudyProject;
@@ -32,6 +33,9 @@ export function TabbedCaseStudyRoute({
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const [entranceReady, setEntranceReady] = useState(!showEntrance);
   const [navHovered, setNavHovered] = useState(false);
+  const [windowOffset, setWindowOffset] = useState(0);
+
+  const WINDOW_SIZE = 5;
 
   const resolvedState = useMemo(() => {
     const fallbackSection = project.sections[0];
@@ -72,6 +76,7 @@ export function TabbedCaseStudyRoute({
   const currentSectionIndex = project.sections.findIndex(
     (section) => section.id === resolvedState.section.id
   );
+  const totalSections = project.sections.length;
   const previousEntry = currentIndex > 0 ? flattenedPages[currentIndex - 1] : null;
   const nextEntry =
     currentIndex >= 0 && currentIndex < flattenedPages.length - 1
@@ -175,6 +180,27 @@ export function TabbedCaseStudyRoute({
     }
   }, [resolvedState.section.id]);
 
+  // Slide window only when active section falls outside the visible range
+  useEffect(() => {
+    if (currentSectionIndex < windowOffset) {
+      setWindowOffset(currentSectionIndex);
+    } else if (currentSectionIndex >= windowOffset + WINDOW_SIZE) {
+      setWindowOffset(currentSectionIndex - WINDOW_SIZE + 1);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSectionIndex]);
+
+  const navLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleNavEnter = useCallback(() => {
+    if (navLeaveTimer.current) clearTimeout(navLeaveTimer.current);
+    setNavHovered(true);
+  }, []);
+
+  const handleNavLeave = useCallback(() => {
+    navLeaveTimer.current = setTimeout(() => setNavHovered(false), 150);
+  }, []);
+
   const playPageFlip = usePageFlipSound();
 
   // Auto-collapse global nav into indicator after 2s on mount
@@ -186,6 +212,7 @@ export function TabbedCaseStudyRoute({
     return () => {
       clearTimeout(timer);
       document.body.classList.remove("nav-is-collapsed");
+      document.body.classList.remove("nav-is-hovered");
     };
   }, [entranceReady]);
 
@@ -213,6 +240,16 @@ export function TabbedCaseStudyRoute({
     [playPageFlip, setSearchParams]
   );
 
+  usePortfolioScrollNav({
+    contentBodyRef,
+    nextEntry,
+    previousEntry,
+    navigateTo,
+    entranceReady,
+    openDropdownId,
+    setOpenDropdownId,
+  });
+
   const handleSectionButton = (
     event: ReactMouseEvent<HTMLButtonElement>,
     sectionId: string
@@ -231,8 +268,8 @@ export function TabbedCaseStudyRoute({
       <div
         aria-hidden="true"
         className="portfolio-nav-hover-zone"
-        onMouseEnter={() => setNavHovered(true)}
-        onMouseLeave={() => setNavHovered(false)}
+        onMouseEnter={handleNavEnter}
+        onMouseLeave={handleNavLeave}
       />
 
       <div
@@ -249,20 +286,33 @@ export function TabbedCaseStudyRoute({
                 aria-label="Portfolio projects"
               >
                 {portfolioProjects.map((portfolioProject) => (
-                  <Link
-                    className={`portfolio-project-toggle ${portfolioProject.slug === project.slug ? "is-active" : ""}`}
-                    key={portfolioProject.slug}
-                    to={getPortfolioProjectHref(portfolioProject)}
-                  >
-                    <span className="portfolio-project-toggle__badge">
-                      {portfolioProject.badge}
-                    </span>
-                    <span className="portfolio-project-toggle__label">
-                      {portfolioProject.slug === "edumanage"
-                        ? "EduManage"
-                        : portfolioProject.title}
-                    </span>
-                  </Link>
+                  portfolioProject.slug === "edumanage" ? (
+                    <a
+                      className={`portfolio-project-toggle ${portfolioProject.slug === project.slug ? "is-active" : ""}`}
+                      href="/edumanage.html"
+                      key={portfolioProject.slug}
+                    >
+                      <span className="portfolio-project-toggle__badge">
+                        {portfolioProject.badge}
+                      </span>
+                      <span className="portfolio-project-toggle__label">
+                        EduManage
+                      </span>
+                    </a>
+                  ) : (
+                    <Link
+                      className={`portfolio-project-toggle ${portfolioProject.slug === project.slug ? "is-active" : ""}`}
+                      key={portfolioProject.slug}
+                      to={getPortfolioProjectHref(portfolioProject)}
+                    >
+                      <span className="portfolio-project-toggle__badge">
+                        {portfolioProject.badge}
+                      </span>
+                      <span className="portfolio-project-toggle__label">
+                        {portfolioProject.title}
+                      </span>
+                    </Link>
+                  )
                 ))}
               </div>
             </div>
@@ -270,19 +320,42 @@ export function TabbedCaseStudyRoute({
         </header>
 
         <div className="portfolio-section-row-shell">
+          {windowOffset > 0 && (
+            <button
+              aria-label="Show previous sections"
+              className="portfolio-section-row__arrow portfolio-section-row__arrow--prev"
+              onClick={() => setWindowOffset((o) => Math.max(o - 1, 0))}
+              type="button"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+            </button>
+          )}
           <div
             className="portfolio-section-row"
             ref={dropdownRef}
             role="navigation"
             aria-label={`${project.title} case study sections`}
           >
-            {project.sections.map((section, index) => {
+            {project.sections.slice(windowOffset, windowOffset + WINDOW_SIZE).map((section, sliceIndex) => {
+              const index = windowOffset + sliceIndex;
               const sectionState =
                 index < currentSectionIndex
                   ? "is-complete"
                   : index === currentSectionIndex
                     ? "is-active"
                     : "is-upcoming";
+
+              const pageCount = section.pages.length;
+              const circumference = 2 * Math.PI * 10.5;
+              let progressFraction = 0;
+              if (index < currentSectionIndex) {
+                progressFraction = 1;
+              } else if (index === currentSectionIndex) {
+                const activePageIndex = section.pages.findIndex(p => p.id === resolvedState.page.id);
+                progressFraction = (activePageIndex + 1) / pageCount;
+              }
+              const progressDash = progressFraction * circumference;
+              const remainingDash = circumference - progressDash;
 
               return (
                 <div
@@ -297,17 +370,47 @@ export function TabbedCaseStudyRoute({
                     onClick={(event) => handleSectionButton(event, section.id)}
                     type="button"
                   >
-                    <span className="portfolio-section-pill__indicator">
-                      {index < currentSectionIndex ? (
-                        <span
-                          aria-hidden="true"
-                          className="portfolio-section-pill__checkmark"
+                    <span className="portfolio-section-pill__indicator" aria-hidden="true">
+                      <svg
+                        className="portfolio-section-pill__ring"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                      >
+                        {/* Track */}
+                        <circle
+                          cx="12" cy="12" r="10.5"
+                          fill="none"
+                          stroke="rgba(200,198,194,0.5)"
+                          strokeWidth="2.5"
                         />
-                      ) : (
-                        <span className="portfolio-section-pill__number">
+                        {/* Progress arc */}
+                        {progressFraction > 0 && (
+                          <circle
+                            cx="12" cy="12" r="10.5"
+                            fill="none"
+                            stroke="var(--kenyan-green)"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeDasharray={`${progressDash} ${remainingDash}`}
+                            strokeDashoffset={circumference * 0.25}
+                            style={{ transition: "stroke-dasharray 0.4s ease" }}
+                          />
+                        )}
+                        {/* Number centered — counter-rotate to stay upright */}
+                        <text
+                          x="12" y="12"
+                          dominantBaseline="central"
+                          textAnchor="middle"
+                          fontSize="6"
+                          fontFamily="Inter, system-ui, sans-serif"
+                          fontWeight="500"
+                          fill="currentColor"
+                          transform="rotate(90, 12, 12)"
+                        >
                           {section.number}
-                        </span>
-                      )}
+                        </text>
+                      </svg>
                     </span>
                     <span className="portfolio-section-pill__label">
                       {section.label}
@@ -332,6 +435,16 @@ export function TabbedCaseStudyRoute({
               );
             })}
           </div>
+          {windowOffset + WINDOW_SIZE < totalSections && (
+            <button
+              aria-label="Show next sections"
+              className="portfolio-section-row__arrow portfolio-section-row__arrow--next"
+              onClick={() => setWindowOffset((o) => Math.min(o + 1, totalSections - WINDOW_SIZE))}
+              type="button"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+            </button>
+          )}
         </div>
 
         <div aria-hidden="true" className="portfolio-workspace__rule">

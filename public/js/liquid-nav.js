@@ -114,7 +114,25 @@
 
     const href = pendingHref;
     clearPendingNavigation();
-    window.location.href = href;
+
+    // Validate href before navigation
+    if (!href || typeof href !== "string" || href.trim() === "") {
+      console.warn("[liquid-nav] Invalid href, skipping navigation", { href });
+      return;
+    }
+
+    // Attempt navigation with error handling
+    try {
+      window.location.assign(href);
+    } catch (error) {
+      console.error("[liquid-nav] Navigation failed", { href, error });
+      // Fallback: try direct assignment
+      try {
+        window.location.href = href;
+      } catch (fallbackError) {
+        console.error("[liquid-nav] All navigation attempts failed", fallbackError);
+      }
+    }
   }
 
   function shouldHandleAnimatedNavigation(event) {
@@ -165,12 +183,27 @@
       return;
     }
 
+    e.preventDefault();
+
+    // If already navigating, allow rapid click override to new target
+    // This prevents freeze when user clicks different link during animation
     if (isNavigating) {
-      e.preventDefault();
-      return;
+      const newTargetKey = routeKeyFromHref(href);
+      const pendingTargetKey = pendingHref ? routeKeyFromHref(pendingHref) : null;
+
+      // Only override if clicking a *different* target
+      if (newTargetKey === pendingTargetKey) {
+        // Same target: ignore duplicate click
+        return;
+      }
+
+      // Different target: cancel old timer and start new animation
+      if (navigationTimer) {
+        window.clearTimeout(navigationTimer);
+        navigationTimer = null;
+      }
     }
 
-    e.preventDefault();
     pendingHref = href;
     isNavigating = true;
     nav.classList.add("is-transitioning");
@@ -199,6 +232,15 @@
     }
 
     completeNavigation();
+  });
+
+  // Safety handler: if page becomes hidden, complete navigation immediately
+  // Prevents traps when user navigates away during animation
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden && isNavigating && pendingHref) {
+      // Page is hidden (user switched tabs/window): force navigation
+      completeNavigation();
+    }
   });
 
   // Wait for fonts and layout before initial positioning

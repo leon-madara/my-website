@@ -32,9 +32,17 @@ export function PrimaryNav() {
       return;
     }
 
+    let rafId: number;
+
     const updateIndicator = () => {
       const navRect = nav.getBoundingClientRect();
       const linkRect = activeLink.getBoundingClientRect();
+
+      // If the nav hasn't painted yet (zero dimensions), retry next frame
+      if (navRect.width === 0) {
+        rafId = requestAnimationFrame(updateIndicator);
+        return;
+      }
 
       setIndicator({
         left: linkRect.left - navRect.left,
@@ -43,10 +51,11 @@ export function PrimaryNav() {
       });
     };
 
-    updateIndicator();
+    rafId = requestAnimationFrame(updateIndicator);
     window.addEventListener("resize", updateIndicator);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("resize", updateIndicator);
     };
   }, [location.pathname]);

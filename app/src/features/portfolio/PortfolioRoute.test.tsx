@@ -36,7 +36,7 @@ describe("PortfolioRoute", () => {
       screen.getByRole("link", {
         name: /03\s*edumanage/i
       })
-    ).toHaveAttribute("href", "/portfolio/edumanage#crisis");
+    ).toHaveAttribute("href", "/edumanage.html");
     expect(
       screen.queryByRole("heading", {
         level: 1,
@@ -115,8 +115,8 @@ describe("PortfolioRoute", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the EduManage long-form route with chapter navigation", async () => {
-    renderPortfolioRoute("/portfolio/edumanage#crisis");
+  it("renders the EduManage legacy accordion route with chapter navigation", async () => {
+    renderPortfolioRoute("/portfolio/edumanage?section=crisis&page=overview");
 
     expect(
       await screen.findByRole("heading", {
@@ -125,10 +125,10 @@ describe("PortfolioRoute", () => {
       })
     ).toBeInTheDocument();
     expect(
-      screen.getAllByRole("link", {
+      screen.getAllByRole("button", {
         name: /the crisis/i
       })
-    ).toHaveLength(2);
+    ).toHaveLength(2); // accordion header + page button
     expect(
       screen.getByRole("heading", {
         level: 2,

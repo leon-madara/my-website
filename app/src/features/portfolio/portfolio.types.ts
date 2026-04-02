@@ -116,6 +116,15 @@ export interface TabbedCaseStudyProject extends PortfolioProjectBase {
   sections: PortfolioSection[];
 }
 
+export interface LegacyAccordionCaseStudyProject extends PortfolioProjectBase {
+  template: "legacy-accordion-case-study";
+  preview: {
+    summary: string;
+    highlights: string[];
+  };
+  sections: PortfolioSection[];
+}
+
 export interface LongformCaseStudyProject extends PortfolioProjectBase {
   template: "longform-case-study";
   preview: {
@@ -127,12 +136,19 @@ export interface LongformCaseStudyProject extends PortfolioProjectBase {
 
 export type PortfolioProject =
   | TabbedCaseStudyProject
+  | LegacyAccordionCaseStudyProject
   | LongformCaseStudyProject;
 
 export function isTabbedCaseStudyProject(
   project: PortfolioProject
 ): project is TabbedCaseStudyProject {
   return project.template === "tabbed-case-study";
+}
+
+export function isLegacyAccordionCaseStudyProject(
+  project: PortfolioProject
+): project is LegacyAccordionCaseStudyProject {
+  return project.template === "legacy-accordion-case-study";
 }
 
 export function isLongformCaseStudyProject(

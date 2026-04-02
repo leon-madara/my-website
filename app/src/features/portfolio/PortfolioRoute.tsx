@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { LongformCaseStudyRoute } from "./LongformCaseStudyRoute";
+import { LegacyAccordionCaseStudyRoute } from "./LegacyAccordionCaseStudyRoute";
 import { PortfolioBackground } from "./PortfolioBackground";
 import "./portfolio.css";
 import {
@@ -7,6 +8,7 @@ import {
   getPortfolioProject
 } from "./portfolioContent";
 import {
+  isLegacyAccordionCaseStudyProject,
   isLongformCaseStudyProject,
   isTabbedCaseStudyProject
 } from "./portfolio.types";
@@ -32,14 +34,19 @@ export function PortfolioRoute() {
   const { projectSlug } = useParams();
   const project = projectSlug ? getPortfolioProject(projectSlug) : null;
   const defaultProject = getDefaultPortfolioProject();
-  const isTabbedRoute = !projectSlug || (project && isTabbedCaseStudyProject(project));
+  const isTabbedRoute =
+    !projectSlug ||
+    (project &&
+      (isTabbedCaseStudyProject(project) || isLegacyAccordionCaseStudyProject(project)));
   const routeVariantClass = isTabbedRoute
     ? "portfolio-route--tabbed"
     : project && isLongformCaseStudyProject(project)
       ? "portfolio-route--longform"
       : "portfolio-route--not-found";
   const backgroundVariant = projectSlug
-    ? project?.template ?? "tabbed-case-study"
+    ? project?.template === "legacy-accordion-case-study"
+      ? "tabbed-case-study"
+      : project?.template ?? "tabbed-case-study"
     : "tabbed-case-study";
 
   return (
@@ -50,6 +57,8 @@ export function PortfolioRoute() {
         <TabbedCaseStudyRoute project={defaultProject} showEntrance />
       ) : project && isTabbedCaseStudyProject(project) ? (
         <TabbedCaseStudyRoute project={project} />
+      ) : project && isLegacyAccordionCaseStudyProject(project) ? (
+        <LegacyAccordionCaseStudyRoute project={project} />
       ) : project && isLongformCaseStudyProject(project) ? (
         <LongformCaseStudyRoute project={project} />
       ) : (

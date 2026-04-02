@@ -9,11 +9,14 @@ const projectRoot = path.resolve(__dirname, '..');
 const includeExtensions = ['.js', '.html', '.css', '.json'];
 
 // Known demo patterns (example URLs or filenames)
+// Note: assets.codepen.io/16327/ is the Club GreenSock CDN (licensed), not a demo URL.
+// Only flag demo/trial/s.cdpn.io paths, not the Club CDN.
 const demoPatterns = [
     /s\.cdpn\.io\/16327\/SplitText/i,
-    /assets\.codepen\.io\/16327\/SplitText/i,
     /SplitText.*demo/i,
-    /trial.*SplitText/i
+    /trial.*SplitText/i,
+    /ScrambleText.*demo/i,
+    /trial.*ScrambleText/i
 ];
 
 function scanDirectory(dir) {

@@ -64,6 +64,11 @@ export function ThemeToggle() {
           <span />
           <span />
         </span>
+        <span className="theme-toggle-landscape__clouds" aria-hidden="true">
+          <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--1" />
+          <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--2" />
+          <span className="theme-toggle-landscape__cloud theme-toggle-landscape__cloud--3" />
+        </span>
         <span className="theme-toggle-landscape__sun-moon">
           <span className="theme-toggle-landscape__crater" />
           <span className="theme-toggle-landscape__crater theme-toggle-landscape__crater--small" />
