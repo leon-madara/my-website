@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useId, useMemo, useState } from "react";
 import styles from "./contact.module.css";
 import {
   contactCards,
@@ -52,6 +52,41 @@ export function ContactRoute() {
   const formReveal = useInView<HTMLElement>();
   const locationReveal = useInView<HTMLElement>();
   const faqReveal = useInView<HTMLElement>();
+
+  const FaqRow = ({ question, answer }: { question: string; answer: string }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const buttonId = useId();
+    const panelId = useId();
+
+    return (
+      <div className={styles.faqItem} data-open={isOpen ? "true" : "false"}>
+        <button
+          aria-controls={panelId}
+          aria-expanded={isOpen}
+          className={styles.faqSummary}
+          id={buttonId}
+          onClick={() => setIsOpen((current) => !current)}
+          type="button"
+        >
+          <span>{question}</span>
+          <span className={styles.faqIcon} aria-hidden="true" />
+        </button>
+        <div
+          aria-hidden={!isOpen}
+          aria-labelledby={buttonId}
+          className={styles.faqPanel}
+          id={panelId}
+          role="region"
+        >
+          <div className={styles.faqPanelInner}>
+            <div className={styles.faqAnswer}>
+              <p>{answer}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const handleChange =
     (field: ContactFormField) =>
@@ -467,15 +502,7 @@ export function ContactRoute() {
 
           <div className={styles.faqList}>
             {faqItems.map((item) => (
-              <details className={styles.faqItem} key={item.question}>
-                <summary className={styles.faqSummary}>
-                  <span>{item.question}</span>
-                  <span className={styles.faqIcon} aria-hidden="true" />
-                </summary>
-                <div className={styles.faqAnswer}>
-                  <p>{item.answer}</p>
-                </div>
-              </details>
+              <FaqRow answer={item.answer} key={item.question} question={item.question} />
             ))}
           </div>
         </section>
