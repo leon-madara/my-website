@@ -1,8 +1,8 @@
 # React Contact Rebuild (From Scratch)
 
-Status: In progress (branch `codex/react-contact-rebuild`).
+Status: Completed (promoted to `/contact` on 2026-04-03).
 
-Goal: Build a new polished React Contact page under `/contact-rebuild`, then swap `/contact` once parity + polish are approved.
+Goal: Replace the legacy React contact page with the rebuilt, polished implementation.
 
 Key requirements:
 - No fixed-width sections (mobile-safe container contract).
