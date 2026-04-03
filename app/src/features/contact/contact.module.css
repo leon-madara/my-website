@@ -208,6 +208,42 @@
   font-family: "Asimovian", sans-serif;
   font-size: clamp(2.5rem, 5vw, 4.1rem);
   line-height: 1;
+  overflow: hidden;
+}
+
+.sectionTitleMasked {
+  display: inline-block;
+}
+
+.sectionTitleChar {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(110%);
+  transition:
+    opacity 650ms var(--ease-standard),
+    transform 650ms var(--ease-standard);
+  transition-delay: var(--contact-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.sectionSubtitle {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 650ms var(--ease-standard),
+    transform 650ms var(--ease-standard);
+  transition-delay: 220ms;
+  will-change: opacity, transform;
+}
+
+.section[data-visible="true"] .sectionTitleChar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section[data-visible="true"] .sectionSubtitle {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .sectionSubtitle {
@@ -230,6 +266,7 @@
   --card-accent-2: rgba(206, 17, 38, 0.14);
   --card-accent-line: rgba(17, 17, 17, 0.22);
   position: relative;
+  --card-reveal-y: 18px;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(122, 72, 56, 0.14);
@@ -244,11 +281,14 @@
   padding: var(--space-10);
   overflow: hidden;
   isolation: isolate;
-  transform: translateZ(0);
+  opacity: 0;
+  transform: translate3d(0, var(--card-reveal-y), 0);
   transition:
-    transform var(--dur-med) var(--ease-standard),
+    opacity 650ms var(--ease-standard),
+    transform 650ms var(--ease-standard),
     box-shadow var(--dur-med) var(--ease-standard),
     border-color var(--dur-med) var(--ease-standard);
+  transition-delay: var(--contact-reveal-delay, 0ms);
 }
 
 .card::before {
@@ -280,11 +320,21 @@
 
 .card:hover,
 .card:focus-within {
-  transform: translateY(-4px);
+  transition:
+    opacity 650ms var(--ease-standard),
+    transform var(--dur-med) var(--ease-standard),
+    box-shadow var(--dur-med) var(--ease-standard),
+    border-color var(--dur-med) var(--ease-standard);
+  transform: translate3d(0, calc(var(--card-reveal-y) - 4px), 0);
   border-color: color-mix(in oklab, var(--card-accent-line) 34%, var(--border));
   box-shadow:
     0 32px 90px rgba(0, 0, 0, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.section[data-visible="true"] .card {
+  opacity: 1;
+  --card-reveal-y: 0px;
 }
 
 .cardFeatured {
@@ -456,6 +506,28 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-10);
+}
+
+.formShell > * {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 650ms var(--ease-standard),
+    transform 650ms var(--ease-standard);
+  will-change: opacity, transform;
+}
+
+.section[data-visible="true"] .formShell > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.section[data-visible="true"] .formShell > *:nth-child(1) {
+  transition-delay: 120ms;
+}
+
+.section[data-visible="true"] .formShell > *:nth-child(2) {
+  transition-delay: 240ms;
 }
 
 .insightPanel {
@@ -733,6 +805,7 @@
   --loc-accent-2: rgba(206, 17, 38, 0.14);
   --loc-accent-line: rgba(0, 107, 63, 0.9);
   position: relative;
+  --loc-reveal-y: 18px;
   border: 1px solid rgba(122, 72, 56, 0.14);
   border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   border-radius: var(--contact-radius);
@@ -745,11 +818,14 @@
   padding: var(--space-8);
   overflow: hidden;
   isolation: isolate;
-  transform: translateZ(0);
+  opacity: 0;
+  transform: translate3d(0, var(--loc-reveal-y), 0);
   transition:
-    transform var(--dur-med) var(--ease-standard),
+    opacity 650ms var(--ease-standard),
+    transform 650ms var(--ease-standard),
     box-shadow var(--dur-med) var(--ease-standard),
     border-color var(--dur-med) var(--ease-standard);
+  transition-delay: var(--contact-reveal-delay, 0ms);
 }
 
 .locationCard::before {
@@ -781,11 +857,21 @@
 
 .locationCard:hover,
 .locationCard:focus-within {
-  transform: translateY(-4px);
+  transition:
+    opacity 650ms var(--ease-standard),
+    transform var(--dur-med) var(--ease-standard),
+    box-shadow var(--dur-med) var(--ease-standard),
+    border-color var(--dur-med) var(--ease-standard);
+  transform: translate3d(0, calc(var(--loc-reveal-y) - 4px), 0);
   border-color: color-mix(in oklab, var(--loc-accent-line) 34%, var(--border));
   box-shadow:
     0 32px 90px rgba(0, 0, 0, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.section[data-visible="true"] .locationCard {
+  opacity: 1;
+  --loc-reveal-y: 0px;
 }
 
 .locationCardTone_kenya {
@@ -880,10 +966,23 @@
 }
 
 .faqItem {
+  --faq-reveal-y: 14px;
   border: 1px solid rgba(122, 72, 56, 0.14);
   border-radius: var(--contact-radius);
   background: rgba(255, 255, 255, 0.82);
   overflow: hidden;
+  opacity: 0;
+  transform: translate3d(0, var(--faq-reveal-y), 0);
+  transition:
+    opacity 650ms var(--ease-standard),
+    transform 650ms var(--ease-standard);
+  transition-delay: var(--contact-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.section[data-visible="true"] .faqItem {
+  opacity: 1;
+  --faq-reveal-y: 0px;
 }
 
 .faqSummary {
@@ -1061,6 +1160,19 @@
 
   .toastHost > div {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectionTitleChar,
+  .sectionSubtitle,
+  .card,
+  .formShell > *,
+  .locationCard,
+  .faqItem {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
