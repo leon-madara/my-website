@@ -76,6 +76,8 @@
    1. Hero — SVG background with text overlay
    ------------------------------------------------ */
 .dp-hero {
+  --dp-hero-pad: clamp(2rem, 6vw, 5rem);
+  --dp-hero-pad-bottom: clamp(4rem, 10vh, 8rem);
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -83,8 +85,6 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: clamp(2rem, 6vw, 5rem);
-  padding-bottom: clamp(4rem, 10vh, 8rem);
   background-color: #c5b79b;
   overflow: hidden;
 }
@@ -93,9 +93,16 @@
   background-color: #001a09;
 }
 
-.dp-hero-text {
+.dp-hero-content {
   position: relative;
   z-index: 2;
+  width: 100%;
+  padding: var(--dp-hero-pad);
+  padding-bottom: var(--dp-hero-pad-bottom);
+}
+
+.dp-hero-text {
+  position: relative;
   max-width: 560px;
 }
 
@@ -742,8 +749,8 @@
 @media (max-width: 768px) {
   .dp-hero {
     min-height: 70vh;
-    padding: 2rem 1.5rem;
-    padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+    --dp-hero-pad: 2rem 1.5rem;
+    --dp-hero-pad-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
   }
 
   .dp-hero-title {
