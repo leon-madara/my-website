@@ -13,6 +13,14 @@
 
 .page {
   width: 100%;
+  --contact-frame-inset: max(var(--gutter), var(--header-side-offset));
+  --contact-section-scale: 1;
+}
+
+@media (min-width: 769px) {
+  .page {
+    --contact-section-scale: 0.8;
+  }
 }
 
 .container {
@@ -181,7 +189,10 @@
 }
 
 .section {
-  width: min(var(--container-wide), calc(100% - 2 * var(--gutter)));
+  width: min(
+    var(--container-wide),
+    calc(var(--contact-section-scale) * (100% - (2 * var(--contact-frame-inset))))
+  );
   margin: 0 auto;
   padding: var(--space-20) 0;
 }
@@ -368,27 +379,33 @@
 }
 
 .formShell {
+  --form-radius: 5px;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr;
   gap: var(--space-10);
+}
+
+.insightPanel {
+  border-radius: var(--form-radius);
+  padding: var(--space-8);
+  background: linear-gradient(165deg, rgba(0, 107, 63, 0.95), rgba(8, 45, 30, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.formCard {
   border: 1px solid rgba(122, 72, 56, 0.14);
-  border-radius: var(--radius-xl);
+  border-radius: var(--form-radius);
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(24px);
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  padding: var(--space-12);
-}
-
-.insightPanel {
-  border-radius: var(--radius-xl);
   padding: var(--space-10);
-  background: linear-gradient(165deg, rgba(0, 107, 63, 0.95), rgba(8, 45, 30, 0.95));
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
 }
 
 .panelKicker {
@@ -420,7 +437,7 @@
 
 .panelStat {
   padding: var(--space-4);
-  border-radius: var(--radius-lg);
+  border-radius: var(--form-radius);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
@@ -463,7 +480,7 @@
   display: inline-flex;
   align-items: center;
   padding: 0.55rem 0.85rem;
-  border-radius: var(--radius-pill);
+  border-radius: var(--form-radius);
   border: 1px solid rgba(255, 255, 255, 0.24);
   background: rgba(255, 255, 255, 0.08);
   font-size: 0.9rem;
@@ -492,7 +509,7 @@
   display: inline-flex;
   align-items: center;
   padding: 0.55rem 0.85rem;
-  border-radius: var(--radius-pill);
+  border-radius: var(--form-radius);
   border: 1px solid rgba(122, 72, 56, 0.18);
   background: rgba(255, 255, 255, 0.68);
   font-size: 0.85rem;
@@ -522,7 +539,7 @@
   width: 100%;
   min-height: 48px;
   padding: 0.85rem 1rem;
-  border-radius: var(--radius-lg);
+  border-radius: var(--form-radius);
   border: 1px solid rgba(122, 72, 56, 0.18);
   background: rgba(255, 255, 255, 0.86);
   color: var(--text);
@@ -561,7 +578,7 @@
 
 .metaCard {
   padding: var(--space-4);
-  border-radius: var(--radius-xl);
+  border-radius: var(--form-radius);
   border: 1px solid rgba(122, 72, 56, 0.14);
   background: rgba(255, 255, 255, 0.68);
 }
@@ -589,7 +606,8 @@
 
 .submitBtn {
   min-height: 52px;
-  border-radius: var(--radius-pill);
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--form-radius);
   border: 1px solid transparent;
   background:
     linear-gradient(135deg, rgba(0, 107, 63, 0.9) 0%, rgba(179, 0, 0, 0.88) 100%),
@@ -618,7 +636,8 @@
 
 .calendarBtn {
   min-height: 48px;
-  border-radius: var(--radius-pill);
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--form-radius);
   border: 1px solid rgba(122, 72, 56, 0.18);
   background: rgba(255, 255, 255, 0.76);
   font-weight: 900;
@@ -699,8 +718,8 @@
 
 .faqItem {
   border: 1px solid rgba(122, 72, 56, 0.14);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.86);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.82);
   overflow: hidden;
 }
 
@@ -710,9 +729,13 @@
   justify-content: space-between;
   gap: var(--space-4);
   padding: var(--space-6) var(--space-8);
-  font-weight: 900;
+  font-weight: 800;
+  line-height: 1.3;
   cursor: pointer;
   list-style: none;
+  transition:
+    background-color var(--dur-med) var(--ease-standard),
+    color var(--dur-med) var(--ease-standard);
 }
 
 .faqSummary::-webkit-details-marker {
@@ -720,18 +743,57 @@
 }
 
 .faqIcon {
+  position: relative;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
-  transition: transform var(--dur-med) var(--ease-standard);
+  color: var(--muted);
+}
+
+.faqIcon::before,
+.faqIcon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition:
+    transform var(--dur-med) var(--ease-standard),
+    opacity var(--dur-med) var(--ease-standard);
+}
+
+.faqIcon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faqItem[open] .faqSummary {
+  background: rgba(0, 107, 63, 0.06);
 }
 
 .faqItem[open] .faqIcon {
-  transform: rotate(180deg);
+  color: var(--kenyan-green);
+}
+
+.faqItem[open] .faqIcon::after {
+  opacity: 0;
 }
 
 .faqAnswer {
   padding: 0 var(--space-8) var(--space-8);
   color: var(--muted);
   line-height: 1.7;
+}
+
+.faqItem:hover .faqSummary {
+  background: rgba(17, 17, 17, 0.03);
+}
+
+.faqItem[open]:hover .faqSummary {
+  background: rgba(0, 107, 63, 0.07);
 }
 
 .toastHost {

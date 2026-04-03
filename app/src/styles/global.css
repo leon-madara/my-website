@@ -285,7 +285,7 @@ button {
 .header-logo {
   position: fixed;
   top: 0;
-  left: 20vw;
+  left: var(--header-side-offset);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -384,7 +384,7 @@ theme-toggle-landscape.react-theme-toggle {
 
 .theme-toggle-landscape {
   top: var(--header-control-top);
-  right: 20vw;
+  right: var(--header-side-offset);
   width: calc(var(--header-control-height) * 2);
   height: var(--header-control-height);
   overflow: hidden;
@@ -606,7 +606,7 @@ theme-toggle-landscape.react-theme-toggle {
 
 .theme-toggle-simple {
   top: 16px;
-  right: 20px;
+  right: var(--header-side-offset);
   display: none;
   align-items: center;
   justify-content: center;
@@ -1699,6 +1699,10 @@ theme-toggle-landscape.react-theme-toggle {
 }
 
 @media (max-width: 1280px) {
+  :root {
+    --header-side-offset: 5vw;
+  }
+
   .site-main {
     padding-left: 8vw;
     padding-right: 8vw;
@@ -1708,16 +1712,8 @@ theme-toggle-landscape.react-theme-toggle {
     padding-left: calc(240px + 4rem);
   }
 
-  .header-logo {
-    left: 5vw;
-  }
-
-  .theme-toggle-landscape {
-    right: 5vw;
-  }
-
-  theme-toggle-landscape.react-theme-toggle {
-    --header-side-offset: 5vw;
+  .about-page.app-shell--with-sidebar .site-main {
+    padding-left: calc(240px + 3rem);
   }
 
   .pill-sidebar {
@@ -1738,6 +1734,10 @@ theme-toggle-landscape.react-theme-toggle {
 }
 
   @media (max-width: 768px) {
+  :root {
+    --header-side-offset: 20px;
+  }
+
   .site-main,
   .app-shell--with-sidebar .site-main {
     padding: 96px 20px 108px;
@@ -1750,7 +1750,6 @@ theme-toggle-landscape.react-theme-toggle {
 
   .header-logo {
     top: 12px;
-    left: 20px;
     width: 74px;
     height: 74px;
     padding: 12px;
