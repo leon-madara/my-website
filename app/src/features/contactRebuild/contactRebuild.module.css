@@ -780,6 +780,13 @@
     grid-template-columns: 1fr;
   }
 
+  /* Prevent iOS Safari input zoom by ensuring >= 16px font-size on controls. */
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select {
+    font-size: 16px;
+  }
+
   .formMetaGrid {
     grid-template-columns: 1fr;
   }
