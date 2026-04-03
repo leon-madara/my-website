@@ -1,58 +1,26 @@
-export interface ExpertiseItem {
-  title: string;
-  description: string;
-  tags?: string[];
-  featured?: boolean;
-}
+import type {
+  AboutHeroContent,
+  AboutIntroContent,
+  CertificationItem,
+  EducationItem,
+  ExperienceItem,
+  ExpertiseItem,
+  ProjectItem,
+  SkillCategory
+} from "./about.types";
 
-export interface SkillCategory {
-  title: string;
-  tags: string[];
-}
+export const aboutHeroContent: AboutHeroContent = {
+  eyebrow: "About",
+  name: "Leon Madara",
+  imageSrc: "/images/lion1.PNG",
+  imageAlt: "Lion illustration representing Leon Madara"
+};
 
-export interface ExperienceItem {
-  role: "analyst" | "freelance" | "company";
-  date: string;
-  title: string;
-  subtitle?: string;
-  location: string;
-  chips: string[];
-  highlights: string[];
-  links: Array<{
-    label: string;
-    to: string;
-  }>;
-}
-
-export interface EducationItem {
-  degree: string;
-  institution: string;
-  honors?: string;
-  years: string;
-}
-
-export interface ProjectItem {
-  title: string;
-  description: string;
-  tags: string[];
-}
-
-export interface CertificationItem {
-  title: string;
-  issuer: string;
-  badge: string;
-  badgeVariant: "verified" | "progress";
-  years: string;
-  metrics: Array<{
-    value: string;
-    label: string;
-  }>;
-  skills: string[];
-  topics: string[];
-  verifyHref: string;
-  viewHref?: string;
-  viewLabel?: string;
-}
+export const aboutIntroContent: AboutIntroContent = {
+  eyebrow: "About Me",
+  summary:
+    "Multidisciplinary data analyst and web developer with 3+ years of industry experience and a strong foundation in computer science. I combine analytical rigor with intuitive interface design to craft data-driven applications and dashboards that are functional, performant, and user-focused."
+};
 
 export const expertiseItems: ExpertiseItem[] = [
   {
@@ -68,17 +36,20 @@ export const expertiseItems: ExpertiseItem[] = [
       "UI/UX",
       "Accessibility"
     ],
-    featured: true
+    featured: true,
+    icon: "💻"
   },
   {
     title: "UI/UX Design",
     description:
-      "Designing interfaces in Figma and Adobe XD with an emphasis on clarity, accessibility, and easy-to-use flows."
+      "Designing interfaces in Figma and Adobe XD with an emphasis on clarity, accessibility, and easy-to-use flows.",
+    icon: "🎨"
   },
   {
     title: "Data Analysis",
     description:
-      "Designing visual reports with PowerBI, Tableau, and SQL to help teams make informed decisions."
+      "Designing visual reports with PowerBI, Tableau, and SQL to help teams make informed decisions.",
+    icon: "📊"
   }
 ];
 
@@ -158,12 +129,14 @@ export const educationItems: EducationItem[] = [
     degree: "Bachelor of Science in Computer Science",
     institution: "University of Nairobi",
     honors: "Second Upper Class Honors",
-    years: "2009 - 2013"
+    years: "2009 - 2013",
+    icon: "🎓"
   },
   {
     degree: "High School Education",
     institution: "Booker Academy",
-    years: "2005 - 2008"
+    years: "2005 - 2008",
+    icon: "📚"
   }
 ];
 
@@ -172,19 +145,22 @@ export const projectItems: ProjectItem[] = [
     title: "Data Dashboards",
     description:
       "Built and deployed real-time dashboards for business clients to visualize KPIs with Tableau and Metabase.",
-    tags: ["Tableau", "Metabase", "Data Viz"]
+    tags: ["Tableau", "Metabase", "Data Viz"],
+    icon: "📊"
   },
   {
     title: "UX Audit & Redesign",
     description:
       "Redesigned a logistics dashboard for mobile responsiveness and smoother user flows.",
-    tags: ["Figma", "UX Research", "Responsive"]
+    tags: ["Figma", "UX Research", "Responsive"],
+    icon: "🎨"
   },
   {
     title: "React Portfolio Website",
     description:
       "Created a personal website showcasing work in web development, UI/UX, and data analysis.",
-    tags: ["React", "CSS", "JavaScript"]
+    tags: ["React", "CSS", "JavaScript"],
+    icon: "💻"
   }
 ];
 
@@ -192,6 +168,7 @@ export const certificationItems: CertificationItem[] = [
   {
     title: "Google Data Analytics Certificate",
     issuer: "Google - Professional Certificate",
+    issuerLabel: "Google",
     badge: "Verified",
     badgeVariant: "verified",
     years: "2022 - 2023",
@@ -211,6 +188,7 @@ export const certificationItems: CertificationItem[] = [
   {
     title: "Responsive Web Design",
     issuer: "freeCodeCamp - Certification",
+    issuerLabel: "freeCodeCamp",
     badge: "In Progress",
     badgeVariant: "progress",
     years: "Ongoing",
@@ -232,6 +210,7 @@ export const certificationItems: CertificationItem[] = [
   {
     title: "Meta Front-End Developer",
     issuer: "Meta - Professional Certificate",
+    issuerLabel: "Meta",
     badge: "Verified",
     badgeVariant: "verified",
     years: "2023 - 2024",
@@ -251,6 +230,7 @@ export const certificationItems: CertificationItem[] = [
   {
     title: "Google UX Design Professional Certificate",
     issuer: "Google - Professional Certificate",
+    issuerLabel: "Google",
     badge: "Verified",
     badgeVariant: "verified",
     years: "2023 - 2024",
