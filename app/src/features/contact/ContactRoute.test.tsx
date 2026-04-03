@@ -10,15 +10,9 @@ describe("ContactRoute", () => {
       </MemoryRouter>
     );
 
-    expect(
-      screen.getByRole("heading", { level: 2, name: /reach out/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 2, name: /send a message/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 2, name: /frequently asked/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: /reach out/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: /send a message/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: /frequently asked/i })).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     expect(screen.getByText(/name is required/i)).toBeInTheDocument();
@@ -38,13 +32,14 @@ describe("ContactRoute", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole("heading", {
-          level: 3,
-          name: /message sent successfully/i
-        })
-      ).toBeInTheDocument();
-    }, { timeout: 3000 });
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole("heading", { level: 3, name: /message sent successfully/i })
+        ).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
   });
 });
+

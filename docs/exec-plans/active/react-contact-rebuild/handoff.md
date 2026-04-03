@@ -1,4 +1,4 @@
 # Handoff
 
-Next step: implement the rebuild route component + CSS module using the new layout tokens and container contract.
+Next step: open PRs / merge as desired, then optionally move this folder to `docs/exec-plans/completed/`.
 
