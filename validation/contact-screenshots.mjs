@@ -3,12 +3,12 @@ import path from "node:path";
 import { chromium } from "playwright-core";
 
 const BASE_URL = process.env.BASE_URL ?? "http://127.0.0.1:5173";
-const TARGET_PATH = process.env.TARGET_PATH ?? "/contact-rebuild";
+const TARGET_PATH = process.env.TARGET_PATH ?? "/contact";
 const TARGET_URL = new URL(TARGET_PATH, BASE_URL).toString();
 
 const OUT_DIR = process.env.OUT_DIR
   ? path.resolve(process.env.OUT_DIR)
-  : path.resolve("output/playwright/contact-rebuild");
+  : path.resolve("output/playwright/contact");
 
 const executableCandidates = [
   process.env.CHROMIUM_EXECUTABLE,

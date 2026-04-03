@@ -17,13 +17,13 @@ export function AppLayout() {
     const routeClass =
       location.pathname === "/"
         ? "home-page"
-        : location.pathname.startsWith("/portfolio")
-          ? "portfolio-page"
-          : location.pathname === "/design-process"
-            ? "design-process-page"
-          : location.pathname === "/contact" || location.pathname === "/contact-rebuild"
-            ? "contact-page"
-            : "about-page";
+          : location.pathname.startsWith("/portfolio")
+            ? "portfolio-page"
+            : location.pathname === "/design-process"
+              ? "design-process-page"
+              : location.pathname === "/contact"
+                ? "contact-page"
+                : "about-page";
 
     document.body.classList.remove(
       "home-page",
