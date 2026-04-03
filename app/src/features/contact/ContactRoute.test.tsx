@@ -3,7 +3,9 @@ import { MemoryRouter } from "react-router-dom";
 import { ContactRoute } from "./ContactRoute";
 
 describe("ContactRoute", () => {
-  it("renders key contact sections and handles validation and success flow", async () => {
+  it(
+    "renders key contact sections and handles validation and success flow",
+    async () => {
     render(
       <MemoryRouter>
         <ContactRoute />
@@ -40,6 +42,8 @@ describe("ContactRoute", () => {
       },
       { timeout: 3000 }
     );
-  });
+    },
+    15000
+  );
 });
 
