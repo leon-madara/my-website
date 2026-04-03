@@ -524,6 +524,7 @@
   border: 1px solid rgba(122, 72, 56, 0.18);
   background: rgba(255, 255, 255, 0.86);
   color: var(--text);
+  font-size: 16px;
 }
 
 .formGroup textarea {
