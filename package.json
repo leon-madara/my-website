@@ -9,7 +9,7 @@
         "react:preview": "vite preview --config vite.react.config.mjs",
     "react:test": "vitest --config vitest.react.config.ts --run",
     "react:typecheck": "tsc --project tsconfig.react.json --noEmit",
-    "react:shots": "node validation/contact-rebuild-screenshots.mjs",
+    "react:shots": "node validation/contact-screenshots.mjs",
     "serve": "npx serve public -p 3000",
     "start": "npx serve public -p 3000",
     "test:gsap": "jest tests/gsapDemoReference.test.js"
