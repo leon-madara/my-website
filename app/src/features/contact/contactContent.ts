@@ -1,4 +1,4 @@
-export interface ContactCard {
+export interface ContactCardContent {
   title: string;
   label: string;
   value: string;
@@ -9,7 +9,7 @@ export interface ContactCard {
   variant: "github" | "phone" | "email";
 }
 
-export const contactCards: ContactCard[] = [
+export const contactCards: ContactCardContent[] = [
   {
     title: "GitHub",
     label: "View My Code",
@@ -43,12 +43,12 @@ export const faqItems = [
   {
     question: "What's your typical response time?",
     answer:
-      "I typically respond to emails within 24 hours during weekdays. For urgent matters, a direct call is the fastest way to reach me."
+      "I typically respond within 24 hours on weekdays. For urgent matters, a direct call is the fastest way to reach me."
   },
   {
     question: "What types of projects do you take on?",
     answer:
-      "I specialize in full-stack product development with a focus on AI integration, web applications, and custom software. My core stack includes React, TypeScript, Node.js, Python, and modern frontend systems."
+      "Full-stack product development with a focus on AI integration, web applications, and custom software. My core stack includes React, TypeScript, Node.js, Python, and modern frontend systems."
   },
   {
     question: "Do you work with international clients?",
@@ -70,15 +70,7 @@ export const projectTypeOptions = [
   { value: "other", label: "Other" }
 ];
 
-export const formBadges = [
-  "Discovery Call",
-  "Product Blueprint",
-  "Launch Support"
-];
+export const formBadges = ["Discovery Call", "Product Blueprint", "Launch Support"];
 
-export const panelTags = [
-  "Web Apps",
-  "AI Solutions",
-  "SaaS Products",
-  "Custom Software"
-] as const;
+export const panelTags = ["Web Apps", "AI Solutions", "SaaS Products", "Custom Software"] as const;
+

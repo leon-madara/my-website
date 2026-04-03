@@ -1,3 +1,3 @@
 # Handoff
 
-Next step: do a manual review of `/contact-rebuild` (desktop/tablet/mobile + reduced motion), then adjust `app/src/features/contactRebuild/contactRebuild.module.css` for any remaining polish deltas before swapping `/contact` to the rebuild route.
+Next step: open PRs / merge as desired, then optionally move this folder to `docs/exec-plans/completed/`.
