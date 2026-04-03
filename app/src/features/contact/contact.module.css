@@ -23,8 +23,10 @@
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 100vh;
-  padding: var(--space-24) var(--gutter);
+  min-height: calc(var(--app-vh, 1vh) * 100);
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding: clamp(108px, 15vh, 168px) var(--gutter) clamp(88px, 12vh, 132px);
   overflow: hidden;
 }
 
@@ -97,7 +99,7 @@
 .heroContent {
   position: relative;
   z-index: 1;
-  width: min(var(--container), calc(100% - 2 * var(--gutter)));
+  width: min(var(--container), 100%);
   margin: 0 auto;
   text-align: center;
 }
@@ -761,8 +763,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: var(--space-16) var(--gutter);
-    min-height: 88vh;
+    padding: 112px var(--gutter) 132px;
   }
 
   .cardsGrid {
