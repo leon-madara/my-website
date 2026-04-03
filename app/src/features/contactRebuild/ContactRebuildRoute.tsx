@@ -141,7 +141,7 @@ export function ContactRebuildRoute() {
             <div className={styles.heroText}>
               <h1 className={styles.heroTitle}>
                 <span className={styles.titleLine}>Let&apos;s Build</span>
-                <span className={styles.titleLine}>Something Amazing</span>
+                <span className={`${styles.titleLine} kenyan-gradient`}>Something Amazing</span>
               </h1>
               <p className={styles.heroDescription}>
                 Based in Nairobi, Kenya. Ready to collaborate on your next big idea.
