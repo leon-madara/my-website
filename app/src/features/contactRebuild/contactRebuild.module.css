@@ -102,6 +102,11 @@
   text-align: center;
 }
 
+.heroText {
+  display: grid;
+  gap: var(--space-4);
+}
+
 .heroTitle {
   margin: 0;
   font-family: "Asimovian", sans-serif;
@@ -162,6 +167,10 @@
     linear-gradient(0deg, #006b3f, #006b3f);
   color: #ffffff;
   border-color: transparent;
+}
+
+.ctaSecondary {
+  background: rgba(255, 255, 255, 0.76);
 }
 
 .ctaSecondary:hover,
@@ -247,6 +256,10 @@
 .cardVariant_email .cardIcon {
   background: linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1));
 }
+
+.cardVariant_github {}
+.cardVariant_phone {}
+.cardVariant_email {}
 
 .cardTitle {
   margin: 0;
@@ -802,4 +815,3 @@
     transition: none;
   }
 }
-
