@@ -31,6 +31,42 @@ function useIsMobile(query = "(max-width: 768px)") {
   return matches;
 }
 
+function useRevealOnView(selector: string) {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector));
+    if (nodes.length === 0) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion || typeof IntersectionObserver === "undefined") {
+      nodes.forEach((node) => node.classList.add("is-revealed"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const target = entry.target as HTMLElement;
+          target.classList.add("is-revealed");
+          observer.unobserve(target);
+        });
+      },
+      {
+        threshold: 0.16,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, [selector]);
+}
+
 /* ── Sub-components ──────────────────────────── */
 
 function AiLogoTile({
@@ -71,6 +107,7 @@ function AiLogoTile({
 export function DesignProcessRoute() {
   const { theme } = useTheme();
   const isMobile = useIsMobile();
+  useRevealOnView(".dp-reveal");
 
   const heroBgSrc = useMemo(() => {
     if (isMobile) {
@@ -390,6 +427,145 @@ export function DesignProcessRoute() {
               exploration surface, but final decisions still pass through human
               judgment, context, and taste.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 7. EXECUTION ARCHITECTURE LAYER ─── */}
+      <section
+        className="dp-section dp-section--orchestration"
+        id="agent-orchestration"
+        aria-labelledby="dp-orchestration-heading"
+      >
+        <div className="dp-container dp-orchestration-shell">
+          <p className="dp-kicker">Execution Architecture Layer</p>
+          <h2 className="dp-headline" id="dp-orchestration-heading">
+            Once strategy is clear, I convert one complex brief into a
+            dependency-driven agent pipeline.
+          </h2>
+          <div className="dp-ai-copy">
+            <p className="dp-body">
+              I do not run one giant prompt and hope it lands. I split the
+              work into explicit chunks with input and output contracts, then
+              route each chunk to the right specialist.
+            </p>
+            <p className="dp-body">
+              Independent tracks run in parallel for speed. Dependent tracks
+              wait for upstream outputs. Before promotion, a verifier agent
+              audits the result against the original brief so quality is
+              proven, not assumed.
+            </p>
+          </div>
+
+          <div
+            className="dp-orchestration-grid"
+            role="list"
+            aria-label="Agent orchestration roles"
+          >
+            <article className="dp-orch-card dp-reveal" role="listitem">
+              <p className="dp-orch-chip">Main Agent</p>
+              <h3 className="dp-orch-title">Orchestrator</h3>
+              <p className="dp-orch-copy">
+                Owns scope, defines contracts, tracks dependencies, and closes
+                the integration loop.
+              </p>
+            </article>
+
+            <article className="dp-orch-card dp-reveal" role="listitem">
+              <p className="dp-orch-chip">Worker Agents</p>
+              <h3 className="dp-orch-title">Specialized Execution</h3>
+              <p className="dp-orch-copy">
+                Execute bounded chunks only, with zero scope drift and no
+                silent branch decisions.
+              </p>
+            </article>
+
+            <article className="dp-orch-card dp-reveal" role="listitem">
+              <p className="dp-orch-chip">Dependency Graph</p>
+              <h3 className="dp-orch-title">Parallel + Sequential Control</h3>
+              <p className="dp-orch-copy">
+                Starts independent work together and blocks dependent nodes
+                until required outputs are ready.
+              </p>
+            </article>
+
+            <article className="dp-orch-card dp-reveal" role="listitem">
+              <p className="dp-orch-chip">Verifier Agent</p>
+              <h3 className="dp-orch-title">Final Quality Gate</h3>
+              <p className="dp-orch-copy">
+                Re-checks delivery against the original instructions to prevent
+                rework cycles and reduce token waste.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 8. RELEASE SAFETY LAYER ─── */}
+      <section
+        className="dp-section dp-section--gates"
+        id="branch-gates"
+        aria-labelledby="dp-gates-heading"
+      >
+        <div className="dp-container dp-gates-shell">
+          <p className="dp-kicker">Release Safety Layer</p>
+          <h2 className="dp-headline" id="dp-gates-heading">
+            Two branch gates keep execution clean: one before code, one before
+            promotion.
+          </h2>
+          <div className="dp-ai-copy">
+            <p className="dp-body">
+              Entry gate resolves the correct working branch before any change.
+              Exit gate validates promotion targets after integration, then
+              requests explicit approval before push or merge.
+            </p>
+            <p className="dp-body">
+              This keeps feature boundaries clean, blocks accidental sibling
+              merges, and preserves reviewable history across complex
+              multi-agent sessions.
+            </p>
+          </div>
+
+          <div
+            className="dp-gates-grid"
+            role="list"
+            aria-label="Branch orchestration gate flow"
+          >
+            <article className="dp-gate-card dp-reveal" role="listitem">
+              <p className="dp-orch-chip">Gate 01</p>
+              <h3 className="dp-orch-title">Entry Gate</h3>
+              <p className="dp-orch-copy">
+                Matches task scope to the correct managed branch and blocks
+                unsafe switching when the worktree is dirty or ambiguous.
+              </p>
+            </article>
+
+            <article className="dp-gate-card dp-reveal" role="listitem">
+              <p className="dp-orch-chip">Gate 02</p>
+              <h3 className="dp-orch-title">Exit Gate</h3>
+              <p className="dp-orch-copy">
+                Re-checks branch lineage after implementation and recommends
+                safe push and merge targets with approval checkpoints.
+              </p>
+            </article>
+          </div>
+
+          <div
+            className="dp-command-strip"
+            aria-label="Cross-platform branch gate commands"
+          >
+            <code className="dp-command dp-reveal">
+              branch-orchestrator.cmd --mode entry --json
+            </code>
+            <code className="dp-command dp-reveal">
+              branch-orchestrator.cmd --mode exit --json
+            </code>
+            <code className="dp-command dp-reveal">
+              branch-orchestrator.sh --mode entry --json
+            </code>
+            <code className="dp-command dp-reveal">
+              branch-orchestrator.sh --mode exit --json
+            </code>
           </div>
         </div>
       </section>
