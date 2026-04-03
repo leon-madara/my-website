@@ -455,7 +455,7 @@ export function ContactRoute() {
           ref={locationReveal.ref}
         >
           <div className={styles.locationGrid}>
-            <article className={styles.locationCard}>
+            <article className={`${styles.locationCard} ${styles.locationCardTone_kenya}`}>
               <div className={styles.locationIcon} aria-hidden="true">
                 KE
               </div>
@@ -464,7 +464,7 @@ export function ContactRoute() {
               <p className={styles.locationDetail}>East Africa</p>
             </article>
 
-            <article className={styles.locationCard}>
+            <article className={`${styles.locationCard} ${styles.locationCardTone_time}`}>
               <div className={styles.locationIcon} aria-hidden="true">
                 TZ
               </div>
@@ -473,7 +473,7 @@ export function ContactRoute() {
               <p className={styles.locationDetail}>East Africa Time (EAT)</p>
             </article>
 
-            <article className={styles.locationCard}>
+            <article className={`${styles.locationCard} ${styles.locationCardTone_availability}`}>
               <div className={styles.locationIcon} aria-hidden="true">
                 ON
               </div>
