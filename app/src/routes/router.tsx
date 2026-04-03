@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "../shared/AppLayout";
 import { AboutRoute } from "../features/about/AboutRoute";
-import { ContactRebuildRoute } from "../features/contactRebuild/ContactRebuildRoute";
+import { ContactRoute } from "../features/contact/ContactRoute";
 import { DesignProcessRoute } from "../features/designProcess/DesignProcessRoute";
 import { HomeRoute } from "../features/home/HomeRoute";
 import { PortfolioRoute } from "../features/portfolio/PortfolioRoute";
@@ -25,11 +25,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "contact",
-        element: <ContactRebuildRoute />
-      },
-      {
-        path: "contact-rebuild",
-        element: <ContactRebuildRoute />
+        element: <ContactRoute />
       },
       {
         path: "portfolio",
