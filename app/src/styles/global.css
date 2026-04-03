@@ -187,6 +187,37 @@ button {
   padding: 120px 20vw 96px;
 }
 
+.about-page .site-main {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.contact-page .site-main {
+  padding: 0 0 96px;
+}
+
+@media (min-width: 769px) {
+  .about-page {
+    --about-topbar-top: 10px;
+    --about-topbar-height: 82px;
+    --header-control-top: calc(
+      var(--about-topbar-top) + (var(--about-topbar-height) - var(--header-control-height)) / 2
+    );
+    --header-side-offset: 20vw;
+  }
+
+  .about-page .header-logo {
+    left: var(--header-side-offset);
+    top: calc(
+      var(--about-topbar-top) + (var(--about-topbar-height) - var(--header-logo-size)) / 2
+    );
+  }
+
+  .about-page .theme-toggle-simple--page {
+    right: var(--header-side-offset);
+    top: var(--header-control-top);
+  }
+}
 .design-process-page .site-main {
   padding: 0;
   overflow-x: hidden;
@@ -1710,6 +1741,11 @@ theme-toggle-landscape.react-theme-toggle {
   .site-main,
   .app-shell--with-sidebar .site-main {
     padding: 96px 20px 108px;
+  }
+
+  .contact-page .site-main,
+  .contact-page.app-shell--with-sidebar .site-main {
+    padding: 0 0 108px;
   }
 
   .header-logo {
