@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useId, useMemo, useState } from "react";
+import { ChangeEvent, CSSProperties, FormEvent, useId, useMemo, useState } from "react";
 import styles from "./contact.module.css";
 import {
   contactCards,
@@ -22,6 +22,29 @@ import { useZonedClock } from "./useZonedClock";
 
 function fieldErrorId(field: ContactFormField) {
   return `contact-${field}-error`;
+}
+
+function SplitSectionTitle({ text }: { text: string }) {
+  return (
+    <h2 aria-label={text} className={styles.sectionTitle}>
+      <span aria-hidden="true" className={styles.sectionTitleMasked}>
+        {Array.from(text).map((char, index) => (
+          <span
+            className={styles.sectionTitleChar}
+            key={`${text}-${index}`}
+            style={
+              {
+                ["--contact-reveal-delay"]: `${Math.min(index * 22, 240)}ms`
+              } as CSSProperties
+            }
+          >
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
+      </span>
+      <span className="sr-only">{text}</span>
+    </h2>
+  );
 }
 
 export function ContactRoute() {
@@ -53,13 +76,25 @@ export function ContactRoute() {
   const locationReveal = useInView<HTMLElement>();
   const faqReveal = useInView<HTMLElement>();
 
-  const FaqRow = ({ question, answer }: { question: string; answer: string }) => {
+  const FaqRow = ({
+    question,
+    answer,
+    delayMs
+  }: {
+    question: string;
+    answer: string;
+    delayMs: number;
+  }) => {
     const [isOpen, setIsOpen] = useState(false);
     const buttonId = useId();
     const panelId = useId();
 
     return (
-      <div className={styles.faqItem} data-open={isOpen ? "true" : "false"}>
+      <div
+        className={styles.faqItem}
+        data-open={isOpen ? "true" : "false"}
+        style={{ ["--contact-reveal-delay"]: `${delayMs}ms` } as CSSProperties}
+      >
         <button
           aria-controls={panelId}
           aria-expanded={isOpen}
@@ -201,14 +236,14 @@ export function ContactRoute() {
           ref={cardsReveal.ref}
         >
           <header className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Reach Out</h2>
+            <SplitSectionTitle text="Reach Out" />
             <p className={styles.sectionSubtitle}>
               Choose your preferred method of communication
             </p>
           </header>
 
           <div className={styles.cardsGrid}>
-            {contactCards.map((card) => (
+            {contactCards.map((card, index) => (
               <article
                 className={[
                   styles.card,
@@ -216,6 +251,11 @@ export function ContactRoute() {
                   card.featured ? styles.cardFeatured : ""
                 ].filter(Boolean).join(" ")}
                 key={card.title}
+                style={
+                  {
+                    ["--contact-reveal-delay"]: `${Math.min(index * 120, 360)}ms`
+                  } as CSSProperties
+                }
               >
                 <div className={styles.cardHeader}>
                   <div className={styles.cardIcon} aria-hidden="true">
@@ -276,7 +316,7 @@ export function ContactRoute() {
           ref={formReveal.ref}
         >
           <header className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Send a Message</h2>
+            <SplitSectionTitle text="Send a Message" />
             <p className={styles.sectionSubtitle}>
               Fill out the form below and I&apos;ll get back to you within 24 hours
             </p>
@@ -455,7 +495,10 @@ export function ContactRoute() {
           ref={locationReveal.ref}
         >
           <div className={styles.locationGrid}>
-            <article className={`${styles.locationCard} ${styles.locationCardTone_kenya}`}>
+            <article
+              className={`${styles.locationCard} ${styles.locationCardTone_kenya}`}
+              style={{ ["--contact-reveal-delay"]: "0ms" } as CSSProperties}
+            >
               <div className={styles.locationIcon} aria-hidden="true">
                 KE
               </div>
@@ -464,7 +507,10 @@ export function ContactRoute() {
               <p className={styles.locationDetail}>East Africa</p>
             </article>
 
-            <article className={`${styles.locationCard} ${styles.locationCardTone_time}`}>
+            <article
+              className={`${styles.locationCard} ${styles.locationCardTone_time}`}
+              style={{ ["--contact-reveal-delay"]: "120ms" } as CSSProperties}
+            >
               <div className={styles.locationIcon} aria-hidden="true">
                 TZ
               </div>
@@ -473,7 +519,10 @@ export function ContactRoute() {
               <p className={styles.locationDetail}>East Africa Time (EAT)</p>
             </article>
 
-            <article className={`${styles.locationCard} ${styles.locationCardTone_availability}`}>
+            <article
+              className={`${styles.locationCard} ${styles.locationCardTone_availability}`}
+              style={{ ["--contact-reveal-delay"]: "240ms" } as CSSProperties}
+            >
               <div className={styles.locationIcon} aria-hidden="true">
                 ON
               </div>
@@ -496,13 +545,18 @@ export function ContactRoute() {
           ref={faqReveal.ref}
         >
           <header className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Frequently Asked</h2>
+            <SplitSectionTitle text="Frequently Asked" />
             <p className={styles.sectionSubtitle}>Common questions about working together</p>
           </header>
 
           <div className={styles.faqList}>
-            {faqItems.map((item) => (
-              <FaqRow answer={item.answer} key={item.question} question={item.question} />
+            {faqItems.map((item, index) => (
+              <FaqRow
+                answer={item.answer}
+                delayMs={Math.min(index * 90, 360)}
+                key={item.question}
+                question={item.question}
+              />
             ))}
           </div>
         </section>
