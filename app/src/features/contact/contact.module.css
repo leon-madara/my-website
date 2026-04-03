@@ -226,29 +226,82 @@
 }
 
 .card {
+  --card-accent-1: rgba(0, 107, 63, 0.18);
+  --card-accent-2: rgba(206, 17, 38, 0.14);
+  --card-accent-line: rgba(17, 17, 17, 0.22);
+  position: relative;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(122, 72, 56, 0.14);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   border-radius: var(--contact-radius);
   background: rgba(255, 255, 255, 0.78);
+  background: var(--surface);
   backdrop-filter: blur(24px);
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
   padding: var(--space-10);
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  transition:
+    transform var(--dur-med) var(--ease-standard),
+    box-shadow var(--dur-med) var(--ease-standard),
+    border-color var(--dur-med) var(--ease-standard);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    radial-gradient(circle at 14% 18%, var(--card-accent-1), transparent 48%),
+    radial-gradient(circle at 88% 22%, var(--card-accent-2), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent 48%);
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--card-accent-line), transparent);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--card-accent-line) 34%, var(--border));
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
 .cardFeatured {
   grid-column: 1 / -1;
+  padding: var(--space-12);
 }
 
 .cardHeader {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: var(--space-4);
 }
 
 .cardIcon {
+  position: relative;
   width: 56px;
   height: 56px;
   display: grid;
@@ -257,6 +310,9 @@
   font-weight: 800;
   color: #ffffff;
   background: rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .cardVariant_github .cardIcon {
@@ -271,9 +327,23 @@
   background: linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1));
 }
 
-.cardVariant_github {}
-.cardVariant_phone {}
-.cardVariant_email {}
+.cardVariant_github {
+  --card-accent-1: rgba(74, 85, 104, 0.22);
+  --card-accent-2: rgba(36, 41, 46, 0.18);
+  --card-accent-line: rgba(74, 85, 104, 0.9);
+}
+
+.cardVariant_phone {
+  --card-accent-1: rgba(0, 107, 63, 0.22);
+  --card-accent-2: rgba(16, 207, 116, 0.16);
+  --card-accent-line: rgba(0, 107, 63, 0.95);
+}
+
+.cardVariant_email {
+  --card-accent-1: rgba(102, 126, 234, 0.22);
+  --card-accent-2: rgba(118, 75, 162, 0.18);
+  --card-accent-line: rgba(102, 126, 234, 0.9);
+}
 
 .cardTitle {
   margin: 0;
@@ -282,6 +352,8 @@
 }
 
 .cardBody {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
@@ -330,8 +402,8 @@
 
 .cardValue {
   margin: 0;
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 800;
   word-break: break-word;
 }
 
@@ -657,25 +729,115 @@
 }
 
 .locationCard {
+  --loc-accent-1: rgba(0, 107, 63, 0.2);
+  --loc-accent-2: rgba(206, 17, 38, 0.14);
+  --loc-accent-line: rgba(0, 107, 63, 0.9);
+  position: relative;
   border: 1px solid rgba(122, 72, 56, 0.14);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   border-radius: var(--contact-radius);
   background: rgba(255, 255, 255, 0.78);
+  background: var(--surface);
   backdrop-filter: blur(24px);
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
   padding: var(--space-8);
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  transition:
+    transform var(--dur-med) var(--ease-standard),
+    box-shadow var(--dur-med) var(--ease-standard),
+    border-color var(--dur-med) var(--ease-standard);
+}
+
+.locationCard::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    radial-gradient(circle at 18% 18%, var(--loc-accent-1), transparent 52%),
+    radial-gradient(circle at 84% 16%, var(--loc-accent-2), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 48%);
+  opacity: 0.92;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.locationCard::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--loc-accent-line), transparent);
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.locationCard:hover,
+.locationCard:focus-within {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--loc-accent-line) 34%, var(--border));
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.locationCardTone_kenya {
+  --loc-accent-1: rgba(0, 107, 63, 0.22);
+  --loc-accent-2: rgba(206, 17, 38, 0.18);
+  --loc-accent-line: rgba(0, 107, 63, 0.95);
+}
+
+.locationCardTone_time {
+  --loc-accent-1: rgba(102, 126, 234, 0.22);
+  --loc-accent-2: rgba(118, 75, 162, 0.18);
+  --loc-accent-line: rgba(102, 126, 234, 0.9);
+}
+
+.locationCardTone_availability {
+  --loc-accent-1: rgba(16, 207, 116, 0.18);
+  --loc-accent-2: rgba(0, 107, 63, 0.18);
+  --loc-accent-line: rgba(16, 207, 116, 0.95);
 }
 
 .locationIcon {
+  position: relative;
   width: 54px;
   height: 54px;
   border-radius: var(--contact-radius);
   display: grid;
   place-items: center;
-  background: rgba(0, 107, 63, 0.12);
-  color: var(--kenyan-green);
+  background: linear-gradient(135deg, rgba(17, 17, 17, 0.12), rgba(17, 17, 17, 0.04));
+  border: 1px solid color-mix(in oklab, var(--loc-accent-line) 40%, rgba(17, 17, 17, 0.12));
+  color: var(--text);
   font-weight: 900;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.locationCardTone_kenya .locationIcon {
+  background: linear-gradient(135deg, rgba(0, 107, 63, 1), rgba(206, 17, 38, 0.92));
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.locationCardTone_time .locationIcon {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1));
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.locationCardTone_availability .locationIcon {
+  background: linear-gradient(135deg, rgba(16, 207, 116, 1), rgba(0, 107, 63, 1));
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
 }
 
 .locationTitle {
