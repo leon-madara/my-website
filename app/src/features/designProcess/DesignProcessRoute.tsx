@@ -105,14 +105,16 @@ export function DesignProcessRoute() {
       {/* ─── 1. HERO ─── */}
       <header className="dp-hero" aria-label="My Design Process hero">
         <PixelImage src={heroBgSrc} grid="8x8" />
-        <div className="dp-hero-text">
-          <h1 className="dp-hero-title">
-            <span>My Design</span>
-            <span>Process</span>
-          </h1>
-          <p className="dp-hero-subtitle">
-            Adaptive. Emotional. Research-driven. Never&nbsp;rigid.
-          </p>
+        <div className="dp-hero-content">
+          <div className="dp-hero-text">
+            <h1 className="dp-hero-title">
+              <span>My Design</span>
+              <span>Process</span>
+            </h1>
+            <p className="dp-hero-subtitle">
+              Adaptive. Emotional. Research-driven. Never&nbsp;rigid.
+            </p>
+          </div>
         </div>
       </header>
 
