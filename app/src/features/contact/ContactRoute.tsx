@@ -281,7 +281,8 @@ export function ContactRoute() {
               </div>
             </aside>
 
-            <div className={styles.formColumn}>
+            <div className={styles.formCard}>
+              <div className={styles.formColumn}>
               {!showSuccess ? (
                 <form className={styles.contactForm} noValidate onSubmit={handleSubmit}>
                   <div className={styles.formBadges} aria-hidden="true">
@@ -294,6 +295,7 @@ export function ContactRoute() {
 
                   <div className={styles.formGrid}>
                     <div className={styles.formGroup}>
+                      <label htmlFor="name">Your Name</label>
                       <input
                         aria-errormessage={fieldErrorId("name")}
                         aria-invalid={Boolean(errors.name)}
@@ -305,13 +307,13 @@ export function ContactRoute() {
                         required
                         value={values.name}
                       />
-                      <label htmlFor="name">Your Name</label>
                       <span className={styles.formError} id={fieldErrorId("name")} aria-live="polite">
                         {errors.name}
                       </span>
                     </div>
 
                     <div className={styles.formGroup}>
+                      <label htmlFor="email">Email Address</label>
                       <input
                         aria-errormessage={fieldErrorId("email")}
                         aria-invalid={Boolean(errors.email)}
@@ -324,7 +326,6 @@ export function ContactRoute() {
                         type="email"
                         value={values.email}
                       />
-                      <label htmlFor="email">Email Address</label>
                       <span className={styles.formError} id={fieldErrorId("email")} aria-live="polite">
                         {errors.email}
                       </span>
@@ -332,6 +333,7 @@ export function ContactRoute() {
                   </div>
 
                   <div className={styles.formGroup}>
+                    <label htmlFor="project-type">Project Type</label>
                     <select
                       aria-errormessage={fieldErrorId("projectType")}
                       aria-invalid={Boolean(errors.projectType)}
@@ -348,7 +350,6 @@ export function ContactRoute() {
                         </option>
                       ))}
                     </select>
-                    <label htmlFor="project-type">Project Type</label>
                     <span
                       className={styles.formError}
                       id={fieldErrorId("projectType")}
@@ -359,6 +360,7 @@ export function ContactRoute() {
                   </div>
 
                   <div className={styles.formGroup}>
+                    <label htmlFor="message">Your Message</label>
                     <textarea
                       aria-errormessage={fieldErrorId("message")}
                       aria-invalid={Boolean(errors.message)}
@@ -371,7 +373,6 @@ export function ContactRoute() {
                       rows={5}
                       value={values.message}
                     />
-                    <label htmlFor="message">Your Message</label>
                     <span className={styles.formError} id={fieldErrorId("message")} aria-live="polite">
                       {errors.message}
                     </span>
@@ -406,6 +407,7 @@ export function ContactRoute() {
                 <button className={styles.calendarBtn} onClick={handleCalendarClick} type="button">
                   <span>Schedule a Meeting</span>
                 </button>
+              </div>
               </div>
             </div>
           </div>
@@ -468,9 +470,7 @@ export function ContactRoute() {
               <details className={styles.faqItem} key={item.question}>
                 <summary className={styles.faqSummary}>
                   <span>{item.question}</span>
-                  <span className={styles.faqIcon} aria-hidden="true">
-                    v
-                  </span>
+                  <span className={styles.faqIcon} aria-hidden="true" />
                 </summary>
                 <div className={styles.faqAnswer}>
                   <p>{item.answer}</p>
