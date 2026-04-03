@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { AboutRoute } from "./AboutRoute";
 
 describe("AboutRoute", () => {
-  it("renders the migrated about sections and key actions", () => {
+  it("renders the rebuilt about page sections and key actions", () => {
     render(
       <MemoryRouter>
         <AboutRoute />
@@ -12,6 +12,9 @@ describe("AboutRoute", () => {
 
     expect(
       screen.getByRole("heading", { level: 2, name: /about\s*me/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: /lion illustration representing leon madara/i })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {

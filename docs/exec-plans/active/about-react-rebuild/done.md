@@ -1,0 +1,36 @@
+# Done
+
+- [x] Classified the rebuild as a complex, multi-session feature effort
+- [x] Chosen the branch split strategy: dedicated `codex/about-react-rebuild`
+- [x] Confirmed the rebuild should be static-first and motion-second
+- [x] Created the dedicated execution-plan folder for this About rebuild
+- [x] Recorded the current session start state in repo docs
+- [x] Created the rebuild branch from `codex/react-overhaul`
+- [x] Replaced the old single-route About implementation with a new route/page split
+- [x] Added typed About content contracts in `about.types.ts`
+- [x] Added reusable presentational About section and card components under `app/src/features/about/components/`
+- [x] Removed the monolithic `useAboutAnimations.ts` controller
+- [x] Added local About hooks for:
+  - shell-safe route setup
+  - low-risk section reveals
+  - simple hero entrance motion
+- [x] Rebuilt the About page CSS around a static-first layout with local reveal states instead of page-wide GSAP control
+- [x] Updated the shared shell timing to reduce first-paint route-class flicker by switching `AppLayout` body-class management to `useLayoutEffect`
+- [x] Updated `useReducedMotion` to read the preference synchronously on first render
+- [x] Added/updated focused About route coverage and revalidated the route with typecheck, focused tests, build, and browser screenshots
+- [x] Restored About-shell parity by showing the desktop sidebar on `/about` and using the simple page toggle on About/contact instead of the scenic home toggle
+- [x] Replaced placeholder section icon labels with the original emoji-style iconography from the vanilla design language
+- [x] Tuned the rebuilt hero composition on desktop and mobile to reduce text/image crowding and better match the vanilla page proportions
+- [x] Updated route-level tests to reflect the new toggle behavior and reran the full React test suite successfully
+- [x] Captured fresh Chrome screenshots for the rebuilt About route and the vanilla reference route for parity review
+- [x] Removed the unintended About-route sidebar after design review and verified the full-width hero composition in Chrome
+- [x] Expanded the About layout to full-width and promoted the hero gradient bar into a fixed top element behind the header chrome
+- [x] Positioned the About header chrome to 20vw insets and aligned the nav/toggle vertically to the fixed gradient bar
+- [x] Updated the hero entrance so the lion appears first, then slides left while the title settles centered
+- [x] Matched the vanilla "lock" step for the fixed hero image wrapper after the entrance animation to reduce scroll jitter
+- [x] Added vanilla-parity section-based random hero image swapping (lion/giraffe/frog) with smooth fade and repeat-avoidance
+- [x] Removed remaining `!important` rules from the React `global.css` reduced-motion overrides (no `!important` in `app/src`)
+- [x] Copied missing swap images into React static assets (`app/public/images/`) so `/images/giraffe1.png` and `/images/frog1.png` load in the React build
+- [x] Removed About-route `.site-main` top padding so the hero text sits at true viewport center (50vw/50vh)
+- [x] Added ScrambleText entrance for the hero eyebrow text using `@gsap/react` `useGSAP()` (kept scoped to About-owned nodes)
+- [x] Added the IT Xylox Demo font to React static assets and applied it to the hero name ("LEON MADARA")

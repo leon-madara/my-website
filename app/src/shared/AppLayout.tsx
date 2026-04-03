@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { DecorativeBackground } from "./DecorativeBackground";
@@ -12,8 +12,9 @@ import { ThemeToggle } from "./ThemeToggle";
 export function AppLayout() {
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
+  const showSidebar = location.pathname === "/";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const routeClass =
       location.pathname === "/"
         ? "home-page"
@@ -42,7 +43,7 @@ export function AppLayout() {
   return (
     <div
       className={
-        location.pathname === "/"
+        showSidebar
           ? "app-shell app-shell--with-sidebar"
           : "app-shell"
       }

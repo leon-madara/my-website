@@ -34,8 +34,8 @@ describe("AppLayout", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the landscape theme toggle on about", () => {
-    const { container } = render(
+  it("renders the simple page toggle without the sidebar on about", () => {
+    render(
       <ThemeProvider>
         <MemoryRouter initialEntries={["/about"]}>
           <AppLayout />
@@ -43,11 +43,14 @@ describe("AppLayout", () => {
       </ThemeProvider>
     );
 
-    expect(container.querySelector("theme-toggle-landscape")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /activate dark theme/i })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("complementary", { name: /profile and social links/i })
+    ).not.toBeInTheDocument();
   });
 
-  it("renders the landscape theme toggle on contact", () => {
-    const { container } = render(
+  it("renders the simple page toggle on contact", () => {
+    render(
       <ThemeProvider>
         <MemoryRouter initialEntries={["/contact"]}>
           <AppLayout />
@@ -55,6 +58,6 @@ describe("AppLayout", () => {
       </ThemeProvider>
     );
 
-    expect(container.querySelector("theme-toggle-landscape")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /activate dark theme/i })).toBeInTheDocument();
   });
 });

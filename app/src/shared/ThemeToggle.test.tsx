@@ -24,6 +24,20 @@ describe("ThemeToggle", () => {
     );
   });
 
+  it("renders the simple page toggle on the about route", () => {
+    render(
+      <ThemeProvider>
+        <MemoryRouter initialEntries={["/about"]}>
+          <ThemeToggle />
+        </MemoryRouter>
+      </ThemeProvider>
+    );
+
+    expect(screen.getByTestId("react-theme-toggle").tagName.toLowerCase()).toBe(
+      "button"
+    );
+  });
+
   it("syncs the React theme provider when the landscape toggle emits theme-changed", () => {
     render(
       <ThemeProvider>

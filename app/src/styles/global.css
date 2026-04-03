@@ -24,6 +24,14 @@
   font-family: "Enriqueta", Georgia, serif;
 }
 
+@font-face {
+  font-family: "IT Xylox Demo";
+  src: url("/fonts/it-xylox-demo.regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
   --page-bg: #0a0e12;
@@ -155,6 +163,34 @@ button {
   padding: 120px 20vw 96px;
 }
 
+.about-page .site-main {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 769px) {
+  .about-page {
+    --about-topbar-top: 10px;
+    --about-topbar-height: 82px;
+    --header-control-top: calc(
+      var(--about-topbar-top) + (var(--about-topbar-height) - var(--header-control-height)) / 2
+    );
+    --header-side-offset: 20vw;
+  }
+
+  .about-page .header-logo {
+    left: var(--header-side-offset);
+    top: calc(
+      var(--about-topbar-top) + (var(--about-topbar-height) - var(--header-logo-size)) / 2
+    );
+  }
+
+  .about-page .theme-toggle-simple--page {
+    right: var(--header-side-offset);
+    top: var(--header-control-top);
+  }
+}
+
 .design-process-page .site-main {
   padding: 0;
   overflow-x: hidden;
@@ -217,6 +253,10 @@ button {
 
 .app-shell--with-sidebar .site-main {
   padding-left: calc(20vw + 320px + 4rem);
+}
+
+.about-page.app-shell--with-sidebar .site-main {
+  padding-left: calc(20vw + 320px + 2rem);
 }
 
 .header-logo {
@@ -553,6 +593,10 @@ theme-toggle-landscape.react-theme-toggle {
   background: rgba(255, 255, 255, 0.9);
   color: #1a1a1a;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.theme-toggle-simple--page {
+  display: inline-flex;
 }
 
 :root[data-theme="dark"] .theme-toggle-simple {
@@ -1645,6 +1689,10 @@ theme-toggle-landscape.react-theme-toggle {
     padding-left: calc(240px + 4rem);
   }
 
+  .about-page.app-shell--with-sidebar .site-main {
+    padding-left: calc(240px + 3rem);
+  }
+
   .header-logo {
     left: 5vw;
   }
@@ -1666,6 +1714,10 @@ theme-toggle-landscape.react-theme-toggle {
 @media (max-width: 1024px) {
   .app-shell--with-sidebar .site-main {
     padding-left: calc(220px + 2rem);
+  }
+
+  .about-page.app-shell--with-sidebar .site-main {
+    padding-left: calc(220px + 1.5rem);
   }
 
   .pill-sidebar {
@@ -1825,7 +1877,7 @@ theme-toggle-landscape.react-theme-toggle {
 
   .theme-toggle-landscape__stars span,
   .theme-toggle-landscape__cloud {
-    animation: none !important;
+    animation: none;
   }
 
   .hero-content > *,
@@ -1833,7 +1885,7 @@ theme-toggle-landscape.react-theme-toggle {
   .hero-organic-blob,
   .location-pin,
   .pulse-ring {
-    animation: none !important;
+    animation: none;
   }
 
   .hero-content > * {
@@ -1846,6 +1898,6 @@ theme-toggle-landscape.react-theme-toggle {
   }
 
   .role-sequence {
-    filter: none !important;
+    filter: none;
   }
 }
