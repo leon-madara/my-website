@@ -3,6 +3,7 @@ import { AppLayout } from "../shared/AppLayout";
 import { RouteErrorBoundary } from "../shared/RouteErrorBoundary";
 import { AboutRoute } from "../features/about/AboutRoute";
 import { ContactRoute } from "../features/contact/ContactRoute";
+import { ContactRebuildRoute } from "../features/contactRebuild/ContactRebuildRoute";
 import { DesignProcessRoute } from "../features/designProcess/DesignProcessRoute";
 import { HomeRoute } from "../features/home/HomeRoute";
 import { PortfolioRoute } from "../features/portfolio/PortfolioRoute";
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         element: <ContactRoute />
+      },
+      {
+        path: "contact-rebuild",
+        element: <ContactRebuildRoute />
       },
       {
         path: "portfolio",
