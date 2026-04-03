@@ -200,6 +200,10 @@ button {
   padding-right: 20px;
 }
 
+.contact-page .site-main {
+  padding: 0 0 96px;
+}
+
 @media (min-width: 769px) {
   .about-page {
     --about-topbar-top: 10px;
@@ -1762,6 +1766,11 @@ theme-toggle-landscape.react-theme-toggle {
   .site-main,
   .app-shell--with-sidebar .site-main {
     padding: 96px 20px 108px;
+  }
+
+  .contact-page .site-main,
+  .contact-page.app-shell--with-sidebar .site-main {
+    padding: 0 0 108px;
   }
 
   .header-logo {
