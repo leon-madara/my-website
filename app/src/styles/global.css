@@ -11,6 +11,38 @@
   --surface-strong: rgba(255, 255, 255, 0.86);
   --border: rgba(122, 72, 56, 0.25);
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+
+  /* Layout tokens (layout-polisher baseline) */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-med: 250ms;
+  --dur-slow: 400ms;
+
+  /* Container contract */
+  --gutter: clamp(16px, 4vw, 32px);
+  --container: 1000px;
+  --container-wide: 1400px;
+
   --header-logo-size: 100px;
   --header-control-height: 48px;
   --header-control-top: calc((var(--header-logo-size) - var(--header-control-height)) / 2);

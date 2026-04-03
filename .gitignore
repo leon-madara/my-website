@@ -12,6 +12,7 @@ yarn.lock
 dist/
 build/
 output/react-overhaul/
+output/playwright/
 *.log
 
 # IDE
@@ -30,6 +31,10 @@ desktop.ini
 *.tmp
 *.temp
 .cache/
+.codex-tmp/
+.codex-tmp*/
+.codex-tmp/**
+it-xylox-demo.regular.otf
 
 # Test output files
 test_output.txt

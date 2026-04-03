@@ -21,7 +21,7 @@ export function AppLayout() {
           ? "portfolio-page"
           : location.pathname === "/design-process"
             ? "design-process-page"
-          : location.pathname === "/contact"
+          : location.pathname === "/contact" || location.pathname === "/contact-rebuild"
             ? "contact-page"
             : "about-page";
 
