@@ -1,0 +1,14 @@
+{
+  "feature_slug": "git-branch-orchestration",
+  "branch": "codex/git-branch-orchestration",
+  "parent_branch": "main",
+  "default_promotion_target": "main",
+  "status": "active",
+  "scope_hint": [
+    "git workflow",
+    "branch orchestration",
+    "branch registry",
+    "branch helper script",
+    "git skill"
+  ]
+}

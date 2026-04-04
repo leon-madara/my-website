@@ -1,0 +1,13 @@
+{
+  "feature_slug": "theme-toggle-landscape-rebuild",
+  "branch": "codex/theme-toggle-landscape-rebuild",
+  "parent_branch": "main",
+  "default_promotion_target": "main",
+  "status": "review",
+  "scope_hint": [
+    "theme toggle",
+    "landscape toggle",
+    "dark mode toggle",
+    "shared custom element"
+  ]
+}

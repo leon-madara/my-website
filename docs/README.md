@@ -15,6 +15,7 @@ This folder is the system of record for architecture, repo rules, and cross-sess
 
 - `ARCHITECTURE.md` - Edit map, boundaries, and source-of-truth rules
 - `GOLDEN_PRINCIPLES.md` - Non-negotiable implementation constraints
+- `git/README.md` - Branch orchestration registry and managed-branch workflow
 - `exec-plans/README.md` - How to use active, completed, and template folders
 
 ## Supporting Legacy Docs

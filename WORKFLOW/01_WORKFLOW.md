@@ -102,3 +102,12 @@ When feature work is complete, move the folder to `docs/exec-plans/completed/` a
 - Propose a new `codex/<feature-slug>` branch name to the user and wait for approval before creating it.
 - After approval, create the new branch from the checkpointed state and do the overhaul work there.
 - Do not silently branch-split major work without telling the user first.
+
+## Branch Orchestration V1
+
+- Use `docs/git/branch-registry.json` as the repo-wide map of managed branch relationships.
+- Use `docs/exec-plans/active/<feature-slug>/branch-context.json` as the local branch metadata file when that feature folder exists on the current branch.
+- Before switching branches for a managed feature, inspect the registry and branch context first.
+- Before pushing or merging a managed branch, confirm the default promotion target from the registry and branch context first.
+- Stop on ambiguity instead of guessing between sibling or unrelated feature branches.
+- Keep branch switch, branch creation, push, and merge actions behind explicit user approval.

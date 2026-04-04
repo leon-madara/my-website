@@ -51,6 +51,7 @@ Manual browser validation pages and scripts live here. Use these for focused UI,
 
 - Root `AGENTS.md` is the repo entry point for agents.
 - `WORKFLOW/` defines operating behavior.
+- `docs/git/` stores the managed branch registry for branch orchestration.
 - `docs/exec-plans/` stores active and completed feature continuity folders.
 - `.kiro/specs/` stores requirement/design/task documents for some features.
 

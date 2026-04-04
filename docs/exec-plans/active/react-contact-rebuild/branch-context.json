@@ -1,0 +1,13 @@
+{
+  "feature_slug": "react-contact-rebuild",
+  "branch": "codex/react-contact-rebuild",
+  "parent_branch": "codex/react-overhaul",
+  "default_promotion_target": "codex/react-overhaul",
+  "status": "promoted",
+  "scope_hint": [
+    "contact page",
+    "contact route",
+    "contact rebuild",
+    "contact form"
+  ]
+}

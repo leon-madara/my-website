@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "root_branch": "main",
+  "last_updated": "2026-04-03",
+  "branches": [
+    {
+      "branch": "main",
+      "feature_slug": "main",
+      "parent_branch": null,
+      "children": [
+        "codex/react-overhaul",
+        "codex/theme-toggle-landscape-rebuild",
+        "codex/git-branch-orchestration"
+      ],
+      "default_promotion_target": null,
+      "status": "stable",
+      "scope_hint": [
+        "root branch",
+        "stable integration",
+        "mainline"
+      ],
+      "execution_plan_path": null,
+      "branch_context_path": null
+    },
+    {
+      "branch": "codex/react-overhaul",
+      "feature_slug": "react-overhaul",
+      "parent_branch": "main",
+      "children": [
+        "codex/about-react-rebuild",
+        "codex/design-process-page-react",
+        "codex/react-contact-rebuild"
+      ],
+      "default_promotion_target": "main",
+      "status": "active",
+      "scope_hint": [
+        "react overhaul",
+        "react migration",
+        "react app",
+        "routing",
+        "shared react foundation"
+      ],
+      "execution_plan_path": "docs/exec-plans/active/react-overhaul",
+      "branch_context_path": "docs/exec-plans/active/react-overhaul/branch-context.json"
+    },
+    {
+      "branch": "codex/about-react-rebuild",
+      "feature_slug": "about-react-rebuild",
+      "parent_branch": "codex/react-overhaul",
+      "children": [],
+      "default_promotion_target": "codex/react-overhaul",
+      "status": "active",
+      "scope_hint": [
+        "about page",
+        "about route",
+        "about rebuild",
+        "about motion"
+      ],
+      "execution_plan_path": "docs/exec-plans/active/about-react-rebuild",
+      "branch_context_path": "docs/exec-plans/active/about-react-rebuild/branch-context.json"
+    },
+    {
+      "branch": "codex/design-process-page-react",
+      "feature_slug": "design-process-page-react",
+      "parent_branch": "codex/react-overhaul",
+      "children": [],
+      "default_promotion_target": "codex/react-overhaul",
+      "status": "active",
+      "scope_hint": [
+        "design process",
+        "process page",
+        "glass capsule nav",
+        "design process route"
+      ],
+      "execution_plan_path": "docs/exec-plans/active/design-process-page-react",
+      "branch_context_path": "docs/exec-plans/active/design-process-page-react/branch-context.json"
+    },
+    {
+      "branch": "codex/react-contact-rebuild",
+      "feature_slug": "react-contact-rebuild",
+      "parent_branch": "codex/react-overhaul",
+      "children": [],
+      "default_promotion_target": "codex/react-overhaul",
+      "status": "promoted",
+      "scope_hint": [
+        "contact page",
+        "contact route",
+        "contact rebuild",
+        "contact form"
+      ],
+      "execution_plan_path": "docs/exec-plans/active/react-contact-rebuild",
+      "branch_context_path": "docs/exec-plans/active/react-contact-rebuild/branch-context.json"
+    },
+    {
+      "branch": "codex/theme-toggle-landscape-rebuild",
+      "feature_slug": "theme-toggle-landscape-rebuild",
+      "parent_branch": "main",
+      "children": [],
+      "default_promotion_target": "main",
+      "status": "review",
+      "scope_hint": [
+        "theme toggle",
+        "landscape toggle",
+        "dark mode toggle",
+        "shared custom element"
+      ],
+      "execution_plan_path": "docs/exec-plans/active/theme-toggle-landscape-rebuild",
+      "branch_context_path": "docs/exec-plans/active/theme-toggle-landscape-rebuild/branch-context.json"
+    },
+    {
+      "branch": "codex/git-branch-orchestration",
+      "feature_slug": "git-branch-orchestration",
+      "parent_branch": "main",
+      "children": [],
+      "default_promotion_target": "main",
+      "status": "active",
+      "scope_hint": [
+        "git workflow",
+        "branch orchestration",
+        "branch registry",
+        "branch helper script",
+        "git skill"
+      ],
+      "execution_plan_path": "docs/exec-plans/active/git-branch-orchestration",
+      "branch_context_path": "docs/exec-plans/active/git-branch-orchestration/branch-context.json"
+    }
+  ]
+}

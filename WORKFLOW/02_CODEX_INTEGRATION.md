@@ -51,6 +51,12 @@ If you discover a lower-level document that conflicts with a higher-level source
 - Progress tracking
 - Decisions, blockers, handoff, and verification
 
+### `docs/git/`
+
+- Repo-wide managed branch relationships
+- Default promotion targets for orchestrated Git workflows
+- Canonical branch tree view used before branch switch, push, or merge decisions
+
 ### `.kiro/specs/`
 
 - Requirements
@@ -86,6 +92,7 @@ This repo also keeps a branch-neutral seed copy of the workflow docs under `.git
 3. `docs/ARCHITECTURE.md`
 4. `docs/GOLDEN_PRINCIPLES.md`
 5. `WORKFLOW/01_WORKFLOW.md`
-6. Active feature folder, if one exists
-7. Relevant `.kiro/specs/<feature>/` documents
-8. Relevant code
+6. `docs/git/README.md` and `docs/git/branch-registry.json` when the task affects managed branch workflow
+7. Active feature folder, if one exists
+8. Relevant `.kiro/specs/<feature>/` documents
+9. Relevant code

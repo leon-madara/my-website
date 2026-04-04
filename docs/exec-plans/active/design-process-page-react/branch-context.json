@@ -1,0 +1,13 @@
+{
+  "feature_slug": "design-process-page-react",
+  "branch": "codex/design-process-page-react",
+  "parent_branch": "codex/react-overhaul",
+  "default_promotion_target": "codex/react-overhaul",
+  "status": "active",
+  "scope_hint": [
+    "design process",
+    "process page",
+    "glass capsule nav",
+    "design process route"
+  ]
+}
