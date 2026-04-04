@@ -40,7 +40,7 @@
 }
 
 .dp-container--wide {
-  width: min(1200px, calc(100% - 3rem));
+  width: min(72ch, calc(100% - 3rem));
 }
 
 .dp-kicker {
@@ -928,13 +928,13 @@
 .dp-section--cta {
   padding: clamp(4rem, 8vh, 6rem) 0;
   text-align: center;
-  background: #111;
-  color: #fff;
+  background: #f5f5f3;
+  color: #111;
 }
 
 :root[data-theme="dark"] .dp-section--cta {
-  background: #f5f5f3;
-  color: #111;
+  background: #111;
+  color: #fff;
 }
 
 .dp-cta-headline {
@@ -947,12 +947,12 @@
 
 .dp-cta-sub {
   font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.55);
   margin: 0 0 2.5rem;
 }
 
 :root[data-theme="dark"] .dp-cta-sub {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .dp-cta-btn {
@@ -964,24 +964,24 @@
   font-family: inherit;
   border: none;
   border-radius: 999px;
-  background: #fff;
-  color: #111;
+  background: #111;
+  color: #fff;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .dp-cta-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 :root[data-theme="dark"] .dp-cta-btn {
-  background: #111;
-  color: #fff;
+  background: #fff;
+  color: #111;
 }
 
 :root[data-theme="dark"] .dp-cta-btn:hover {
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 24px rgba(255, 255, 255, 0.12);
 }
 
 /* ------------------------------------------------
