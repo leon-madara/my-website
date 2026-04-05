@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import "./designProcess.css";
 import { PixelImage } from "./PixelImage";
+import { Highlighter } from "./Highlighter";
 
 /* ── Shared types ────────────────────────────── */
 
@@ -10,6 +11,13 @@ type AiTool = {
   key: string;
   label: string;
   logoSrc?: string;
+};
+
+type CommandItem = {
+  id: string;
+  label: string;
+  command: string;
+  accent: "black" | "red" | "green" | "white";
 };
 
 /* ── Hooks ───────────────────────────────────── */
@@ -102,6 +110,87 @@ function AiLogoTile({
   );
 }
 
+function AnimatedCommandList({ items }: { items: CommandItem[] }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => setPrefersReducedMotion(media.matches);
+    syncPreference();
+    media.addEventListener("change", syncPreference);
+    return () => media.removeEventListener("change", syncPreference);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (prefersReducedMotion || items.length <= 1) {
+      setPreviousIndex(null);
+      return;
+    }
+
+    let rotateTimer: number | undefined;
+    let cleanupTimer: number | undefined;
+
+    rotateTimer = window.setTimeout(() => {
+      const nextIndex = (activeIndex + 1) % items.length;
+      setPreviousIndex(activeIndex);
+      setActiveIndex(nextIndex);
+      cleanupTimer = window.setTimeout(() => {
+        setPreviousIndex(null);
+      }, 540);
+    }, 2600);
+
+    return () => {
+      if (rotateTimer !== undefined) {
+        window.clearTimeout(rotateTimer);
+      }
+      if (cleanupTimer !== undefined) {
+        window.clearTimeout(cleanupTimer);
+      }
+    };
+  }, [activeIndex, items.length, prefersReducedMotion]);
+
+  const activeItem = items[activeIndex];
+  const previousItem = previousIndex === null ? null : items[previousIndex];
+
+  return (
+    <div
+      className="dp-command-stage"
+      aria-atomic="true"
+      aria-live="polite"
+      role="status"
+    >
+      {previousItem ? (
+        <article
+          key={`${previousItem.id}-exit-${activeItem.id}`}
+          className={`dp-command-item dp-command-stage-item dp-command-item--${previousItem.accent} is-exit`}
+        >
+          <div className="dp-command-item-topline">
+            <span className="dp-command-badge">{previousItem.label}</span>
+          </div>
+          <code className="dp-command-item-code">{previousItem.command}</code>
+        </article>
+      ) : null}
+
+      <article
+        key={activeItem.id}
+        className={`dp-command-item dp-command-stage-item dp-command-item--${activeItem.accent} ${
+          previousItem ? "is-enter" : "is-current"
+        }`}
+      >
+        <div className="dp-command-item-topline">
+          <span className="dp-command-badge">{activeItem.label}</span>
+        </div>
+        <code className="dp-command-item-code">{activeItem.command}</code>
+      </article>
+    </div>
+  );
+}
+
 /* ── Main route component ────────────────────── */
 
 export function DesignProcessRoute() {
@@ -119,6 +208,36 @@ export function DesignProcessRoute() {
       ? "/designProcess/DesignProcessDarkMode.svg"
       : "/designProcess/DesignProcess.svg";
   }, [isMobile, theme]);
+
+  const commandItems = useMemo<CommandItem[]>(
+    () => [
+      {
+        id: "cmd-entry",
+        label: "Windows Entry",
+        command: "branch-orchestrator.cmd --mode entry --json",
+        accent: "black",
+      },
+      {
+        id: "cmd-exit",
+        label: "Windows Exit",
+        command: "branch-orchestrator.cmd --mode exit --json",
+        accent: "red",
+      },
+      {
+        id: "sh-entry",
+        label: "Shell Entry",
+        command: "branch-orchestrator.sh --mode entry --json",
+        accent: "green",
+      },
+      {
+        id: "sh-exit",
+        label: "Shell Exit",
+        command: "branch-orchestrator.sh --mode exit --json",
+        accent: "white",
+      },
+    ],
+    []
+  );
 
   const aiTools: AiTool[] = useMemo(
     () => [
@@ -526,46 +645,72 @@ export function DesignProcessRoute() {
             </p>
           </div>
 
-          <div
-            className="dp-gates-grid"
-            role="list"
-            aria-label="Branch orchestration gate flow"
-          >
-            <article className="dp-gate-card dp-reveal" role="listitem">
-              <p className="dp-orch-chip">Gate 01</p>
-              <h3 className="dp-orch-title">Entry Gate</h3>
-              <p className="dp-orch-copy">
-                Matches task scope to the correct managed branch and blocks
-                unsafe switching when the worktree is dirty or ambiguous.
+          <div className="dp-gates-showcase">
+            <div className="dp-gates-header-panel dp-reveal">
+              <p className="dp-gates-header-label">Branch Safety System</p>
+              <h3 className="dp-gates-header-title">
+                Controlled branch flow for execution, validation, and release.
+              </h3>
+              <p className="dp-gates-header-copy">
+                One panel defines the control model, two gates enforce it at the
+                decision points, and one operations block exposes the command
+                surface.
               </p>
-            </article>
+            </div>
 
-            <article className="dp-gate-card dp-reveal" role="listitem">
-              <p className="dp-orch-chip">Gate 02</p>
-              <h3 className="dp-orch-title">Exit Gate</h3>
-              <p className="dp-orch-copy">
-                Re-checks branch lineage after implementation and recommends
-                safe push and merge targets with approval checkpoints.
-              </p>
-            </article>
-          </div>
+            <div
+              className="dp-gates-grid"
+              role="list"
+              aria-label="Branch orchestration gate flow"
+            >
+              <article className="dp-gate-card dp-gate-card--entry dp-reveal" role="listitem">
+                <div className="dp-gate-card-topline">
+                  <p className="dp-orch-chip">Gate 01</p>
+                  <span className="dp-gate-status">Pre-build</span>
+                </div>
+                <h3 className="dp-orch-title">Entry Gate</h3>
+                <p className="dp-orch-copy">
+                  Resolve the correct working branch before implementation
+                  starts and block unsafe switching conditions.
+                </p>
+                <div className="dp-gate-checks" role="list" aria-label="Entry gate checks">
+                  <span className="dp-gate-check" role="listitem">Scope matched</span>
+                  <span className="dp-gate-check" role="listitem">Worktree checked</span>
+                  <span className="dp-gate-check" role="listitem">Target confirmed</span>
+                </div>
+              </article>
 
-          <div
-            className="dp-command-strip"
-            aria-label="Cross-platform branch gate commands"
-          >
-            <code className="dp-command dp-reveal">
-              branch-orchestrator.cmd --mode entry --json
-            </code>
-            <code className="dp-command dp-reveal">
-              branch-orchestrator.cmd --mode exit --json
-            </code>
-            <code className="dp-command dp-reveal">
-              branch-orchestrator.sh --mode entry --json
-            </code>
-            <code className="dp-command dp-reveal">
-              branch-orchestrator.sh --mode exit --json
-            </code>
+              <div className="dp-gates-connector dp-reveal" aria-hidden="true">
+                <span className="dp-gates-connector-arrow">↔</span>
+              </div>
+
+              <article className="dp-gate-card dp-gate-card--exit dp-reveal" role="listitem">
+                <div className="dp-gate-card-topline">
+                  <p className="dp-orch-chip">Gate 02</p>
+                  <span className="dp-gate-status">Pre-release</span>
+                </div>
+                <h3 className="dp-orch-title">Exit Gate</h3>
+                <p className="dp-orch-copy">
+                  Re-check lineage, recommend the safest promotion path, and
+                  require explicit approval before push or merge.
+                </p>
+                <div className="dp-gate-checks" role="list" aria-label="Exit gate checks">
+                  <span className="dp-gate-check" role="listitem">Lineage reviewed</span>
+                  <span className="dp-gate-check" role="listitem">Target scored</span>
+                  <span className="dp-gate-check" role="listitem">Approval required</span>
+                </div>
+              </article>
+            </div>
+
+            <div
+              className="dp-command-console dp-reveal"
+              aria-label="Cross-platform branch gate commands"
+            >
+              <div className="dp-command-console-bar">
+                <p className="dp-command-console-title">Operational Commands</p>
+              </div>
+              <AnimatedCommandList items={commandItems} />
+            </div>
           </div>
         </div>
       </section>
@@ -578,35 +723,155 @@ export function DesignProcessRoute() {
       >
         <div className="dp-container dp-container--wide">
           <p className="dp-kicker">Core Anchor</p>
-          <h2 className="dp-headline" id="dp-typo-heading">
-            Hero-First Build &amp; Typography
+          <h2 className="dp-headline dp-typo-comic-title" id="dp-typo-heading">
+            HERO-FIRST BUILD &amp; TYPOGRAPHY
           </h2>
           <p className="dp-body" style={{ maxWidth: "64ch" }}>
-            The hero section creates the strongest impression. Once that visual
-            anchor is set, typography exploration becomes the next major
-            creative pass — balancing distinct style with usability.
+            Once the hero direction is clear, typography becomes a serious{" "}
+            <Highlighter
+              action="underline"
+              color={theme === "dark" ? "#48cc86" : "#ff9800"}
+              animationDuration={700}
+              strokeWidth={2.2}
+              padding={3}
+              isView
+            >
+              creative process
+            </Highlighter>
+            , not a quick font pick. If I already have the final{" "}
+            <Highlighter
+              action="highlight"
+              color={theme === "dark" ? "#d84f63" : "#c93a52"}
+              animationDuration={620}
+              padding={2}
+              isView
+            >
+              copy
+            </Highlighter>
+            , or even if the words are
+            still evolving, I take the actual text into{" "}
+            <Highlighter
+              action="highlight"
+              color={theme === "dark" ? "#d9d3c8" : "#6a6258"}
+              animationDuration={680}
+              padding={2}
+              isView
+            >
+              1001 Fonts
+            </Highlighter>
+            , type it out, test
+            different sizes, and evaluate how each option feels with the design.
+          </p>
+          <p className="dp-body dp-typo-intro" style={{ maxWidth: "64ch" }}>
+            Sometimes the first one lands immediately. Other times I shortlist{" "}
+            <Highlighter
+              action="highlight"
+              color={theme === "dark" ? "#24b36e" : "#1f8e58"}
+              animationDuration={650}
+              padding={2}
+              isView
+            >
+              8 to 10 fonts
+            </Highlighter>
+            , download them,
+            implement them one by one, compare them, step away, and come back
+            with a{" "}
+            <Highlighter
+              action="underline"
+              color={theme === "dark" ? "#48cc86" : "#ff9800"}
+              animationDuration={700}
+              strokeWidth={2.1}
+              padding={3}
+              isView
+            >
+              fresh eye
+            </Highlighter>
+            . That back
+            and forth matters because typography shapes the{" "}
+            <Highlighter
+              action="highlight"
+              color={theme === "dark" ? "#dd576a" : "#cf4158"}
+              animationDuration={620}
+              padding={2}
+              isView
+            >
+              emotion
+            </Highlighter>
+            ,{" "}
+            <Highlighter
+              action="underline"
+              color={theme === "dark" ? "#48cc86" : "#ff9800"}
+              animationDuration={700}
+              strokeWidth={2.1}
+              padding={3}
+              isView
+            >
+              theme
+            </Highlighter>
+            , and{" "}
+            <Highlighter
+              action="highlight"
+              color={theme === "dark" ? "#e2dbcf" : "#746b5f"}
+              animationDuration={660}
+              padding={2}
+              isView
+            >
+              uniqueness
+            </Highlighter>{" "}
+            of the whole design.
           </p>
 
           <div className="dp-typo-grid">
-            <div className="dp-typo-card" style={{ fontFamily: "Georgia, serif" }}>
-              <span className="dp-typo-label">Serif Elegance</span>
-              <span className="dp-typo-specimen">Aa</span>
-              <p>Classic, trustworthy execution.</p>
+            <div className="dp-typo-card">
+              <span className="dp-typo-label">01. Start With Real Words</span>
+              <h3 className="dp-typo-card-title">Test the actual phrase, not placeholder text.</h3>
+              <p>
+                I use the real headline, tagline, or copyright text so I can
+                judge rhythm, spacing, and personality in a realistic context.
+              </p>
             </div>
-            <div className="dp-typo-card" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <span className="dp-typo-label">Clean Minimal</span>
-              <span className="dp-typo-specimen">Aa</span>
-              <p>Focused on function and clarity.</p>
+            <div className="dp-typo-card">
+              <span className="dp-typo-label">02. Explore Broadly</span>
+              <h3 className="dp-typo-card-title">Use 1001 Fonts to compare mood, scale, and fit.</h3>
+              <p>
+                I type the words I want, adjust the size, and compare options
+                until I feel the right tension between clarity and expression.
+              </p>
             </div>
-            <div
-              className="dp-typo-card dp-typo-card--selected"
-              style={{ fontFamily: "'Organical', Georgia, serif" }}
-            >
-              <span className="dp-typo-label">Expressive Display ✓</span>
-              <span className="dp-typo-specimen">Aa</span>
-              <p>Distinct, memorable, and alive.</p>
+            <div className="dp-typo-card">
+              <span className="dp-typo-label">03. Shortlist + Implement</span>
+              <h3 className="dp-typo-card-title">Download the strongest candidates and try them for real.</h3>
+              <p>
+                I usually keep several strong options ready, then implement and
+                compare them inside the design until one clearly earns its place.
+              </p>
+            </div>
+            <div className="dp-typo-card dp-typo-card--selected">
+              <span className="dp-typo-label">04. Step Back + Decide</span>
+              <h3 className="dp-typo-card-title">Typography has to feel right, not just look interesting.</h3>
+              <p>
+                A short break helps me come back fresh and judge whether the
+                font really supports the design&apos;s voice or just feels new.
+              </p>
             </div>
           </div>
+
+          <p className="dp-typo-note">
+            <Highlighter
+              action="underline"
+              color={theme === "dark" ? "#48cc86" : "#ff9800"}
+              animationDuration={760}
+              strokeWidth={2.2}
+              padding={3}
+              isView
+            >
+              Typography matters
+            </Highlighter>{" "}
+            because it
+            communicates tone before a user reads the message. It is one of the
+            fastest ways to create a design that feels emotionally precise and
+            not like everyone else&apos;s.
+          </p>
         </div>
       </section>
 
@@ -628,33 +893,102 @@ export function DesignProcessRoute() {
           </p>
 
           <div className="dp-refine-grid">
-            <article className="dp-refine-card">
-              <h4>Cohesion</h4>
-              <p>
-                Every section connects back to the hero tone and the extracted
-                research. Typography, color, and spacing are tuned together.
-              </p>
+            <article className="dp-refine-card dp-refine-card--cohesion">
+              <div className="dp-refine-visual dp-refine-visual--cohesion" aria-hidden="true">
+                <div className="dp-refine-mini-card">
+                  <span>Hero Tone</span>
+                  <strong>Aligned</strong>
+                </div>
+                <div className="dp-refine-mini-card">
+                  <span>Type Rhythm</span>
+                  <strong>Balanced</strong>
+                </div>
+                <div className="dp-refine-mini-card">
+                  <span>Spacing System</span>
+                  <strong>Consistent</strong>
+                </div>
+              </div>
+              <div className="dp-refine-content">
+                <p className="dp-refine-label">System Alignment</p>
+                <h4>Cohesion</h4>
+                <p>
+                  Every section connects back to the hero tone and the extracted
+                  research. Typography, color, spacing, and motion are tuned
+                  together until the experience reads like one system.
+                </p>
+              </div>
             </article>
-            <article className="dp-refine-card">
-              <h4>Motion Mentality</h4>
-              <p>
-                Interactions must support meaning, never distract. Motion
-                reinforces communication, not decoration.
-              </p>
+            <article className="dp-refine-card dp-refine-card--motion">
+              <div className="dp-refine-visual dp-refine-visual--motion" aria-hidden="true">
+                <div className="dp-refine-notice is-active">
+                  <span className="dp-refine-dot" />
+                  <div>
+                    <strong>Hover reveal</strong>
+                    <span>Supports the message</span>
+                  </div>
+                </div>
+                <div className="dp-refine-notice">
+                  <span className="dp-refine-dot" />
+                  <div>
+                    <strong>Transition speed</strong>
+                    <span>Calm, readable pacing</span>
+                  </div>
+                </div>
+              </div>
+              <div className="dp-refine-content">
+                <p className="dp-refine-label">Interaction Logic</p>
+                <h4>Motion Mentality</h4>
+                <p>
+                  Interactions must support meaning, never distract. Motion
+                  reinforces communication, creates rhythm, and guides attention
+                  without becoming visual noise.
+                </p>
+              </div>
             </article>
-            <article className="dp-refine-card">
-              <h4>Copy Quality</h4>
-              <p>
-                Copy quality matters as much as visuals. Design choices reinforce
-                the message, not compete with it.
-              </p>
+            <article className="dp-refine-card dp-refine-card--copy">
+              <div className="dp-refine-visual dp-refine-visual--copy" aria-hidden="true">
+                <div className="dp-refine-copy-sheet">
+                  <span className="dp-refine-copy-kicker">Headline Pass</span>
+                  <strong>Sharper words. Cleaner emphasis.</strong>
+                </div>
+                <div className="dp-refine-copy-lines">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+              <div className="dp-refine-content">
+                <p className="dp-refine-label">Message Precision</p>
+                <h4>Copy Quality</h4>
+                <p>
+                  Copy quality matters as much as visuals. I keep refining words
+                  until the design and the message amplify each other instead of
+                  competing for attention.
+                </p>
+              </div>
             </article>
-            <article className="dp-refine-card">
-              <h4>Detail Compound</h4>
-              <p>
-                Small decisions accumulate. A good experience is the sum of many
-                micro-refinements working in harmony.
-              </p>
+            <article className="dp-refine-card dp-refine-card--compound">
+              <div className="dp-refine-visual dp-refine-visual--compound" aria-hidden="true">
+                <div className="dp-refine-pill-row">
+                  <span>Hover</span>
+                  <span>Spacing</span>
+                  <span>Timing</span>
+                </div>
+                <div className="dp-refine-pill-row">
+                  <span>Hierarchy</span>
+                  <span>Contrast</span>
+                  <span>States</span>
+                </div>
+              </div>
+              <div className="dp-refine-content">
+                <p className="dp-refine-label">Compound Effect</p>
+                <h4>Detail Compound</h4>
+                <p>
+                  Small decisions accumulate. A good experience is rarely one big
+                  trick. It is usually the result of many micro-refinements
+                  working together until everything feels inevitable.
+                </p>
+              </div>
             </article>
           </div>
         </div>
