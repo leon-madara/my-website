@@ -2,8 +2,6 @@
 {
     "name": "my-website",
     "compatibility_date": "2025-01-02",
-    "assets": {
-        "directory": "output/react-overhaul"
-    },
+
     "pages_build_output_dir": "output/react-overhaul"
 }
