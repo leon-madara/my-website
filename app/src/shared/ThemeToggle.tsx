@@ -1,4 +1,5 @@
 import { createElement, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { useTheme } from "../theme/ThemeProvider";
 
 type ScenicTheme = "day" | "night";
@@ -15,9 +16,17 @@ type ThemeToggleLandscapeElement = HTMLElement & {
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const location = useLocation();
   const toggleRef = useRef<ThemeToggleLandscapeElement | null>(null);
+  const scenicRoutes = location.pathname === "/" || location.pathname.startsWith("/portfolio");
+  const buttonLabel =
+    theme === "dark" ? "Activate light theme" : "Activate dark theme";
 
   useEffect(() => {
+    if (!scenicRoutes) {
+      return;
+    }
+
     const toggleElement = toggleRef.current;
 
     if (!toggleElement) {
@@ -41,9 +50,13 @@ export function ThemeToggle() {
         handleThemeChanged as EventListener
       );
     };
-  }, [setTheme]);
+  }, [scenicRoutes, setTheme]);
 
   useEffect(() => {
+    if (!scenicRoutes) {
+      return;
+    }
+
     const toggleElement = toggleRef.current;
     const scenicTheme = theme === "dark" ? "night" : "day";
 
@@ -60,7 +73,26 @@ export function ThemeToggle() {
     }
 
     toggleElement.setAttribute("data-theme", scenicTheme);
-  }, [theme]);
+  }, [scenicRoutes, theme]);
+
+  if (!scenicRoutes) {
+    return (
+      <button
+        aria-label={buttonLabel}
+        className="theme-toggle-simple theme-toggle-simple--page"
+        data-testid="react-theme-toggle"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        type="button"
+      >
+        <span aria-hidden="true" className="theme-toggle-simple__sun">
+          ☀
+        </span>
+        <span aria-hidden="true" className="theme-toggle-simple__moon">
+          ☾
+        </span>
+      </button>
+    );
+  }
 
   return createElement("theme-toggle-landscape", {
     ref: toggleRef,
