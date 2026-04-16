@@ -193,9 +193,12 @@ function AnimatedCommandList({ items }: { items: CommandItem[] }) {
 
 /* ── Main route component ────────────────────── */
 
+export type FrenzyLayoutOption = "bento" | "editorial" | "parallax" | "gallery";
+
 export function DesignProcessRoute() {
   const { theme } = useTheme();
   const isMobile = useIsMobile();
+  const [frenzyLayout, setFrenzyLayout] = useState<FrenzyLayoutOption>("bento");
   useRevealOnView(".dp-reveal");
 
   const heroBgSrc = useMemo(() => {
@@ -258,6 +261,27 @@ export function DesignProcessRoute() {
 
   return (
     <div className="page-content page-content--design-process">
+      {/* ─── DEBUG TOGGLE (For Development) ─── */}
+      <div className="dp-frenzy-toggle-bar">
+        <span>Test Screenshot Frenzy Layout:</span>
+        <button
+          className={frenzyLayout === "bento" ? "is-active" : ""}
+          onClick={() => setFrenzyLayout("bento")}
+        >Bento</button>
+        <button
+          className={frenzyLayout === "editorial" ? "is-active" : ""}
+          onClick={() => setFrenzyLayout("editorial")}
+        >Editorial</button>
+        <button
+          className={frenzyLayout === "parallax" ? "is-active" : ""}
+          onClick={() => setFrenzyLayout("parallax")}
+        >Parallax</button>
+        <button
+          className={frenzyLayout === "gallery" ? "is-active" : ""}
+          onClick={() => setFrenzyLayout("gallery")}
+        >Gallery</button>
+      </div>
+
       {/* ─── 1. HERO ─── */}
       <header className="dp-hero" aria-label="My Design Process hero">
         <PixelImage src={heroBgSrc} grid="8x8" />
@@ -369,85 +393,234 @@ export function DesignProcessRoute() {
             all three filters move into wireframes.
           </p>
 
-          <div className="dp-bento" role="list" aria-label="Screenshot direction cards">
-            <article className="dp-bento-card dp-bento-card--a" role="listitem">
-              <img
-                className="dp-bento-img"
-                src="/designProcess/bento/mood-board.png"
-                alt="Design mood board with color swatches and references"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="dp-bento-body">
-                <span className="dp-bento-chip">Emotion Bucket</span>
-                <h3>Find the tone before committing to layout.</h3>
-                <p>
-                  Mood, texture, and energy come first so the section feels
-                  right before structure starts to lock in.
-                </p>
-              </div>
-            </article>
+          {frenzyLayout === "bento" && (
+            <div className="dp-bento" role="list" aria-label="Screenshot direction cards">
+              <article className="dp-bento-card dp-bento-card--a" role="listitem">
+                <img
+                  className="dp-bento-img"
+                  src="/designProcess/bento/mood-board.png"
+                  alt="Design mood board with color swatches and references"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="dp-bento-body">
+                  <span className="dp-bento-chip">Emotion Bucket</span>
+                  <h3>Find the tone before committing to layout.</h3>
+                  <p>
+                    Mood, texture, and energy come first so the section feels
+                    right before structure starts to lock in.
+                  </p>
+                </div>
+              </article>
 
-            <article className="dp-bento-card dp-bento-card--b" role="listitem">
-              <img
-                className="dp-bento-img"
-                src="/designProcess/bento/wireframe.png"
-                alt="Clean wireframe sketch showing website layout"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="dp-bento-body">
-                <span className="dp-bento-chip">Direction Signal</span>
-                <h3>Stress-test what should lead the story.</h3>
-                <p>
-                  Headline weight, flow, and hierarchy must feel inevitable at
-                  first glance.
-                </p>
-              </div>
-            </article>
+              <article className="dp-bento-card dp-bento-card--b" role="listitem">
+                <img
+                  className="dp-bento-img"
+                  src="/designProcess/bento/wireframe.png"
+                  alt="Clean wireframe sketch showing website layout"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="dp-bento-body">
+                  <span className="dp-bento-chip">Direction Signal</span>
+                  <h3>Stress-test what should lead the story.</h3>
+                  <p>
+                    Headline weight, flow, and hierarchy must feel inevitable at
+                    first glance.
+                  </p>
+                </div>
+              </article>
 
-            <article className="dp-bento-card dp-bento-card--c" role="listitem">
-              <img
-                className="dp-bento-img"
-                src="/designProcess/bento/screenshots.png"
-                alt="Multiple reference designs and browser tabs"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="dp-bento-body">
-                <span className="dp-bento-chip">Pattern Fit</span>
-                <h3>Borrow proven conversion rhythm, not just style.</h3>
-              </div>
-            </article>
+              <article className="dp-bento-card dp-bento-card--c" role="listitem">
+                <img
+                  className="dp-bento-img"
+                  src="/designProcess/bento/screenshots.png"
+                  alt="Multiple reference designs and browser tabs"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="dp-bento-body">
+                  <span className="dp-bento-chip">Pattern Fit</span>
+                  <h3>Borrow proven conversion rhythm, not just style.</h3>
+                </div>
+              </article>
 
-            <article className="dp-bento-card dp-bento-card--d" role="listitem">
-              <img
-                className="dp-bento-img"
-                src="/designProcess/bento/typography.png"
-                alt="Typography exploration on screen"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="dp-bento-body">
-                <span className="dp-bento-chip">Copy Pulse</span>
-                <h3>Does the message land in under five seconds?</h3>
-              </div>
-            </article>
+              <article className="dp-bento-card dp-bento-card--d" role="listitem">
+                <img
+                  className="dp-bento-img"
+                  src="/designProcess/bento/typography.png"
+                  alt="Typography exploration on screen"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="dp-bento-body">
+                  <span className="dp-bento-chip">Copy Pulse</span>
+                  <h3>Does the message land in under five seconds?</h3>
+                </div>
+              </article>
 
-            <article className="dp-bento-card dp-bento-card--e" role="listitem">
-              <img
-                className="dp-bento-img"
-                src="/designProcess/bento/mood-board.png"
-                alt="Curated mood references"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="dp-bento-body">
-                <span className="dp-bento-chip">Merge Rule</span>
-                <h3>Only the strongest fragments graduate to wireframe.</h3>
+              <article className="dp-bento-card dp-bento-card--e" role="listitem">
+                <img
+                  className="dp-bento-img"
+                  src="/designProcess/bento/mood-board.png"
+                  alt="Curated mood references"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="dp-bento-body">
+                  <span className="dp-bento-chip">Merge Rule</span>
+                  <h3>Only the strongest fragments graduate to wireframe.</h3>
+                </div>
+              </article>
+            </div>
+          )}
+
+          {frenzyLayout === "editorial" && (
+            <div className="dp-editorial" role="list" aria-label="Screenshot direction cards">
+              <article className="dp-editorial-card" role="listitem">
+                <img
+                  src="/designProcess/bento/mood-board.png"
+                  alt="Design mood board"
+                />
+                <div className="dp-editorial-overlay">
+                  <span className="dp-editorial-chip">Emotion Bucket</span>
+                  <h3>Find the tone.</h3>
+                  <p>Mood and texture come first before structure locks in.</p>
+                </div>
+              </article>
+              <article className="dp-editorial-card" role="listitem">
+                <img
+                  src="/designProcess/bento/wireframe.png"
+                  alt="Clean wireframe sketch"
+                />
+                <div className="dp-editorial-overlay">
+                  <span className="dp-editorial-chip">Direction Signal</span>
+                  <h3>Stress-test flow.</h3>
+                  <p>Headline weight must feel inevitable at first glance.</p>
+                </div>
+              </article>
+              <article className="dp-editorial-card" role="listitem">
+                <img
+                  src="/designProcess/bento/screenshots.png"
+                  alt="Multiple reference designs"
+                />
+                <div className="dp-editorial-overlay">
+                  <span className="dp-editorial-chip">Pattern Fit</span>
+                  <h3>Borrow proven rhythm.</h3>
+                </div>
+              </article>
+              <article className="dp-editorial-card" role="listitem">
+                <img
+                  src="/designProcess/bento/typography.png"
+                  alt="Typography exploration"
+                />
+                <div className="dp-editorial-overlay">
+                  <span className="dp-editorial-chip">Copy Pulse</span>
+                  <h3>Clear message.</h3>
+                </div>
+              </article>
+              <article className="dp-editorial-card" role="listitem">
+                <img
+                  src="/designProcess/bento/mood-board.png"
+                  alt="Curated mood references"
+                />
+                <div className="dp-editorial-overlay">
+                  <span className="dp-editorial-chip">Merge Rule</span>
+                  <h3>Strongest fragments.</h3>
+                </div>
+              </article>
+            </div>
+          )}
+
+          {frenzyLayout === "parallax" && (
+            <div className="dp-parallax-container">
+              <div className="dp-parallax-track" role="list" aria-label="Screenshot direction cards">
+                <article className="dp-parallax-card" role="listitem">
+                  <div className="dp-parallax-img-wrap">
+                    <img src="/designProcess/bento/mood-board.png" alt="Mood board" loading="lazy" />
+                  </div>
+                  <div className="dp-parallax-content">
+                    <span className="dp-parallax-chip">Emotion Bucket</span>
+                    <h3>Find the tone before committing to layout.</h3>
+                    <p>Mood, texture, and energy come first so the section feels right before structure starts to lock in.</p>
+                  </div>
+                </article>
+                <article className="dp-parallax-card" role="listitem">
+                  <div className="dp-parallax-img-wrap">
+                    <img src="/designProcess/bento/wireframe.png" alt="Wireframe" loading="lazy" />
+                  </div>
+                  <div className="dp-parallax-content">
+                    <span className="dp-parallax-chip">Direction Signal</span>
+                    <h3>Stress-test what should lead the story.</h3>
+                    <p>Headline weight, flow, and hierarchy must feel inevitable at first glance.</p>
+                  </div>
+                </article>
+                <article className="dp-parallax-card" role="listitem">
+                  <div className="dp-parallax-img-wrap">
+                    <img src="/designProcess/bento/screenshots.png" alt="Screenshots" loading="lazy" />
+                  </div>
+                  <div className="dp-parallax-content">
+                    <span className="dp-parallax-chip">Pattern Fit</span>
+                    <h3>Borrow proven conversion rhythm.</h3>
+                  </div>
+                </article>
+                <article className="dp-parallax-card" role="listitem">
+                  <div className="dp-parallax-img-wrap">
+                    <img src="/designProcess/bento/typography.png" alt="Typography" loading="lazy" />
+                  </div>
+                  <div className="dp-parallax-content">
+                    <span className="dp-parallax-chip">Copy Pulse</span>
+                    <h3>Does the message land fast?</h3>
+                  </div>
+                </article>
               </div>
-            </article>
-          </div>
+            </div>
+          )}
+
+          {frenzyLayout === "gallery" && (
+            <div className="dp-gallery-container" role="list" aria-label="Screenshot direction cards">
+              <article className="dp-gallery-card" role="listitem">
+                <img src="/designProcess/bento/mood-board.png" alt="Mood board" loading="lazy" />
+                <div className="dp-gallery-hover">
+                  <span className="dp-gallery-chip">Emotion Bucket</span>
+                  <h3>Find the tone.</h3>
+                  <p>Mood, texture, and energy come first.</p>
+                </div>
+              </article>
+              <article className="dp-gallery-card" role="listitem">
+                <img src="/designProcess/bento/wireframe.png" alt="Wireframe" loading="lazy" />
+                <div className="dp-gallery-hover">
+                  <span className="dp-gallery-chip">Direction Signal</span>
+                  <h3>Stress-test hierarchy.</h3>
+                  <p>Headline weight must feel inevitable.</p>
+                </div>
+              </article>
+              <article className="dp-gallery-card" role="listitem">
+                <img src="/designProcess/bento/screenshots.png" alt="Screenshots" loading="lazy" />
+                <div className="dp-gallery-hover">
+                  <span className="dp-gallery-chip">Pattern Fit</span>
+                  <h3>Borrow conversion rhythm.</h3>
+                  <p>Don't reinvent structural conventions.</p>
+                </div>
+              </article>
+              <article className="dp-gallery-card" role="listitem">
+                <img src="/designProcess/bento/typography.png" alt="Typography" loading="lazy" />
+                <div className="dp-gallery-hover">
+                  <span className="dp-gallery-chip">Copy Pulse</span>
+                  <h3>Readability is king.</h3>
+                  <p>Land the message in under 5 seconds.</p>
+                </div>
+              </article>
+              <article className="dp-gallery-card" role="listitem">
+                <img src="/designProcess/bento/mood-board.png" alt="Mood board" loading="lazy" />
+                <div className="dp-gallery-hover">
+                  <span className="dp-gallery-chip">Merge Rule</span>
+                  <h3>Graduate to wireframe.</h3>
+                  <p>Only the strongest fragments survive.</p>
+                </div>
+              </article>
+            </div>
+          )}
         </div>
       </section>
 
