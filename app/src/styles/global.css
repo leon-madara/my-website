@@ -217,6 +217,13 @@ button {
     right: var(--header-side-offset);
     top: var(--header-control-top);
   }
+
+  .design-process-page .theme-toggle-simple--page,
+  .contact-page .theme-toggle-simple--page {
+    display: inline-flex;
+    right: var(--header-side-offset);
+    top: var(--header-control-top);
+  }
 }
 .design-process-page .site-main {
   padding: 0;
@@ -1801,10 +1808,6 @@ theme-toggle-landscape.react-theme-toggle {
   }
 
   .portfolio-page .theme-toggle-simple {
-    display: none;
-  }
-
-  .design-process-page .theme-toggle-simple {
     display: none;
   }
 

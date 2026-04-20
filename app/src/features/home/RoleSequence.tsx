@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 const roles = [
-  "Full Stack AI Developer",
-  "AI Engineer",
+  "Full Stack AI Developer & Designer",
+  "AI Integration Engineer",
   "Web Developer & Designer",
-  "Graphic Designer"
+  "Visual Designer"
 ];
 
 const morphTime = 1.5;

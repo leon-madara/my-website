@@ -8,12 +8,12 @@
         "react:dev": "vite --config vite.react.config.mjs",
         "react:build": "vite build --config vite.react.config.mjs",
         "react:preview": "vite preview --config vite.react.config.mjs",
-    "react:test": "vitest --config vitest.react.config.ts --run",
-    "react:typecheck": "tsc --project tsconfig.react.json --noEmit",
-    "react:shots": "node validation/contact-screenshots.mjs",
-    "serve": "npx serve public -p 3000",
-    "start": "npx serve public -p 3000",
-    "test:gsap": "jest tests/gsapDemoReference.test.js"
+        "react:test": "vitest --config vitest.react.config.ts --run",
+        "react:typecheck": "tsc --project tsconfig.react.json --noEmit",
+        "react:shots": "node validation/contact-screenshots.mjs",
+        "serve": "npx serve public -p 3000",
+        "start": "npx serve public -p 3000",
+        "test:gsap": "jest tests/gsapDemoReference.test.js"
     },
     "keywords": [
         "portfolio",
@@ -30,6 +30,7 @@
         "gsap": "^3.13.0",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
+        "react-helmet-async": "^3.0.0",
         "react-router-dom": "^7.13.2"
     },
     "devDependencies": {

@@ -105,7 +105,7 @@ export const eastleighProject: TabbedCaseStudyProject = {
           id: "pain-points",
           title: "Market Reality",
           body: [
-            "Our research showed that 68% of searches happen on mobile, yet current competitor sites had poor mobile UX, slow loading times, and broken layouts on handheld devices."
+            "Research consistently shows the majority of searches happen on mobile, yet current competitor sites had poor mobile UX, slow loading times, and broken layouts on handheld devices."
           ],
           callouts: [
             {

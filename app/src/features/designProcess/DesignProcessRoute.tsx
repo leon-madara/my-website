@@ -1,4 +1,6 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { siteConfig } from "../../siteConfig";
 import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import "./designProcess.css";
@@ -206,7 +208,7 @@ export function DesignProcessRoute() {
     }
     return theme === "dark"
       ? "/designProcess/DesignProcessDarkMode.svg"
-      : "/designProcess/DesignProcess.svg";
+      : "/designProcess/DesignProcess2.svg";
   }, [isMobile, theme]);
 
   const commandItems = useMemo<CommandItem[]>(
@@ -257,6 +259,15 @@ export function DesignProcessRoute() {
   const google = aiTools[4];
 
   return (
+    <>
+    <Helmet>
+      <title>Design Process — Leon Madara</title>
+      <meta name="description" content="How Leon Madara approaches product design: client clarity, visual direction, research-led wireframing, and AI-assisted execution." />
+      <link rel="canonical" href={`${siteConfig.baseUrl}/design-process`} />
+      <meta property="og:title" content="Design Process — Leon Madara" />
+      <meta property="og:description" content="How Leon Madara approaches product design: client clarity, visual direction, research-led wireframing, and AI-assisted execution." />
+      <meta property="og:url" content={`${siteConfig.baseUrl}/design-process`} />
+    </Helmet>
     <div className="page-content page-content--design-process">
       {/* ─── 1. HERO ─── */}
       <header className="dp-hero" aria-label="My Design Process hero">
@@ -988,5 +999,6 @@ export function DesignProcessRoute() {
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -1,4 +1,6 @@
+import { Helmet } from "react-helmet-async";
 import { ChangeEvent, CSSProperties, FormEvent, useId, useMemo, useState } from "react";
+import { siteConfig } from "../../siteConfig";
 import styles from "./contact.module.css";
 import {
   contactCards,
@@ -184,7 +186,30 @@ export function ContactRoute() {
     }
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer
+      }
+    }))
+  };
+
   return (
+    <>
+    <Helmet>
+      <title>Contact — Leon Madara</title>
+      <meta name="description" content="Start a project with Leon Madara. Available for web development, AI integration, and product design engagements from Nairobi." />
+      <link rel="canonical" href={`${siteConfig.baseUrl}/contact`} />
+      <meta property="og:title" content="Contact — Leon Madara" />
+      <meta property="og:description" content="Start a project with Leon Madara. Available for web development, AI integration, and product design engagements from Nairobi." />
+      <meta property="og:url" content={`${siteConfig.baseUrl}/contact`} />
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+    </Helmet>
     <div className={styles.page}>
       <div className={styles.container}>
         <div className="sr-only" aria-atomic="true" aria-live="polite">
@@ -211,7 +236,7 @@ export function ContactRoute() {
             <div className={styles.heroText}>
               <h1 className={styles.heroTitle}>
                 <span className={styles.titleLine}>Let&apos;s Build</span>
-                <span className={`${styles.titleLine} kenyan-gradient`}>Something Amazing</span>
+                <span className={`${styles.titleLine} kenyan-gradient`}>Something Worth Shipping</span>
               </h1>
               <p className={styles.heroDescription}>
                 Based in Nairobi, Kenya. Ready to collaborate on your next big idea.
@@ -339,7 +364,7 @@ export function ContactRoute() {
                 <div className={styles.panelStat} role="listitem">
                   <span className={styles.statLabel}>Available For</span>
                   <span className={styles.statValue}>2 projects</span>
-                  <span className={styles.statSubtext}>Q1 2026</span>
+                  <span className={styles.statSubtext}>Q2 2026</span>
                 </div>
               </div>
               <ul className={styles.panelList}>
@@ -573,5 +598,6 @@ export function ContactRoute() {
         </div>
       </div>
     </div>
+    </>
   );
 }

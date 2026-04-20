@@ -1,22 +1,52 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { siteConfig } from "../../siteConfig";
 import { HeroOrganicBlobs } from "./HeroOrganicBlobs";
 import { RoleSequence } from "./RoleSequence";
 import { useHomeViewportLock } from "./useHomeViewportLock";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: siteConfig.name,
+  jobTitle: "Full Stack AI Developer & Designer",
+  url: siteConfig.baseUrl,
+  email: siteConfig.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Nairobi",
+    addressCountry: "KE"
+  },
+  sameAs: [
+    siteConfig.social.github,
+    siteConfig.social.linkedin,
+    ...(siteConfig.social.twitter ? [siteConfig.social.twitter] : [])
+  ]
+};
 
 export function HomeRoute() {
   useHomeViewportLock();
 
   return (
-    <div className="page-content page-content--home">
+    <>
+      <Helmet>
+        <title>Leon Madara — Full Stack AI Developer &amp; Designer</title>
+        <meta name="description" content="Full Stack AI Developer &amp; Designer based in Nairobi. Building web products, AI integrations, and data-driven interfaces." />
+        <link rel="canonical" href={`${siteConfig.baseUrl}/`} />
+        <meta property="og:title" content="Leon Madara — Full Stack AI Developer &amp; Designer" />
+        <meta property="og:description" content="Full Stack AI Developer &amp; Designer based in Nairobi. Building web products, AI integrations, and data-driven interfaces." />
+        <meta property="og:url" content={`${siteConfig.baseUrl}/`} />
+        <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
+      </Helmet>
+      <div className="page-content page-content--home">
       <section aria-label="Hero introduction" className="hero-section">
         <div className="hero-content">
           <p className="greeting">Hi, I&apos;m</p>
           <h1 className="name">Leon Madara</h1>
           <RoleSequence />
           <p className="description">
-            I design and build delightful digital products with a Kenyan twist,
-            blending professional polish with playful interactions and
-            performance-focused engineering.
+            I build high-performance digital products — clean code, considered
+            design, shipped from Nairobi.
           </p>
           <div className="location-container">
             <div className="location-pin-wrapper">
@@ -55,5 +85,6 @@ export function HomeRoute() {
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -115,9 +115,9 @@ export const siteRoutes: SiteRoute[] = [
 ];
 
 export const sidebarStats = [
-  { value: "72.9K", label: "Likes" },
-  { value: "828", label: "Projects" },
-  { value: "342.9K", label: "Views" }
+  { value: "3.2K", label: "Likes" },
+  { value: "47", label: "Projects" },
+  { value: "24.8K", label: "Views" }
 ];
 
 export const socialLinks = [

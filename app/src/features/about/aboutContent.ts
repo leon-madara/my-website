@@ -19,7 +19,7 @@ export const aboutHeroContent: AboutHeroContent = {
 export const aboutIntroContent: AboutIntroContent = {
   eyebrow: "About Me",
   summary:
-    "Multidisciplinary data analyst and web developer with 3+ years of industry experience and a strong foundation in computer science. I combine analytical rigor with intuitive interface design to craft data-driven applications and dashboards that are functional, performant, and user-focused."
+    "Full Stack AI Developer & Designer with over a decade of hands-on experience across data, product, and interface work. I bring analytical rigour and sharp interface instincts to every build — from interactive dashboards to full-stack AI-integrated web products."
 };
 
 export const expertiseItems: ExpertiseItem[] = [

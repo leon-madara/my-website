@@ -13,8 +13,8 @@ export function SiteFooter() {
       <div className="footer-container">
         <p className="footer-text">
           {isContact
-            ? "© 2024 Leon Madara. Built with passion in Nairobi, Kenya."
-            : "© 2024 Leon Madara. All rights reserved."}
+            ? "© 2026 Leon Madara. Built with passion in Nairobi, Kenya."
+            : "© 2026 Leon Madara. All rights reserved."}
         </p>
       </div>
     </footer>

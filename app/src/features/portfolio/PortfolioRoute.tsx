@@ -1,4 +1,6 @@
+import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
+import { siteConfig } from "../../siteConfig";
 import { LongformCaseStudyRoute } from "./LongformCaseStudyRoute";
 import { LegacyAccordionCaseStudyRoute } from "./LegacyAccordionCaseStudyRoute";
 import { PortfolioBackground } from "./PortfolioBackground";
@@ -20,8 +22,7 @@ function PortfolioNotFound() {
       <p className="portfolio-not-found__eyebrow">Portfolio</p>
       <h1>Case study not found.</h1>
       <p>
-        The requested portfolio route does not exist in the React migration yet.
-        Use the portfolio index to jump back into the canonical routed version.
+        The requested case study could not be found. Use the portfolio index to browse available projects.
       </p>
       <Link className="btn-primary portfolio-action-button" to="/portfolio">
         Return to portfolio
@@ -49,8 +50,21 @@ export function PortfolioRoute() {
       : project?.template ?? "tabbed-case-study"
     : "tabbed-case-study";
 
+  const pageTitle = project?.title
+    ? `${project.title} — Leon Madara`
+    : "Portfolio — Leon Madara";
+  const canonicalPath = projectSlug ? `/portfolio/${projectSlug}` : "/portfolio";
+
   return (
     <div className={`portfolio-route ${routeVariantClass}`}>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content="Case studies in full-stack development, AI integration, and product design. Built with React, TypeScript, and Supabase." />
+        <link rel="canonical" href={`${siteConfig.baseUrl}${canonicalPath}`} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content="Case studies in full-stack development, AI integration, and product design. Built with React, TypeScript, and Supabase." />
+        <meta property="og:url" content={`${siteConfig.baseUrl}${canonicalPath}`} />
+      </Helmet>
       <PortfolioBackground variant={backgroundVariant} />
 
       {!projectSlug ? (

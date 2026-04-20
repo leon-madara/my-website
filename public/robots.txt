@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://my-website-9fg.pages.dev/sitemap.xml
