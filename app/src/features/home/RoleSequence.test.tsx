@@ -105,7 +105,7 @@ describe("RoleSequence", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /ai engineer/i
+        name: /ai integration engineer/i
       })
     ).toBeInTheDocument();
 
@@ -123,17 +123,17 @@ describe("RoleSequence", () => {
     });
 
     const text1 = container.querySelector(
-      ".role-sequence__text--current"
+      ".morphing-text__text--current"
     ) as HTMLSpanElement | null;
     const text2 = container.querySelector(
-      ".role-sequence__text--next"
+      ".morphing-text__text--next"
     ) as HTMLSpanElement | null;
 
     expect(text1).not.toBeNull();
     expect(text2).not.toBeNull();
     expect(text1?.style.opacity).toBe("0%");
     expect(text2?.style.opacity).toBe("100%");
-    expect(text2?.textContent).toBe("AI Engineer");
+    expect(text2?.textContent).toBe("Web Developer & Designer");
 
     raf.restore();
   });
@@ -153,8 +153,8 @@ describe("RoleSequence", () => {
       name: /full stack ai developer/i
     });
 
-    expect(heading).toHaveClass("role-sequence--reduced-motion");
-    expect(heading).not.toHaveAttribute("aria-label", "AI Engineer");
+    expect(heading).toHaveClass("morphing-text--reduced-motion");
+    expect(heading).not.toHaveAttribute("aria-label", "AI Integration Engineer");
 
     raf.restore();
   });
