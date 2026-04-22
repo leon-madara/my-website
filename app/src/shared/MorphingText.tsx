@@ -3,8 +3,7 @@ import {
   useEffect,
   useRef,
   type CSSProperties,
-  type ElementType,
-  type Ref
+  type ElementType
 } from "react";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
@@ -17,17 +16,19 @@ interface MorphingTextProps {
   style?: CSSProperties;
   as?: ElementType;
   ariaLabel?: string;
+  tabIndex?: number;
 }
 
 export function MorphingText({
   texts,
   className,
   style,
-  as,
+  as = "div",
   ariaLabel,
+  tabIndex,
   ...rest
 }: MorphingTextProps & Record<string, unknown>) {
-  const Tag = (as ?? "div") as ElementType;
+  const Tag = as as ElementType;
 
   const containerRef = useRef<HTMLElement | null>(null);
   const text1Ref = useRef<HTMLSpanElement | null>(null);
@@ -229,12 +230,13 @@ export function MorphingText({
   return (
     <Tag
       {...rest}
-      ref={containerRef as Ref<HTMLElement>}
+      ref={containerRef as any}
       aria-atomic="true"
       aria-live="polite"
       aria-label={ariaLabel ?? texts[0]}
       className={composedClassName}
       style={style}
+      tabIndex={tabIndex}
     >
       <svg
         aria-hidden="true"
