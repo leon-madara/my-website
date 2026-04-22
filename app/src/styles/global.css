@@ -1027,7 +1027,7 @@ theme-toggle-landscape.react-theme-toggle {
 }
 
 .morphing-text.morphing-text--ready {
-  filter: url(#morphing-text-threshold) blur(0.6px);
+  filter: none;
 }
 
 .morphing-text__filter {
