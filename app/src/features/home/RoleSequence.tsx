@@ -1,81 +1,171 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 const roles = [
   "Full Stack AI Developer & Designer",
   "AI Integration Engineer",
   "Web Developer & Designer",
-  "Visual Designer"
+  "Visual Designer",
 ];
 
 const morphTime = 1.5;
 const cooldownTime = 0.5;
 
-export function RoleSequence() {
-  const containerRef = useRef<HTMLHeadingElement | null>(null);
-  const text1Ref = useRef<HTMLSpanElement | null>(null);
-  const text2Ref = useRef<HTMLSpanElement | null>(null);
-  const screenReaderTextRef = useRef<HTMLSpanElement | null>(null);
+function useMorphingText(
+  texts: string[],
+  {
+    paused = false,
+    onAdvance,
+  }: { paused?: boolean; onAdvance?: (index: number) => void } = {}
+) {
   const textIndexRef = useRef(0);
   const morphRef = useRef(0);
   const cooldownRef = useRef(0);
   const timeRef = useRef(new Date());
-  const rafIdRef = useRef<number | null>(null);
-  const pausedRef = useRef(false);
+
+  const text1Ref = useRef<HTMLSpanElement>(null);
+  const text2Ref = useRef<HTMLSpanElement>(null);
+
+  const setStyles = useCallback(
+    (fraction: number) => {
+      const [t1, t2] = [text1Ref.current, text2Ref.current];
+      if (!t1 || !t2) return;
+
+      t2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+      const inv = 1 - fraction;
+      t1.style.filter = `blur(${Math.min(8 / inv - 8, 100)}px)`;
+      t1.style.opacity = `${Math.pow(inv, 0.4) * 100}%`;
+
+      t1.textContent = texts[textIndexRef.current % texts.length];
+      t2.textContent = texts[(textIndexRef.current + 1) % texts.length];
+    },
+    [texts]
+  );
+
+  const doMorph = useCallback(() => {
+    morphRef.current -= cooldownRef.current;
+    cooldownRef.current = 0;
+
+    let fraction = morphRef.current / morphTime;
+
+    if (fraction > 1) {
+      cooldownRef.current = cooldownTime;
+      fraction = 1;
+    }
+
+    setStyles(fraction);
+
+    if (fraction === 1) {
+      textIndexRef.current++;
+      onAdvance?.(textIndexRef.current);
+    }
+  }, [setStyles, onAdvance]);
+
+  const doCooldown = useCallback(() => {
+    morphRef.current = 0;
+    const [t1, t2] = [text1Ref.current, text2Ref.current];
+    if (!t1 || !t2) return;
+    t2.style.filter = "none";
+    t2.style.opacity = "100%";
+    t1.style.filter = "none";
+    t1.style.opacity = "0%";
+  }, []);
+
+  useEffect(() => {
+    if (paused) return;
+
+    timeRef.current = new Date();
+    let rafId: number;
+
+    const animate = () => {
+      rafId = window.requestAnimationFrame(animate);
+
+      const now = new Date();
+      const dt = (now.getTime() - timeRef.current.getTime()) / 1000;
+      timeRef.current = now;
+
+      cooldownRef.current -= dt;
+
+      if (cooldownRef.current <= 0) doMorph();
+      else doCooldown();
+    };
+
+    animate();
+
+    return () => window.cancelAnimationFrame(rafId);
+  }, [doMorph, doCooldown, paused]);
+
+  return { text1Ref, text2Ref };
+}
+
+export function RoleSequence() {
+  const containerRef = useRef<HTMLHeadingElement>(null);
+  const screenReaderTextRef = useRef<HTMLSpanElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [tabHidden, setTabHidden] = useState(false);
+
+  const paused = prefersReducedMotion || tabHidden;
+
+  const handleAdvance = useCallback((index: number) => {
+    const text = roles[index % roles.length];
+    if (screenReaderTextRef.current) {
+      screenReaderTextRef.current.textContent = text;
+    }
+    containerRef.current?.setAttribute("aria-label", text);
+  }, []);
+
+  const { text1Ref, text2Ref } = useMorphingText(roles, {
+    paused,
+    onAdvance: handleAdvance,
+  });
 
   useEffect(() => {
     const container = containerRef.current;
-    const text1 = text1Ref.current;
-    const text2 = text2Ref.current;
-    const screenReaderText = screenReaderTextRef.current;
-
-    if (!container || !text1 || !text2 || !screenReaderText) {
-      return;
+    if (!container) return;
+    if (prefersReducedMotion) {
+      container.classList.add("role-sequence--reduced-motion");
+      container.classList.remove("role-sequence--ready");
+      const t1 = text1Ref.current;
+      const t2 = text2Ref.current;
+      if (t1 && t2) {
+        t1.style.filter = "none";
+        t1.style.opacity = "100%";
+        t1.textContent = roles[0];
+        t2.style.filter = "none";
+        t2.style.opacity = "0%";
+      }
+    } else {
+      container.classList.remove("role-sequence--reduced-motion");
+      container.classList.add("role-sequence--ready");
     }
+  }, [prefersReducedMotion, text1Ref, text2Ref]);
 
-    const updateAccessibleText = () => {
-      const roleText = roles[textIndexRef.current % roles.length];
-      screenReaderText.textContent = roleText;
-      container.setAttribute("aria-label", roleText);
-    };
+  useEffect(() => {
+    const handleVisibilityChange = () => setTabHidden(document.hidden);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
 
-    const resetVisualState = () => {
-      textIndexRef.current = 0;
-      morphRef.current = 0;
-      cooldownRef.current = 0;
-      timeRef.current = new Date();
-      text1.textContent = roles[0];
-      text2.textContent = roles[1];
-      text1.style.filter = "none";
-      text1.style.opacity = "100%";
-      text2.style.filter = "none";
-      text2.style.opacity = "0%";
-      updateAccessibleText();
-    };
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || prefersReducedMotion) return;
 
-    const measureMaxRoleHeight = () => {
-      const measurement = document.createElement("span");
-      measurement.className = "role-sequence__text role-sequence__measure";
-      measurement.setAttribute("aria-hidden", "true");
-      measurement.style.position = "static";
-      measurement.style.display = "inline-block";
-      measurement.style.opacity = "1";
-      measurement.style.filter = "none";
-      measurement.style.visibility = "hidden";
+    const measure = () => {
+      const span = document.createElement("span");
+      span.className = "role-sequence__text role-sequence__measure";
+      span.setAttribute("aria-hidden", "true");
+      container.appendChild(span);
 
       let maxHeight = 0;
-
-      container.appendChild(measurement);
-
       roles.forEach((role) => {
-        measurement.textContent = role;
-        const rect = measurement.getBoundingClientRect();
-        maxHeight = Math.max(maxHeight, rect.height || measurement.offsetHeight);
+        span.textContent = role;
+        const h = span.getBoundingClientRect().height || span.offsetHeight;
+        maxHeight = Math.max(maxHeight, h);
       });
 
-      container.removeChild(measurement);
-
+      container.removeChild(span);
       if (maxHeight > 0) {
         container.style.setProperty(
           "--role-sequence-height",
@@ -84,137 +174,16 @@ export function RoleSequence() {
       }
     };
 
-    const cancelFrame = () => {
-      if (rafIdRef.current !== null) {
-        window.cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
-    };
+    const onResize = () => window.requestAnimationFrame(measure);
 
-    const setStyles = (fraction: number) => {
-      text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-      text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-      const invertedFraction = 1 - fraction;
-      text1.style.filter = `blur(${Math.min(8 / invertedFraction - 8, 100)}px)`;
-      text1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`;
-
-      text1.textContent = roles[textIndexRef.current % roles.length];
-      text2.textContent = roles[(textIndexRef.current + 1) % roles.length];
-    };
-
-    const doMorph = () => {
-      morphRef.current -= cooldownRef.current;
-      cooldownRef.current = 0;
-
-      let fraction = morphRef.current / morphTime;
-
-      if (fraction > 1) {
-        cooldownRef.current = cooldownTime;
-        fraction = 1;
-      }
-
-      setStyles(fraction);
-
-      if (fraction === 1) {
-        textIndexRef.current += 1;
-        updateAccessibleText();
-      }
-    };
-
-    const doCooldown = () => {
-      morphRef.current = 0;
-
-      text2.style.filter = "none";
-      text2.style.opacity = "100%";
-      text1.style.filter = "none";
-      text1.style.opacity = "0%";
-
-      updateAccessibleText();
-    };
-
-    const animate = () => {
-      if (pausedRef.current || prefersReducedMotion) {
-        return;
-      }
-
-      rafIdRef.current = window.requestAnimationFrame(animate);
-
-      const newTime = new Date();
-      const dt = (newTime.getTime() - timeRef.current.getTime()) / 1000;
-      timeRef.current = newTime;
-
-      cooldownRef.current -= dt;
-
-      if (cooldownRef.current <= 0) {
-        doMorph();
-      } else {
-        doCooldown();
-      }
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        pausedRef.current = true;
-        cancelFrame();
-        return;
-      }
-
-      if (prefersReducedMotion) {
-        return;
-      }
-
-      pausedRef.current = false;
-      timeRef.current = new Date();
-      animate();
-    };
-
-    const handleResize = () => {
-      window.requestAnimationFrame(measureMaxRoleHeight);
-    };
-
-    resetVisualState();
-    measureMaxRoleHeight();
-
-    const fontsReady = document.fonts?.ready;
-    if (fontsReady) {
-      fontsReady
-        .then(() => {
-          measureMaxRoleHeight();
-        })
-        .catch(() => {
-          // Keep the initial measurement when font loading is unavailable.
-        });
-    }
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
-
-    if (prefersReducedMotion) {
-      pausedRef.current = false;
-      cancelFrame();
-      resetVisualState();
-      container.classList.add("no-animation", "role-sequence--reduced-motion");
-      container.classList.remove("role-sequence--ready");
-    } else {
-      pausedRef.current = false;
-      container.classList.remove("no-animation", "role-sequence--reduced-motion");
-      container.classList.add("role-sequence--ready");
-      timeRef.current = new Date();
-      animate();
-    }
+    measure();
+    document.fonts?.ready.then(measure).catch(() => {});
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
 
     return () => {
-      cancelFrame();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-      container.classList.remove(
-        "no-animation",
-        "role-sequence--ready",
-        "role-sequence--reduced-motion"
-      );
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
     };
   }, [prefersReducedMotion]);
 
