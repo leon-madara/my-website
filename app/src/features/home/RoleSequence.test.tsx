@@ -133,7 +133,7 @@ describe("RoleSequence", () => {
     expect(text2).not.toBeNull();
     expect(text1?.style.opacity).toBe("0%");
     expect(text2?.style.opacity).toBe("100%");
-    expect(text2?.textContent).toBe("Web Developer & Designer");
+    expect(text2?.textContent).toBe("AI Integration Engineer");
 
     raf.restore();
   });
