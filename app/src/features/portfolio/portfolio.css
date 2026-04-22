@@ -466,8 +466,19 @@
 
 .portfolio-project-toggles--workspace {
   gap: 0.25rem;
+  /* Fill the full shell width so flex children share it equally */
+  width: 100%;
   justify-content: stretch;
   overflow: visible;
+}
+
+/* Each toggle in the workspace selector gets an equal share of the row */
+.portfolio-project-toggles--workspace .portfolio-project-toggle {
+  flex: 1 1 0;
+  /* Center the badge+label group within the equal-width cell */
+  justify-content: center;
+  /* Uniform horizontal padding so active state doesn't look wider */
+  padding-inline: 0.75rem;
 }
 
 .portfolio-section-row-shell {
@@ -1480,6 +1491,11 @@
   .portfolio-project-toggle {
     min-width: 172px;
     min-height: 52px;
+  }
+
+  /* In the workspace selector the equal-width rule wins; remove the floor */
+  .portfolio-project-toggles--workspace .portfolio-project-toggle {
+    min-width: 0;
   }
 
   .portfolio-project-toggles--workspace {

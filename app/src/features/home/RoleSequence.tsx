@@ -34,6 +34,16 @@ export function RoleSequence() {
       return;
     }
 
+    const updateRoleColor = () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const palette = isDark
+        ? ["#ce1126", "#006b3f", "#ffffff"]
+        : ["#ce1126", "#006b3f", "#111111"];
+      
+      const randomColor = palette[Math.floor(Math.random() * palette.length)];
+      container.style.setProperty("--role-color", randomColor);
+    };
+
     const updateAccessibleText = () => {
       const roleText = roles[textIndexRef.current % roles.length];
       screenReaderText.textContent = roleText;
@@ -52,6 +62,7 @@ export function RoleSequence() {
       text2.style.filter = "none";
       text2.style.opacity = "0%";
       updateAccessibleText();
+      updateRoleColor();
     };
 
     const measureMaxRoleHeight = () => {
@@ -103,6 +114,7 @@ export function RoleSequence() {
       text2.textContent = roles[(textIndexRef.current + 1) % roles.length];
     };
 
+
     const doMorph = () => {
       morphRef.current -= cooldownRef.current;
       cooldownRef.current = 0;
@@ -119,6 +131,7 @@ export function RoleSequence() {
       if (fraction === 1) {
         textIndexRef.current += 1;
         updateAccessibleText();
+        updateRoleColor();
       }
     };
 
@@ -174,6 +187,7 @@ export function RoleSequence() {
     };
 
     resetVisualState();
+    updateRoleColor();
     measureMaxRoleHeight();
 
     const fontsReady = document.fonts?.ready;
@@ -195,6 +209,7 @@ export function RoleSequence() {
       pausedRef.current = false;
       cancelFrame();
       resetVisualState();
+      updateRoleColor();
       container.classList.add("no-animation", "role-sequence--reduced-motion");
       container.classList.remove("role-sequence--ready");
     } else {
@@ -239,7 +254,7 @@ export function RoleSequence() {
             <feColorMatrix
               in="SourceGraphic"
               type="matrix"
-              values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 255 -140"
+              values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 18 -8"
             />
           </filter>
         </defs>

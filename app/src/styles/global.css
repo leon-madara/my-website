@@ -998,6 +998,14 @@ theme-toggle-landscape.react-theme-toggle {
   text-shadow: 0 0 20px rgba(0, 107, 63, 0.28);
 }
 
+.role.kenyan-gradient {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: var(--role-color, var(--kenyan-red)) !important;
+  color: var(--role-color, var(--kenyan-red)) !important;
+}
+
 .role {
   position: relative;
   display: block;
@@ -1027,7 +1035,7 @@ theme-toggle-landscape.react-theme-toggle {
 }
 
 .role-sequence.role-sequence--ready {
-  filter: url(#role-sequence-threshold) blur(0.6px);
+  filter: blur(0.4px) url(#role-sequence-threshold);
 }
 
 .role-sequence__filter {

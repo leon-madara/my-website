@@ -97,6 +97,7 @@ class RoleSequenceController {
             this.injectFilter();
             this.setupEventListeners();
             this.resetVisualState();
+            this.updateRoleColor();
             this.measureMaxRoleHeight();
             this.queueFontMeasurement();
 
@@ -216,7 +217,7 @@ class RoleSequenceController {
             '1 0 0 0 0 ' +
             '0 1 0 0 0 ' +
             '0 0 1 0 0 ' +
-            '0 0 0 255 -140'
+            '0 0 0 18 -8'
         );
 
         filter.appendChild(colorMatrix);
@@ -326,6 +327,7 @@ class RoleSequenceController {
         this.phaseElapsed = 0;
         this.resetVisualState();
         this.updateAccessibleText(this.roles[this.currentIndex]);
+        this.updateRoleColor();
     }
 
     resetVisualState() {
@@ -340,6 +342,19 @@ class RoleSequenceController {
         this.nextText.style.filter = 'none';
         this.nextText.style.opacity = '0';
         this.updateAccessibleText(this.roles[this.currentIndex]);
+        this.updateRoleColor();
+    }
+
+    updateRoleColor() {
+        if (!this.container) return;
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+                      document.body.classList.contains('dark-theme');
+        const palette = isDark
+            ? ['#ce1126', '#006b3f', '#ffffff']
+            : ['#ce1126', '#006b3f', '#111111'];
+        
+        const randomColor = palette[Math.floor(Math.random() * palette.length)];
+        this.container.style.setProperty('--role-color', randomColor);
     }
 
     updateAccessibleText(roleText) {

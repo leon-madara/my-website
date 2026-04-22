@@ -4688,6 +4688,14 @@ Updated Hero Section for Pill Layout */
     transition: all var(--transition-smooth);
 }
 
+.role.kenyan-gradient {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: var(--role-color, #ce1126) !important;
+    color: var(--role-color, #ce1126) !important;
+}
+
 .role {
     /* Red/maroon color for role - override gradient */
     color: #ce1126 !important;
@@ -4740,7 +4748,7 @@ Updated Hero Section for Pill Layout */
 }
 
 .role-sequence.role-sequence--ready {
-    filter: url(#role-sequence-threshold) blur(0.6px);
+    filter: blur(0.4px) url(#role-sequence-threshold);
 }
 
 .role-sequence__text {
