@@ -1012,32 +1012,32 @@ theme-toggle-landscape.react-theme-toggle {
   animation-delay: 0.6s;
 }
 
-.role-sequence {
-  --role-sequence-height: 1.5em;
+.morphing-text {
+  --morphing-text-height: 1.5em;
   position: relative;
   display: block;
   width: 100%;
   margin-inline: auto;
   isolation: isolate;
-  min-height: var(--role-sequence-height);
+  min-height: var(--morphing-text-height);
   line-height: 1.08;
   overflow: visible;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.role-sequence.role-sequence--ready {
-  filter: url(#role-sequence-threshold) blur(0.6px);
+.morphing-text.morphing-text--ready {
+  filter: none;
 }
 
-.role-sequence__filter {
+.morphing-text__filter {
   position: fixed;
   width: 0;
   height: 0;
   pointer-events: none;
 }
 
-.role-sequence__text {
+.morphing-text__text {
   position: absolute;
   inset-inline: 0;
   top: 0;
@@ -1055,15 +1055,15 @@ theme-toggle-landscape.react-theme-toggle {
   will-change: opacity, filter;
 }
 
-.role-sequence__text--current {
+.morphing-text__text--current {
   opacity: 1;
 }
 
-.role-sequence__text--next {
+.morphing-text__text--next {
   opacity: 0;
 }
 
-.role-sequence__measure {
+.morphing-text__probe {
   position: static;
   display: block;
   visibility: hidden;
@@ -1072,13 +1072,11 @@ theme-toggle-landscape.react-theme-toggle {
   pointer-events: none;
 }
 
-.role-sequence.no-animation,
-.role-sequence.role-sequence--reduced-motion {
+.morphing-text.morphing-text--reduced-motion {
   filter: none;
 }
 
-.role-sequence.no-animation .role-sequence__text--next,
-.role-sequence.role-sequence--reduced-motion .role-sequence__text--next {
+.morphing-text.morphing-text--reduced-motion .morphing-text__text--next {
   opacity: 0;
 }
 
