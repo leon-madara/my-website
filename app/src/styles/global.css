@@ -1083,6 +1083,19 @@ theme-toggle-landscape.react-theme-toggle {
   pointer-events: none;
 }
 
+/* Role sequence breaks out of the 690px hero-content column so the text
+   fits on a single line. The negative margin centres the overhang equally
+   on both sides. On narrow viewports the min() collapses to the available
+   width so there is no overflow. */
+.role-sequence {
+  width: min(940px, calc(100vw - 4rem));
+  margin-inline: calc((100% - min(940px, calc(100vw - 4rem))) / 2);
+}
+
+.role-sequence .morphing-text__text {
+  white-space: nowrap;
+}
+
 .morphing-text.morphing-text--reduced-motion {
   filter: none;
 }
