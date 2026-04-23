@@ -1063,6 +1063,17 @@ theme-toggle-landscape.react-theme-toggle {
   opacity: 0;
 }
 
+/* When morphing text sits inside a gradient-text parent, the absolutely
+   positioned spans need their own background-clip so the gradient renders
+   through each span's text (background-clip: text on the parent does not
+   reach into absolutely-positioned children). */
+.kenyan-gradient .morphing-text__text {
+  background: inherit;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .morphing-text__probe {
   position: static;
   display: block;
