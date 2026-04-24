@@ -13,7 +13,15 @@
   - `npm run react:typecheck`
   - In-app browser reload at `http://localhost:5173/`
   - Visual confirmation that the old dark mobile pill is replaced by the floating active-ball dock
+- Replit-inspired refresh:
+  - `node --check public/js/mobile-limelight-nav.js`
+  - `npm run react:typecheck`
+  - `npm run test:gsap`
+  - `npm run react:build` (passes with existing large chunk warning)
+  - In-app browser route check from Home to About after Vite restart; no fresh console errors
+  - Playwright Core responsive checks at 375px, 390px, and 768px against `http://localhost:5173/`
+  - Playwright Core checks for delayed navigation, hidden active dock icon, reduced motion, and dark-theme ball styling
 
 ## Still Needed
 
-- Human visual review for final polish against the reference image.
+- Human visual review for final polish against the imported reference.

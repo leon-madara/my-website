@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const reduceMotionQuery = window.matchMedia
         ? window.matchMedia("(prefers-reduced-motion: reduce)")
         : null;
-    const ICON_OUT_MS = 120;
-    const TRAVEL_MS = 380;
-    const ICON_IN_MS = 150;
+    const ICON_OUT_MS = 200;
+    const TRAVEL_MS = 420;
+    const ICON_IN_MS = 200;
     const NAVIGATION_DELAY_MS = ICON_OUT_MS + TRAVEL_MS + ICON_IN_MS;
     let currentActive = findActiveItem();
     let navigationTimer = null;

@@ -1,80 +1,72 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { siteRoutes } from "./siteData";
+import { AnimatePresence, motion } from "framer-motion";
 import { MouseEvent, useEffect, useMemo, useRef, useState } from "react";
+
+const DOCK_EDGE_PADDING = 16;
+const BALL_SIZE = 60;
+const SADDLE_SIZE = 84;
+const ICON_EXIT_MS = 200;
+const SLIDE_MS = 420;
+const ICON_REVEAL_MS = 200;
+const NAVIGATION_DELAY_MS = ICON_EXIT_MS + SLIDE_MS + ICON_REVEAL_MS;
+
+const springTransition = {
+  type: "spring" as const,
+  stiffness: 320,
+  damping: 28,
+  mass: 0.9
+};
 
 export function MobileBottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
   const navRef = useRef<HTMLElement>(null);
-  const ballRef = useRef<HTMLDivElement>(null);
-  const saddleRef = useRef<HTMLDivElement>(null);
   const navigationTimerRef = useRef<number | null>(null);
   const phaseTimersRef = useRef<number[]>([]);
+  const [navWidth, setNavWidth] = useState(360);
   const [activePath, setActivePath] = useState(location.pathname);
-  const [ballIconPath, setBallIconPath] = useState(location.pathname);
-  const [isIconHidden, setIsIconHidden] = useState(false);
+  const [ballPath, setBallPath] = useState(location.pathname);
+  const [ballIconPath, setBallIconPath] = useState<string | null>(location.pathname);
   const [isTraveling, setIsTraveling] = useState(false);
 
-  const activeRoute = useMemo(
-    () =>
-      siteRoutes.find((route) =>
-        route.path === "/"
-          ? ballIconPath === "/"
-          : ballIconPath.startsWith(route.path)
-      ) ?? siteRoutes[0],
-    [ballIconPath]
-  );
+  const routeForPath = (path: string | null) =>
+    siteRoutes.find((route) =>
+      route.path === "/" ? path === "/" : Boolean(path?.startsWith(route.path))
+    ) ?? siteRoutes[0];
 
-  const ActiveIcon = activeRoute.icon;
+  const ballRoute = useMemo(() => routeForPath(ballIconPath), [ballIconPath]);
+  const BallIcon = ballRoute.icon;
+  const ballIndex = siteRoutes.findIndex((route) => route.path === routeForPath(ballPath).path);
+  const itemWidth = Math.max((navWidth - DOCK_EDGE_PADDING * 2) / siteRoutes.length, 0);
+  const slotCenterX = DOCK_EDGE_PADDING + (Math.max(ballIndex, 0) + 0.5) * itemWidth;
+  const ballX = slotCenterX - BALL_SIZE / 2;
+  const saddleX = slotCenterX - SADDLE_SIZE / 2;
 
   useEffect(() => {
     setActivePath(location.pathname);
+    setBallPath(location.pathname);
     setBallIconPath(location.pathname);
-    setIsIconHidden(false);
     setIsTraveling(false);
   }, [location.pathname]);
 
   useEffect(() => {
-    if (!navRef.current || !ballRef.current || !saddleRef.current) return;
+    const nav = navRef.current;
+    if (!nav) return;
 
-    const moveChrome = (animate = true) => {
-      const activeLink = navRef.current?.querySelector(".mobile-nav-item.active") as HTMLElement;
-      if (!activeLink || !ballRef.current || !saddleRef.current) return;
-
-      const ballLeft = activeLink.offsetLeft + activeLink.offsetWidth / 2 - ballRef.current.offsetWidth / 2;
-      const saddleLeft = activeLink.offsetLeft + activeLink.offsetWidth / 2 - saddleRef.current.offsetWidth / 2;
-      
-      if (!animate) {
-        ballRef.current.style.transition = "none";
-        saddleRef.current.style.transition = "none";
-      }
-      
-      ballRef.current.style.transform = `translateX(${ballLeft}px)`;
-      saddleRef.current.style.transform = `translateX(${saddleLeft}px)`;
-
-      if (!animate) {
-        ballRef.current.offsetHeight;
-        saddleRef.current.offsetHeight;
-        ballRef.current.style.transition = "";
-        saddleRef.current.style.transition = "";
-      }
+    const syncWidth = () => {
+      setNavWidth(nav.offsetWidth);
     };
 
-    const frame = requestAnimationFrame(() => moveChrome(false));
+    syncWidth();
 
-    const handleResize = () => {
-      requestAnimationFrame(() => moveChrome(false));
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
+    const observer = new ResizeObserver(syncWidth);
+    observer.observe(nav);
 
     return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
+      observer.disconnect();
     };
-  }, [activePath]);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -117,67 +109,99 @@ export function MobileBottomNav() {
 
     if (prefersReducedMotion()) {
       setActivePath(path);
+      setBallPath(path);
       setBallIconPath(path);
       navigate(path);
       return;
     }
 
-    setIsIconHidden(true);
+    setActivePath(path);
+    setBallIconPath(null);
+    setIsTraveling(false);
 
     phaseTimersRef.current.push(
       window.setTimeout(() => {
+        setBallPath(path);
         setIsTraveling(true);
-        setActivePath(path);
-      }, 120)
+      }, ICON_EXIT_MS)
     );
 
     phaseTimersRef.current.push(
       window.setTimeout(() => {
         setBallIconPath(path);
         setIsTraveling(false);
-        setIsIconHidden(false);
-      }, 500)
+      }, ICON_EXIT_MS + SLIDE_MS)
     );
 
     navigationTimerRef.current = window.setTimeout(() => {
       navigate(path);
-    }, 650);
+    }, NAVIGATION_DELAY_MS);
   };
 
   return (
     <nav ref={navRef} aria-label="Mobile navigation" className="mobile-bottom-nav">
       {siteRoutes.map((route) => {
         const Icon = route.icon;
+        const isUnderBall = isRouteActive(route.path, ballPath);
 
         return (
           <NavLink
             aria-label={route.title}
             aria-current={isRouteActive(route.path) ? "page" : undefined}
             className={
-              isRouteActive(route.path) ? "mobile-nav-item active" : "mobile-nav-item"
+              isUnderBall ? "mobile-nav-item active" : "mobile-nav-item"
             }
             end={route.path === "/"}
             key={route.path}
             onClick={(event) => handleNavClick(event, route.path)}
             to={route.path}
           >
-            <Icon aria-hidden="true" strokeWidth="2" />
+            <motion.span
+              aria-hidden="true"
+              className="mobile-nav-item__icon"
+              initial={false}
+              animate={{
+                opacity: isUnderBall ? 0 : 1,
+                scale: isUnderBall ? 0.6 : 1,
+                y: isUnderBall ? 5 : 0
+              }}
+              transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <Icon aria-hidden="true" strokeWidth="2" />
+            </motion.span>
             <span className="sr-only">{route.title}</span>
           </NavLink>
         );
       })}
-      <div ref={saddleRef} className="mobile-nav-saddle" aria-hidden="true" />
-      <div
-        ref={ballRef}
-        className={[
-          "mobile-active-ball",
-          isIconHidden ? "is-icon-hidden" : "",
-          isTraveling ? "is-traveling" : ""
-        ].join(" ")}
+      <motion.div
+        className="mobile-nav-saddle"
         aria-hidden="true"
+        initial={false}
+        animate={{ x: saddleX }}
+        transition={springTransition}
+      />
+      <motion.div
+        className={["mobile-active-ball", isTraveling ? "is-traveling" : ""].join(" ")}
+        aria-hidden="true"
+        initial={false}
+        animate={{ x: ballX }}
+        transition={springTransition}
       >
-        <ActiveIcon aria-hidden="true" strokeWidth="2" />
-      </div>
+        <AnimatePresence mode="wait" initial={false}>
+          {ballIconPath ? (
+            <motion.span
+              key={ballRoute.path}
+              className="mobile-active-ball__icon"
+              initial={{ opacity: 0, scale: 0.4, rotate: -25 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0, scale: 0.4, rotate: 25 }}
+              transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <BallIcon aria-hidden="true" strokeWidth="2" />
+            </motion.span>
+          ) : null}
+        </AnimatePresence>
+      </motion.div>
     </nav>
   );
 }
