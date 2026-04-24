@@ -13,7 +13,7 @@ const EDGE_PADDING = 16;
 
 const CONTAINER_HEIGHT = DOCK_HEIGHT + BALL_SIZE / 2 + 8;
 const DOCK_TOP_Y = CONTAINER_HEIGHT - DOCK_HEIGHT;
-const BALL_Y = DOCK_TOP_Y + (DOCK_HEIGHT - BALL_SIZE) / 2;
+const BALL_Y = DOCK_TOP_Y - BALL_SIZE * 0.46;
 
 const ICON_EXIT_MS = 200;
 const SLIDE_MS = 420;
@@ -178,7 +178,6 @@ export function MobileBottomNav() {
                   <NavLink
                     aria-label={route.title}
                     aria-current={isRouteActive(route.path) ? "page" : undefined}
-                    aria-pressed={isRouteActive(route.path)}
                     className="mdock-button"
                     end={route.path === "/"}
                     onClick={(event) => handleNavClick(event, route.path)}
