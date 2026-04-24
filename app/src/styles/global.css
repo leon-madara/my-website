@@ -1589,7 +1589,7 @@ theme-toggle-landscape.react-theme-toggle {
   padding: 0 12px;
   overflow: visible;
   border: 1px solid var(--border);
-  border-radius: 30px;
+  border-radius: 30px 30px 14px 14px;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);

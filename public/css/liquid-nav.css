@@ -911,7 +911,7 @@ html body .header-logo {
         overflow: visible;
         background: rgba(255, 255, 255, 0.94);
         border: 1px solid var(--nav-pill-border);
-        border-radius: 30px;
+        border-radius: 30px 30px 14px 14px;
         box-shadow:
             0 16px 38px rgba(48, 39, 28, 0.14),
             0 3px 10px rgba(48, 39, 28, 0.08),
