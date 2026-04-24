@@ -5,4 +5,4 @@
 - Replaced the limelight strip styling with a rounded dock, moving saddle, and Kenyan green active ball.
 - Reworked the mobile nav script to animate icon-out, ball travel, icon-in, then navigation.
 - Added reduced-motion and rapid-retarget handling.
-
+- Mirrored the design into the React/Vite local app used by `localhost:5173`.

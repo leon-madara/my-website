@@ -9,6 +9,10 @@
   - Home, About, Portfolio, and Contact active state checks
   - Click navigation from Home to About
   - Reduced-motion navigation from Home to Portfolio
+- React/Vite local app:
+  - `npm run react:typecheck`
+  - In-app browser reload at `http://localhost:5173/`
+  - Visual confirmation that the old dark mobile pill is replaced by the floating active-ball dock
 
 ## Still Needed
 

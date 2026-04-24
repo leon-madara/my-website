@@ -9,6 +9,6 @@ Replace the old mobile limelight strip with a floating active-ball dock inspired
 ## Source Of Truth
 
 - Shipping implementation: `public/`
+- Local Vite preview implementation: `app/src/`
 - Shared styling: `public/css/liquid-nav.css`
 - Shared behavior: `public/js/mobile-limelight-nav.js`
-
