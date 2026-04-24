@@ -6,11 +6,10 @@ import "./MobileDock.css";
 
 type BallColor = "black" | "red" | "green";
 
-const DOCK_WIDTH = 360;
+const DEFAULT_DOCK_WIDTH = 360;
 const DOCK_HEIGHT = 88;
 const BALL_SIZE = 60;
 const EDGE_PADDING = 16;
-const ITEM_WIDTH = (DOCK_WIDTH - 2 * EDGE_PADDING) / siteRoutes.length;
 
 const CONTAINER_HEIGHT = DOCK_HEIGHT + BALL_SIZE / 2 + 8;
 const DOCK_TOP_Y = CONTAINER_HEIGHT - DOCK_HEIGHT;
@@ -29,17 +28,17 @@ const ROUTE_COLORS: Record<string, BallColor> = {
   "/contact": "red"
 };
 
-const slotCenterX = (index: number) =>
-  EDGE_PADDING + (index + 0.5) * ITEM_WIDTH;
-
 export function MobileBottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
+  const navRef = useRef<HTMLElement | null>(null);
   const navigationTimerRef = useRef<number | null>(null);
   const phaseTimersRef = useRef<number[]>([]);
   const [activePath, setActivePath] = useState(location.pathname);
   const [ballPosPath, setBallPosPath] = useState(location.pathname);
   const [ballIconPath, setBallIconPath] = useState<string | null>(location.pathname);
+  const [dockWidth, setDockWidth] = useState(DEFAULT_DOCK_WIDTH);
+  const itemWidth = Math.max((dockWidth - 2 * EDGE_PADDING) / siteRoutes.length, 0);
 
   const routeForPath = (path: string | null) =>
     siteRoutes.find((route) =>
@@ -51,8 +50,25 @@ export function MobileBottomNav() {
   const positionIndex = siteRoutes.findIndex(
     (route) => route.path === routeForPath(ballPosPath).path
   );
-  const ballX = slotCenterX(Math.max(positionIndex, 0)) - BALL_SIZE / 2;
+  const ballX =
+    EDGE_PADDING + (Math.max(positionIndex, 0) + 0.5) * itemWidth - BALL_SIZE / 2;
   const ballColor = ROUTE_COLORS[routeForPath(ballPosPath).path] ?? "green";
+
+  useEffect(() => {
+    const navElement = navRef.current;
+    if (!navElement) return undefined;
+
+    const updateDockWidth = () => {
+      setDockWidth(navElement.getBoundingClientRect().width || DEFAULT_DOCK_WIDTH);
+    };
+
+    updateDockWidth();
+
+    const observer = new ResizeObserver(updateDockWidth);
+    observer.observe(navElement);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -127,10 +143,10 @@ export function MobileBottomNav() {
   };
 
   return (
-    <nav aria-label="Mobile navigation" className="mobile-bottom-nav">
+    <nav ref={navRef} aria-label="Mobile navigation" className="mobile-bottom-nav">
       <div
         className="mdock-root"
-        style={{ width: DOCK_WIDTH, height: CONTAINER_HEIGHT }}
+        style={{ width: "100%", height: CONTAINER_HEIGHT }}
       >
         <div
           className="mdock-card"
@@ -157,7 +173,7 @@ export function MobileBottomNav() {
                 <li
                   key={route.path}
                   className="mdock-item"
-                  style={{ width: ITEM_WIDTH }}
+                  style={{ width: itemWidth }}
                 >
                   <NavLink
                     aria-label={route.title}
