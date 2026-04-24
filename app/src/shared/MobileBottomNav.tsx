@@ -1,34 +1,45 @@
+import { MouseEvent, useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { siteRoutes } from "./siteData";
-import { AnimatePresence, motion } from "framer-motion";
-import { MouseEvent, useEffect, useMemo, useRef, useState } from "react";
+import "./MobileDock.css";
 
-const DOCK_EDGE_PADDING = 16;
+type BallColor = "black" | "red" | "green";
+
+const DOCK_WIDTH = 360;
+const DOCK_HEIGHT = 88;
 const BALL_SIZE = 60;
-const SADDLE_SIZE = 84;
+const EDGE_PADDING = 16;
+const ITEM_WIDTH = (DOCK_WIDTH - 2 * EDGE_PADDING) / siteRoutes.length;
+
+const CONTAINER_HEIGHT = DOCK_HEIGHT + BALL_SIZE / 2 + 8;
+const DOCK_TOP_Y = CONTAINER_HEIGHT - DOCK_HEIGHT;
+const BALL_Y = DOCK_TOP_Y - BALL_SIZE / 2;
+
 const ICON_EXIT_MS = 200;
 const SLIDE_MS = 420;
 const ICON_REVEAL_MS = 200;
 const NAVIGATION_DELAY_MS = ICON_EXIT_MS + SLIDE_MS + ICON_REVEAL_MS;
 
-const springTransition = {
-  type: "spring" as const,
-  stiffness: 320,
-  damping: 28,
-  mass: 0.9
+const ROUTE_COLORS: Record<string, BallColor> = {
+  "/": "black",
+  "/about": "red",
+  "/portfolio": "green",
+  "/design-process": "black",
+  "/contact": "red"
 };
+
+const slotCenterX = (index: number) =>
+  EDGE_PADDING + (index + 0.5) * ITEM_WIDTH;
 
 export function MobileBottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
-  const navRef = useRef<HTMLElement>(null);
   const navigationTimerRef = useRef<number | null>(null);
   const phaseTimersRef = useRef<number[]>([]);
-  const [navWidth, setNavWidth] = useState(360);
   const [activePath, setActivePath] = useState(location.pathname);
-  const [ballPath, setBallPath] = useState(location.pathname);
+  const [ballPosPath, setBallPosPath] = useState(location.pathname);
   const [ballIconPath, setBallIconPath] = useState<string | null>(location.pathname);
-  const [isTraveling, setIsTraveling] = useState(false);
 
   const routeForPath = (path: string | null) =>
     siteRoutes.find((route) =>
@@ -37,36 +48,17 @@ export function MobileBottomNav() {
 
   const ballRoute = useMemo(() => routeForPath(ballIconPath), [ballIconPath]);
   const BallIcon = ballRoute.icon;
-  const ballIndex = siteRoutes.findIndex((route) => route.path === routeForPath(ballPath).path);
-  const itemWidth = Math.max((navWidth - DOCK_EDGE_PADDING * 2) / siteRoutes.length, 0);
-  const slotCenterX = DOCK_EDGE_PADDING + (Math.max(ballIndex, 0) + 0.5) * itemWidth;
-  const ballX = slotCenterX - BALL_SIZE / 2;
-  const saddleX = slotCenterX - SADDLE_SIZE / 2;
+  const positionIndex = siteRoutes.findIndex(
+    (route) => route.path === routeForPath(ballPosPath).path
+  );
+  const ballX = slotCenterX(Math.max(positionIndex, 0)) - BALL_SIZE / 2;
+  const ballColor = ROUTE_COLORS[routeForPath(ballPosPath).path] ?? "green";
 
   useEffect(() => {
     setActivePath(location.pathname);
-    setBallPath(location.pathname);
+    setBallPosPath(location.pathname);
     setBallIconPath(location.pathname);
-    setIsTraveling(false);
   }, [location.pathname]);
-
-  useEffect(() => {
-    const nav = navRef.current;
-    if (!nav) return;
-
-    const syncWidth = () => {
-      setNavWidth(nav.offsetWidth);
-    };
-
-    syncWidth();
-
-    const observer = new ResizeObserver(syncWidth);
-    observer.observe(nav);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   useEffect(() => {
     return () => {
@@ -109,7 +101,7 @@ export function MobileBottomNav() {
 
     if (prefersReducedMotion()) {
       setActivePath(path);
-      setBallPath(path);
+      setBallPosPath(path);
       setBallIconPath(path);
       navigate(path);
       return;
@@ -117,20 +109,16 @@ export function MobileBottomNav() {
 
     setActivePath(path);
     setBallIconPath(null);
-    setIsTraveling(false);
 
     phaseTimersRef.current.push(
-      window.setTimeout(() => {
-        setBallPath(path);
-        setIsTraveling(true);
-      }, ICON_EXIT_MS)
+      window.setTimeout(() => setBallPosPath(path), ICON_EXIT_MS)
     );
 
     phaseTimersRef.current.push(
-      window.setTimeout(() => {
-        setBallIconPath(path);
-        setIsTraveling(false);
-      }, ICON_EXIT_MS + SLIDE_MS)
+      window.setTimeout(
+        () => setBallIconPath(path),
+        ICON_EXIT_MS + SLIDE_MS
+      )
     );
 
     navigationTimerRef.current = window.setTimeout(() => {
@@ -139,69 +127,96 @@ export function MobileBottomNav() {
   };
 
   return (
-    <nav ref={navRef} aria-label="Mobile navigation" className="mobile-bottom-nav">
-      {siteRoutes.map((route) => {
-        const Icon = route.icon;
-        const isUnderBall = isRouteActive(route.path, ballPath);
-
-        return (
-          <NavLink
-            aria-label={route.title}
-            aria-current={isRouteActive(route.path) ? "page" : undefined}
-            className={
-              isUnderBall ? "mobile-nav-item active" : "mobile-nav-item"
-            }
-            end={route.path === "/"}
-            key={route.path}
-            onClick={(event) => handleNavClick(event, route.path)}
-            to={route.path}
-          >
-            <motion.span
-              aria-hidden="true"
-              className="mobile-nav-item__icon"
-              initial={false}
-              animate={{
-                opacity: isUnderBall ? 0 : 1,
-                scale: isUnderBall ? 0.6 : 1,
-                y: isUnderBall ? 5 : 0
-              }}
-              transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <Icon aria-hidden="true" strokeWidth="2" />
-            </motion.span>
-            <span className="sr-only">{route.title}</span>
-          </NavLink>
-        );
-      })}
-      <motion.div
-        className="mobile-nav-saddle"
-        aria-hidden="true"
-        initial={false}
-        animate={{ x: saddleX }}
-        transition={springTransition}
-      />
-      <motion.div
-        className={["mobile-active-ball", isTraveling ? "is-traveling" : ""].join(" ")}
-        aria-hidden="true"
-        initial={false}
-        animate={{ x: ballX }}
-        transition={springTransition}
+    <nav aria-label="Mobile navigation" className="mobile-bottom-nav">
+      <div
+        className="mdock-root"
+        style={{ width: DOCK_WIDTH, height: CONTAINER_HEIGHT }}
       >
-        <AnimatePresence mode="wait" initial={false}>
-          {ballIconPath ? (
-            <motion.span
-              key={ballRoute.path}
-              className="mobile-active-ball__icon"
-              initial={{ opacity: 0, scale: 0.4, rotate: -25 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.4, rotate: 25 }}
-              transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <BallIcon aria-hidden="true" strokeWidth="2" />
-            </motion.span>
-          ) : null}
-        </AnimatePresence>
-      </motion.div>
+        <div
+          className="mdock-card"
+          style={{
+            height: DOCK_HEIGHT,
+            borderTopLeftRadius: 32,
+            borderTopRightRadius: 32,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20
+          }}
+        >
+          <ul
+            className="mdock-list"
+            style={{
+              paddingLeft: EDGE_PADDING,
+              paddingRight: EDGE_PADDING
+            }}
+          >
+            {siteRoutes.map((route) => {
+              const isUnderBall = isRouteActive(route.path, ballPosPath);
+              const Icon = route.icon;
+
+              return (
+                <li
+                  key={route.path}
+                  className="mdock-item"
+                  style={{ width: ITEM_WIDTH }}
+                >
+                  <NavLink
+                    aria-label={route.title}
+                    aria-current={isRouteActive(route.path) ? "page" : undefined}
+                    aria-pressed={isRouteActive(route.path)}
+                    className="mdock-button"
+                    end={route.path === "/"}
+                    onClick={(event) => handleNavClick(event, route.path)}
+                    to={route.path}
+                  >
+                    <motion.span
+                      initial={false}
+                      animate={{
+                        opacity: isUnderBall ? 0 : 1,
+                        scale: isUnderBall ? 0.6 : 1
+                      }}
+                      transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                      className="mdock-icon-wrap"
+                    >
+                      <Icon aria-hidden="true" height={24} strokeWidth={1.8} width={24} />
+                    </motion.span>
+                    <span className="sr-only">{route.title}</span>
+                  </NavLink>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <motion.div
+          aria-hidden="true"
+          data-ball-color={ballColor}
+          className="mdock-ball"
+          style={{
+            width: BALL_SIZE,
+            height: BALL_SIZE,
+            top: 0,
+            left: 0
+          }}
+          initial={false}
+          animate={{ x: ballX, y: BALL_Y }}
+          transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.9 }}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {ballIconPath ? (
+              <motion.span
+                key={ballIconPath}
+                initial={{ opacity: 0, scale: 0.4, rotate: -25 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.4, rotate: 25 }}
+                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                className="mdock-ball-icon-wrap"
+              >
+                <BallIcon aria-hidden="true" height={26} strokeWidth={2} width={26} />
+              </motion.span>
+            ) : null}
+          </AnimatePresence>
+        </motion.div>
+      </div>
     </nav>
   );
 }

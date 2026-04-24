@@ -1,0 +1,216 @@
+/* =============================================================
+   MobileDock — self-contained styles. No Tailwind, no globals.
+
+   Toggle dark mode by adding the class `dark` to any ancestor
+   element. e.g. <html class="dark"> or <div class="dark">.
+   ============================================================= */
+
+/* CSS @property registration so the gradient/glow colors animate
+   smoothly when the ball moves between items. Browsers without
+   support fall back to instant color swaps (the position still
+   tweens). */
+@property --ball-c1 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #3a3a44;
+}
+@property --ball-c2 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0a0a10;
+}
+@property --ball-glow {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(40, 40, 55, 0.6);
+}
+
+/* ---------- Theme tokens ---------- */
+.mdock-root {
+  --mdock-card-bg: #ffffff;
+  --mdock-border-outer: rgba(35, 38, 60, 0.08);
+  --mdock-border-inner: rgba(35, 38, 60, 0.06);
+  --mdock-icon-color: #5b6076;
+  --mdock-card-shadow:
+    0 24px 48px -28px rgba(35, 38, 60, 0.25),
+    0 8px 18px -8px rgba(35, 38, 60, 0.12);
+  --mdock-inner-shadow:
+    inset 0 2px 4px rgba(40, 50, 110, 0.06),
+    inset 0 1px 1px rgba(40, 50, 110, 0.04),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.dark .mdock-root,
+.mdock-root.dark,
+:root[data-theme="dark"] .mdock-root {
+  --mdock-card-bg: #1c1d24;
+  --mdock-border-outer: rgba(255, 255, 255, 0.08);
+  --mdock-border-inner: rgba(255, 255, 255, 0.05);
+  --mdock-icon-color: #a8acc0;
+  --mdock-card-shadow:
+    0 24px 48px -20px rgba(0, 0, 0, 0.6),
+    0 8px 18px -8px rgba(0, 0, 0, 0.45);
+  --mdock-inner-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.55),
+    inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.04);
+}
+
+/* ---------- Container & layout ---------- */
+.mdock-root {
+  position: relative;
+  font-family: inherit;
+}
+
+.mdock-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--mdock-card-bg);
+  border: 1px solid var(--mdock-border-outer);
+  box-shadow: var(--mdock-card-shadow);
+  transition:
+    background 350ms ease,
+    border-color 350ms ease,
+    box-shadow 350ms ease;
+}
+
+/* Inner softer border line with inset shadow for depth */
+.mdock-card::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  bottom: 4px;
+  left: 4px;
+  border: 1px solid var(--mdock-border-inner);
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  pointer-events: none;
+  box-shadow: var(--mdock-inner-shadow);
+  transition: border-color 350ms ease, box-shadow 350ms ease;
+}
+
+.mdock-list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mdock-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mdock-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--mdock-icon-color);
+  cursor: pointer;
+  outline: none;
+  transition: transform 150ms ease, color 350ms ease;
+}
+.mdock-button:active {
+  transform: scale(0.95);
+}
+.mdock-button:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--mdock-card-bg),
+    0 0 0 4px rgba(120, 130, 200, 0.65);
+}
+
+.mdock-icon-wrap,
+.mdock-ball-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVGs render as block to remove the inline-baseline gap that would
+   otherwise push the icon visually upward inside the ball. */
+.mdock-card svg,
+.mdock-ball svg {
+  display: block;
+}
+
+/* ---------- The floating gradient ball ---------- */
+.mdock-ball {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: #ffffff;
+  background:
+    radial-gradient(120% 120% at 50% 50%,
+      color-mix(in oklab, var(--ball-c1) 88%, white 12%) 0%,
+      var(--ball-c1) 50%,
+      var(--ball-c2) 100%);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--ball-c1) 25%, transparent),
+    0 0 18px 0 var(--ball-glow),
+    0 0 36px 6px color-mix(in oklab, var(--ball-glow) 65%, transparent),
+    0 0 70px 16px color-mix(in oklab, var(--ball-glow) 30%, transparent);
+  transition:
+    --ball-c1 480ms cubic-bezier(0.4, 0, 0.2, 1),
+    --ball-c2 480ms cubic-bezier(0.4, 0, 0.2, 1),
+    --ball-glow 480ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 480ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 480ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Color variants */
+.mdock-ball[data-ball-color="black"] {
+  --ball-c1: #3a3a44;
+  --ball-c2: #0a0a10;
+  --ball-glow: rgba(40, 40, 55, 0.6);
+}
+.mdock-ball[data-ball-color="red"] {
+  --ball-c1: #e8505d;
+  --ball-c2: #8c0a18;
+  --ball-glow: rgba(220, 50, 70, 0.6);
+}
+.mdock-ball[data-ball-color="green"] {
+  --ball-c1: #34c47f;
+  --ball-c2: #006b3f;
+  --ball-glow: rgba(20, 160, 95, 0.6);
+}
+
+/* In dark mode, swap the "black" ball to white-on-black so it stays
+   visible against the dark dock. Other colors get a brighter glow. */
+.dark .mdock-ball[data-ball-color="black"],
+.mdock-root.dark .mdock-ball[data-ball-color="black"],
+:root[data-theme="dark"] .mdock-ball[data-ball-color="black"] {
+  --ball-c1: #ffffff;
+  --ball-c2: #d4d6dd;
+  --ball-glow: rgba(255, 255, 255, 0.35);
+  color: #0a0a10;
+}
+.dark .mdock-ball[data-ball-color="red"],
+.mdock-root.dark .mdock-ball[data-ball-color="red"],
+:root[data-theme="dark"] .mdock-ball[data-ball-color="red"] {
+  --ball-glow: rgba(240, 80, 100, 0.7);
+}
+.dark .mdock-ball[data-ball-color="green"],
+.mdock-root.dark .mdock-ball[data-ball-color="green"],
+:root[data-theme="dark"] .mdock-ball[data-ball-color="green"] {
+  --ball-glow: rgba(40, 200, 120, 0.65);
+}

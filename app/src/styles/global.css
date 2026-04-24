@@ -1799,6 +1799,45 @@ theme-toggle-landscape.react-theme-toggle {
     0 0 0 10px rgba(16, 207, 116, 0.08);
 }
 
+.mobile-bottom-nav {
+  position: fixed;
+  right: auto;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  z-index: 9998;
+  align-items: center;
+  justify-content: center;
+  width: min(360px, calc(100vw - 24px));
+  height: 126px;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.mobile-bottom-nav::before,
+.mobile-bottom-nav .mobile-nav-saddle,
+.mobile-bottom-nav .mobile-active-ball {
+  display: none;
+}
+
+.mobile-bottom-nav .mdock-root {
+  pointer-events: auto;
+}
+
+:root[data-theme="dark"] .mobile-bottom-nav {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .mobile-bottom-nav::before {
+  display: none;
+}
+
 .background-pattern {
   position: fixed;
   inset: 0;
