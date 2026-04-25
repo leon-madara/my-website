@@ -8,3 +8,4 @@
 - Built and synced generated portfolio assets for `public/portfolio.html`.
 - Verified mobile and desktop behavior in local Chrome.
 - Removed the mobile story content card frame so the reading area flows as a full-width white surface below the chapter bar.
+- Extended the mobile story reading surface to the bottom of the viewport while preserving internal scroll padding.

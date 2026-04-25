@@ -1511,7 +1511,7 @@
     grid-template-rows: 1fr;
     min-height: 100dvh;
     height: 100dvh;
-    padding: calc(58px + env(safe-area-inset-top, 0px)) 0 calc(110px + env(safe-area-inset-bottom, 0px));
+    padding: calc(58px + env(safe-area-inset-top, 0px)) 0 0;
     align-content: stretch;
     gap: 0;
     overflow: hidden;
@@ -1713,7 +1713,7 @@
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 1.15rem 1rem 1.4rem;
+    padding: 1.15rem 1rem calc(7rem + env(safe-area-inset-bottom, 0px));
     scroll-behavior: smooth;
     scroll-padding-top: 0.75rem;
     scrollbar-width: none;
