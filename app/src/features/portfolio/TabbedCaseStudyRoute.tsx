@@ -203,9 +203,14 @@ export function TabbedCaseStudyRoute({
 
   const playPageFlip = usePageFlipSound();
 
-  // Auto-collapse global nav into indicator after 2s on mount
+  // Auto-collapse global nav into indicator after 2s on mount.
+  // Touch devices have no hover-to-expand, so skip collapse there.
   useEffect(() => {
     if (!entranceReady) return;
+    const isTouchDevice =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none)").matches;
+    if (isTouchDevice) return;
     const timer = setTimeout(() => {
       document.body.classList.add("nav-is-collapsed");
     }, 2000);
@@ -528,6 +533,23 @@ export function TabbedCaseStudyRoute({
                   className={`portfolio-pagination-dot ${entry.section.id === resolvedState.section.id && entry.page.id === resolvedState.page.id ? "is-active" : ""}`}
                   key={`${entry.section.id}-${entry.page.id}`}
                   onClick={() => navigateTo(entry.section.id, entry.page.id)}
+                  role="tab"
+                  type="button"
+                />
+              ))}
+            </div>
+
+            <div
+              className="portfolio-section-dots"
+              role="tablist"
+              aria-label="Sections within the portfolio case study"
+            >
+              {project.sections.map((section) => (
+                <button
+                  aria-label={`Go to ${section.label}`}
+                  className={`portfolio-section-dot ${section.id === resolvedState.section.id ? "is-active" : ""}`}
+                  key={section.id}
+                  onClick={() => navigateTo(section.id, section.pages[0].id)}
                   role="tab"
                   type="button"
                 />

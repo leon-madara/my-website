@@ -1255,6 +1255,27 @@
   background: var(--kenyan-green);
 }
 
+/* Section-level dots — mobile only; hidden by default on desktop */
+.portfolio-section-dots {
+  display: none;
+}
+
+.portfolio-section-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(102, 102, 102, 0.3);
+  cursor: pointer;
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.portfolio-section-dot.is-active {
+  width: 1.5rem;
+  background: var(--kenyan-green);
+}
+
 .portfolio-longform {
   display: grid;
   grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
@@ -1528,6 +1549,46 @@
   .portfolio-longform-mobile-nav {
     display: flex;
   }
+
+  /* Lift the hard max-height so body expands to natural content height */
+  .portfolio-content-card__body {
+    max-height: none;
+  }
+
+  /* Section pill row: horizontally scrollable, left-aligned */
+  .portfolio-section-row {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .portfolio-section-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .portfolio-section-pill {
+    scroll-snap-align: start;
+  }
+
+  /* Swap pagination: hide all-pages dots, show section-level dots */
+  .portfolio-pagination-dots {
+    display: none;
+  }
+
+  .portfolio-section-dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Touch-friendly minimum tap target for section pills */
+  .portfolio-section-pill__button {
+    min-height: 44px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1552,12 +1613,24 @@
     width: 140px;
   }
 
+  /* Keep labels visible — they're the only navigation signal on mobile.
+     Truncate instead of hiding. */
   .portfolio-section-pill__label {
-    display: none;
+    display: block;
+    font-size: 0.68rem;
+    max-width: 5.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .portfolio-section-pill__button {
-    padding-inline: 0.75rem;
+    padding-inline: 0.65rem;
+  }
+
+  /* Section row now scrolls horizontally; positioning-arrows would overflow */
+  .portfolio-section-row__arrow {
+    display: none;
   }
 
   .portfolio-pagination-button {
@@ -1567,6 +1640,14 @@
 
   .portfolio-pagination-dot.is-active {
     width: 24px;
+  }
+
+  /* Collapse stat/card grids to single column inside content body */
+  .portfolio-metric-grid,
+  .portfolio-callout-grid,
+  .portfolio-longform-stat-grid,
+  .portfolio-longform-card-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -2120,5 +2201,61 @@
 @media (prefers-reduced-motion: reduce) {
   .legacy-accordion-case-study .horizontal-pages {
     scroll-behavior: auto;
+  }
+}
+
+/* ===================================
+   LEGACY ACCORDION — 560px breakpoint
+   =================================== */
+
+@media (max-width: 560px) {
+  /* Scale down oversized page title */
+  .legacy-accordion-case-study .page-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  /* Tighter body padding */
+  .legacy-accordion-case-study .content-page {
+    padding: 1.5rem;
+  }
+
+  /* Touch-friendly accordion targets */
+  .legacy-accordion-case-study .accordion-header {
+    min-height: 48px;
+  }
+
+  .legacy-accordion-case-study .accordion-link {
+    padding: 0.625rem 0.75rem;
+    min-height: 44px;
+  }
+
+  /* Dot indicator spacing */
+  .legacy-accordion-case-study .page-indicators {
+    gap: 0.35rem;
+    padding: 0.75rem 0;
+  }
+}
+
+/* ===================================
+   TOUCH DEVICE GUARD
+   Prevents the hover-only nav-collapse from locking
+   project toggles on touch screens where hover is unavailable.
+   =================================== */
+
+@media (hover: none) {
+  .nav-is-collapsed .portfolio-workspace__nav-collapse {
+    max-height: 160px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-is-collapsed .portfolio-workspace__indicator {
+    opacity: 0;
+    animation: none;
+  }
+
+  .portfolio-nav-hover-zone {
+    pointer-events: none !important;
   }
 }

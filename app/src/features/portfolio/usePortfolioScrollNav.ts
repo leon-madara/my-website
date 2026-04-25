@@ -62,6 +62,12 @@ export function usePortfolioScrollNav({
     // element is non-null from here — captured once, used in all handlers below
     const safeElement = element;
 
+    // On touch/coarse-pointer devices, natural vertical scrolling should not
+    // trigger page advances. Prev/Next buttons and section pills are the nav.
+    const isCoarsePointer =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
     function tryNavigate(direction: "next" | "prev") {
       if (navLock.current) return;
       const { nextEntry, previousEntry, navigateTo, entranceReady } = stateRef.current;
@@ -132,9 +138,11 @@ export function usePortfolioScrollNav({
       }
     }
 
-    safeElement.addEventListener("wheel", handleWheel, { passive: false });
-    safeElement.addEventListener("touchstart", handleTouchStart, { passive: true });
-    safeElement.addEventListener("touchend", handleTouchEnd, { passive: true });
+    if (!isCoarsePointer) {
+      safeElement.addEventListener("wheel", handleWheel, { passive: false });
+      safeElement.addEventListener("touchstart", handleTouchStart, { passive: true });
+      safeElement.addEventListener("touchend", handleTouchEnd, { passive: true });
+    }
 
     return () => {
       safeElement.removeEventListener("wheel", handleWheel);
