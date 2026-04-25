@@ -16,9 +16,11 @@ const DOCK_TOP_Y = CONTAINER_HEIGHT - DOCK_HEIGHT;
 const BALL_Y = DOCK_TOP_Y + (DOCK_HEIGHT - BALL_SIZE) / 2;
 
 const ICON_EXIT_MS = 200;
-const SLIDE_MS = 420;
+const SLIDE_MS = 560;
 const ICON_REVEAL_MS = 200;
 const NAVIGATION_DELAY_MS = ICON_EXIT_MS + SLIDE_MS + ICON_REVEAL_MS;
+const SLIDE_DURATION_S = SLIDE_MS / 1000;
+const SLIDE_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const ROUTE_COLORS: Record<string, BallColor> = {
   "/": "black",
@@ -215,7 +217,7 @@ export function MobileBottomNav() {
           }}
           initial={false}
           animate={{ x: ballX, y: BALL_Y }}
-          transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.9 }}
+          transition={{ duration: SLIDE_DURATION_S, ease: SLIDE_EASE }}
         >
           <AnimatePresence mode="wait" initial={false}>
             {ballIconPath ? (

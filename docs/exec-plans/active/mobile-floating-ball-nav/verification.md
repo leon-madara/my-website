@@ -27,6 +27,16 @@
   - `npm run react:build` (passes with existing large chunk warning)
   - In-app browser scoped route check from Contact to Home; no fresh console errors
   - Playwright Core computed-style check for `.mdock-root`, `.mdock-card`, and `.mdock-ball` at 390px
+- Latest `mobile-dock/` sync:
+  - `npm run react:typecheck`
+  - `npm run test:gsap`
+  - Playwright Core static `public/` check at 390px against `http://127.0.0.1:3000/index.html`
+  - Confirmed Home ball is centered, black, ring-shadowed, visible in viewport, and Contact click changes the ball to red before delayed navigation
+  - Saved screenshots to `validation/mobile-dock-index-390.png` and `validation/mobile-dock-contact-390.png`
+- Centered in-dock ball adjustment:
+  - `npm run react:typecheck`
+  - `node --check public/js/mobile-limelight-nav.js`
+  - Playwright Core check against `http://localhost:5174/` at 390px confirmed the ball center equals the dock card center and the ball is fully inside the card
 
 ## Still Needed
 

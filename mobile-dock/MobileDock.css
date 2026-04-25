@@ -41,8 +41,7 @@
 }
 
 .dark .mdock-root,
-.mdock-root.dark,
-:root[data-theme="dark"] .mdock-root {
+.mdock-root.dark {
   --mdock-card-bg: #1c1d24;
   --mdock-border-outer: rgba(255, 255, 255, 0.08);
   --mdock-border-inner: rgba(255, 255, 255, 0.05);
@@ -152,8 +151,9 @@
 }
 
 /* ---------- The floating gradient ball ----------
-   The glass ring around the ball uses crisp highlight and tinted body
-   layers, plus a soft drop shadow for grounding. */
+   The "glass ring" around the ball is built with three crisp box-shadow
+   layers — inner highlight edge → tinted translucent body → outer
+   highlight edge — plus a soft drop for grounding. */
 .mdock-ball {
   position: absolute;
   display: flex;
@@ -196,33 +196,28 @@
   --ring-tint: rgba(20, 160, 95, 0.2);
 }
 
+/* In dark mode the "black" ball flips to white-on-black so it reads
+   against the dark dock, and the ring edges soften for the dark surface. */
 .dark .mdock-ball,
-.mdock-root.dark .mdock-ball,
-:root[data-theme="dark"] .mdock-ball {
+.mdock-root.dark .mdock-ball {
   box-shadow:
     0 0 0 1.5px rgba(255, 255, 255, 0.4),
     0 0 0 6px var(--ring-tint),
     0 0 0 7px rgba(255, 255, 255, 0.22),
     0 6px 14px -6px rgba(0, 0, 0, 0.55);
 }
-
-/* In dark mode, swap the "black" ball to white-on-black so it stays
-   visible against the dark dock. */
 .dark .mdock-ball[data-ball-color="black"],
-.mdock-root.dark .mdock-ball[data-ball-color="black"],
-:root[data-theme="dark"] .mdock-ball[data-ball-color="black"] {
+.mdock-root.dark .mdock-ball[data-ball-color="black"] {
   --ball-c1: #ffffff;
   --ball-c2: #d4d6dd;
   --ring-tint: rgba(255, 255, 255, 0.18);
   color: #0a0a10;
 }
 .dark .mdock-ball[data-ball-color="red"],
-.mdock-root.dark .mdock-ball[data-ball-color="red"],
-:root[data-theme="dark"] .mdock-ball[data-ball-color="red"] {
+.mdock-root.dark .mdock-ball[data-ball-color="red"] {
   --ring-tint: rgba(240, 80, 100, 0.28);
 }
 .dark .mdock-ball[data-ball-color="green"],
-.mdock-root.dark .mdock-ball[data-ball-color="green"],
-:root[data-theme="dark"] .mdock-ball[data-ball-color="green"] {
+.mdock-root.dark .mdock-ball[data-ball-color="green"] {
   --ring-tint: rgba(40, 200, 120, 0.26);
 }

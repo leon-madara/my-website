@@ -1963,18 +1963,13 @@ theme-toggle-landscape.react-theme-toggle {
 
   .header-logo {
     top: 12px;
-    width: 74px;
-    height: 74px;
-    padding: 12px;
+    width: 96px;
+    height: 96px;
+    padding: 16px;
   }
 
   .nav-pills {
-    top: 16px;
-    left: auto;
-    right: 78px;
-    transform: none;
-    width: auto;
-    min-width: 180px;
+    display: none;
   }
 
   .theme-toggle-landscape {
@@ -1982,8 +1977,8 @@ theme-toggle-landscape.react-theme-toggle {
   }
 
   theme-toggle-landscape.react-theme-toggle {
-    --header-control-height: 44px;
-    --header-control-top: 12px;
+    --header-control-height: 35px;
+    --header-control-top: 41px;
     --header-side-offset: 12px;
   }
 

@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const ball = nav.querySelector(".mobile-active-ball");
     const saddle = nav.querySelector(".mobile-nav-saddle");
 
-    if (!ball || !saddle || items.length === 0) return;
+    if (!ball || items.length === 0) return;
 
     const reduceMotionQuery = window.matchMedia
         ? window.matchMedia("(prefers-reduced-motion: reduce)")
         : null;
     const ICON_OUT_MS = 200;
-    const TRAVEL_MS = 420;
+    const TRAVEL_MS = 560;
     const ICON_IN_MS = 200;
     const NAVIGATION_DELAY_MS = ICON_OUT_MS + TRAVEL_MS + ICON_IN_MS;
     let currentActive = findActiveItem();
@@ -69,6 +69,21 @@ document.addEventListener("DOMContentLoaded", () => {
         phaseTimers = [];
     }
 
+    function colorForItem(item) {
+        const label = String(item?.getAttribute("aria-label") || "").toLowerCase();
+        const key = routeKeyFromHref(item?.getAttribute("href") || "");
+
+        if (label.includes("about") || label.includes("contact") || key === "about" || key === "contact") {
+            return "red";
+        }
+
+        if (label.includes("portfolio") || key === "portfolio") {
+            return "green";
+        }
+
+        return "black";
+    }
+
     function completeNavigation() {
         if (!pendingHref) {
             isNavigating = false;
@@ -105,17 +120,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!animate || prefersReducedMotion()) {
             ball.style.transition = "none";
-            saddle.style.transition = "none";
+            if (saddle) saddle.style.transition = "none";
         }
 
         ball.style.transform = `translateX(${centerOffsetFor(target, ball.offsetWidth)}px)`;
-        saddle.style.transform = `translateX(${centerOffsetFor(target, saddle.offsetWidth)}px)`;
+        ball.dataset.ballColor = colorForItem(target);
+
+        if (saddle) {
+            saddle.style.transform = `translateX(${centerOffsetFor(target, saddle.offsetWidth)}px)`;
+        }
 
         if (!animate || prefersReducedMotion()) {
             ball.offsetHeight;
-            saddle.offsetHeight;
+            if (saddle) saddle.offsetHeight;
             ball.style.transition = "";
-            saddle.style.transition = "";
+            if (saddle) saddle.style.transition = "";
         }
     }
 
