@@ -1270,6 +1270,10 @@
   display: none;
 }
 
+.portfolio-project-switcher {
+  display: none;
+}
+
 .portfolio-mobile-story__card {
   overflow: hidden;
 }
@@ -1486,7 +1490,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .portfolio-page .site-main {
     padding: 0;
     overflow: hidden;
@@ -1547,8 +1551,7 @@
   }
 
   .portfolio-project-toggles--workspace {
-    justify-content: flex-start;
-    overflow: visible;
+    display: none;
   }
 
   .portfolio-workspace__project-shell {
@@ -1557,6 +1560,104 @@
     margin: 0 auto 0.65rem;
     padding: 0.9rem 1rem;
     border-radius: 14px;
+  }
+
+  .portfolio-project-switcher {
+    position: relative;
+    display: block;
+  }
+
+  .portfolio-project-switcher__button {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    min-height: 48px;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid rgba(0, 107, 63, 0.18);
+    border-radius: 12px;
+    background: rgba(0, 107, 63, 0.08);
+    color: #1a1a1a;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+  }
+
+  .portfolio-project-switcher__button:focus-visible,
+  .portfolio-project-switcher__item:focus-visible {
+    outline: 2px solid rgba(0, 107, 63, 0.55);
+    outline-offset: 2px;
+  }
+
+  .portfolio-project-switcher__label,
+  .portfolio-project-switcher__item-label {
+    min-width: 0;
+    overflow: hidden;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .portfolio-project-switcher__chevron {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 1.5px solid #004d2d;
+    border-bottom: 1.5px solid #004d2d;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+
+  .portfolio-project-switcher__button[aria-expanded="true"] .portfolio-project-switcher__chevron {
+    transform: rotate(-135deg) translateY(-1px);
+  }
+
+  .portfolio-project-switcher__menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    z-index: 30;
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.45rem;
+    border: 1px solid rgba(222, 219, 211, 0.88);
+    border-radius: 14px;
+    background: rgba(251, 250, 249, 0.98);
+    box-shadow: 0 18px 32px rgba(26, 26, 26, 0.14);
+  }
+
+  .portfolio-project-switcher__menu.is-open {
+    display: flex;
+  }
+
+  .portfolio-project-switcher__item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 44px;
+    padding: 0.5rem 0.55rem;
+    border-radius: 10px;
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+
+  .portfolio-project-switcher__item.is-active,
+  .portfolio-project-switcher__item:hover {
+    background: rgba(0, 107, 63, 0.08);
+    color: #004d2d;
+  }
+
+  .portfolio-project-switcher__check {
+    width: 0.45rem;
+    height: 0.75rem;
+    border-right: 2px solid #004d2d;
+    border-bottom: 2px solid #004d2d;
+    transform: rotate(40deg) translateY(-1px);
   }
 
   .portfolio-project-toggles--workspace .portfolio-project-toggle {
@@ -1780,6 +1881,32 @@
   :root[data-theme="dark"] .portfolio-mobile-story__chapter-bar {
     border-color: rgba(255, 255, 255, 0.08);
     background: var(--page-bg);
+  }
+
+  :root[data-theme="dark"] .portfolio-project-switcher__button {
+    border-color: rgba(16, 207, 116, 0.22);
+    background: rgba(16, 207, 116, 0.08);
+    color: #e8edf3;
+  }
+
+  :root[data-theme="dark"] .portfolio-project-switcher__menu {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(18, 27, 24, 0.98);
+  }
+
+  :root[data-theme="dark"] .portfolio-project-switcher__item {
+    color: #e8edf3;
+  }
+
+  :root[data-theme="dark"] .portfolio-project-switcher__item.is-active,
+  :root[data-theme="dark"] .portfolio-project-switcher__item:hover {
+    background: rgba(16, 207, 116, 0.1);
+    color: #10cf74;
+  }
+
+  :root[data-theme="dark"] .portfolio-project-switcher__chevron,
+  :root[data-theme="dark"] .portfolio-project-switcher__check {
+    border-color: #10cf74;
   }
 
   :root[data-theme="dark"] .portfolio-mobile-story__chapter-title {

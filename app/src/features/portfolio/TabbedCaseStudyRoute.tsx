@@ -1,5 +1,6 @@
 import {
   CSSProperties,
+  KeyboardEvent as ReactKeyboardEvent,
   MouseEvent as ReactMouseEvent,
   useCallback,
   useEffect,
@@ -46,6 +47,7 @@ export function TabbedCaseStudyRoute({
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const mobileProjectSelectorRef = useRef<HTMLDivElement | null>(null);
   const activeSectionRef = useRef<HTMLDivElement | null>(null);
   const contentBodyRef = useRef<HTMLDivElement | null>(null);
   const mobileStoryRef = useRef<HTMLDivElement | null>(null);
@@ -56,6 +58,7 @@ export function TabbedCaseStudyRoute({
   const [navHovered, setNavHovered] = useState(false);
   const [windowOffset, setWindowOffset] = useState(0);
   const [isMobileStory, setIsMobileStory] = useState(false);
+  const [isMobileProjectMenuOpen, setIsMobileProjectMenuOpen] = useState(false);
   const [activeStoryState, setActiveStoryState] = useState({
     pageId: project.sections[0]?.pages[0]?.id ?? "",
     sectionId: project.sections[0]?.id ?? ""
@@ -165,11 +168,26 @@ export function TabbedCaseStudyRoute({
   }, []);
 
   useEffect(() => {
+    const handlePointerDown = (event: MouseEvent) => {
+      if (mobileProjectSelectorRef.current?.contains(event.target as Node)) {
+        return;
+      }
+
+      setIsMobileProjectMenuOpen(false);
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, []);
+
+  useEffect(() => {
     if (typeof window === "undefined") {
       return;
     }
 
-    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
     const syncMobileState = () => {
       setIsMobileStory(mediaQuery.matches);
     };
@@ -460,8 +478,20 @@ export function TabbedCaseStudyRoute({
     setOpenDropdownId((current) => (current === sectionId ? null : sectionId));
   };
 
-  const renderProjectSelector = () => (
-    <div className="portfolio-workspace__project-shell">
+  const handleMobileProjectKeyDown = (
+    event: ReactKeyboardEvent<HTMLDivElement>
+  ) => {
+    if (event.key === "Escape") {
+      setIsMobileProjectMenuOpen(false);
+    }
+  };
+
+  const renderProjectSelector = (showMobileSwitcher = false) => (
+    <div
+      className="portfolio-workspace__project-shell"
+      onKeyDown={handleMobileProjectKeyDown}
+      ref={showMobileSwitcher ? mobileProjectSelectorRef : undefined}
+    >
       <p className="portfolio-workspace__eyebrow">Case Studies</p>
       <div
         className="portfolio-project-toggles portfolio-project-toggles--workspace"
@@ -498,6 +528,82 @@ export function TabbedCaseStudyRoute({
           )
         ))}
       </div>
+
+      {showMobileSwitcher ? (
+      <div className="portfolio-project-switcher">
+        <button
+          aria-controls="portfolio-mobile-project-menu"
+          aria-expanded={isMobileProjectMenuOpen}
+          className="portfolio-project-switcher__button"
+          onClick={() => setIsMobileProjectMenuOpen((current) => !current)}
+          type="button"
+        >
+          <span className="portfolio-project-toggle__badge">
+            {project.badge}
+          </span>
+          <span className="portfolio-project-switcher__label">
+            {project.title}
+          </span>
+          <span
+            aria-hidden="true"
+            className="portfolio-project-switcher__chevron"
+          />
+        </button>
+
+        <div
+          className={`portfolio-project-switcher__menu ${isMobileProjectMenuOpen ? "is-open" : ""}`}
+          id="portfolio-mobile-project-menu"
+          role="menu"
+        >
+          {portfolioProjects.map((portfolioProject) => {
+            const isActive = portfolioProject.slug === project.slug;
+            const projectTitle =
+              portfolioProject.slug === "edumanage"
+                ? "EduManage"
+                : portfolioProject.title;
+            const itemClassName = `portfolio-project-switcher__item ${isActive ? "is-active" : ""}`;
+            const itemContent = (
+              <>
+                <span className="portfolio-project-toggle__badge">
+                  {portfolioProject.badge}
+                </span>
+                <span className="portfolio-project-switcher__item-label">
+                  {projectTitle}
+                </span>
+                {isActive ? (
+                  <span
+                    aria-hidden="true"
+                    className="portfolio-project-switcher__check"
+                  />
+                ) : null}
+              </>
+            );
+
+            return portfolioProject.slug === "edumanage" ? (
+              <a
+                className={itemClassName}
+                href="/edumanage.html"
+                key={portfolioProject.slug}
+                onClick={() => setIsMobileProjectMenuOpen(false)}
+                role="menuitem"
+              >
+                {itemContent}
+              </a>
+            ) : (
+              <Link
+                className={itemClassName}
+                key={portfolioProject.slug}
+                onClick={() => setIsMobileProjectMenuOpen(false)}
+                role="menuitem"
+                to={getPortfolioProjectHref(portfolioProject)}
+              >
+                {itemContent}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+      ) : null}
     </div>
   );
 
@@ -777,7 +883,7 @@ export function TabbedCaseStudyRoute({
 
         {isMobileStory ? (
         <section className="portfolio-mobile-story" aria-label={`${project.title} mobile story`}>
-          {renderProjectSelector()}
+          {renderProjectSelector(true)}
 
           <div
             className="portfolio-mobile-story__chapter-bar"
