@@ -7,3 +7,4 @@
 - Added mobile CSS for the new app-like case-study workspace.
 - Built and synced generated portfolio assets for `public/portfolio.html`.
 - Verified mobile and desktop behavior in local Chrome.
+- Removed the mobile story content card frame so the reading area flows as a full-width white surface below the chapter bar.
