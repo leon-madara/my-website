@@ -12,3 +12,4 @@
 - Refined the mobile chapter indicator to use a deep green treatment for number, title, and progress.
 - Added section-specific mobile colors so the active chapter indicator and matching in-content section label share the same color.
 - Fixed mobile deep-link scrolling so `/portfolio?section=problem&page=challenge` lands on the requested story section.
+- Simplified the mobile chapter/section accent to one uniform readable red.

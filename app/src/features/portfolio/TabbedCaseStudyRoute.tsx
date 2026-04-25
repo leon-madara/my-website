@@ -27,34 +27,15 @@ type MobileStorySectionStyle = CSSProperties & {
   "--mobile-section-track"?: string;
 };
 
-const mobileSectionColors: Record<string, { color: string; track: string }> = {
-  details: {
-    color: "#004d2d",
-    track: "rgba(0, 77, 45, 0.18)"
-  },
-  problem: {
-    color: "#8b1e2d",
-    track: "rgba(139, 30, 45, 0.18)"
-  },
-  goal: {
-    color: "#005f3a",
-    track: "rgba(0, 95, 58, 0.18)"
-  },
-  impact: {
-    color: "#006b3f",
-    track: "rgba(0, 107, 63, 0.18)"
-  }
+const mobileSectionAccent = {
+  color: "#a83246",
+  track: "rgba(168, 50, 70, 0.18)"
 };
 
-function getMobileSectionStyle(sectionId: string): MobileStorySectionStyle {
-  const sectionColor = mobileSectionColors[sectionId] ?? {
-    color: "#004d2d",
-    track: "rgba(0, 77, 45, 0.18)"
-  };
-
+function getMobileSectionStyle(): MobileStorySectionStyle {
   return {
-    "--mobile-section-color": sectionColor.color,
-    "--mobile-section-track": sectionColor.track
+    "--mobile-section-color": mobileSectionAccent.color,
+    "--mobile-section-track": mobileSectionAccent.track
   };
 }
 
@@ -131,7 +112,7 @@ export function TabbedCaseStudyRoute({
   );
   const activeStoryProgress =
     totalSections > 0 ? ((activeStorySectionIndex + 1) / totalSections) * 100 : 0;
-  const activeStorySectionStyle = getMobileSectionStyle(activeStorySection.id);
+  const activeStorySectionStyle = getMobileSectionStyle();
   const currentProjectIndex = portfolioProjects.findIndex(
     (portfolioProject) => portfolioProject.slug === project.slug
   );
@@ -852,7 +833,7 @@ export function TabbedCaseStudyRoute({
                   className="portfolio-mobile-story__section"
                   data-story-section={section.id}
                   key={section.id}
-                  style={getMobileSectionStyle(section.id)}
+                  style={getMobileSectionStyle()}
                 >
                   <span className="portfolio-content-card__section-label">
                     {section.label}

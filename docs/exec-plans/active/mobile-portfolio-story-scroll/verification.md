@@ -9,4 +9,5 @@
 - Follow-up Chrome check at 390px and 430px confirmed the mobile story surface bottom aligns with the viewport bottom, workspace bottom padding is `0px`, and the internal scroll area keeps bottom padding for safe scrolling.
 - Follow-up Chrome check at 390px confirmed the chapter count/title/progress fill use `rgb(0, 77, 45)` with a soft green progress track.
 - Follow-up Chrome check at `/portfolio?page=challenge&section=problem` confirmed the top `Problem` indicator, progress fill, and in-content `Problem` label all use `rgb(139, 30, 45)`, and the mobile story scroll lands on the requested section.
+- Follow-up Chrome checks at `/portfolio?page=architecture&section=development` and `/portfolio?page=challenge&section=problem` confirmed the chapter title, progress fill, and active content section label all use the same uniform red `rgb(168, 50, 70)`.
 - Full `npm run react:test` is currently blocked by unrelated failures in `MobileBottomNav`/`ResizeObserver` and `RoleSequence` expected copy.
