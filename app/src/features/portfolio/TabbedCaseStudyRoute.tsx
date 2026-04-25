@@ -1,4 +1,5 @@
 import {
+  CSSProperties,
   MouseEvent as ReactMouseEvent,
   useCallback,
   useEffect,
@@ -21,6 +22,42 @@ interface TabbedCaseStudyRouteProps {
   showEntrance?: boolean;
 }
 
+type MobileStorySectionStyle = CSSProperties & {
+  "--mobile-section-color"?: string;
+  "--mobile-section-track"?: string;
+};
+
+const mobileSectionColors: Record<string, { color: string; track: string }> = {
+  details: {
+    color: "#004d2d",
+    track: "rgba(0, 77, 45, 0.18)"
+  },
+  problem: {
+    color: "#8b1e2d",
+    track: "rgba(139, 30, 45, 0.18)"
+  },
+  goal: {
+    color: "#005f3a",
+    track: "rgba(0, 95, 58, 0.18)"
+  },
+  impact: {
+    color: "#006b3f",
+    track: "rgba(0, 107, 63, 0.18)"
+  }
+};
+
+function getMobileSectionStyle(sectionId: string): MobileStorySectionStyle {
+  const sectionColor = mobileSectionColors[sectionId] ?? {
+    color: "#004d2d",
+    track: "rgba(0, 77, 45, 0.18)"
+  };
+
+  return {
+    "--mobile-section-color": sectionColor.color,
+    "--mobile-section-track": sectionColor.track
+  };
+}
+
 export function TabbedCaseStudyRoute({
   project,
   showEntrance = false
@@ -32,6 +69,7 @@ export function TabbedCaseStudyRoute({
   const contentBodyRef = useRef<HTMLDivElement | null>(null);
   const mobileStoryRef = useRef<HTMLDivElement | null>(null);
   const lastMobileScrollKeyRef = useRef<string | null>(null);
+  const mobileObserverUpdateRef = useRef(false);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const [entranceReady, setEntranceReady] = useState(!showEntrance);
   const [navHovered, setNavHovered] = useState(false);
@@ -93,6 +131,7 @@ export function TabbedCaseStudyRoute({
   );
   const activeStoryProgress =
     totalSections > 0 ? ((activeStorySectionIndex + 1) / totalSections) * 100 : 0;
+  const activeStorySectionStyle = getMobileSectionStyle(activeStorySection.id);
   const currentProjectIndex = portfolioProjects.findIndex(
     (portfolioProject) => portfolioProject.slug === project.slug
   );
@@ -259,6 +298,11 @@ export function TabbedCaseStudyRoute({
       return;
     }
 
+    if (mobileObserverUpdateRef.current) {
+      mobileObserverUpdateRef.current = false;
+      return;
+    }
+
     const scrollKey = `${project.slug}:${resolvedState.section.id}:${resolvedState.page.id}`;
     if (lastMobileScrollKeyRef.current === scrollKey) {
       return;
@@ -272,7 +316,13 @@ export function TabbedCaseStudyRoute({
     target?.scrollIntoView({
       block: "start"
     });
-  }, [isMobileStory, location.pathname, project.slug]);
+  }, [
+    isMobileStory,
+    location.pathname,
+    project.slug,
+    resolvedState.page.id,
+    resolvedState.section.id
+  ]);
 
   useEffect(() => {
     const root = mobileStoryRef.current;
@@ -327,6 +377,7 @@ export function TabbedCaseStudyRoute({
         const currentSectionId = searchParams.get("section");
         const currentPageId = searchParams.get("page");
         if (currentSectionId !== sectionId || currentPageId !== pageId) {
+          mobileObserverUpdateRef.current = true;
           setSearchParams(
             {
               page: pageId,
@@ -747,7 +798,10 @@ export function TabbedCaseStudyRoute({
         <section className="portfolio-mobile-story" aria-label={`${project.title} mobile story`}>
           {renderProjectSelector()}
 
-          <div className="portfolio-mobile-story__chapter-bar">
+          <div
+            className="portfolio-mobile-story__chapter-bar"
+            style={activeStorySectionStyle}
+          >
             <div className="portfolio-mobile-story__chapter-meta">
               <span className="portfolio-mobile-story__chapter-count">
                 {activeStorySection.number} / {String(totalSections).padStart(2, "0")}
@@ -798,6 +852,7 @@ export function TabbedCaseStudyRoute({
                   className="portfolio-mobile-story__section"
                   data-story-section={section.id}
                   key={section.id}
+                  style={getMobileSectionStyle(section.id)}
                 >
                   <span className="portfolio-content-card__section-label">
                     {section.label}
