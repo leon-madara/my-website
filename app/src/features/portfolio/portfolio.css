@@ -1624,7 +1624,7 @@
 
   .portfolio-mobile-story__chapter-count {
     flex: 0 0 auto;
-    color: var(--kenyan-green);
+    color: #004d2d;
     font-family: "Inter", system-ui, sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
@@ -1633,10 +1633,10 @@
   .portfolio-mobile-story__chapter-title {
     min-width: 0;
     overflow: hidden;
-    color: #1a1a1a;
+    color: #004d2d;
     font-family: "Inter", system-ui, sans-serif;
     font-size: 0.84rem;
-    font-weight: 600;
+    font-weight: 700;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -1645,14 +1645,14 @@
     height: 3px;
     overflow: hidden;
     border-radius: 999px;
-    background: rgba(102, 102, 102, 0.22);
+    background: rgba(0, 77, 45, 0.18);
   }
 
   .portfolio-mobile-story__progress span {
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: var(--kenyan-green);
+    background: #004d2d;
     transition: width 0.24s ease;
   }
 
@@ -1778,7 +1778,19 @@
   }
 
   :root[data-theme="dark"] .portfolio-mobile-story__chapter-title {
-    color: #e8edf3;
+    color: #10cf74;
+  }
+
+  :root[data-theme="dark"] .portfolio-mobile-story__chapter-count {
+    color: #10cf74;
+  }
+
+  :root[data-theme="dark"] .portfolio-mobile-story__progress {
+    background: rgba(16, 207, 116, 0.22);
+  }
+
+  :root[data-theme="dark"] .portfolio-mobile-story__progress span {
+    background: #10cf74;
   }
 
   :root[data-theme="dark"] .portfolio-page .portfolio-mobile-story__card {
