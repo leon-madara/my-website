@@ -1075,9 +1075,10 @@
     max-width: none;
     height: auto;
     aspect-ratio: 0.7;
-    margin: 8.25rem auto 0;
+    margin: clamp(11.5rem, 27dvh, 12.5rem) auto 0;
     transform: none;
-    will-change: auto;
+    z-index: 2;
+    will-change: transform;
   }
 
   .hero-container {
@@ -1092,6 +1093,7 @@
     top: 164px;
     left: 0;
     right: 0;
+    z-index: 3;
     width: 100%;
     height: auto;
     padding: 0 20px;
