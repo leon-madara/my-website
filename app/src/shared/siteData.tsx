@@ -32,11 +32,9 @@ function PortfolioIcon(props: IconProps) {
 function ProcessIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <circle cx="6" cy="6" r="2" />
-      <circle cx="12" cy="12" r="2" />
-      <circle cx="18" cy="18" r="2" />
-      <path d="M7.5 7.5l3 3" />
-      <path d="M13.5 13.5l3 3" />
+      <circle cx="6" cy="18" r="1.6" fill="currentColor" />
+      <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+      <circle cx="18" cy="6" r="1.6" fill="currentColor" />
     </svg>
   );
 }

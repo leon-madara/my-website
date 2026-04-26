@@ -5,6 +5,9 @@ export default defineConfig({
   root: "app",
   publicDir: "public",
   plugins: [react()],
+  resolve: {
+    dedupe: ["react", "react-dom"]
+  },
   server: {
     host: "0.0.0.0",
     port: 5173

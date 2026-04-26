@@ -1,0 +1,15 @@
+# Verification
+
+- `npm run react:typecheck` passed.
+- Targeted portfolio tests passed with `npx vitest --config vitest.react.config.ts --run app/src/features/portfolio/PortfolioRoute.test.tsx app/src/features/portfolio/portfolioContent.test.ts`.
+- `npm run react:build` passed; Vite reported the existing large chunk warning.
+- Browser check with local Chrome against `http://localhost:3000/portfolio.html` passed at 390px and 430px: mobile story rendered, project selector stayed visible, internal story scroll worked, chapter indicator updated from `Project Details` through `Future Steps`, Back to top/Next project were present, and no horizontal overflow was detected.
+- Browser check at 1280px confirmed the desktop tabbed content card and section row still render, with no mobile story mounted.
+- Follow-up Chrome check at 390px and 430px confirmed the mobile story content surface has `0px` border, `0px` radius, no shadow, white background, no gap below the chapter divider, and no horizontal overflow.
+- Follow-up Chrome check at 390px and 430px confirmed the mobile story surface bottom aligns with the viewport bottom, workspace bottom padding is `0px`, and the internal scroll area keeps bottom padding for safe scrolling.
+- Follow-up Chrome check at 390px confirmed the chapter count/title/progress fill use `rgb(0, 77, 45)` with a soft green progress track.
+- Follow-up Chrome check at `/portfolio?page=challenge&section=problem` confirmed the top `Problem` indicator, progress fill, and in-content `Problem` label all use `rgb(139, 30, 45)`, and the mobile story scroll lands on the requested section.
+- Follow-up Chrome checks at `/portfolio?page=architecture&section=development` and `/portfolio?page=challenge&section=problem` confirmed the chapter title, progress fill, and active content section label all use the same uniform red `rgb(168, 50, 70)`.
+- Follow-up Chrome checks confirmed `390px` uses the mobile case-study dropdown with 3 project items, while `768px` iPad width and `1440px` desktop keep the horizontal project selector. No horizontal overflow was detected.
+- Follow-up Chrome checks at 390px confirmed the chapter marker renders as a grid book indicator, uses the `portfolio-mobile-book-open` animation, and cycles colors red, green, black, red across the first four sections.
+- Full `npm run react:test` is currently blocked by unrelated failures in `MobileBottomNav`/`ResizeObserver` and `RoleSequence` expected copy.

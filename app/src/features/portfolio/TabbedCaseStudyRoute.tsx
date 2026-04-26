@@ -1,4 +1,6 @@
 import {
+  CSSProperties,
+  KeyboardEvent as ReactKeyboardEvent,
   MouseEvent as ReactMouseEvent,
   useCallback,
   useEffect,
@@ -21,6 +23,36 @@ interface TabbedCaseStudyRouteProps {
   showEntrance?: boolean;
 }
 
+type MobileStorySectionStyle = CSSProperties & {
+  "--mobile-section-color"?: string;
+  "--mobile-section-track"?: string;
+};
+
+const mobileSectionAccentCycle = [
+  {
+    color: "#a83246",
+    track: "rgba(168, 50, 70, 0.2)"
+  },
+  {
+    color: "#004d2d",
+    track: "rgba(0, 77, 45, 0.18)"
+  },
+  {
+    color: "#1a1a1a",
+    track: "rgba(26, 26, 26, 0.16)"
+  }
+];
+
+function getMobileSectionStyle(sectionIndex: number): MobileStorySectionStyle {
+  const accent =
+    mobileSectionAccentCycle[sectionIndex % mobileSectionAccentCycle.length];
+
+  return {
+    "--mobile-section-color": accent.color,
+    "--mobile-section-track": accent.track
+  };
+}
+
 export function TabbedCaseStudyRoute({
   project,
   showEntrance = false
@@ -28,12 +60,22 @@ export function TabbedCaseStudyRoute({
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const mobileProjectSelectorRef = useRef<HTMLDivElement | null>(null);
   const activeSectionRef = useRef<HTMLDivElement | null>(null);
   const contentBodyRef = useRef<HTMLDivElement | null>(null);
+  const mobileStoryRef = useRef<HTMLDivElement | null>(null);
+  const lastMobileScrollKeyRef = useRef<string | null>(null);
+  const mobileObserverUpdateRef = useRef(false);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const [entranceReady, setEntranceReady] = useState(!showEntrance);
   const [navHovered, setNavHovered] = useState(false);
   const [windowOffset, setWindowOffset] = useState(0);
+  const [isMobileStory, setIsMobileStory] = useState(false);
+  const [isMobileProjectMenuOpen, setIsMobileProjectMenuOpen] = useState(false);
+  const [activeStoryState, setActiveStoryState] = useState({
+    pageId: project.sections[0]?.pages[0]?.id ?? "",
+    sectionId: project.sections[0]?.id ?? ""
+  });
 
   const WINDOW_SIZE = 5;
 
@@ -77,6 +119,27 @@ export function TabbedCaseStudyRoute({
     (section) => section.id === resolvedState.section.id
   );
   const totalSections = project.sections.length;
+  const activeStorySection =
+    project.sections.find((section) => section.id === activeStoryState.sectionId) ??
+    resolvedState.section;
+  const activeStorySectionIndex = Math.max(
+    project.sections.findIndex((section) => section.id === activeStorySection.id),
+    0
+  );
+  const activeStoryProgress =
+    totalSections > 0 ? ((activeStorySectionIndex + 1) / totalSections) * 100 : 0;
+  const activeStorySectionStyle = getMobileSectionStyle(activeStorySectionIndex);
+  const currentProjectIndex = portfolioProjects.findIndex(
+    (portfolioProject) => portfolioProject.slug === project.slug
+  );
+  const nextProject =
+    currentProjectIndex >= 0
+      ? portfolioProjects[(currentProjectIndex + 1) % portfolioProjects.length]
+      : portfolioProjects[0];
+  const nextProjectHref =
+    nextProject.slug === "edumanage"
+      ? "/edumanage.html"
+      : getPortfolioProjectHref(nextProject);
   const previousEntry = currentIndex > 0 ? flattenedPages[currentIndex - 1] : null;
   const nextEntry =
     currentIndex >= 0 && currentIndex < flattenedPages.length - 1
@@ -118,6 +181,39 @@ export function TabbedCaseStudyRoute({
   }, []);
 
   useEffect(() => {
+    const handlePointerDown = (event: MouseEvent) => {
+      if (mobileProjectSelectorRef.current?.contains(event.target as Node)) {
+        return;
+      }
+
+      setIsMobileProjectMenuOpen(false);
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const syncMobileState = () => {
+      setIsMobileStory(mediaQuery.matches);
+    };
+
+    syncMobileState();
+    mediaQuery.addEventListener("change", syncMobileState);
+
+    return () => {
+      mediaQuery.removeEventListener("change", syncMobileState);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       const isFormField =
@@ -154,6 +250,10 @@ export function TabbedCaseStudyRoute({
   }, [nextEntry, previousEntry, setSearchParams]);
 
   useEffect(() => {
+    if (isMobileStory) {
+      return;
+    }
+
     if (typeof window.scrollTo === "function") {
       try {
         window.scrollTo({ top: 0 });
@@ -161,24 +261,157 @@ export function TabbedCaseStudyRoute({
         // jsdom does not implement window scrolling.
       }
     }
-  }, [location.pathname, resolvedState.page.id, resolvedState.section.id]);
+  }, [
+    isMobileStory,
+    location.pathname,
+    resolvedState.page.id,
+    resolvedState.section.id
+  ]);
 
   useEffect(() => {
+    if (isMobileStory) {
+      return;
+    }
+
     if (!contentBodyRef.current) {
       return;
     }
 
     contentBodyRef.current.scrollTop = 0;
-  }, [location.pathname, resolvedState.page.id, resolvedState.section.id]);
+  }, [
+    isMobileStory,
+    location.pathname,
+    resolvedState.page.id,
+    resolvedState.section.id
+  ]);
 
   useEffect(() => {
+    if (isMobileStory) {
+      return;
+    }
+
     if (typeof activeSectionRef.current?.scrollIntoView === "function") {
       activeSectionRef.current.scrollIntoView({
         block: "nearest",
         inline: "center"
       });
     }
-  }, [resolvedState.section.id]);
+  }, [isMobileStory, resolvedState.section.id]);
+
+  useEffect(() => {
+    setActiveStoryState({
+      pageId: resolvedState.page.id,
+      sectionId: resolvedState.section.id
+    });
+  }, [project.slug, resolvedState.page.id, resolvedState.section.id]);
+
+  useEffect(() => {
+    if (!isMobileStory || !mobileStoryRef.current) {
+      return;
+    }
+
+    if (mobileObserverUpdateRef.current) {
+      mobileObserverUpdateRef.current = false;
+      return;
+    }
+
+    const scrollKey = `${project.slug}:${resolvedState.section.id}:${resolvedState.page.id}`;
+    if (lastMobileScrollKeyRef.current === scrollKey) {
+      return;
+    }
+
+    lastMobileScrollKeyRef.current = scrollKey;
+    const target = mobileStoryRef.current.querySelector<HTMLElement>(
+      `[data-story-page="${resolvedState.section.id}:${resolvedState.page.id}"]`
+    );
+
+    target?.scrollIntoView({
+      block: "start"
+    });
+  }, [
+    isMobileStory,
+    location.pathname,
+    project.slug,
+    resolvedState.page.id,
+    resolvedState.section.id
+  ]);
+
+  useEffect(() => {
+    const root = mobileStoryRef.current;
+    if (!isMobileStory || !root || typeof IntersectionObserver === "undefined") {
+      return;
+    }
+
+    const targets = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-story-page]")
+    );
+
+    if (targets.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => {
+            const rootTop = root.getBoundingClientRect().top;
+            return (
+              Math.abs(a.boundingClientRect.top - rootTop) -
+              Math.abs(b.boundingClientRect.top - rootTop)
+            );
+          });
+
+        const activeTarget = visibleEntries[0]?.target as HTMLElement | undefined;
+
+        if (!activeTarget) {
+          return;
+        }
+
+        const sectionId = activeTarget.dataset.storySection;
+        const pageId = activeTarget.dataset.storyPageId;
+
+        if (!sectionId || !pageId) {
+          return;
+        }
+
+        setActiveStoryState((current) => {
+          if (current.sectionId === sectionId && current.pageId === pageId) {
+            return current;
+          }
+
+          return {
+            pageId,
+            sectionId
+          };
+        });
+
+        const currentSectionId = searchParams.get("section");
+        const currentPageId = searchParams.get("page");
+        if (currentSectionId !== sectionId || currentPageId !== pageId) {
+          mobileObserverUpdateRef.current = true;
+          setSearchParams(
+            {
+              page: pageId,
+              section: sectionId
+            },
+            { replace: true }
+          );
+        }
+      },
+      {
+        root,
+        rootMargin: "-10% 0px -68% 0px",
+        threshold: [0, 0.2, 0.6, 1]
+      }
+    );
+
+    targets.forEach((target) => observer.observe(target));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isMobileStory, project.slug, searchParams, setSearchParams]);
 
   // Slide window only when active section falls outside the visible range
   useEffect(() => {
@@ -258,6 +491,155 @@ export function TabbedCaseStudyRoute({
     setOpenDropdownId((current) => (current === sectionId ? null : sectionId));
   };
 
+  const handleMobileProjectKeyDown = (
+    event: ReactKeyboardEvent<HTMLDivElement>
+  ) => {
+    if (event.key === "Escape") {
+      setIsMobileProjectMenuOpen(false);
+    }
+  };
+
+  const renderProjectSelector = (showMobileSwitcher = false) => (
+    <div
+      className="portfolio-workspace__project-shell"
+      onKeyDown={handleMobileProjectKeyDown}
+      ref={showMobileSwitcher ? mobileProjectSelectorRef : undefined}
+    >
+      <p className="portfolio-workspace__eyebrow">Case Studies</p>
+      <div
+        className="portfolio-project-toggles portfolio-project-toggles--workspace"
+        role="navigation"
+        aria-label="Portfolio projects"
+      >
+        {portfolioProjects.map((portfolioProject) => (
+          portfolioProject.slug === "edumanage" ? (
+            <a
+              className={`portfolio-project-toggle ${portfolioProject.slug === project.slug ? "is-active" : ""}`}
+              href="/edumanage.html"
+              key={portfolioProject.slug}
+            >
+              <span className="portfolio-project-toggle__badge">
+                {portfolioProject.badge}
+              </span>
+              <span className="portfolio-project-toggle__label">
+                EduManage
+              </span>
+            </a>
+          ) : (
+            <Link
+              className={`portfolio-project-toggle ${portfolioProject.slug === project.slug ? "is-active" : ""}`}
+              key={portfolioProject.slug}
+              to={getPortfolioProjectHref(portfolioProject)}
+            >
+              <span className="portfolio-project-toggle__badge">
+                {portfolioProject.badge}
+              </span>
+              <span className="portfolio-project-toggle__label">
+                {portfolioProject.title}
+              </span>
+            </Link>
+          )
+        ))}
+      </div>
+
+      {showMobileSwitcher ? (
+      <div className="portfolio-project-switcher">
+        <button
+          aria-controls="portfolio-mobile-project-menu"
+          aria-expanded={isMobileProjectMenuOpen}
+          className="portfolio-project-switcher__button"
+          onClick={() => setIsMobileProjectMenuOpen((current) => !current)}
+          type="button"
+        >
+          <span className="portfolio-project-toggle__badge">
+            {project.badge}
+          </span>
+          <span className="portfolio-project-switcher__label">
+            {project.title}
+          </span>
+          <span
+            aria-hidden="true"
+            className="portfolio-project-switcher__chevron"
+          />
+        </button>
+
+        <div
+          className={`portfolio-project-switcher__menu ${isMobileProjectMenuOpen ? "is-open" : ""}`}
+          id="portfolio-mobile-project-menu"
+          role="menu"
+        >
+          {portfolioProjects.map((portfolioProject) => {
+            const isActive = portfolioProject.slug === project.slug;
+            const projectTitle =
+              portfolioProject.slug === "edumanage"
+                ? "EduManage"
+                : portfolioProject.title;
+            const itemClassName = `portfolio-project-switcher__item ${isActive ? "is-active" : ""}`;
+            const itemContent = (
+              <>
+                <span className="portfolio-project-toggle__badge">
+                  {portfolioProject.badge}
+                </span>
+                <span className="portfolio-project-switcher__item-label">
+                  {projectTitle}
+                </span>
+                {isActive ? (
+                  <span
+                    aria-hidden="true"
+                    className="portfolio-project-switcher__check"
+                  />
+                ) : null}
+              </>
+            );
+
+            return portfolioProject.slug === "edumanage" ? (
+              <a
+                className={itemClassName}
+                href="/edumanage.html"
+                key={portfolioProject.slug}
+                onClick={() => setIsMobileProjectMenuOpen(false)}
+                role="menuitem"
+              >
+                {itemContent}
+              </a>
+            ) : (
+              <Link
+                className={itemClassName}
+                key={portfolioProject.slug}
+                onClick={() => setIsMobileProjectMenuOpen(false)}
+                role="menuitem"
+                to={getPortfolioProjectHref(portfolioProject)}
+              >
+                {itemContent}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+      ) : null}
+    </div>
+  );
+
+  const handleMobileBackToTop = () => {
+    const firstSection = project.sections[0];
+    const firstPage = firstSection?.pages[0];
+
+    mobileStoryRef.current?.scrollTo({
+      behavior: "smooth",
+      top: 0
+    });
+
+    if (firstSection && firstPage) {
+      setSearchParams(
+        {
+          page: firstPage.id,
+          section: firstSection.id
+        },
+        { replace: true }
+      );
+    }
+  };
+
   return (
     <section className="tabbed-case-study">
       {showEntrance ? (
@@ -278,44 +660,7 @@ export function TabbedCaseStudyRoute({
         <header className="portfolio-workspace__top-shell">
           <div aria-hidden="true" className="portfolio-workspace__indicator" />
           <div className="portfolio-workspace__nav-collapse">
-            <div className="portfolio-workspace__project-shell">
-              <p className="portfolio-workspace__eyebrow">Case Studies</p>
-              <div
-                className="portfolio-project-toggles portfolio-project-toggles--workspace"
-                role="navigation"
-                aria-label="Portfolio projects"
-              >
-                {portfolioProjects.map((portfolioProject) => (
-                  portfolioProject.slug === "edumanage" ? (
-                    <a
-                      className={`portfolio-project-toggle ${portfolioProject.slug === project.slug ? "is-active" : ""}`}
-                      href="/edumanage.html"
-                      key={portfolioProject.slug}
-                    >
-                      <span className="portfolio-project-toggle__badge">
-                        {portfolioProject.badge}
-                      </span>
-                      <span className="portfolio-project-toggle__label">
-                        EduManage
-                      </span>
-                    </a>
-                  ) : (
-                    <Link
-                      className={`portfolio-project-toggle ${portfolioProject.slug === project.slug ? "is-active" : ""}`}
-                      key={portfolioProject.slug}
-                      to={getPortfolioProjectHref(portfolioProject)}
-                    >
-                      <span className="portfolio-project-toggle__badge">
-                        {portfolioProject.badge}
-                      </span>
-                      <span className="portfolio-project-toggle__label">
-                        {portfolioProject.title}
-                      </span>
-                    </Link>
-                  )
-                ))}
-              </div>
-            </div>
+            {renderProjectSelector()}
           </div>
         </header>
 
@@ -548,6 +893,148 @@ export function TabbedCaseStudyRoute({
             </button>
           </footer>
         </article>
+
+        {isMobileStory ? (
+        <section className="portfolio-mobile-story" aria-label={`${project.title} mobile story`}>
+          {renderProjectSelector(true)}
+
+          <div
+            className="portfolio-mobile-story__chapter-bar"
+            style={activeStorySectionStyle}
+          >
+            <div className="portfolio-mobile-story__chapter-meta">
+              <span
+                aria-label={`Section ${activeStorySection.number} of ${String(totalSections).padStart(2, "0")}`}
+                className="portfolio-mobile-story__chapter-book"
+                key={activeStorySection.id}
+              >
+                <span className="portfolio-mobile-story__chapter-page">
+                  {activeStorySection.number}
+                </span>
+                <span className="portfolio-mobile-story__chapter-page">
+                  {String(totalSections).padStart(2, "0")}
+                </span>
+              </span>
+              <span className="portfolio-mobile-story__chapter-title">
+                {activeStorySection.label}
+              </span>
+            </div>
+            <div
+              aria-label="Case study section progress"
+              aria-valuemax={totalSections}
+              aria-valuemin={1}
+              aria-valuenow={activeStorySectionIndex + 1}
+              className="portfolio-mobile-story__progress"
+              role="progressbar"
+            >
+              <span style={{ width: `${activeStoryProgress}%` }} />
+            </div>
+          </div>
+
+          <article className="portfolio-mobile-story__card shell-card">
+            <div className="portfolio-mobile-story__scroll" ref={mobileStoryRef}>
+              <header className="portfolio-mobile-story__hero">
+                <span className="portfolio-status-badge">{project.status}</span>
+                <h1 className="portfolio-content-card__title">{project.title}</h1>
+                <p className="portfolio-content-card__tagline">{project.tagline}</p>
+                <div className="portfolio-tech-pills" role="list">
+                  {project.techStack.map((tech) => (
+                    <span className="portfolio-tech-pill" key={tech} role="listitem">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="portfolio-content-card__meta">
+                  <span>
+                    <strong>Timeline</strong>
+                    {project.timeline}
+                  </span>
+                  <span>
+                    <strong>Role</strong>
+                    {project.role}
+                  </span>
+                </div>
+              </header>
+
+              {project.sections.map((section, sectionIndex) => (
+                <section
+                  className="portfolio-mobile-story__section"
+                  data-story-section={section.id}
+                  key={section.id}
+                  style={getMobileSectionStyle(sectionIndex)}
+                >
+                  <span className="portfolio-content-card__section-label">
+                    {section.label}
+                  </span>
+                  {section.pages.map((page) => (
+                    <article
+                      className="portfolio-mobile-story__page"
+                      data-story-page={`${section.id}:${page.id}`}
+                      data-story-page-id={page.id}
+                      data-story-section={section.id}
+                      id={`mobile-${project.slug}-${section.id}-${page.id}`}
+                      key={page.id}
+                    >
+                      <h2 className="portfolio-content-card__page-title">
+                        {page.title}
+                      </h2>
+                      <div className="portfolio-content-card__copy">
+                        {page.body.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+
+                      {page.metrics ? (
+                        <div className="portfolio-metric-grid">
+                          {page.metrics.map((metric) => (
+                            <div className="portfolio-metric-card" key={`${page.id}-${metric.label}`}>
+                              <strong className="portfolio-metric-card__value">
+                                {metric.value}
+                              </strong>
+                              <span className="portfolio-metric-card__label">
+                                {metric.label}
+                              </span>
+                              {metric.description ? (
+                                <p className="portfolio-metric-card__description">
+                                  {metric.description}
+                                </p>
+                              ) : null}
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      {page.callouts ? (
+                        <div className="portfolio-callout-grid">
+                          {page.callouts.map((callout) => (
+                            <div className="portfolio-callout-card" key={`${page.id}-${callout.title}`}>
+                              <h4>{callout.title}</h4>
+                              <p>{callout.body}</p>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
+                    </article>
+                  ))}
+                </section>
+              ))}
+
+              <footer className="portfolio-mobile-story__footer">
+                <button
+                  className="portfolio-pagination-button"
+                  onClick={handleMobileBackToTop}
+                  type="button"
+                >
+                  Back to top
+                </button>
+                <a className="portfolio-pagination-button" href={nextProjectHref}>
+                  Next project
+                </a>
+              </footer>
+            </div>
+          </article>
+        </section>
+        ) : null}
       </div>
     </section>
   );

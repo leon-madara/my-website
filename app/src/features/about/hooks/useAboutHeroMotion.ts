@@ -26,13 +26,39 @@ export function useAboutHeroMotion(rootRef: RefObject<HTMLElement | null>) {
       return;
     }
 
-    // Keep mobile stacked hero stable (no slide/scale).
+    // Mobile keeps the title readable while the lion settles into a lower slot.
     const isMobile = window.innerWidth <= 768;
     if (isMobile) {
-      gsap.set(heroText, { clearProps: "opacity,transform,filter" });
+      gsap.set(heroText, { autoAlpha: 1, scale: 1, y: 0, filter: "none" });
       gsap.set(underline, { scaleX: 1 });
+      gsap.set(heroImageWrapper, {
+        x: 0,
+        y: "-7dvh",
+        scale: 0.82,
+        autoAlpha: 1,
+        transformOrigin: "50% 50%"
+      });
+
+      if (prefersReducedMotion) {
+        gsap.set(heroImageWrapper, { y: 0, scale: 1 });
+        return () => {
+          gsap.set(heroImageWrapper, { clearProps: "opacity,visibility,transform" });
+          gsap.set(heroText, { clearProps: "opacity,visibility,transform,filter" });
+          gsap.set(underline, { clearProps: "transform" });
+        };
+      }
+
+      const mobileTimeline = gsap.timeline({ defaults: { ease: "power2.out" } });
+      mobileTimeline.to(heroImageWrapper, {
+        y: 0,
+        scale: 1,
+        duration: 1.1
+      });
+
       return () => {
-        gsap.set(heroText, { clearProps: "opacity,transform,filter" });
+        mobileTimeline.kill();
+        gsap.set(heroImageWrapper, { clearProps: "opacity,visibility,transform" });
+        gsap.set(heroText, { clearProps: "opacity,visibility,transform,filter" });
         gsap.set(underline, { clearProps: "transform" });
       };
     }

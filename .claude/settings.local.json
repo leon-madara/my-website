@@ -10,7 +10,10 @@
       "mcp__ide__getDiagnostics",
       "Bash(dir \"C:\\Users\\Leon Madara\\Downloads\\Compressed\\ImageNavBar_3\\ImageNavBar\" /s /b)",
       "Bash(tree:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(xargs grep *)",
+      "Bash(npm install *)",
+      "mcp__Claude_Preview__preview_start"
     ],
     "deny": [],
     "ask": []
