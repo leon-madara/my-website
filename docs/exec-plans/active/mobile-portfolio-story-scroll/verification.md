@@ -11,4 +11,5 @@
 - Follow-up Chrome check at `/portfolio?page=challenge&section=problem` confirmed the top `Problem` indicator, progress fill, and in-content `Problem` label all use `rgb(139, 30, 45)`, and the mobile story scroll lands on the requested section.
 - Follow-up Chrome checks at `/portfolio?page=architecture&section=development` and `/portfolio?page=challenge&section=problem` confirmed the chapter title, progress fill, and active content section label all use the same uniform red `rgb(168, 50, 70)`.
 - Follow-up Chrome checks confirmed `390px` uses the mobile case-study dropdown with 3 project items, while `768px` iPad width and `1440px` desktop keep the horizontal project selector. No horizontal overflow was detected.
+- Follow-up Chrome checks at 390px confirmed the chapter marker renders as a grid book indicator, uses the `portfolio-mobile-book-open` animation, and cycles colors red, green, black, red across the first four sections.
 - Full `npm run react:test` is currently blocked by unrelated failures in `MobileBottomNav`/`ResizeObserver` and `RoleSequence` expected copy.

@@ -28,15 +28,28 @@ type MobileStorySectionStyle = CSSProperties & {
   "--mobile-section-track"?: string;
 };
 
-const mobileSectionAccent = {
-  color: "#a83246",
-  track: "rgba(168, 50, 70, 0.18)"
-};
+const mobileSectionAccentCycle = [
+  {
+    color: "#a83246",
+    track: "rgba(168, 50, 70, 0.2)"
+  },
+  {
+    color: "#004d2d",
+    track: "rgba(0, 77, 45, 0.18)"
+  },
+  {
+    color: "#1a1a1a",
+    track: "rgba(26, 26, 26, 0.16)"
+  }
+];
 
-function getMobileSectionStyle(): MobileStorySectionStyle {
+function getMobileSectionStyle(sectionIndex: number): MobileStorySectionStyle {
+  const accent =
+    mobileSectionAccentCycle[sectionIndex % mobileSectionAccentCycle.length];
+
   return {
-    "--mobile-section-color": mobileSectionAccent.color,
-    "--mobile-section-track": mobileSectionAccent.track
+    "--mobile-section-color": accent.color,
+    "--mobile-section-track": accent.track
   };
 }
 
@@ -115,7 +128,7 @@ export function TabbedCaseStudyRoute({
   );
   const activeStoryProgress =
     totalSections > 0 ? ((activeStorySectionIndex + 1) / totalSections) * 100 : 0;
-  const activeStorySectionStyle = getMobileSectionStyle();
+  const activeStorySectionStyle = getMobileSectionStyle(activeStorySectionIndex);
   const currentProjectIndex = portfolioProjects.findIndex(
     (portfolioProject) => portfolioProject.slug === project.slug
   );
@@ -890,8 +903,17 @@ export function TabbedCaseStudyRoute({
             style={activeStorySectionStyle}
           >
             <div className="portfolio-mobile-story__chapter-meta">
-              <span className="portfolio-mobile-story__chapter-count">
-                {activeStorySection.number} / {String(totalSections).padStart(2, "0")}
+              <span
+                aria-label={`Section ${activeStorySection.number} of ${String(totalSections).padStart(2, "0")}`}
+                className="portfolio-mobile-story__chapter-book"
+                key={activeStorySection.id}
+              >
+                <span className="portfolio-mobile-story__chapter-page">
+                  {activeStorySection.number}
+                </span>
+                <span className="portfolio-mobile-story__chapter-page">
+                  {String(totalSections).padStart(2, "0")}
+                </span>
               </span>
               <span className="portfolio-mobile-story__chapter-title">
                 {activeStorySection.label}
@@ -934,12 +956,12 @@ export function TabbedCaseStudyRoute({
                 </div>
               </header>
 
-              {project.sections.map((section) => (
+              {project.sections.map((section, sectionIndex) => (
                 <section
                   className="portfolio-mobile-story__section"
                   data-story-section={section.id}
                   key={section.id}
-                  style={getMobileSectionStyle()}
+                  style={getMobileSectionStyle(sectionIndex)}
                 >
                   <span className="portfolio-content-card__section-label">
                     {section.label}

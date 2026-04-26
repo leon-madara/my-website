@@ -14,3 +14,5 @@
 - Fixed mobile deep-link scrolling so `/portfolio?section=problem&page=challenge` lands on the requested story section.
 - Simplified the mobile chapter/section accent to one uniform readable red.
 - Replaced the cramped mobile case-study row with a dropdown switcher while preserving the horizontal selector on iPad and desktop.
+- Restyled the mobile subchapter indicator as a compact book marker with current/total pages.
+- Added a red, green, black accent cycle for the mobile chapter title, progress fill, and matching section labels.
