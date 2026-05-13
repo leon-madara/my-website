@@ -1,7 +1,10 @@
+/edumanage /edumanage.html 200
+/edumanage/ /edumanage.html 200
 /about /about.html 200
 /about/ /about.html 200
 /portfolio /portfolio.html 200
 /portfolio/ /portfolio.html 200
+/portfolio/* /portfolio.html 200
 /contact /contact.html 200
 /contact/ /contact.html 200
 /home /index.html 200

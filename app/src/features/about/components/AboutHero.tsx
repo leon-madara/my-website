@@ -19,13 +19,13 @@ export function AboutHero({ content }: AboutHeroProps) {
       </div>
       <div className="hero-container">
         <div className="hero-text-wrapper">
-          <div className="about-text-container">
+          <h1 className="about-text-container">
             <span className="about-text">{content.eyebrow}</span>
             <span className="name-text">
               {content.name}
               <span className="name-underline" />
             </span>
-          </div>
+          </h1>
         </div>
       </div>
       <div

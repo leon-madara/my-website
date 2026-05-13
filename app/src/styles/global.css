@@ -727,6 +727,57 @@ theme-toggle-landscape.react-theme-toggle {
   background: linear-gradient(135deg, rgba(16, 207, 116, 0.9) 0%, rgba(255, 51, 85, 0.9) 100%);
 }
 
+.availability-glass {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 3;
+  padding: 0.32rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(18px) saturate(1.08);
+}
+
+.availability-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.36rem 0.64rem;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 999px;
+  background: rgba(236, 244, 238, 0.72);
+  color: #237a58;
+  font-size: 0.75rem;
+  line-height: 1;
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.availability-pill__dot {
+  width: 0.58rem;
+  height: 0.58rem;
+  border-radius: 50%;
+  background: #47e18d;
+  box-shadow: 0 0 0 4px rgba(71, 225, 141, 0.18);
+}
+
+:root[data-theme="dark"] .availability-glass {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(20, 32, 29, 0.36);
+}
+
+:root[data-theme="dark"] .availability-pill {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(20, 32, 29, 0.72);
+  color: #7df0b6;
+}
+
 .sidebar-follow-button {
   position: absolute;
   top: 0.75rem;
@@ -758,18 +809,67 @@ theme-toggle-landscape.react-theme-toggle {
 .profile-section {
   position: absolute;
   bottom: 0;
-  left: 25%;
+  left: 50%;
   transform: translate(-50%, 50%);
   z-index: 10;
 }
 
+.experience-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 123px;
+  height: 123px;
+  border-radius: 50%;
+  box-shadow:
+    0 13px 32px rgba(0, 0, 0, 0.16),
+    0 0 24px rgba(71, 225, 141, 0.18);
+  overflow: hidden;
+}
+
+.experience-ring::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  z-index: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.experience-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0deg, #006b3f 0deg, #47e18d 88deg, #ce1126 190deg, rgba(255, 255, 255, 0.95) 234deg, rgba(255, 255, 255, 0.55) 360deg);
+  animation: experienceOrbit 7s linear infinite;
+}
+
 .profile-photo {
+  position: relative;
+  z-index: 2;
   width: 107px;
   height: 107px;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid #ffffff;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="dark"] .experience-ring {
+  box-shadow:
+    0 13px 32px rgba(0, 0, 0, 0.45),
+    0 0 24px rgba(16, 207, 116, 0.2);
+}
+
+:root[data-theme="dark"] .experience-ring::after {
+  background:
+    conic-gradient(from 0deg, #10cf74 0deg, #7df0b6 88deg, #ff3355 190deg, rgba(10, 14, 18, 0.95) 234deg, rgba(255, 255, 255, 0.12) 360deg);
+}
+
+:root[data-theme="dark"] .experience-ring::before {
+  background: #0a0e12;
 }
 
 :root[data-theme="dark"] .profile-photo {
@@ -1090,6 +1190,33 @@ theme-toggle-landscape.react-theme-toggle {
   opacity: 0;
 }
 
+.hero-intro-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0 auto 0.9rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+  color: rgba(26, 26, 26, 0.68);
+  font-family: "Enriqueta", serif;
+  font-size: 0.95rem;
+  line-height: 1;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(18px);
+  animation-delay: 0.08s;
+}
+
+:root[data-theme="dark"] .hero-intro-pill {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(20, 32, 29, 0.72);
+  color: #d8e2ec;
+}
+
 .description {
   max-width: 690px;
   margin: 0 auto 2rem;
@@ -1168,7 +1295,9 @@ theme-toggle-landscape.react-theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.6rem 1.2rem;
+  width: 12.5rem;
+  min-height: 3.15rem;
+  padding: 0.6rem 1.35rem;
   border: 1.6px solid transparent;
   border-radius: 999px;
   font-family: "Enriqueta", serif;
@@ -1181,25 +1310,36 @@ theme-toggle-landscape.react-theme-toggle {
     background-size 0.22s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: none;
+}
+
+.action-buttons .btn-primary::after {
+  content: none;
 }
 
 .btn-primary {
-  background-image:
-    linear-gradient(135deg, rgba(0, 107, 63, 0.85) 0%, rgba(179, 0, 0, 0.85) 100%),
-    linear-gradient(0deg, #006b3f, #006b3f);
-  background-size: 100% 100%, 0% 100%;
-  background-position: 0 0, 0 0;
-  background-repeat: no-repeat;
+  background:
+    linear-gradient(105deg, rgba(0, 107, 63, 0.94) 0%, rgba(35, 69, 50, 0.9) 48%, rgba(206, 17, 38, 0.94) 100%);
   color: #ffffff;
   border-color: transparent;
+  box-shadow:
+    0 15px 34px rgba(0, 107, 63, 0.24),
+    0 15px 34px rgba(206, 17, 38, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
 .btn-primary:hover,
 .btn-primary:focus-visible {
-  background-size: 100% 100%, 100% 100%;
   color: #ffffff;
   border-color: transparent;
+  box-shadow:
+    0 18px 42px rgba(0, 107, 63, 0.3),
+    0 18px 42px rgba(206, 17, 38, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  filter: saturate(1.14) brightness(1.05);
+  transform: none;
 }
 
 .btn-secondary {
@@ -1213,6 +1353,12 @@ theme-toggle-landscape.react-theme-toggle {
 .btn-secondary:focus-visible {
   background: #1a1a1a;
   color: #ffffff;
+  border-color: #1a1a1a;
+  box-shadow:
+    0 15px 34px rgba(26, 26, 26, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  filter: saturate(1.08) brightness(1.04);
+  transform: none;
 }
 
 .decorative-lines {
@@ -1239,6 +1385,113 @@ theme-toggle-landscape.react-theme-toggle {
 
 .line-green {
   background: #006b3f;
+}
+
+.home-tech-marquee {
+  position: fixed;
+  right: 0;
+  bottom: 45px;
+  left: 0;
+  z-index: 9;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.9rem 0 1rem;
+  background: transparent;
+  overflow: hidden;
+}
+
+.home-tech-marquee__label {
+  justify-self: center;
+  margin: 0;
+  padding: 0.32rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.32);
+  color: rgba(26, 26, 26, 0.62);
+  font-family: "Enriqueta", serif;
+  font-size: 0.82rem;
+  line-height: 1;
+  text-align: center;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.home-tech-marquee__viewport {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.home-tech-marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 1.25rem;
+  animation: techMarqueeLeftToRight 34s linear infinite;
+}
+
+.home-tech-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.6rem;
+  color: rgba(60, 65, 75, 0.78);
+  font-family: "Enriqueta", serif;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.home-tech-marquee__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.74);
+  color: #1a1a1a;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  box-shadow:
+    0 9px 22px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.home-tech-marquee__icon--cyan { color: #18a9d6; }
+.home-tech-marquee__icon--black { color: #111111; }
+.home-tech-marquee__icon--blue { color: #3178c6; }
+.home-tech-marquee__icon--yellow { color: #b68b00; }
+.home-tech-marquee__icon--green { color: #539e43; }
+.home-tech-marquee__icon--python { color: #356d9f; }
+.home-tech-marquee__icon--sky { color: #0ea5e9; }
+.home-tech-marquee__icon--postgres { color: #336791; }
+.home-tech-marquee__icon--openai { color: #111111; }
+.home-tech-marquee__icon--claude { color: #c15f3c; }
+.home-tech-marquee__icon--zen { color: #1c8f68; }
+.home-tech-marquee__icon--red { color: #ce1126; }
+.home-tech-marquee__icon--violet { color: #7c3aed; }
+.home-tech-marquee__icon--casa { color: #006b3f; }
+.home-tech-marquee__icon--github { color: #24292f; }
+.home-tech-marquee__icon--codex { color: #0f766e; }
+
+:root[data-theme="dark"] .home-tech-marquee {
+  background: transparent;
+}
+
+:root[data-theme="dark"] .home-tech-marquee__label,
+:root[data-theme="dark"] .home-tech-marquee__item {
+  color: rgba(232, 237, 243, 0.72);
+}
+
+:root[data-theme="dark"] .home-tech-marquee__label {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(20, 32, 29, 0.36);
+}
+
+:root[data-theme="dark"] .home-tech-marquee__icon {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(30, 39, 48, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .home-page .hero-organic-blobs {
@@ -1413,6 +1666,22 @@ theme-toggle-landscape.react-theme-toggle {
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes experienceOrbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes techMarqueeLeftToRight {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
   }
 }
 
@@ -1933,6 +2202,35 @@ theme-toggle-landscape.react-theme-toggle {
     left: 1rem;
     width: 240px;
   }
+
+  .availability-glass {
+    top: 0.65rem;
+    left: 0.65rem;
+    padding: 0.25rem;
+    border-radius: 1.05rem;
+  }
+
+  .availability-pill {
+    padding: 0.38rem 0.55rem;
+    font-size: 0.68rem;
+  }
+
+  .sidebar-follow-button {
+    top: 0.65rem;
+    right: 0.65rem;
+    padding: 0.42rem 0.7rem;
+    font-size: 0.72rem;
+  }
+
+  .experience-ring {
+    width: 101px;
+    height: 101px;
+  }
+
+  .profile-photo {
+    width: 87px;
+    height: 87px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -1943,6 +2241,22 @@ theme-toggle-landscape.react-theme-toggle {
   .pill-sidebar {
     left: 0.5rem;
     width: 220px;
+  }
+
+  .availability-glass {
+    max-width: 7.8rem;
+  }
+
+  .sidebar-follow-button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
 
@@ -2032,13 +2346,40 @@ theme-toggle-landscape.react-theme-toggle {
     display: none;
   }
 
+  .home-tech-marquee {
+    bottom: 88px;
+    gap: 0.5rem;
+    padding: 0.65rem 0;
+  }
+
+  .home-tech-marquee__label {
+    font-size: 0.74rem;
+  }
+
+  .home-tech-marquee__track {
+    gap: 0.95rem;
+    animation-duration: 28s;
+  }
+
+  .home-tech-marquee__item {
+    gap: 0.45rem;
+    font-size: 0.78rem;
+  }
+
+  .home-tech-marquee__icon {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.68rem;
+  }
+
   .home-page .site-main {
     padding: 0;
   }
 
   .hero-section {
+    align-items: flex-start;
     min-height: calc(var(--app-vh, 1vh) * 100);
-    padding: 118px 20px 110px;
+    padding: 102px 20px 172px;
   }
 
   .hero-content {
@@ -2047,33 +2388,51 @@ theme-toggle-landscape.react-theme-toggle {
 
   .greeting {
     margin-bottom: 0.6rem;
-    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    font-size: clamp(1.65rem, 8vw, 2.25rem);
+  }
+
+  .hero-intro-pill {
+    margin-bottom: 0.7rem;
+    font-size: 0.86rem;
   }
 
   .name {
-    margin-bottom: 1rem;
-    font-size: clamp(3.2rem, 15vw, 4.3rem);
+    margin-bottom: 0.75rem;
+    font-size: clamp(2.9rem, 13vw, 3.85rem);
     white-space: normal;
   }
 
   .role {
-    margin-bottom: 1.2rem;
-    font-size: clamp(1.45rem, 6vw, 2rem);
+    margin-bottom: 0.95rem;
+    font-size: clamp(1.32rem, 5.4vw, 1.75rem);
   }
 
   .description {
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
+    margin-bottom: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .location-container {
+    margin-top: 0.25rem;
+    padding: 0.35rem 0.8rem;
+  }
+
+  .location {
+    font-size: 0.72rem;
   }
 
   .action-buttons {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
   }
 
   .btn-primary,
   .btn-secondary {
     width: 100%;
+    min-height: 2.75rem;
   }
 
   .decorative-shapes {
@@ -2106,7 +2465,9 @@ theme-toggle-landscape.react-theme-toggle {
   .shape,
   .hero-organic-blob,
   .location-pin,
-  .pulse-ring {
+  .pulse-ring,
+  .experience-ring::after,
+  .home-tech-marquee__track {
     animation: none !important;
   }
 

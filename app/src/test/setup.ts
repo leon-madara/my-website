@@ -50,6 +50,30 @@ Object.defineProperty(window, "IntersectionObserver", {
   value: MockIntersectionObserver
 });
 
+class MockResizeObserver {
+  observe() {
+    return undefined;
+  }
+
+  unobserve() {
+    return undefined;
+  }
+
+  disconnect() {
+    return undefined;
+  }
+}
+
+Object.defineProperty(window, "ResizeObserver", {
+  writable: true,
+  value: MockResizeObserver
+});
+
+Object.defineProperty(globalThis, "ResizeObserver", {
+  writable: true,
+  value: MockResizeObserver
+});
+
 Object.defineProperty(globalThis, "IntersectionObserver", {
   writable: true,
   value: MockIntersectionObserver

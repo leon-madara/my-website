@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /MARKDOWN/
+Disallow: /portfolio_build/
+Disallow: /ImageNavBar_v5/
+Disallow: /Toggle-Switch/
 
 Sitemap: https://my-website-9fg.pages.dev/sitemap.xml

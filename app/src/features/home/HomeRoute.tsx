@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { siteConfig } from "../../siteConfig";
 import { HeroOrganicBlobs } from "./HeroOrganicBlobs";
+import { HomeTechMarquee } from "./HomeTechMarquee";
 import { RoleSequence } from "./RoleSequence";
 import { useHomeViewportLock } from "./useHomeViewportLock";
 
@@ -30,17 +31,27 @@ export function HomeRoute() {
   return (
     <>
       <Helmet>
-        <title>Leon Madara — Full Stack AI Developer &amp; Designer</title>
+        <title>Leon Madara - Full Stack AI Developer &amp; Designer</title>
         <meta name="description" content="Full Stack AI Developer &amp; Designer based in Nairobi. Building web products, AI integrations, and data-driven interfaces." />
         <link rel="canonical" href={`${siteConfig.baseUrl}/`} />
-        <meta property="og:title" content="Leon Madara — Full Stack AI Developer &amp; Designer" />
+        <meta property="og:title" content="Leon Madara - Full Stack AI Developer &amp; Designer" />
         <meta property="og:description" content="Full Stack AI Developer &amp; Designer based in Nairobi. Building web products, AI integrations, and data-driven interfaces." />
         <meta property="og:url" content={`${siteConfig.baseUrl}/`} />
+        <meta property="og:image" content={siteConfig.defaultImage} />
+        <meta property="og:image:alt" content={siteConfig.defaultImageAlt} />
+        <meta name="twitter:title" content="Leon Madara - Full Stack AI Developer &amp; Designer" />
+        <meta name="twitter:description" content="Full Stack AI Developer &amp; Designer based in Nairobi. Building web products, AI integrations, and data-driven interfaces." />
+        <meta name="twitter:image" content={siteConfig.defaultImage} />
+        <meta name="twitter:image:alt" content={siteConfig.defaultImageAlt} />
         <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
       </Helmet>
       <div className="page-content page-content--home">
       <section aria-label="Hero introduction" className="hero-section">
         <div className="hero-content">
+          <p className="hero-intro-pill">
+            <span aria-hidden="true">👋</span>
+            <span>Hi there</span>
+          </p>
           <p className="greeting">Hi, I&apos;m</p>
           <h1 className="name">Leon Madara</h1>
           <RoleSequence />
@@ -84,6 +95,7 @@ export function HomeRoute() {
           <div className="shape shape-3" />
         </div>
       </section>
+      <HomeTechMarquee />
     </div>
     </>
   );

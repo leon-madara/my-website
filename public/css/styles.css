@@ -3725,7 +3725,12 @@ main.landing-page {
 
 .btn-primary,
 .btn-secondary {
-    padding: 0.6rem 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12.5rem;
+    min-height: 3.15rem;
+    padding: 0.6rem 1.35rem;
     font-family: "Enriqueta", serif;
     font-size: 0.8rem;
     font-weight: 600;
@@ -3736,9 +3741,17 @@ main.landing-page {
         background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
         background-size 0.22s cubic-bezier(0.4, 0, 0.2, 1),
         color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-        border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: 1.6px solid transparent;
+    transform: none;
+    -webkit-transform: none;
+}
+
+.action-buttons .btn-primary::after {
+    content: none;
 }
 
 .btn-primary {
@@ -3750,12 +3763,21 @@ main.landing-page {
     background-repeat: no-repeat;
     color: #ffffff;
     border-color: transparent;
+    box-shadow:
+        0 15px 34px rgba(0, 107, 63, 0.22),
+        0 15px 34px rgba(179, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
 .btn-primary:hover {
     background-size: 100% 100%, 100% 100%;
     color: #ffffff;
     border-color: transparent;
+    box-shadow:
+        0 18px 42px rgba(0, 107, 63, 0.3),
+        0 18px 42px rgba(179, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    filter: saturate(1.14) brightness(1.05);
     transform: none;
     -webkit-transform: none;
 }
@@ -3777,6 +3799,11 @@ main.landing-page {
 .btn-secondary:hover {
     background: #1a1a1a;
     color: #ffffff;
+    border-color: #1a1a1a;
+    box-shadow:
+        0 15px 34px rgba(26, 26, 26, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    filter: saturate(1.08) brightness(1.04);
     transform: none;
     -webkit-transform: none;
 }

@@ -261,12 +261,18 @@ export function DesignProcessRoute() {
   return (
     <>
     <Helmet>
-      <title>Design Process — Leon Madara</title>
+      <title>Design Process - Leon Madara</title>
       <meta name="description" content="How Leon Madara approaches product design: client clarity, visual direction, research-led wireframing, and AI-assisted execution." />
       <link rel="canonical" href={`${siteConfig.baseUrl}/design-process`} />
-      <meta property="og:title" content="Design Process — Leon Madara" />
+      <meta property="og:title" content="Design Process - Leon Madara" />
       <meta property="og:description" content="How Leon Madara approaches product design: client clarity, visual direction, research-led wireframing, and AI-assisted execution." />
       <meta property="og:url" content={`${siteConfig.baseUrl}/design-process`} />
+      <meta property="og:image" content={siteConfig.defaultImage} />
+      <meta property="og:image:alt" content={siteConfig.defaultImageAlt} />
+      <meta name="twitter:title" content="Design Process - Leon Madara" />
+      <meta name="twitter:description" content="How Leon Madara approaches product design: client clarity, visual direction, research-led wireframing, and AI-assisted execution." />
+      <meta name="twitter:image" content={siteConfig.defaultImage} />
+      <meta name="twitter:image:alt" content={siteConfig.defaultImageAlt} />
     </Helmet>
     <div className="page-content page-content--design-process">
       {/* ─── 1. HERO ─── */}
@@ -275,7 +281,7 @@ export function DesignProcessRoute() {
         <div className="dp-hero-content">
           <div className="dp-hero-text">
             <h1 className="dp-hero-title">
-              <span>My Design</span>
+              <span>My Design </span>
               <span>Process</span>
             </h1>
             <p className="dp-hero-subtitle">

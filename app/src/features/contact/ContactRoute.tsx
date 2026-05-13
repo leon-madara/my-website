@@ -202,12 +202,18 @@ export function ContactRoute() {
   return (
     <>
     <Helmet>
-      <title>Contact — Leon Madara</title>
+      <title>Contact - Leon Madara</title>
       <meta name="description" content="Start a project with Leon Madara. Available for web development, AI integration, and product design engagements from Nairobi." />
       <link rel="canonical" href={`${siteConfig.baseUrl}/contact`} />
-      <meta property="og:title" content="Contact — Leon Madara" />
+      <meta property="og:title" content="Contact - Leon Madara" />
       <meta property="og:description" content="Start a project with Leon Madara. Available for web development, AI integration, and product design engagements from Nairobi." />
       <meta property="og:url" content={`${siteConfig.baseUrl}/contact`} />
+      <meta property="og:image" content={siteConfig.defaultImage} />
+      <meta property="og:image:alt" content={siteConfig.defaultImageAlt} />
+      <meta name="twitter:title" content="Contact - Leon Madara" />
+      <meta name="twitter:description" content="Start a project with Leon Madara. Available for web development, AI integration, and product design engagements from Nairobi." />
+      <meta name="twitter:image" content={siteConfig.defaultImage} />
+      <meta name="twitter:image:alt" content={siteConfig.defaultImageAlt} />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
     </Helmet>
     <div className={styles.page}>
@@ -235,7 +241,7 @@ export function ContactRoute() {
           <div className={styles.heroContent}>
             <div className={styles.heroText}>
               <h1 className={styles.heroTitle}>
-                <span className={styles.titleLine}>Let&apos;s Build</span>
+                <span className={styles.titleLine}>Let&apos;s Build </span>
                 <span className={`${styles.titleLine} kenyan-gradient`}>Something Worth Shipping</span>
               </h1>
               <p className={styles.heroDescription}>

@@ -13,7 +13,18 @@
       "Bash(del nul)",
       "Bash(xargs grep *)",
       "Bash(npm install *)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(netstat -ano)",
+      "Bash(findstr \"5173 8080\")",
+      "Bash(findstr LISTEN)",
+      "Bash(ls \"C:\\\\Users\\\\Leon Madara\\\\Dev Mode\\\\process-unfolded\" 2>&1 | head -30)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8080/design-process)",
+      "Bash(curl -s \"http://localhost:8080/src/styles.css?direct\")",
+      "Bash(curl -s \"http://localhost:8080/design-process\")",
+      "Bash(grep -oE \"shadow-\\\\[[^\\\\\"\\\\\\\\\\\\\\\\]*\\\\]\")",
+      "Bash(curl -s \"http://localhost:8080/design-process\" -o /tmp/page.html)",
+      "Bash(awk '/^\\\\.dp-gates-showcase \\\\{/,/^\\\\}/')",
+      "Bash(awk '/^\\\\.dp-typography-card \\\\{/,/^\\\\}/')"
     ],
     "deny": [],
     "ask": []

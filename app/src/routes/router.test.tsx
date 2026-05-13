@@ -43,7 +43,9 @@ describe("AppLayout", () => {
       </ThemeProvider>
     );
 
-    expect(container.querySelector("theme-toggle-landscape")).toBeInTheDocument();
+    expect(screen.getByTestId("react-theme-toggle").tagName.toLowerCase()).toBe(
+      "button"
+    );
   });
 
   it("renders the landscape theme toggle on contact", () => {
@@ -55,6 +57,8 @@ describe("AppLayout", () => {
       </ThemeProvider>
     );
 
-    expect(container.querySelector("theme-toggle-landscape")).toBeInTheDocument();
+    expect(screen.getByTestId("react-theme-toggle").tagName.toLowerCase()).toBe(
+      "button"
+    );
   });
 });

@@ -191,6 +191,45 @@ body.dark-theme .theme-icon.dark-icon {
     opacity: 1;
 }
 
+@media (max-width: 768px) {
+    body.about-page {
+        --about-mobile-header-top: 10px;
+        --about-mobile-header-height: 82px;
+        --about-mobile-logo-size: 64px;
+        --about-mobile-toggle-size: 70px;
+    }
+
+    body.about-page .header-logo {
+        top: calc(var(--about-mobile-header-top) + ((var(--about-mobile-header-height) - var(--about-mobile-logo-size)) / 2));
+        left: 20px;
+        width: var(--about-mobile-logo-size);
+        height: var(--about-mobile-logo-size);
+        padding: 0;
+    }
+
+    body.about-page .theme-toggle {
+        top: calc(var(--about-mobile-header-top) + ((var(--about-mobile-header-height) - var(--about-mobile-toggle-size)) / 2)) !important;
+        right: 20px !important;
+        width: var(--about-mobile-toggle-size) !important;
+        height: var(--about-mobile-toggle-size) !important;
+    }
+}
+
+@media (max-width: 400px) {
+    body.about-page {
+        --about-mobile-logo-size: 48px;
+        --about-mobile-toggle-size: 56px;
+    }
+
+    body.about-page .header-logo {
+        left: 15px;
+    }
+
+    body.about-page .theme-toggle {
+        right: 15px !important;
+    }
+}
+
 /* ========================================
    GREEN SECTION (0vw to 20vw)
    ======================================== */
@@ -283,6 +322,7 @@ body.dark-theme .theme-icon.dark-icon {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    margin: 0;
     opacity: 0;
 }
 

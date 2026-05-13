@@ -51,19 +51,35 @@ export function PortfolioRoute() {
     : "tabbed-case-study";
 
   const pageTitle = project?.title
-    ? `${project.title} — Leon Madara`
-    : "Portfolio — Leon Madara";
-  const canonicalPath = projectSlug ? `/portfolio/${projectSlug}` : "/portfolio";
+    ? project.seo.title.replace(" | ", " - ")
+    : "Portfolio - Leon Madara";
+  const routeDescription = project?.seo.description
+    ?? "Case studies in full-stack development, AI integration, and product design. Built with React, TypeScript, and Supabase.";
+  const isMissingProject = Boolean(projectSlug && !project);
+  const canonicalPath = isMissingProject
+    ? "/portfolio"
+    : project?.slug === "edumanage"
+      ? "/edumanage"
+      : projectSlug
+        ? `/portfolio/${projectSlug}`
+        : "/portfolio";
 
   return (
     <div className={`portfolio-route ${routeVariantClass}`}>
       <Helmet>
         <title>{pageTitle}</title>
-        <meta name="description" content="Case studies in full-stack development, AI integration, and product design. Built with React, TypeScript, and Supabase." />
+        <meta name="description" content={routeDescription} />
         <link rel="canonical" href={`${siteConfig.baseUrl}${canonicalPath}`} />
         <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content="Case studies in full-stack development, AI integration, and product design. Built with React, TypeScript, and Supabase." />
+        <meta property="og:description" content={routeDescription} />
         <meta property="og:url" content={`${siteConfig.baseUrl}${canonicalPath}`} />
+        <meta property="og:image" content={siteConfig.defaultImage} />
+        <meta property="og:image:alt" content={siteConfig.defaultImageAlt} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={routeDescription} />
+        <meta name="twitter:image" content={siteConfig.defaultImage} />
+        <meta name="twitter:image:alt" content={siteConfig.defaultImageAlt} />
+        {isMissingProject ? <meta name="robots" content="noindex, follow" /> : null}
       </Helmet>
       <PortfolioBackground variant={backgroundVariant} />
 

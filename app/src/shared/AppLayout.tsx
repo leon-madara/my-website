@@ -1,6 +1,8 @@
 import { useLayoutEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Outlet, useLocation } from "react-router-dom";
 import { useReducedMotion } from "../hooks/useReducedMotion";
+import { siteConfig } from "../siteConfig";
 import { DecorativeBackground } from "./DecorativeBackground";
 import { HeaderLogo } from "./HeaderLogo";
 import { MobileBottomNav } from "./MobileBottomNav";
@@ -53,6 +55,19 @@ export function AppLayout() {
           : "app-shell"
       }
     >
+      <Helmet>
+        <meta name="author" content={siteConfig.name} />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#006b3f" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={siteConfig.name} />
+        <meta property="og:locale" content="en_KE" />
+        <meta property="og:image:secure_url" content={siteConfig.defaultImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content={siteConfig.twitterHandle} />
+      </Helmet>
       <HeaderLogo />
       <PrimaryNav />
       <ThemeToggle />

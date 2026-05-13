@@ -10,6 +10,7 @@ describe("HomeRoute", () => {
       </MemoryRouter>
     );
 
+    expect(screen.getByText(/hi there/i)).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { level: 1, name: /leon madara/i })
     ).toBeInTheDocument();
@@ -28,5 +29,10 @@ describe("HomeRoute", () => {
       "/contact"
     );
     expect(screen.getByText(/nairobi, kenya/i)).toBeInTheDocument();
+    expect(screen.getAllByText("React")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Next.js")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("OpenAI")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Claude Code")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Codex")[0]).toBeInTheDocument();
   });
 });

@@ -99,12 +99,6 @@ export const PixelImage = ({
 
   return (
     <div className="dp-pixel-image" aria-hidden="true">
-      <img
-        src={src}
-        alt=""
-        className="dp-pixel-image__base"
-        draggable={false}
-      />
       {pieces.map((piece, index) => (
         <div
           key={index}

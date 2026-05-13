@@ -19,12 +19,18 @@ export function AboutRoute() {
   return (
     <>
       <Helmet>
-        <title>About — Leon Madara</title>
+        <title>About - Leon Madara</title>
         <meta name="description" content="Over a decade of experience in web development, data analysis, and UI/UX design. Based in Nairobi, Kenya. Founder of Code by Leon." />
         <link rel="canonical" href={`${siteConfig.baseUrl}/about`} />
-        <meta property="og:title" content="About — Leon Madara" />
+        <meta property="og:title" content="About - Leon Madara" />
         <meta property="og:description" content="Over a decade of experience in web development, data analysis, and UI/UX design. Based in Nairobi, Kenya. Founder of Code by Leon." />
         <meta property="og:url" content={`${siteConfig.baseUrl}/about`} />
+        <meta property="og:image" content={siteConfig.defaultImage} />
+        <meta property="og:image:alt" content={siteConfig.defaultImageAlt} />
+        <meta name="twitter:title" content="About - Leon Madara" />
+        <meta name="twitter:description" content="Over a decade of experience in web development, data analysis, and UI/UX design. Based in Nairobi, Kenya. Founder of Code by Leon." />
+        <meta name="twitter:image" content={siteConfig.defaultImage} />
+        <meta name="twitter:image:alt" content={siteConfig.defaultImageAlt} />
       </Helmet>
       <AboutPage contentClassName={contentClassName} rootRef={rootRef} />
     </>

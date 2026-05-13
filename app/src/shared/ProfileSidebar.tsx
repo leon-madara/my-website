@@ -22,6 +22,13 @@ export function ProfileSidebar() {
       role="complementary"
     >
       <header className="sidebar-header">
+        <div className="availability-glass">
+          <div className="availability-pill">
+            <span aria-hidden="true" className="availability-pill__dot" />
+            <span>Available for work</span>
+          </div>
+        </div>
+
         <button
           aria-label="Follow Leon Madara"
           aria-pressed={isFollowing}
@@ -54,29 +61,20 @@ export function ProfileSidebar() {
         </button>
 
         <div className="profile-section">
-          <img
-            alt="Leon Madara"
-            className="profile-photo"
-            src="/images/Leon.jpg"
-          />
-        </div>
-
-        <div
-          aria-label="Experience level"
-          className="experience-bar"
-          role="group"
-        >
-          <span aria-hidden="true" className="exp-label">
-            exp.
-          </span>
           <div
             aria-label="Experience: 65%"
             aria-valuemax={100}
             aria-valuemin={0}
             aria-valuenow={65}
-            className="progress-bar"
+            className="experience-ring"
             role="progressbar"
-          />
+          >
+            <img
+              alt="Leon Madara"
+              className="profile-photo"
+              src="/images/Leon.jpg"
+            />
+          </div>
           <span className="sr-only">Experience level: 65%</span>
         </div>
       </header>

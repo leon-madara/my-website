@@ -1,0 +1,33 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/images/*
+  Cache-Control: public, max-age=604800
+
+/css/*
+  Cache-Control: public, max-age=604800
+
+/js/*
+  Cache-Control: public, max-age=604800
+
+/debug-portfolio.html
+  X-Robots-Tag: noindex, nofollow
+
+/test-*
+  X-Robots-Tag: noindex, nofollow
+
+/profile-card.html
+  X-Robots-Tag: noindex, nofollow
+
+/MARKDOWN/*
+  X-Robots-Tag: noindex, nofollow
+
+/portfolio_build/*
+  X-Robots-Tag: noindex, nofollow
+
+/ImageNavBar_v5/*
+  X-Robots-Tag: noindex, nofollow
+
+/Toggle-Switch/*
+  X-Robots-Tag: noindex, nofollow
