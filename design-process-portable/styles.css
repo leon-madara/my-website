@@ -1,23 +1,40 @@
+/*
+ * Design Process Page — Portable Stylesheet
+ *
+ * Import this CSS in your app entry point or layout:
+ *   import "./design-process-portable/styles.css";
+ *
+ * This file contains:
+ *   1. Google Fonts imports (Fraunces, Inter, JetBrains Mono, Space Mono)
+ *   2. Custom @font-face declarations (EarlyQuake, Organical)
+ *   3. All dp-* design tokens and component styles
+ *
+ * NOTE: Tailwind utility classes used in the components (flex, grid, p-*, etc.)
+ *       must come from YOUR project's Tailwind setup.
+ *
+ * Font paths assume this folder structure:
+ *   design-process-portable/
+ *     styles.css          (this file)
+ *     assets/fonts/       (custom font files)
+ */
+
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Mono:wght@400;700&display=swap");
-@import "tailwindcss";
-@source "../../components/design-process/**/*.tsx";
-@source "./DesignProcessRoute.tsx";
 
 @font-face {
   font-family: "EarlyQuake";
-  src: url("../../assets/fonts/early-quake-demo.regular.otf") format("opentype");
+  src: url("./assets/fonts/early-quake-demo.regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "Organical";
-  src: url("../../assets/fonts/organical-personal-use.bold-italic.ttf") format("truetype");
+  src: url("./assets/fonts/organical-personal-use.bold-italic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
+@import "tailwindcss" source(none);
 
 /* =========================================================
  * Design Process page â€” scoped tokens & utilities

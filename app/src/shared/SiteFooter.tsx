@@ -3,13 +3,14 @@ import { useLocation } from "react-router-dom";
 export function SiteFooter() {
   const location = useLocation();
   const isContact = location.pathname === "/contact";
+  const isDesignProcess = location.pathname === "/design-process";
 
   if (location.pathname.startsWith("/portfolio")) {
     return null;
   }
 
   return (
-    <footer className="footer">
+    <footer className={isDesignProcess ? "footer footer--design-process" : "footer"}>
       <div className="footer-container">
         <p className="footer-text">
           {isContact

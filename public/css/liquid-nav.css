@@ -936,12 +936,15 @@ html body .header-logo {
         padding: 0 16px;
         box-sizing: border-box;
         overflow: visible;
-        background: #ffffff;
-        border: 1px solid rgba(35, 38, 60, 0.08);
+        background: rgba(255, 255, 255, 0.42);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        backdrop-filter: blur(28px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.52);
         border-radius: 32px 32px 20px 20px;
         box-shadow:
-            0 24px 40px -18px rgba(60, 70, 48, 0.2),
-            0 8px 20px -8px rgba(48, 39, 28, 0.12);
+            0 24px 40px -18px rgba(60, 70, 48, 0.28),
+            0 8px 20px -8px rgba(48, 39, 28, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.44);
         isolation: isolate;
     }
 
@@ -950,8 +953,9 @@ html body .header-logo {
         position: absolute;
         inset: 4px;
         z-index: 0;
-        border: 1px solid rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.58);
         border-radius: 28px 28px 16px 16px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.08) 48%, rgba(255, 255, 255, 0.24));
         box-shadow:
             inset 0 2px 4px rgba(40, 50, 36, 0.06),
             inset 0 1px 1px rgba(40, 50, 36, 0.04),
@@ -1004,15 +1008,17 @@ html body .header-logo {
 
     /* Dark Mode overrides */
     body.dark-theme .mobile-bottom-nav {
-        background: #1c1d24;
-        border-color: rgba(255, 255, 255, 0.08);
+        background: rgba(18, 21, 27, 0.42);
+        border-color: rgba(255, 255, 255, 0.18);
         box-shadow:
-            0 24px 40px -18px rgba(0, 0, 0, 0.6),
-            0 8px 20px -8px rgba(0, 0, 0, 0.5);
+            0 24px 40px -18px rgba(0, 0, 0, 0.68),
+            0 8px 20px -8px rgba(0, 0, 0, 0.52),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     body.dark-theme .mobile-bottom-nav::before {
-        border-color: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.12);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03) 48%, rgba(255, 255, 255, 0.08));
         box-shadow:
             inset 0 2px 5px rgba(0, 0, 0, 0.55),
             inset 0 1px 2px rgba(0, 0, 0, 0.4),

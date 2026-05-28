@@ -16,6 +16,9 @@ function createMockElement(name = 'element') {
         style: {
             setProperty(property, value) {
                 this[property] = value;
+            },
+            getPropertyValue(property) {
+                return this[property] || '';
             }
         },
         attributes: {},
@@ -196,7 +199,7 @@ describe('RoleSequenceController', () => {
         delete global.window;
     });
 
-    test('injects the threshold filter once and sets initial accessible text', () => {
+    test('injects the threshold filter and sets initial accessible text', () => {
         const env = createEnvironment();
         global.document = env.document;
         global.window = env.windowObject;
@@ -207,8 +210,8 @@ describe('RoleSequenceController', () => {
 
         expect(env.body.children).toHaveLength(1);
         expect(env.body.children[0].attributes.id).toBe('role-sequence-threshold-svg');
-        expect(env.srText.textContent).toBe('Full Stack AI Developer');
-        expect(env.container.getAttribute('aria-label')).toBe('Full Stack AI Developer');
+        expect(env.srText.textContent).toBe('Full Stack AI Developer & Designer');
+        expect(env.container.getAttribute('aria-label')).toBe('Full Stack AI Developer & Designer');
 
         controller.destroy();
     });
@@ -223,13 +226,13 @@ describe('RoleSequenceController', () => {
         const controller = new RoleSequenceController();
 
         expect(env.container.classList.contains('role-sequence--reduced-motion')).toBe(true);
-        expect(env.currentText.textContent).toBe('Full Stack AI Developer');
+        expect(env.currentText.textContent).toBe('Full Stack AI Developer & Designer');
         expect(env.nextText.style.opacity).toBe('0');
 
         controller.destroy();
     });
 
-    test('completes a morph transition and updates the visible and accessible role', () => {
+    test('crossfades into the next role with its next color before the accessible label changes', () => {
         const env = createEnvironment();
         global.document = env.document;
         global.window = env.windowObject;
@@ -239,14 +242,70 @@ describe('RoleSequenceController', () => {
         const controller = new RoleSequenceController();
 
         env.runNextFrame(0);
-        env.runNextFrame(5001);
-        env.runNextFrame(6452);
+        env.runNextFrame(3001);
+        env.runNextFrame(3301);
+
+        expect(env.currentText.textContent).toBe('Full Stack AI Developer & Designer');
+        expect(env.nextText.textContent).toBe('AI Integration Engineer');
+        expect(Number.parseFloat(env.currentText.style.opacity)).toBeGreaterThan(0);
+        expect(Number.parseFloat(env.currentText.style.opacity)).toBeLessThan(1);
+        expect(Number.parseFloat(env.nextText.style.opacity)).toBeGreaterThan(0);
+        expect(Number.parseFloat(env.nextText.style.opacity)).toBeLessThan(1);
+        expect(env.currentText.style.filter).toContain('blur(');
+        expect(env.nextText.style.filter).toContain('blur(');
+        expect(env.currentText.style.getPropertyValue('--role-layer-color')).toBe('#ce1126');
+        expect(env.nextText.style.getPropertyValue('--role-layer-color')).toBe('#006b3f');
+        expect(env.container.getAttribute('aria-label')).toBe('Full Stack AI Developer & Designer');
+
+        controller.destroy();
+    });
+
+    test('completes a crossfade transition and updates the visible and accessible role', () => {
+        const env = createEnvironment();
+        global.document = env.document;
+        global.window = env.windowObject;
+
+        const RoleSequenceController = env.requireController();
+        env.mount();
+        const controller = new RoleSequenceController();
+
+        env.runNextFrame(0);
+        env.runNextFrame(3001);
+        env.runNextFrame(4452);
 
         expect(controller.getCurrentIndex()).toBe(1);
-        expect(controller.getCurrentRoleText()).toBe('AI Engineer');
-        expect(env.currentText.textContent).toBe('AI Engineer');
-        expect(env.srText.textContent).toBe('AI Engineer');
-        expect(env.container.getAttribute('aria-label')).toBe('AI Engineer');
+        expect(controller.getCurrentRoleText()).toBe('AI Integration Engineer');
+        expect(env.currentText.textContent).toBe('AI Integration Engineer');
+        expect(env.srText.textContent).toBe('AI Integration Engineer');
+        expect(env.container.getAttribute('aria-label')).toBe('AI Integration Engineer');
+
+        controller.destroy();
+    });
+
+    test('loops from the final role back to the first role with the same transition path', () => {
+        const env = createEnvironment();
+        global.document = env.document;
+        global.window = env.windowObject;
+
+        const RoleSequenceController = env.requireController();
+        env.mount();
+        const controller = new RoleSequenceController();
+
+        env.runNextFrame(0);
+        env.runNextFrame(3001);
+        env.runNextFrame(4452);
+        env.runNextFrame(7453);
+        env.runNextFrame(8904);
+        env.runNextFrame(11905);
+        env.runNextFrame(13356);
+        env.runNextFrame(16357);
+        env.runNextFrame(17808);
+
+        expect(controller.getCurrentIndex()).toBe(0);
+        expect(controller.getCurrentRoleText()).toBe('Full Stack AI Developer & Designer');
+        expect(env.currentText.textContent).toBe('Full Stack AI Developer & Designer');
+        expect(env.nextText.textContent).toBe('AI Integration Engineer');
+        expect(env.currentText.style.getPropertyValue('--role-layer-color')).toBe('#ce1126');
 
         controller.destroy();
     });

@@ -2,14 +2,43 @@ import { useEffect, useRef } from "react";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 const roles = [
-  "Full Stack AI Developer & Designer",
-  "AI Integration Engineer",
-  "Web Developer & Designer",
-  "Visual Designer"
+  {
+    label: "Full Stack AI Developer & Designer",
+    color: {
+      light: "#ce1126",
+      dark: "#ce1126"
+    }
+  },
+  {
+    label: "AI Integration Engineer",
+    color: {
+      light: "#006b3f",
+      dark: "#10cf74"
+    }
+  },
+  {
+    label: "Web Developer & Designer",
+    color: {
+      light: "#111111",
+      dark: "#e8edf3"
+    }
+  },
+  {
+    label: "Visual Designer",
+    color: {
+      light: "#c8860a",
+      dark: "#f0b84a"
+    }
+  }
 ];
 
-const morphTime = 1.5;
-const cooldownTime = 0.5;
+const fadeTime = 1.45;
+const holdTime = 3;
+const maxMorphBlur = 5;
+const morphOpacityCurve = 0.55;
+
+type Role = (typeof roles)[number];
+type Phase = "hold" | "fade";
 
 export function RoleSequence() {
   const containerRef = useRef<HTMLHeadingElement | null>(null);
@@ -17,9 +46,9 @@ export function RoleSequence() {
   const text2Ref = useRef<HTMLSpanElement | null>(null);
   const screenReaderTextRef = useRef<HTMLSpanElement | null>(null);
   const textIndexRef = useRef(0);
-  const morphRef = useRef(0);
-  const cooldownRef = useRef(0);
-  const timeRef = useRef(new Date());
+  const phaseRef = useRef<Phase>("hold");
+  const phaseElapsedRef = useRef(0);
+  const timeRef = useRef<number | null>(null);
   const rafIdRef = useRef<number | null>(null);
   const pausedRef = useRef(false);
   const prefersReducedMotion = useReducedMotion();
@@ -34,35 +63,86 @@ export function RoleSequence() {
       return;
     }
 
-    const updateRoleColor = () => {
-      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      const palette = isDark
-        ? ["#ce1126", "#006b3f", "#ffffff"]
-        : ["#ce1126", "#006b3f", "#111111"];
-      
-      const randomColor = palette[Math.floor(Math.random() * palette.length)];
-      container.style.setProperty("--role-color", randomColor);
+    const isDarkTheme = () =>
+      document.documentElement.getAttribute("data-theme") === "dark" ||
+      document.body.classList.contains("dark-theme");
+
+    const getRole = (index: number) => roles[index % roles.length];
+
+    const getRoleColor = (role: Role) =>
+      isDarkTheme() ? role.color.dark : role.color.light;
+
+    const setLayer = (
+      element: HTMLSpanElement,
+      role: Role,
+      opacity: number,
+      blur = 0
+    ) => {
+      element.textContent = role.label;
+      element.style.filter = blur > 0 ? `blur(${blur.toFixed(3)}px)` : "none";
+      element.style.opacity = `${opacity}`;
+      element.style.setProperty("--role-layer-color", getRoleColor(role));
     };
 
+    const getMorphBlur = (visibilityFraction: number) => {
+      const safeFraction = Math.min(Math.max(visibilityFraction, 0.001), 1);
+      return Math.min(8 / safeFraction - 8, maxMorphBlur);
+    };
+
+    const getMorphOpacity = (visibilityFraction: number) =>
+      Math.pow(Math.min(Math.max(visibilityFraction, 0), 1), morphOpacityCurve);
+
     const updateAccessibleText = () => {
-      const roleText = roles[textIndexRef.current % roles.length];
+      const roleText = getRole(textIndexRef.current).label;
       screenReaderText.textContent = roleText;
       container.setAttribute("aria-label", roleText);
     };
 
+    const applyHoldState = () => {
+      const currentRole = getRole(textIndexRef.current);
+      const nextRole = getRole(textIndexRef.current + 1);
+
+      setLayer(text1, currentRole, 1);
+      setLayer(text2, nextRole, 0);
+    };
+
+    const applyFadeState = (fraction: number) => {
+      const clampedFraction = Math.min(Math.max(fraction, 0), 1);
+      const easedFraction =
+        clampedFraction * clampedFraction * (3 - 2 * clampedFraction);
+      const currentRole = getRole(textIndexRef.current);
+      const nextRole = getRole(textIndexRef.current + 1);
+
+      setLayer(
+        text1,
+        currentRole,
+        getMorphOpacity(1 - easedFraction),
+        getMorphBlur(1 - clampedFraction)
+      );
+      setLayer(
+        text2,
+        nextRole,
+        getMorphOpacity(easedFraction),
+        getMorphBlur(clampedFraction)
+      );
+    };
+
+    const applyCurrentVisualState = () => {
+      if (phaseRef.current === "fade") {
+        applyFadeState(phaseElapsedRef.current / fadeTime);
+        return;
+      }
+
+      applyHoldState();
+    };
+
     const resetVisualState = () => {
       textIndexRef.current = 0;
-      morphRef.current = 0;
-      cooldownRef.current = 0;
-      timeRef.current = new Date();
-      text1.textContent = roles[0];
-      text2.textContent = roles[1];
-      text1.style.filter = "none";
-      text1.style.opacity = "100%";
-      text2.style.filter = "none";
-      text2.style.opacity = "0%";
+      phaseRef.current = "hold";
+      phaseElapsedRef.current = 0;
+      timeRef.current = null;
+      applyHoldState();
       updateAccessibleText();
-      updateRoleColor();
     };
 
     const measureMaxRoleHeight = () => {
@@ -80,7 +160,7 @@ export function RoleSequence() {
       container.appendChild(measurement);
 
       roles.forEach((role) => {
-        measurement.textContent = role;
+        measurement.textContent = role.label;
         const rect = measurement.getBoundingClientRect();
         maxHeight = Math.max(maxHeight, rect.height || measurement.offsetHeight);
       });
@@ -102,67 +182,47 @@ export function RoleSequence() {
       }
     };
 
-    const setStyles = (fraction: number) => {
-      text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-      text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-      const invertedFraction = 1 - fraction;
-      text1.style.filter = `blur(${Math.min(8 / invertedFraction - 8, 100)}px)`;
-      text1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`;
-
-      text1.textContent = roles[textIndexRef.current % roles.length];
-      text2.textContent = roles[(textIndexRef.current + 1) % roles.length];
-    };
-
-
-    const doMorph = () => {
-      morphRef.current -= cooldownRef.current;
-      cooldownRef.current = 0;
-
-      let fraction = morphRef.current / morphTime;
-
-      if (fraction > 1) {
-        cooldownRef.current = cooldownTime;
-        fraction = 1;
-      }
-
-      setStyles(fraction);
-
-      if (fraction === 1) {
-        textIndexRef.current += 1;
-        updateAccessibleText();
-        updateRoleColor();
-      }
-    };
-
-    const doCooldown = () => {
-      morphRef.current = 0;
-
-      text2.style.filter = "none";
-      text2.style.opacity = "100%";
-      text1.style.filter = "none";
-      text1.style.opacity = "0%";
-
+    const completeTransition = () => {
+      textIndexRef.current = (textIndexRef.current + 1) % roles.length;
+      phaseRef.current = "hold";
+      phaseElapsedRef.current = 0;
+      applyHoldState();
       updateAccessibleText();
     };
 
-    const animate = () => {
+    const animate = (timestamp: number) => {
       if (pausedRef.current || prefersReducedMotion) {
         return;
       }
 
       rafIdRef.current = window.requestAnimationFrame(animate);
 
-      const newTime = new Date();
-      const dt = (newTime.getTime() - timeRef.current.getTime()) / 1000;
-      timeRef.current = newTime;
+      if (timeRef.current === null) {
+        timeRef.current = timestamp;
+        return;
+      }
 
-      cooldownRef.current -= dt;
+      const dt = (timestamp - timeRef.current) / 1000;
+      timeRef.current = timestamp;
+      phaseElapsedRef.current += dt;
 
-      if (cooldownRef.current <= 0) {
-        doMorph();
-      } else {
-        doCooldown();
+      if (phaseRef.current === "hold") {
+        applyHoldState();
+
+        if (phaseElapsedRef.current >= holdTime) {
+          phaseRef.current = "fade";
+          phaseElapsedRef.current = 0;
+          applyFadeState(0);
+        }
+
+        return;
+      }
+
+      const fraction = phaseElapsedRef.current / fadeTime;
+      applyFadeState(fraction);
+
+      if (fraction >= 1) {
+        completeTransition();
       }
     };
 
@@ -178,16 +238,20 @@ export function RoleSequence() {
       }
 
       pausedRef.current = false;
-      timeRef.current = new Date();
-      animate();
+      timeRef.current = null;
+      rafIdRef.current = window.requestAnimationFrame(animate);
     };
 
     const handleResize = () => {
       window.requestAnimationFrame(measureMaxRoleHeight);
     };
 
+    const themeObserver =
+      typeof MutationObserver !== "undefined"
+        ? new MutationObserver(applyCurrentVisualState)
+        : null;
+
     resetVisualState();
-    updateRoleColor();
     measureMaxRoleHeight();
 
     const fontsReady = document.fonts?.ready;
@@ -204,24 +268,32 @@ export function RoleSequence() {
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("resize", handleResize);
     window.addEventListener("orientationchange", handleResize);
+    themeObserver?.observe(document.documentElement, {
+      attributeFilter: ["data-theme"],
+      attributes: true
+    });
+    themeObserver?.observe(document.body, {
+      attributeFilter: ["class"],
+      attributes: true
+    });
 
     if (prefersReducedMotion) {
       pausedRef.current = false;
       cancelFrame();
       resetVisualState();
-      updateRoleColor();
       container.classList.add("no-animation", "role-sequence--reduced-motion");
       container.classList.remove("role-sequence--ready");
     } else {
       pausedRef.current = false;
       container.classList.remove("no-animation", "role-sequence--reduced-motion");
       container.classList.add("role-sequence--ready");
-      timeRef.current = new Date();
-      animate();
+      timeRef.current = null;
+      rafIdRef.current = window.requestAnimationFrame(animate);
     }
 
     return () => {
       cancelFrame();
+      themeObserver?.disconnect();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", handleResize);
@@ -236,7 +308,7 @@ export function RoleSequence() {
   return (
     <h2
       aria-atomic="true"
-      aria-label={roles[0]}
+      aria-label={roles[0].label}
       aria-live="polite"
       className="role kenyan-gradient role-sequence"
       ref={containerRef}
@@ -254,7 +326,7 @@ export function RoleSequence() {
             <feColorMatrix
               in="SourceGraphic"
               type="matrix"
-              values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 18 -8"
+              values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 10 -3"
             />
           </filter>
         </defs>
@@ -264,7 +336,7 @@ export function RoleSequence() {
         className="role-sequence__text role-sequence__text--current"
         ref={text1Ref}
       >
-        {roles[0]}
+        {roles[0].label}
       </span>
       <span
         aria-hidden="true"
@@ -272,7 +344,7 @@ export function RoleSequence() {
         ref={text2Ref}
       />
       <span className="role-sequence__sr-text sr-only" ref={screenReaderTextRef}>
-        {roles[0]}
+        {roles[0].label}
       </span>
     </h2>
   );

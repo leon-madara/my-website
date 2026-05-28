@@ -1,5 +1,10 @@
 # Decisions
 
+## 2026-05-28 - Isolated Route for Design Process
+- Status: Accepted
+- Decision: The Design Process page is an architecturally isolated route that does not inherit `AppLayout` chrome. (Overrides the implicit assumption in the React-first Implementation decision).
+- Reason: To perfectly preserve the intended narrative experience and Tailwind styling contract of the original standalone `process-unfolded` application.
+
 ## 2026-03-29 - React-first Implementation
 - Status: Accepted
 - Decision:
@@ -19,4 +24,3 @@
 - Decision: Implement a glass capsule mobile bottom nav with icon-only items and a distinct active bubble.
 - Reason:
   - Matches the provided reference and is broadly reusable across routes.
-

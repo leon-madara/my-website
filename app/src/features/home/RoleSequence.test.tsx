@@ -80,7 +80,7 @@ describe("RoleSequence", () => {
     mockMatchMedia(false);
     const raf = createRafController();
 
-    render(<RoleSequence />);
+    const { container } = render(<RoleSequence />);
 
     expect(
       screen.getByRole("heading", {
@@ -88,6 +88,7 @@ describe("RoleSequence", () => {
         name: /full stack ai developer/i
       })
     ).toBeInTheDocument();
+    expect(container.querySelector("#role-sequence-threshold")).not.toBeNull();
 
     raf.restore();
   });
@@ -99,7 +100,7 @@ describe("RoleSequence", () => {
     render(<RoleSequence />);
 
     act(() => {
-      raf.step(2200);
+      raf.step(4500);
     });
 
     expect(
@@ -112,14 +113,14 @@ describe("RoleSequence", () => {
     raf.restore();
   });
 
-  it("keeps text2 visible and text1 hidden during cooldown", () => {
+  it("crossfades into the next role with the next role color before the accessible label changes", () => {
     mockMatchMedia(false);
     const raf = createRafController();
 
     const { container } = render(<RoleSequence />);
 
     act(() => {
-      raf.step(1700);
+      raf.step(3300);
     });
 
     const text1 = container.querySelector(
@@ -131,9 +132,54 @@ describe("RoleSequence", () => {
 
     expect(text1).not.toBeNull();
     expect(text2).not.toBeNull();
-    expect(text1?.style.opacity).toBe("0%");
-    expect(text2?.style.opacity).toBe("100%");
+    expect(text1?.textContent).toBe("Full Stack AI Developer & Designer");
     expect(text2?.textContent).toBe("AI Integration Engineer");
+
+    expect(Number.parseFloat(text1?.style.opacity ?? "0")).toBeGreaterThan(0);
+    expect(Number.parseFloat(text1?.style.opacity ?? "1")).toBeLessThan(1);
+    expect(Number.parseFloat(text2?.style.opacity ?? "0")).toBeGreaterThan(0);
+    expect(Number.parseFloat(text2?.style.opacity ?? "1")).toBeLessThan(1);
+    expect(text1?.style.filter).toContain("blur(");
+    expect(text2?.style.filter).toContain("blur(");
+    expect(text1?.style.getPropertyValue("--role-layer-color")).toBe("#ce1126");
+    expect(text2?.style.getPropertyValue("--role-layer-color")).toBe("#006b3f");
+
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: /full stack ai developer/i
+      })
+    ).toBeInTheDocument();
+
+    raf.restore();
+  });
+
+  it("loops from the final role back to the first role with the same crossfade path", () => {
+    mockMatchMedia(false);
+    const raf = createRafController();
+
+    const { container } = render(<RoleSequence />);
+
+    act(() => {
+      raf.step(17950);
+    });
+
+    const text1 = container.querySelector(
+      ".role-sequence__text--current"
+    ) as HTMLSpanElement | null;
+    const text2 = container.querySelector(
+      ".role-sequence__text--next"
+    ) as HTMLSpanElement | null;
+
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: /full stack ai developer/i
+      })
+    ).toBeInTheDocument();
+    expect(text1?.textContent).toBe("Full Stack AI Developer & Designer");
+    expect(text2?.textContent).toBe("AI Integration Engineer");
+    expect(text1?.style.getPropertyValue("--role-layer-color")).toBe("#ce1126");
 
     raf.restore();
   });

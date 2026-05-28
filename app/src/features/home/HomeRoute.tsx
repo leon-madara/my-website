@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { siteConfig } from "../../siteConfig";
 import { HeroOrganicBlobs } from "./HeroOrganicBlobs";
-import { HomeTechMarquee } from "./HomeTechMarquee";
 import { RoleSequence } from "./RoleSequence";
 import { useHomeViewportLock } from "./useHomeViewportLock";
 
@@ -95,7 +94,6 @@ export function HomeRoute() {
           <div className="shape shape-3" />
         </div>
       </section>
-      <HomeTechMarquee />
     </div>
     </>
   );

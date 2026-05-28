@@ -1,14 +1,9 @@
 /**
- * Hero Role Morph Sequence Controller
+ * Hero Role Crossfade Sequence Controller
  *
- * Cycles through role titles with a two-layer morphing text effect.
- *
- * Timeline:
- * - Role 1: shown on load, hold 5s
- * - Morph 1.45s to Role 2, hold 3s
- * - Morph 1.45s to Role 3, hold 3s
- * - Morph 1.45s to Role 4, hold 3s
- * - Loop back to Role 1 and repeat
+ * Cycles through role titles with a two-layer opacity crossfade. Each incoming
+ * role carries its own color during the fade so the color transition feels
+ * continuous, including the final-to-first loop.
  */
 
 class RoleSequenceController {
@@ -18,17 +13,42 @@ class RoleSequenceController {
             currentTextSelector: '.role-sequence__text--current',
             nextTextSelector: '.role-sequence__text--next',
             screenReaderTextSelector: '.role-sequence__sr-text',
-            morphDuration: 1450,
-            role1HoldTime: 5000,
-            otherHoldTime: 3000,
-            filterId: 'role-sequence-threshold'
+            filterId: 'role-sequence-threshold',
+            fadeDuration: 1450,
+            holdDuration: 3000,
+            maxMorphBlur: 5,
+            morphOpacityCurve: 0.55
         };
 
         this.roles = [
-            'Full Stack AI Developer',
-            'AI Engineer',
-            'Web Developer & Designer',
-            'Graphic Designer'
+            {
+                label: 'Full Stack AI Developer & Designer',
+                color: {
+                    light: '#ce1126',
+                    dark: '#ce1126'
+                }
+            },
+            {
+                label: 'AI Integration Engineer',
+                color: {
+                    light: '#006b3f',
+                    dark: '#10cf74'
+                }
+            },
+            {
+                label: 'Web Developer & Designer',
+                color: {
+                    light: '#111111',
+                    dark: '#e8edf3'
+                }
+            },
+            {
+                label: 'Visual Designer',
+                color: {
+                    light: '#c8860a',
+                    dark: '#f0b84a'
+                }
+            }
         ];
 
         this.container = null;
@@ -36,6 +56,7 @@ class RoleSequenceController {
         this.nextText = null;
         this.screenReaderText = null;
         this.motionQuery = null;
+        this.themeObserver = null;
         this.currentIndex = 0;
         this.nextIndex = 1;
         this.phase = 'hold';
@@ -51,6 +72,7 @@ class RoleSequenceController {
         this.handleBeforeUnload = this.handleBeforeUnload.bind(this);
         this.handleResize = this.handleResize.bind(this);
         this.handleMotionPreferenceChange = this.handleMotionPreferenceChange.bind(this);
+        this.handleThemeChange = this.handleThemeChange.bind(this);
         this.animate = this.animate.bind(this);
         this.destroy = this.destroy.bind(this);
 
@@ -74,7 +96,6 @@ class RoleSequenceController {
             this.container = document.querySelector(this.config.containerSelector);
 
             if (!this.container) {
-                console.warn('RoleSequence: Container not found, skipping animation');
                 return;
             }
 
@@ -83,7 +104,6 @@ class RoleSequenceController {
             this.screenReaderText = this.container.querySelector(this.config.screenReaderTextSelector);
 
             if (!this.currentText || !this.nextText || !this.screenReaderText) {
-                console.warn('RoleSequence: Required text layers not found, falling back');
                 this.showFallback();
                 return;
             }
@@ -94,22 +114,19 @@ class RoleSequenceController {
 
             this.reducedMotion = Boolean(this.motionQuery && this.motionQuery.matches);
 
-            this.injectFilter();
             this.setupEventListeners();
+            this.setupThemeObserver();
+            this.injectFilter();
             this.resetVisualState();
-            this.updateRoleColor();
             this.measureMaxRoleHeight();
             this.queueFontMeasurement();
 
             if (this.reducedMotion) {
-                console.info('RoleSequence: Reduced motion preferred, showing static role');
                 this.showFallback();
                 return;
             }
 
             this.startSequence();
-
-            console.log('RoleSequence: Controller initialized with', this.roles.length, 'roles');
         } catch (error) {
             console.error('RoleSequence: Setup error:', error);
             this.showFallback();
@@ -134,6 +151,25 @@ class RoleSequenceController {
         }
     }
 
+    setupThemeObserver() {
+        if (typeof MutationObserver === 'undefined') {
+            return;
+        }
+
+        this.themeObserver = new MutationObserver(this.handleThemeChange);
+        this.themeObserver.observe(document.documentElement, {
+            attributeFilter: ['data-theme'],
+            attributes: true
+        });
+
+        if (document.body) {
+            this.themeObserver.observe(document.body, {
+                attributeFilter: ['class'],
+                attributes: true
+            });
+        }
+    }
+
     handleMotionPreferenceChange(event) {
         this.reducedMotion = Boolean(event && event.matches);
 
@@ -144,7 +180,11 @@ class RoleSequenceController {
         }
 
         this.resetVisualState();
-        this.startSequence(true);
+        this.startSequence();
+    }
+
+    handleThemeChange() {
+        this.applyCurrentVisualState();
     }
 
     handleVisibilityChange() {
@@ -217,7 +257,7 @@ class RoleSequenceController {
             '1 0 0 0 0 ' +
             '0 1 0 0 0 ' +
             '0 0 1 0 0 ' +
-            '0 0 0 18 -8'
+            '0 0 0 10 -3'
         );
 
         filter.appendChild(colorMatrix);
@@ -238,25 +278,17 @@ class RoleSequenceController {
         return document.createElement(tagName);
     }
 
-    startSequence(resetState = false) {
+    startSequence() {
         if (this.isDestroyed || this.reducedMotion || !this.container || typeof window === 'undefined') {
             return;
-        }
-
-        if (resetState) {
-            this.currentIndex = 0;
-            this.nextIndex = 1;
-            this.phase = 'hold';
-            this.phaseElapsed = 0;
-            this.lastTimestamp = null;
-            this.isPaused = false;
-            this.resetVisualState();
         }
 
         this.container.classList.remove('no-animation', 'role-sequence--reduced-motion');
         this.container.classList.add('role-sequence--ready');
 
         this.hasStarted = true;
+        this.isPaused = false;
+        this.lastTimestamp = null;
         this.stopAnimationFrame();
         this.rafId = window.requestAnimationFrame(this.animate);
     }
@@ -277,18 +309,17 @@ class RoleSequenceController {
         this.phaseElapsed += delta;
 
         if (this.phase === 'hold') {
-            this.applyCooldownState();
+            this.applyHoldState();
 
-            if (this.phaseElapsed >= this.getHoldDuration(this.currentIndex)) {
-                this.phase = 'morph';
+            if (this.phaseElapsed >= this.config.holdDuration) {
+                this.phase = 'fade';
                 this.phaseElapsed = 0;
                 this.nextIndex = (this.currentIndex + 1) % this.roles.length;
-                this.currentText.textContent = this.roles[this.currentIndex];
-                this.nextText.textContent = this.roles[this.nextIndex];
+                this.applyCrossfadeState(0);
             }
         } else {
-            const fraction = Math.min(this.phaseElapsed / this.config.morphDuration, 1);
-            this.applyMorphState(fraction);
+            const fraction = Math.min(this.phaseElapsed / this.config.fadeDuration, 1);
+            this.applyCrossfadeState(fraction);
 
             if (fraction >= 1) {
                 this.completeTransition();
@@ -298,26 +329,58 @@ class RoleSequenceController {
         this.rafId = window.requestAnimationFrame(this.animate);
     }
 
-    applyMorphState(fraction) {
-        const safeFraction = Math.max(fraction, 0.0001);
-        const inverseFraction = Math.max(1 - fraction, 0.0001);
+    applyCurrentVisualState() {
+        if (this.phase === 'fade') {
+            this.applyCrossfadeState(this.phaseElapsed / this.config.fadeDuration);
+            return;
+        }
 
-        this.container.classList.add('role-sequence--ready');
-
-        this.nextText.style.filter = `blur(${Math.min(8 / safeFraction - 8, 100)}px)`;
-        this.nextText.style.opacity = `${Math.pow(safeFraction, 0.4)}`;
-
-        this.currentText.style.filter = `blur(${Math.min(8 / inverseFraction - 8, 100)}px)`;
-        this.currentText.style.opacity = `${Math.pow(inverseFraction, 0.4)}`;
+        this.applyHoldState();
     }
 
-    applyCooldownState() {
-        this.currentText.textContent = this.roles[this.currentIndex];
-        this.nextText.textContent = this.roles[this.nextIndex];
-        this.currentText.style.filter = 'none';
-        this.currentText.style.opacity = '1';
-        this.nextText.style.filter = 'none';
-        this.nextText.style.opacity = '0';
+    applyCrossfadeState(fraction) {
+        const clampedFraction = Math.min(Math.max(fraction, 0), 1);
+        const easedFraction = clampedFraction * clampedFraction * (3 - 2 * clampedFraction);
+
+        this.setLayer(
+            this.currentText,
+            this.currentIndex,
+            this.getMorphOpacity(1 - easedFraction),
+            this.getMorphBlur(1 - clampedFraction)
+        );
+        this.setLayer(
+            this.nextText,
+            this.nextIndex,
+            this.getMorphOpacity(easedFraction),
+            this.getMorphBlur(clampedFraction)
+        );
+    }
+
+    applyHoldState() {
+        this.nextIndex = (this.currentIndex + 1) % this.roles.length;
+        this.setLayer(this.currentText, this.currentIndex, 1);
+        this.setLayer(this.nextText, this.nextIndex, 0);
+    }
+
+    setLayer(element, roleIndex, opacity, blur = 0) {
+        const role = this.roles[roleIndex % this.roles.length];
+
+        element.textContent = role.label;
+        element.style.filter = blur > 0 ? `blur(${blur.toFixed(3)}px)` : 'none';
+        element.style.opacity = String(opacity);
+        element.style.setProperty('--role-layer-color', this.getRoleColor(role));
+    }
+
+    getMorphBlur(visibilityFraction) {
+        const safeFraction = Math.min(Math.max(visibilityFraction, 0.001), 1);
+        return Math.min(8 / safeFraction - 8, this.config.maxMorphBlur);
+    }
+
+    getMorphOpacity(visibilityFraction) {
+        return Math.pow(
+            Math.min(Math.max(visibilityFraction, 0), 1),
+            this.config.morphOpacityCurve
+        );
     }
 
     completeTransition() {
@@ -325,9 +388,8 @@ class RoleSequenceController {
         this.nextIndex = (this.currentIndex + 1) % this.roles.length;
         this.phase = 'hold';
         this.phaseElapsed = 0;
-        this.resetVisualState();
-        this.updateAccessibleText(this.roles[this.currentIndex]);
-        this.updateRoleColor();
+        this.applyHoldState();
+        this.updateAccessibleText(this.getCurrentRoleText());
     }
 
     resetVisualState() {
@@ -335,26 +397,22 @@ class RoleSequenceController {
             return;
         }
 
-        this.currentText.textContent = this.roles[this.currentIndex];
-        this.nextText.textContent = this.roles[this.nextIndex];
-        this.currentText.style.filter = 'none';
-        this.currentText.style.opacity = '1';
-        this.nextText.style.filter = 'none';
-        this.nextText.style.opacity = '0';
-        this.updateAccessibleText(this.roles[this.currentIndex]);
-        this.updateRoleColor();
+        this.currentIndex = 0;
+        this.nextIndex = 1;
+        this.phase = 'hold';
+        this.phaseElapsed = 0;
+        this.lastTimestamp = null;
+        this.applyHoldState();
+        this.updateAccessibleText(this.getCurrentRoleText());
     }
 
-    updateRoleColor() {
-        if (!this.container) return;
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
-                      document.body.classList.contains('dark-theme');
-        const palette = isDark
-            ? ['#ce1126', '#006b3f', '#ffffff']
-            : ['#ce1126', '#006b3f', '#111111'];
-        
-        const randomColor = palette[Math.floor(Math.random() * palette.length)];
-        this.container.style.setProperty('--role-color', randomColor);
+    getRoleColor(role) {
+        return this.isDarkTheme() ? role.color.dark : role.color.light;
+    }
+
+    isDarkTheme() {
+        return document.documentElement.getAttribute('data-theme') === 'dark' ||
+            (document.body && document.body.classList.contains('dark-theme'));
     }
 
     updateAccessibleText(roleText) {
@@ -369,10 +427,6 @@ class RoleSequenceController {
         }
 
         this.container.setAttribute('aria-label', cleanText);
-    }
-
-    getHoldDuration(index) {
-        return index === 0 ? this.config.role1HoldTime : this.config.otherHoldTime;
     }
 
     measureMaxRoleHeight() {
@@ -394,7 +448,7 @@ class RoleSequenceController {
         this.container.appendChild(measurement);
 
         this.roles.forEach((role) => {
-            measurement.textContent = role;
+            measurement.textContent = role.label;
             const rect = typeof measurement.getBoundingClientRect === 'function'
                 ? measurement.getBoundingClientRect()
                 : { height: 0 };
@@ -417,7 +471,6 @@ class RoleSequenceController {
         this.isPaused = true;
         this.stopAnimationFrame();
         this.lastTimestamp = null;
-        console.log('RoleSequence: Paused');
     }
 
     resume() {
@@ -428,7 +481,6 @@ class RoleSequenceController {
         this.isPaused = false;
         this.lastTimestamp = null;
         this.rafId = window.requestAnimationFrame(this.animate);
-        console.log('RoleSequence: Resumed');
     }
 
     stopAnimationFrame() {
@@ -444,14 +496,9 @@ class RoleSequenceController {
             return;
         }
 
-        this.currentIndex = 0;
-        this.nextIndex = 1;
-        this.phase = 'hold';
-        this.phaseElapsed = 0;
         this.container.classList.add('no-animation', 'role-sequence--reduced-motion');
         this.container.classList.remove('role-sequence--ready');
         this.stopAnimationFrame();
-        this.lastTimestamp = null;
         this.isPaused = false;
         this.resetVisualState();
         this.measureMaxRoleHeight();
@@ -464,6 +511,10 @@ class RoleSequenceController {
 
         this.isDestroyed = true;
         this.stopAnimationFrame();
+
+        if (this.themeObserver) {
+            this.themeObserver.disconnect();
+        }
 
         if (typeof document !== 'undefined') {
             document.removeEventListener('visibilitychange', this.handleVisibilityChange);
@@ -483,8 +534,6 @@ class RoleSequenceController {
                 this.motionQuery.removeListener(this.handleMotionPreferenceChange);
             }
         }
-
-        console.log('RoleSequence: Controller destroyed');
     }
 
     getCurrentIndex() {
@@ -492,7 +541,7 @@ class RoleSequenceController {
     }
 
     getCurrentRoleText() {
-        return this.roles[this.currentIndex] || '';
+        return this.roles[this.currentIndex]?.label || '';
     }
 }
 

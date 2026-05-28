@@ -4744,17 +4744,17 @@ Updated Hero Section for Pill Layout */
     background: none !important;
     -webkit-background-clip: unset !important;
     background-clip: unset !important;
-    -webkit-text-fill-color: #ce1126 !important;
-    color: #ce1126 !important;
+    -webkit-text-fill-color: var(--role-color, #ce1126) !important;
+    color: var(--role-color, #ce1126) !important;
 }
 
 /* Ensure AI wrapper within role maintains color */
 .role .ai-wrapper {
-    color: #ce1126;
+    color: var(--role-color, #ce1126);
 }
 
 .role .ai-text {
-    color: #ce1126;
+    color: var(--role-color, #ce1126);
 }
 
 /* ============================================
@@ -4775,7 +4775,7 @@ Updated Hero Section for Pill Layout */
 }
 
 .role-sequence.role-sequence--ready {
-    filter: blur(0.4px) url(#role-sequence-threshold);
+    filter: blur(0.35px) url(#role-sequence-threshold);
 }
 
 .role-sequence__text {
@@ -4786,7 +4786,7 @@ Updated Hero Section for Pill Layout */
     justify-content: center;
     width: 100%;
     margin: 0 auto;
-    color: inherit;
+    color: var(--role-layer-color, var(--role-color, #ce1126));
     text-align: inherit;
     line-height: inherit;
     letter-spacing: inherit;

@@ -1135,7 +1135,7 @@ theme-toggle-landscape.react-theme-toggle {
 }
 
 .role-sequence.role-sequence--ready {
-  filter: blur(0.4px) url(#role-sequence-threshold);
+  filter: blur(0.35px) url(#role-sequence-threshold);
 }
 
 .role-sequence__filter {
@@ -1152,7 +1152,7 @@ theme-toggle-landscape.react-theme-toggle {
   display: inline-block;
   width: 100%;
   margin-inline: auto;
-  color: inherit;
+  color: var(--role-layer-color, var(--role-color, var(--kenyan-red)));
   line-height: 1.08;
   letter-spacing: inherit;
   text-align: inherit;
@@ -1810,14 +1810,18 @@ theme-toggle-landscape.react-theme-toggle {
   z-index: 10;
 }
 
-.design-process-page .footer {
+.footer--design-process {
   position: relative;
   bottom: auto;
   left: auto;
   width: 100%;
   height: auto;
-  padding: 1rem 0;
-  backdrop-filter: blur(8px);
+  align-items: flex-start;
+  padding: 1.6rem 0 calc(1.2rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(136, 124, 112, 0.18);
+  background:
+    linear-gradient(180deg, rgba(250, 248, 243, 0.94) 0%, rgba(244, 239, 232, 0.98) 100%);
+  backdrop-filter: blur(10px);
 }
 
 :root[data-theme="dark"] .footer {
@@ -1834,8 +1838,31 @@ theme-toggle-landscape.react-theme-toggle {
   font-size: 0.875rem;
 }
 
+.footer--design-process .footer-container {
+  width: min(100%, 80rem);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.footer--design-process .footer-text {
+  color: rgba(58, 49, 41, 0.92);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 :root[data-theme="dark"] .footer-text {
   color: #c9d3de;
+}
+
+:root[data-theme="dark"] .footer--design-process {
+  border-top-color: rgba(104, 112, 122, 0.2);
+  background:
+    linear-gradient(180deg, rgba(17, 21, 25, 0.9) 0%, rgba(12, 16, 20, 0.96) 100%);
+}
+
+:root[data-theme="dark"] .footer--design-process .footer-text {
+  color: rgba(213, 220, 228, 0.88);
 }
 
 @property --mobile-nav-ball-c1 {
@@ -2344,6 +2371,16 @@ theme-toggle-landscape.react-theme-toggle {
 
   .footer {
     display: none;
+  }
+
+  .footer--design-process {
+    display: flex;
+    padding-top: 0.8rem;
+    padding-bottom: calc(7.4rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .footer--design-process .footer-container {
+    transform: translateY(-0.75rem);
   }
 
   .home-tech-marquee {

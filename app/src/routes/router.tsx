@@ -22,10 +22,6 @@ export const router = createBrowserRouter([
         element: <AboutRoute />
       },
       {
-        path: "design-process",
-        element: <DesignProcessRoute />
-      },
-      {
         path: "contact",
         element: <ContactRoute />
       },
@@ -38,5 +34,10 @@ export const router = createBrowserRouter([
         element: <PortfolioRoute />
       }
     ]
+  },
+  {
+    path: "/design-process",
+    element: <DesignProcessRoute />,
+    errorElement: <RouteErrorBoundary />
   }
 ]);
